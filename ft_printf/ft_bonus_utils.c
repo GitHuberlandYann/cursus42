@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bonus_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:41:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/07 16:41:54 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/08 21:01:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_atoi_printf(const char *str, int *index)
+{
+	int	res;
+
+	res = 0;
+	while (str[*index] >= '0' && str[*index] <= '9')
+	{
+		res = res * 10 + str[*index] - '0';
+		(*index)++;
+	}
+	return (res);
+}
+
+int	ft_printf_string_dot(char *str, int size, int *res)
+{
+	int	index;
+
+	index = 0;
+	while (str[index] && index < size)
+	{
+		ft_putchar_fd(str[index], 1, res);
+		index ++;
+	}
+	return (0);
+}
 
 int	ft_lb2_printf_char(char c, int *res, int result)
 {

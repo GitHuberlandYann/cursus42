@@ -34,6 +34,31 @@ void	ft_call_util(char c, va_list *ap, int *res)
 		ft_printf_percent(res);
 }
 
+void	ft_printf_exec(const char *str, int *index, int *res, va_list *ap)
+{
+	int	minus;
+
+	minus = 0;
+	ft_loop_bonus2(str, index, res, *ap);
+	if (str[*index] == '-')
+		minus = ft_loop_bonus_minus(str, index, *ap);
+	else if (str[*index] == '0')
+		ft_loop_bonus_zero(str, index, res, *ap);
+	else
+		ft_loop_bonus_width(str, index, res, *ap);
+	if (str[*index] == '.')
+	{
+		(*index)++;
+		minus -= ft_loop_bonus_dot(str, index, res, ap);
+		if (str[*index] != 's')
+			ft_call_util(str[*index], ap, res);
+	}
+	else
+		ft_call_util(str[*index], ap, res);
+	if (minus > 0)
+		ft_printf_many_char(' ', minus, res);
+}
+
 int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
@@ -52,9 +77,7 @@ int	ft_printf(const char *str, ...)
 		else
 		{
 			index ++;
-			ft_loop_bonus2(str, &index, &res, ap);
-			ft_loop_bonus_width(str, &index, &res, ap);
-			ft_call_util(str[index], &ap, &res);
+			ft_printf_exec(str, &index, &res, &ap);
 		}
 		index ++;
 	}

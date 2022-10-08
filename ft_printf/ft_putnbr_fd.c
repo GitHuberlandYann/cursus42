@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 17:08:20 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/07 12:39:23 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/08 21:45:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_recursive_putnbr(long n, int fd, int *res)
+void	ft_recursive_putnbr(unsigned long n, int fd, int *res)
 {
 	if (n / 10)
 		ft_recursive_putnbr(n / 10, fd, res);

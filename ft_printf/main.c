@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 void	ft_tester(int ac, ...)
 {
@@ -31,12 +30,21 @@ int	main(int argc, char **argv)
 
 	(void) argc;
 	(void) argv;
-	printf("original : %d\n", printf("%3c", 'd'));
-	printf("mine : %d\n", ft_printf("%3c", 'd'));
-	printf("cmp : %d\n", printf("%c\n", '0') == ft_printf("%c\n", '0'));
-	printf("\nthe number is %1d", a);
-	printf("\nthe number is %2d", a);
-	printf("\nthe number is %6d", a);
-	printf("\nthe number is %7d", a);
+	printf("original : %d\n", printf("%.1xp", 0));
+	printf("mine : %d\n", ft_printf("%.1xp", 0));
+	/*printf("string : %d\n", printf("%.10s", "Hi there"));
+	printf("decimal : %d\n", printf("%.12d", 32));
+	printf("int : %d\n", printf("%.12i", 32));
+	printf("unsigned : %d\n", printf("%.12u", 32));
+	printf("hexa low : %d\n", printf("%.12x", 32));
+	printf("hexa up : %d\n", printf("%.12X", 32));
+	printf("\nmine original : %d\n", printf("%.3s", "Hi there"));
+	printf("mine string : %d\n", printf("%.10s", "Hi there"));
+	printf("mine decimal : %d\n", printf("%.12d", 32));
+	printf("mine int : %d\n", printf("%.12i", 32));
+	printf("mine unsigned : %d\n", printf("%.12u", 32));
+	printf("mine hexa low : %d\n", printf("%.12x", 32));
+	printf("mine hexa up : %d\n", printf("%.12X", 32));*/
+	//printf("cmp : %d\n", printf("%c\n", '0') == ft_printf("%c\n", '0'));
 	return (0);
 }
