@@ -1,0 +1,9 @@
+The original C standard (ANSI 1989/ISO 1990) required that a compiler successfully translate at least one program containing at least one example of a set of environmental limits. One of those limits was being able to create an object of at least 32,767 bytes.
+
+This minimum limit was raised in the 1999 update to the C standard to be at least 65,535 bytes.
+
+No C implementation is required to provide for objects greater than that size, which means that they don't need to allow for an array of ints greater than (int)(65535 / sizeof(int)).
+
+In very practical terms, on modern computers, it is not possible to say in advance how large an array can be created. It can depend on things like the amount of physical memory installed in the computer, the amount of virtual memory provided by the OS, the number of other tasks, drivers, and programs already running and how much memory that are using. So your program may be able to use more or less memory running today than it could use yesterday or it will be able to use tomorrow.
+
+Many platforms place their strictest limits on automatic objects, that is those defined inside of a function without the use of the 'static' keyword. On some platforms you can create larger arrays if they are static or by dynamic allocation.
