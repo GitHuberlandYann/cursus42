@@ -44,6 +44,8 @@ char	*get_next_line(int fd)
 	else
 	{
 		line = ft_strdup(memory);
+		if (memory)
+			free(memory);
 		memory = "";
 	}
 	return (line);
