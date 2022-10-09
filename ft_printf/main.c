@@ -26,12 +26,10 @@ void	ft_tester(int ac, ...)
 #include <limits.h>
 int	main(int argc, char **argv)
 {
-	int		a = 14;
-
 	(void) argc;
 	(void) argv;
-	printf("original : %d\n", printf("%.1xp", 0));
-	printf("mine : %d\n", ft_printf("%.1xp", 0));
+	printf("original : %d\n", printf("%Xs%.5Xi%.0Xc%.1xp%.9Xu", 5, 55, 2, 0, 42));
+	printf("mine : %d\n", ft_printf("%Xs%.5Xi%.0Xc%.1xp%.9Xu", 5, 55, 2, 0, 42));
 	/*printf("string : %d\n", printf("%.10s", "Hi there"));
 	printf("decimal : %d\n", printf("%.12d", 32));
 	printf("int : %d\n", printf("%.12i", 32));

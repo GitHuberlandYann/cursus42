@@ -33,6 +33,7 @@ size_t	ft_strlen(const char *s);
 void	ft_putchar_fd(char c, int fd, int *res); //deletethis
 void	ft_putstr_fd(char *s, int fd); //deletethis
 void	ft_putnbr_fd(long n, int fd, int *res); //deletethis
+void    ft_recursive_putnbr(unsigned long n, int fd, int *res); //andthis
 void	ft_printf_char(int c, int *res);
 void	ft_printf_many_char(char c, int size, int *res);
 void	ft_printf_string(char *str, int *res);

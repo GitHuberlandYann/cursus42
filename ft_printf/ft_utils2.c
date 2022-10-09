@@ -28,7 +28,7 @@ void	ft_convert_to_hexa(unsigned int nb, int upper, int *res)
 
 void	ft_printf_unsigned_int(unsigned int nb, int *res)
 {
-	ft_putnbr_fd(nb, 1, res);
+	ft_recursive_putnbr(nb, 1, res);
 }
 
 void	ft_printf_hexa_lower(unsigned int nb, int *res)
