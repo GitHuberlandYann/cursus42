@@ -40,18 +40,23 @@ void	ft_printf_exec(const char *str, int *index, int *res, va_list *ap)
 
 	minus = 0;
 	ft_loop_bonus2(str, index, res, *ap);
+	if (str[*index] != '-' && str[*index] != '0')
+		ft_loop_bonus_width(str, index, res, *ap);
+	ft_display_sign(str, *index, res, *ap);
 	if (str[*index] == '-')
 		minus = ft_loop_bonus_minus(str, index, *ap);
 	else if (str[*index] == '0')
 		ft_loop_bonus_zero(str, index, res, *ap);
-	else
-		ft_loop_bonus_width(str, index, res, *ap);
 	if (str[*index] == '.')
 	{
 		(*index)++;
-		minus -= ft_loop_bonus_dot(str, index, res, ap);
-		if (str[*index] != 's')
+		if (ft_get_type(str, *index) == 's')
+			ft_loop_bonus_dot(str, index, res, ap);
+		else
+		{
+			minus -= ft_loop_bonus_dot(str, index, res, ap);
 			ft_call_util(str[*index], ap, res);
+		}
 	}
 	else
 		ft_call_util(str[*index], ap, res);

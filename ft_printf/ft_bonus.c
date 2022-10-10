@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bonus.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:34:42 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/09 11:12:23 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/10 14:07:20 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ void	ft_loop_bonus2(const char *str, int *index, int *res, va_list ap)
 {
 	int		previous;
 	int		nb;
+	va_list	ap_cpy;
 
 	previous = 0;
-	nb = va_arg(ap, int);
+	va_copy(ap_cpy, ap);
+	nb = va_arg(ap_cpy, int);
+	va_end(ap_cpy);
 	while (str[*index] == ' ' || str[*index] == '#' || str[*index] == '+')
 	{
 		if (str[*index] == '#' && str[*index + 1] == 'x' && nb != 0)
@@ -37,41 +40,70 @@ void	ft_loop_bonus_zero(const char *str, int *index, int *res, va_list ap)
 {
 	int		len;
 	int		zeros;
+	char	type;
+	va_list	ap_cpy;
 	//to do : work with nb < 0 (-004 and not 000-4) but not when hexa..
+	va_copy(ap_cpy, ap);
 	(*index)++;
 	while (str[*index] == '0')
 		(*index)++;
 	zeros = ft_atoi_printf(str, index);
-	len = ft_len_arg(ft_get_type(str, *index), &zeros, ap);
+	type = ft_get_type(str, *index);
+	len = ft_len_arg(type, &zeros, ap_cpy);
 	if (str[*index] == '.')
 	{
 		len = ft_atoi_dotzero(str, *index);
+		if (type == 'd' || type == 'i')
+			len += ft_get_int_copy(ap) < 0;
 		ft_printf_many_char(' ', zeros - len, res);
 	}
 	else
 		ft_printf_many_char('0', zeros - len, res);
+	va_end(ap_cpy);
 }
 
 void	ft_loop_bonus_width(const char *str, int *index, int *res, va_list ap)
 {
 	int		len;
 	int		spaces;
+	int		index_dot;
+	va_list	ap_cpy;
 
+	va_copy(ap_cpy, ap);
 	spaces = ft_atoi_printf(str, index);
-	len = ft_len_arg(ft_get_type(str, *index), &spaces, ap);
+	len = ft_len_arg(ft_get_type(str, *index), &spaces, ap_cpy);
+	if (str[*index] == '.')
+	{
+		index_dot = *index + 1;
+		index_dot = ft_atoi_printf(str, &index_dot);
+		if (len > index_dot)
+			len = index_dot;
+	}
 	ft_printf_many_char(' ', spaces - len, res);
+	va_end(ap_cpy);
 }
 
 int	ft_loop_bonus_minus(const char *str, int *index, va_list ap)
 {
 	int		len;
 	int		spaces;
+	int		index_dot;
+	va_list	ap_cpy;
 
+	va_copy(ap_cpy, ap);
 	(*index)++;
 	while (str[*index] == '-')
 		(*index)++;
 	spaces = ft_atoi_printf(str, index);
-	len = ft_len_arg(ft_get_type(str, *index), &spaces, ap);
+	len = ft_len_arg(ft_get_type(str, *index), &spaces, ap_cpy);
+	if (str[*index] == '.')
+	{
+		index_dot = *index + 1;
+		index_dot = ft_atoi_printf(str, &index_dot);
+		if (len > index_dot)
+			len = index_dot;
+	}
+	va_end(ap_cpy);
 	return (spaces - len);
 }
 
@@ -80,14 +112,19 @@ int	ft_loop_bonus_dot(const char *str, int *index, int *res, va_list *ap)
 	int		len;
 	int		zeros;
 	int		minus;
+	va_list	ap_cpy;
 
+	va_copy(ap_cpy, *ap);
 	minus = ft_atoi_printf(str, index);
 	zeros = minus;
-	len = ft_len_arg(ft_get_type(str, *index), &zeros, *ap);
+	len = ft_len_arg(ft_get_type(str, *index), &zeros, ap_cpy);
 	if (str[*index] == 's')
 		zeros = ft_printf_string_dot(va_arg(*ap, char *), zeros, res);
+	else if (str[*index] == 'd' || str[*index] == 'i')
+		len -= ft_get_int_copy(*ap) < 0;
 	ft_printf_many_char('0', zeros - len, res);
 	if (len < minus)
 		minus = len;
+	va_end(ap_cpy);
 	return (minus);
 }

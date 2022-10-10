@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bonus_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:41:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/08 21:01:54 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/10 09:09:11 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ int	ft_printf_string_dot(char *str, int size, int *res)
 {
 	int	index;
 
+	if (!str)
+	{
+		str = "(null)";
+		size += 6;
+	}
 	index = 0;
 	while (str[index] && index < size)
 	{
