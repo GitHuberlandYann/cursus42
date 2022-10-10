@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 17:40:49 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/10/10 17:40:49 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 int	find_end_line(char *str)
@@ -16,6 +28,13 @@ int	find_end_line(char *str)
 	return (0);
 }
 
+char	*ft_free_return(char *str)
+{
+	if (str)
+		free(str);
+	return (0);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*memory;
@@ -23,14 +42,14 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			read_ret;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
 		return (0);
 	read_ret = 1;
 	while (!find_end_line(memory) && read_ret > 0)
 	{
 		buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 		if (!buf)
-			return (0);
+			return (ft_free_return(memory));
 		read_ret = read(fd, buf, BUFFER_SIZE);
 		buf[read_ret] = '\0';
 		memory = ft_strjoin(memory, buf);
