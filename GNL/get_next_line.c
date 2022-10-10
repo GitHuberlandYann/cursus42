@@ -13,26 +13,30 @@ int	find_end_line(char *str)
 			return (index);
 		index ++;
 	}
-	return (-1);
+	return (0);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*memory;
-	char		buf[BUFFER_SIZE + 1];
+	char		*buf;
 	char		*line;
 	int			read_ret;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	read_ret = 1;
-	while (find_end_line(memory) == -1 && read_ret > 0)
+	while (!find_end_line(memory) && read_ret > 0)
 	{
+		buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
+		if (!buf)
+			return (0);
 		read_ret = read(fd, buf, BUFFER_SIZE);
 		buf[read_ret] = '\0';
 		memory = ft_strjoin(memory, buf);
 		if (!memory)
 			return (0);
+		free(buf);
 	}
 	if (memory && read_ret > 0)
 	{
