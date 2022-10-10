@@ -7,7 +7,7 @@ int	main(void)
 	int		fd;
 	char	*line;
 
-	fd = open("text_array_size", O_RDONLY);
+	fd = open("text_file", O_RDONLY);
 	printf("in main, fd : %d\n", fd);
 	if (fd)
 	{
@@ -23,6 +23,7 @@ int	main(void)
 			if (line)
 				free(line);
 		}
+		//system("leaks a.out");
 		return (close(fd));
 	}
 	return (0);

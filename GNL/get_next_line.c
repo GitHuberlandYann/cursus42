@@ -13,7 +13,7 @@ int	find_end_line(char *str)
 			return (index);
 		index ++;
 	}
-	return (0);
+	return (-1);
 }
 
 char	*get_next_line(int fd)
@@ -26,7 +26,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	read_ret = 1;
-	while (!find_end_line(memory) && read_ret > 0)
+	while (find_end_line(memory) == -1 && read_ret > 0)
 	{
 		read_ret = read(fd, buf, BUFFER_SIZE);
 		buf[read_ret] = '\0';
@@ -46,7 +46,7 @@ char	*get_next_line(int fd)
 		line = ft_strdup(memory);
 		if (memory)
 			free(memory);
-		memory = "";
+		memory = 0;
 	}
 	return (line);
 }

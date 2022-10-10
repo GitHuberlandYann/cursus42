@@ -33,12 +33,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		res[index] = s1[index];
 		index ++;
 	}
+	if (s1)
+		free((char *)s1);
 	sub_index = 0;
 	while (sub_index < s2len)
 		res[index ++] = s2[sub_index ++];
 	res[index] = '\0';
-	if (s1)
-		free((void *)s1);
 	return (res);
 }
 
@@ -67,7 +67,7 @@ char	*ft_strcpy_until(char *str, int size)
 	int		index;
 	char	*res;
 
-	res = malloc(sizeof(*res) * (size + 1));
+	res = malloc(sizeof(*res) * (size + 2));
 	if (!res)
 		return (0);
 	index = 0;
@@ -76,7 +76,7 @@ char	*ft_strcpy_until(char *str, int size)
 		res[index] = str[index];
 		index ++;
 	}
-	res [index] = '\0';
+	res[index] = '\0';
 	return (res);
 }
 
@@ -90,7 +90,7 @@ char	*ft_strcpy_from(char *str, int start)
 		return (0);
 	len = (int)ft_strlen(str);
 	if (start > len)
-		return ("");
+		return (NULL);
 	res = malloc(sizeof(*res) * (len - start + 1));
 	if (!res)
 		return (0); //and some of those frees ?
