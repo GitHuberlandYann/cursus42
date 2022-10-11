@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:49 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/11 11:29:34 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/11 12:03:33 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,26 @@ char	*ft_free_return(char **str)
 	return (0);
 }
 
+char	*gnl_return(char **memory, int read_ret)
+{
+	char	*line;
+
+	if (*memory && read_ret > 0)
+	{
+		line = ft_strcpy_until_nl(*memory);
+		*memory = ft_strcpy_from_nl(memory);
+	}
+	else if (read_ret <= 0 && !(*memory)[0])
+		return (ft_free_return(memory));
+	else
+		line = ft_strdup(memory);
+	return (line);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*memory;
 	char		*buf;
-	char		*line;
 	int			read_ret;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
@@ -58,19 +73,5 @@ char	*get_next_line(int fd)
 			return (ft_free_return(&buf));
 		free(buf);
 	}
-	if (memory && read_ret > 0)
-	{
-		line = ft_strcpy_until(memory);
-		memory = ft_strcpy_from(&memory);
-	}
-	else if (read_ret <= 0 && !memory[0])
-		return (ft_free_return(&memory));
-	else
-	{
-		line = ft_strdup(memory);
-		if (memory)
-			free(memory);
-		memory = 0;
-	}
-	return (line);
+	return (gnl_return(&memory, read_ret));
 }

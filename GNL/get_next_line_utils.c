@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:56 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/11 11:27:15 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/11 12:03:43 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,28 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-char	*ft_strdup(char *str)
+char	*ft_strdup(char **str)
 {
 	int		index;
 	int		len;
 	char	*res;
 
-	len = (int)ft_strlen(str);
+	len = (int)ft_strlen(*str);
 	res = malloc(sizeof(*res) * (len + 1));
 	if (!res)
 		return (0);
 	index = 0;
 	while (index < len)
 	{
-		res[index] = str[index];
+		res[index] = (*str)[index];
 		index ++;
 	}
 	res[index] = '\0';
+	ft_free_return(str);
 	return (res);
 }
 
-char	*ft_strcpy_until(char *str)
+char	*ft_strcpy_until_nl(char *str)
 {
 	int		index;
 	int		size;
@@ -95,7 +96,7 @@ char	*ft_strcpy_until(char *str)
 	return (res);
 }
 
-char	*ft_strcpy_from(char **str)
+char	*ft_strcpy_from_nl(char **str)
 {
 	int		len;
 	int		start;
@@ -109,7 +110,7 @@ char	*ft_strcpy_from(char **str)
 	while ((*str)[start] != '\n')
 		start ++;
 	start ++;
-	res = malloc(sizeof(*res) * (len - start + 1)); //yo
+	res = malloc(sizeof(*res) * (len - start + 1));
 	if (!res)
 		return (ft_free_return(str));
 	index = 0;

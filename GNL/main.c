@@ -19,7 +19,7 @@ int	main(void)
 	int		fd;
 	char	*line;
 
-	fd = open("files/text_file", O_RDONLY);
+	fd = open("files/text_array_size", O_RDONLY);
 	printf("in main, fd : %d\n", fd);
 	if (fd)
 	{
