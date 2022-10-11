@@ -21,6 +21,7 @@
 int		ft_printf(const char *str, ...);
 int		ft_nbrlen(int nb);
 int		ft_unbrlen(unsigned int nb, int base);
+int		ft_addresslen(unsigned long nb);
 int		ft_lb2_printf_char(char c, int *res, int result);
 int		ft_atoi_printf(const char *str, int *index);
 int		ft_atoi_dotzero(const char *str, int index);

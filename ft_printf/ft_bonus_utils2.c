@@ -33,7 +33,19 @@ char	ft_get_type(const char *str, int index)
 		index ++;
 	if (str[index])
 		return (str[index]);
-	return ('%'); // not supposed to happen
+	return ('E');
+}
+
+int	ft_special_case_string(int *spaces, va_list ap_cpy)
+{
+	int		res;
+	char	*str;
+
+	str = va_arg(ap_cpy, char *);
+	if (!str)
+		(*spaces) -= 6;
+	res = ft_strlen(str);
+	return (res);
 }
 
 int	ft_len_arg(char c, int *spaces, va_list ap_cpy)
@@ -46,18 +58,10 @@ int	ft_len_arg(char c, int *spaces, va_list ap_cpy)
 	else if (c == 'c')
 		len = 1;
 	else if (c == 's')
-	{
-		len = ft_strlen(va_arg(ap_cpy, char *));
-		if (!len)
-			(*spaces) -= 6;
-	}
+		len = ft_special_case_string(spaces, ap_cpy);
 	else if (c == 'p')
-	{
-		if (va_arg(ap_cpy, void *) != (void *)0)
-			(*spaces) -= 14;
-		else
-			(*spaces) -= 3;
-	}
+		(*spaces) -= (2
+				+ ft_addresslen((unsigned long) va_arg(ap_cpy, void *)));
 	else if (c == 'u')
 		len = ft_unbrlen(va_arg(ap_cpy, unsigned int), 10);
 	else if (c == 'x' || c == 'X')

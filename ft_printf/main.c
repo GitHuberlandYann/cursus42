@@ -28,10 +28,13 @@ int	main(int argc, char **argv)
 {
 	(void) argc;
 	(void) argv;
-	printf("original : %d\n", printf("%07.2d", -1));
-	printf("mine : %d\n", ft_printf("%07d", -1));
-	printf("mine : %d\n", ft_printf("%.2d", -1));
-	printf("mine : %d\n", ft_printf("%07.2d", -1));
+	//printf("%p\n", (void *)0xdeadc0de);
+	//ft_printf("%p\n", (void *)0xdeadc0de);
+	//printf("original : %d\n", printf(" % s", "test"));
+	//printf("mine : %d\n", ft_printf(" % s", "test"));
+	//printf("mine : %d\n", ft_printf("%.2d", -1));
+	//printf("original : %d\n", printf("%%%%%%%%%%%%%%%%%"));
+	//printf("mine : %d\n", ft_printf("%%%%%%%%%%%%%%%%%"));
 	printf("original : %d\n", printf("%--4.1s %s %------------------9.3s of %s of %-5.7s", "for", "the", "goooood", "aaall", "us"));
 	printf("mine : %d\n", ft_printf("%--4.1s %s %------------------9.3s of %s of %-5.7s", "for", "the", "goooood", "aaall", "us"));
 	/*printf("string : %d\n", printf("%.10s", "Hi there"));

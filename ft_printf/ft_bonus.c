@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:34:42 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/10 14:07:20 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/11 15:29:10 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	ft_loop_bonus2(const char *str, int *index, int *res, va_list ap)
 			ft_printf_string("0x", res);
 		else if (str[*index] == '#' && str[*index + 1] == 'X' && nb != 0)
 			ft_printf_string("0X", res);
-		else if (str[*index] == ' ' && !(previous % 2) && nb >= 0)
+		else if (str[*index] == ' ' && !(previous % 2) && nb >= 0
+			&& ft_get_type(str, *index) != 's')
 			previous += ft_lb2_printf_char(' ', res, 1);
 		else if (str[*index] == '+' && previous < 2 && nb >= 0)
 			previous += ft_lb2_printf_char('+', res, 2);
@@ -42,7 +43,7 @@ void	ft_loop_bonus_zero(const char *str, int *index, int *res, va_list ap)
 	int		zeros;
 	char	type;
 	va_list	ap_cpy;
-	//to do : work with nb < 0 (-004 and not 000-4) but not when hexa..
+
 	va_copy(ap_cpy, ap);
 	(*index)++;
 	while (str[*index] == '0')

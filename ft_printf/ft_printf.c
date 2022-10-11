@@ -60,8 +60,7 @@ void	ft_printf_exec(const char *str, int *index, int *res, va_list *ap)
 	}
 	else
 		ft_call_util(str[*index], ap, res);
-	if (minus > 0)
-		ft_printf_many_char(' ', minus, res);
+	ft_printf_many_char(' ', minus, res);
 }
 
 int	ft_printf(const char *str, ...)
@@ -79,7 +78,7 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[index] != '%')
 			ft_putchar_fd(str[index], 1, &res);
-		else
+		else if (ft_get_type(str, index + 1) != 'E')
 		{
 			index ++;
 			ft_printf_exec(str, &index, &res, &ap);
