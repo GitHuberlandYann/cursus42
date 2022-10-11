@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:56 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/10 17:40:56 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/11 10:57:49 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (s1)
 		free((char *)s1);
 	sub_index = 0;
-	while (sub_index < s2len)
+	while (sub_index <= s2len) //copy '\0' too
 		res[index ++] = s2[sub_index ++];
-	res[index] = '\0';
 	return (res);
 }
 
@@ -74,16 +73,20 @@ char	*ft_strdup(char *str)
 	return (res);
 }
 
-char	*ft_strcpy_until(char *str, int size)
+char	*ft_strcpy_until(char *str)
 {
 	int		index;
+	int		size;
 	char	*res;
 
+	size = 0;
+	while (str[size] != '\n' && str[size])
+		size ++;
 	res = malloc(sizeof(*res) * (size + 2));
 	if (!res)
 		return (0);
 	index = 0;
-	while (index <= size) //<= because we want to copy '\n' too
+	while (index <= size)
 	{
 		res[index] = str[index];
 		index ++;
@@ -92,17 +95,20 @@ char	*ft_strcpy_until(char *str, int size)
 	return (res);
 }
 
-char	*ft_strcpy_from(char *str, int start)
+char	*ft_strcpy_from(char *str)
 {
 	int		len;
+	int		start;
 	int		index;
 	char	*res;
 
 	if (!str)
 		return (0);
 	len = (int)ft_strlen(str);
-	if (start > len)
-		return (NULL);
+	start = 0;
+	while (str[start] != '\n')
+		start ++;
+	start ++;
 	res = malloc(sizeof(*res) * (len - start + 1));
 	if (!res)
 		return (0); //and some of those frees ?

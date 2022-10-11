@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:49 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/11 10:38:39 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/11 11:01:51 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_free_return(char **str)
 {
 	if (*str)
 		free(*str);
-    *str = 0;
+	*str = 0;
 	return (0);
 }
 
