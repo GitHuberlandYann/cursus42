@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:56 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/11 10:57:49 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/11 11:27:15 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (s1)
 		free((char *)s1);
 	sub_index = 0;
-	while (sub_index <= s2len) //copy '\0' too
+	while (sub_index <= s2len)
 		res[index ++] = s2[sub_index ++];
 	return (res);
 }
@@ -95,28 +95,27 @@ char	*ft_strcpy_until(char *str)
 	return (res);
 }
 
-char	*ft_strcpy_from(char *str)
+char	*ft_strcpy_from(char **str)
 {
 	int		len;
 	int		start;
 	int		index;
 	char	*res;
 
-	if (!str)
+	if (!*str)
 		return (0);
-	len = (int)ft_strlen(str);
+	len = (int)ft_strlen(*str);
 	start = 0;
-	while (str[start] != '\n')
+	while ((*str)[start] != '\n')
 		start ++;
 	start ++;
-	res = malloc(sizeof(*res) * (len - start + 1));
+	res = malloc(sizeof(*res) * (len - start + 1)); //yo
 	if (!res)
-		return (0); //and some of those frees ?
+		return (ft_free_return(str));
 	index = 0;
 	while (start < len)
-		res[index ++] = str[start ++];
+		res[index ++] = (*str)[start ++];
 	res[index] = '\0';
-	if (str)
-		free(str);
+	ft_free_return(str);
 	return (res);
 }
