@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 14:12:00 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/06 17:17:17 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/14 10:49:11 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ char	*ft_strrchr(const char *s, int c)
 {
 	int	index;
 
-	if (!s)
-		return (0);
 	index = (int) ft_strlen(s);
 	while (index >= 0)
 	{
 		if (s[index] == (char) c)
-			return ((char *) s + index);
+			return ((char *) &s[index]);
 		index --;
 	}
 	return (NULL);

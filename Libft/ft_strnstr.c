@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 14:53:55 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/06 17:25:24 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/14 10:48:28 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	size_t	index;
 	size_t	needex;
 
-	if (!haystack || !needle)
-		return (0);
 	if (!needle[0])
 		return ((char *) haystack);
 	index = 0;
@@ -32,7 +30,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 				&& index + needex < len)
 				needex ++;
 			if (!needle[needex])
-				return ((char *) haystack + index);
+				return ((char *) &haystack[index]);
 		}
 		index ++;
 	}

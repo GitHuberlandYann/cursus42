@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 16:46:14 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/07 16:12:04 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/14 10:36:52 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 	index = 0;
 	while (index < len)
 	{
-		(*f)(index, &s[index]);
+		f(index, &s[index]);
 		index ++;
 	}
 }

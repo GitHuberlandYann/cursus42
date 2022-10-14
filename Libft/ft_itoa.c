@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 16:18:23 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/04 17:18:08 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/12 10:46:57 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	ft_get_mallen_itoa(int n)
 	return (res);
 }
 
-void	ft_fill_itoa(char	*str, long n, int index)
+void	ft_fill_itoa(char *str, long n, int index)
 {
 	if (n / 10)
 		ft_fill_itoa(str, n / 10, index - 1);

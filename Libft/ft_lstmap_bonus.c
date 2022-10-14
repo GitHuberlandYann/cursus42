@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/06 08:33:04 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/06 08:33:04 by yhuberla         ###   ########.fr       */
+/*   Created: 2022/10/11 17:42:14 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/10/11 17:42:14 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*ft_free_return_lstmap(t_list *lst, void (*del)(void *))
 {
-	ft_lstclear(&lst, (*del));
+	ft_lstclear(&lst, del);
 	return (0);
 }
 
@@ -28,17 +28,17 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	copy = malloc(sizeof(*copy));
 	if (!copy)
 		return (0);
-	copy->content = (*f)(lst->content);
+	copy->content = f(lst->content);
 	copy->next = 0;
 	copyter = copy;
 	while (lst->next)
 	{
 		copyter->next = malloc(sizeof(*(copyter->next)));
 		if (!copyter->next)
-			return (ft_free_return_lstmap(copy, (*del)));
+			return (ft_free_return_lstmap(copy, del));
 		lst = lst->next;
 		copyter = copyter->next;
-		copyter->content = (*f)(lst->content);
+		copyter->content = f(lst->content);
 		copyter->next = 0;
 	}
 	return (copy);

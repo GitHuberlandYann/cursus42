@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:24:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/06 11:56:30 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/14 10:07:46 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	if (!src && !dst)
 		return (0);
 	index = n;
-	ptrdst = (char *)dst;
-	ptrsrc = (const char *)src;
+	ptrdst = dst;
+	ptrsrc = src;
 	while (index > 0)
 	{
 		index --;

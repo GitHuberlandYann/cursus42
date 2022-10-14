@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:59:37 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/07 17:04:46 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:09:15 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@ size_t	ft_get_mallen_split(char const *s, char c)
 		while (s[index] == c)
 			index ++;
 		if (s[index] && s[index] != c)
-		{
 			res ++;
-			while (s[index] && s[index] != c)
-				index ++;
-		}
+		while (s[index] && s[index] != c)
+			index ++;
 	}
 	return (res + 1);
 }
@@ -40,7 +38,7 @@ char	*ft_get_next_word(char const *s, char c, size_t *ptri)
 	char	*res;
 
 	while (s[*ptri] == c)
-		*ptri = *ptri + 1;
+		(*ptri)++;
 	len = 0;
 	while (s[*ptri + len] && s[*ptri + len] != c)
 		len ++;
@@ -53,8 +51,9 @@ char	*ft_get_next_word(char const *s, char c, size_t *ptri)
 	{
 		res[index] = s[*ptri];
 		index ++;
-		*ptri = *ptri + 1;
+		(*ptri)++;
 	}
+	res[index] = '\0';
 	return (res);
 }
 

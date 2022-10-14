@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:16:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/06 17:19:49 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:46:18 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ char	*ft_strdup(const char *s1)
 	size_t	index;
 	char	*res;
 
-	if (!s1)
-		return (0);
 	s1len = ft_strlen(s1);
 	res = malloc(sizeof(*res) * (s1len + 1));
 	if (!res)
