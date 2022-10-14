@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:34:42 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/14 11:46:59 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/14 12:34:10 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ void	ft_loop_bonus_zero(const char *str, int *index, int *res, va_list ap)
 	len = ft_len_arg(type, &zeros, ap_cpy);
 	if (str[*index] == '.')
 	{
-		len = ft_atoi_dotzero(str, *index);
+		if (ft_atoi_dotzero(str, *index) > len || ft_get_int_copy(ap) == 0)
+			len = ft_atoi_dotzero(str, *index);
 		if (type == 'd' || type == 'i')
-			len += ft_get_int_copy(ap) < 0;
+			len += (ft_get_int_copy(ap) < 0) + (len == 0 && ft_get_int_copy(ap) != 0);
 		ft_printf_many_char(' ', zeros - len, res);
 	}
 	else
