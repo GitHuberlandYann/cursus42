@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:39:24 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/04 17:34:42 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/14 18:09:32 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ size_t	ft_get_mallen_trim(char const *str, char const *charset, size_t *start)
 	*start = index;
 	while (str[index])
 		index ++;
-	index --;
+	if (index > 0)
+		index --;
 	while (index > *start && ft_is_charset(str[index], charset))
 		index --;
 	return (index - *start + 2);
