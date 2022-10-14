@@ -42,7 +42,8 @@ void	ft_printf_exec(const char *str, int *index, int *res, va_list *ap)
 	ft_loop_bonus2(str, index, res, *ap);
 	if (str[*index] != '-' && str[*index] != '0')
 		ft_loop_bonus_width(str, index, res, *ap);
-	ft_display_sign(str, *index, res, *ap);
+	if (str[*index] != '0')
+		ft_display_sign(str, *index, res, *ap);
 	if (str[*index] == '-')
 		minus = ft_loop_bonus_minus(str, index, *ap);
 	else if (str[*index] == '0')

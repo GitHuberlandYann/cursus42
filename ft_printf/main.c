@@ -30,10 +30,12 @@ int	main(int argc, char **argv)
 	(void) argv;
 	//printf("%p\n", (void *)0xdeadc0de);
 	//ft_printf("%p\n", (void *)0xdeadc0de);
-	printf("original : %d\n", printf("%020.10d", -42000));
-	printf("mine : %d\n", ft_printf("%020.10d", -42000));
-	printf("original : %d\n", printf("%042.2d", 42000));
-	printf("mine : %d\n", ft_printf("%042.2d", 42000));
+	printf("original : %d\n", printf("%0014.1i", (int)-2147483648));
+	printf("mine : %d\n", ft_printf("%0014.1i", (int)-2147483648));
+	printf("original : %d\n", printf("%42X", 1));
+	printf("mine : %d\n", ft_printf("%42X", 1));
+	printf("original : %d\n", printf("%42.5x", -1));
+	printf("mine : %d\n", ft_printf("%42.5x", -1));
 	printf("original : %d\n", printf("%01.0d", 4));
 	printf("mine : %d\n", ft_printf("%01.0d", 4));
 	//printf("mine : %d\n", ft_printf("%.2d", -1));

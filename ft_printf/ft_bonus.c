@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:34:42 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/14 12:34:10 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/14 16:44:40 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,16 @@ void	ft_loop_bonus_zero(const char *str, int *index, int *res, va_list ap)
 		if (ft_atoi_dotzero(str, *index) > len || ft_get_int_copy(ap) == 0)
 			len = ft_atoi_dotzero(str, *index);
 		if (type == 'd' || type == 'i')
-			len += (ft_get_int_copy(ap) < 0) + (len == 0 && ft_get_int_copy(ap) != 0);
+			len += (len == 0 && ft_get_int_copy(ap) != 0)
+			+ (ft_get_int_copy(ap) < 0 && ft_len_arg(type, &zeros, ap_cpy) < ft_atoi_dotzero(str, *index));
 		ft_printf_many_char(' ', zeros - len, res);
+		ft_display_sign(str, *index, res, ap);
 	}
 	else
+	{
+		ft_display_sign(str, *index, res, ap);
 		ft_printf_many_char('0', zeros - len, res);
+	}
 	va_end(ap_cpy);
 }
 
@@ -78,7 +83,7 @@ void	ft_loop_bonus_width(const char *str, int *index, int *res, va_list ap)
 	{
 		index_dot = *index + 1;
 		index_dot = ft_atoi_printf(str, &index_dot);
-		if (len > index_dot)
+		if (len > index_dot && ft_get_type(str, *index) != 'X' && ft_get_type(str, *index) != 'x')
 			len = index_dot;
 	}
 	ft_printf_many_char(' ', spaces - len, res);
