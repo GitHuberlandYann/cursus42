@@ -27,6 +27,7 @@ int		ft_atoi_printf(const char *str, int *index);
 int		ft_atoi_dotzero(const char *str, int index);
 int		ft_printf_string_dot(char *str, int size, int *res);
 int		ft_loop_bonus_minus(const char *str, int *index, va_list ap);
+int		ft_checkstatement_minus(int len, int index_dot, char type, va_list ap);
 int		ft_loop_bonus_dot(const char *str, int *index, int *res, va_list *ap);
 int		ft_len_arg(char c, int *spaces, va_list ap_cpy);
 int		ft_get_int_copy(va_list ap);

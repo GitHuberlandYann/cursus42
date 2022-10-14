@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 14:58:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/11 15:00:39 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/14 11:47:38 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,13 @@ int	ft_addresslen(unsigned long nb)
 		nb /= 16;
 	}
 	return (res);
+}
+
+int	ft_checkstatement_minus(int len, int index_dot, char type, va_list ap)
+{
+	return ((len > index_dot && type == 's')
+		|| ((len < index_dot || ft_get_int_copy(ap) <= 0)
+			&& (type == 'd' || type == 'i'
+				|| ((type == 'u' || type == 'x' || type == 'X')
+					&& (len < index_dot || ft_get_int_copy(ap) == 0)))));
 }

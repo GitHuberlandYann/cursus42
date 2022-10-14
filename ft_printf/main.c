@@ -30,26 +30,18 @@ int	main(int argc, char **argv)
 	(void) argv;
 	//printf("%p\n", (void *)0xdeadc0de);
 	//ft_printf("%p\n", (void *)0xdeadc0de);
-	//printf("original : %d\n", printf(" % s", "test"));
-	//printf("mine : %d\n", ft_printf(" % s", "test"));
+	printf("original : %d\n", printf("%-10.5u", -5000));
+	printf("mine : %d\n", ft_printf("%-10.5u", -5000));
+	printf("original : %d\n", printf("%-10.2u", -10));
+	printf("mine : %d\n", ft_printf("%-10.2u", -10));
+	printf("original : %d\n", printf("%-10.5u", 5000));
+	printf("mine : %d\n", ft_printf("%-10.5u", 5000));
+	printf("original : %d\n", printf("%-10.10u", 1));
+	printf("mine : %d\n", ft_printf("%-10.10u", 1));
 	//printf("mine : %d\n", ft_printf("%.2d", -1));
 	//printf("original : %d\n", printf("%%%%%%%%%%%%%%%%%"));
 	//printf("mine : %d\n", ft_printf("%%%%%%%%%%%%%%%%%"));
 	printf("original : %d\n", printf("%--4.1s %s %------------------9.3s of %s of %-5.7s", "for", "the", "goooood", "aaall", "us"));
 	printf("mine : %d\n", ft_printf("%--4.1s %s %------------------9.3s of %s of %-5.7s", "for", "the", "goooood", "aaall", "us"));
-	/*printf("string : %d\n", printf("%.10s", "Hi there"));
-	printf("decimal : %d\n", printf("%.12d", 32));
-	printf("int : %d\n", printf("%.12i", 32));
-	printf("unsigned : %d\n", printf("%.12u", 32));
-	printf("hexa low : %d\n", printf("%.12x", 32));
-	printf("hexa up : %d\n", printf("%.12X", 32));
-	printf("\nmine original : %d\n", printf("%.3s", "Hi there"));
-	printf("mine string : %d\n", printf("%.10s", "Hi there"));
-	printf("mine decimal : %d\n", printf("%.12d", 32));
-	printf("mine int : %d\n", printf("%.12i", 32));
-	printf("mine unsigned : %d\n", printf("%.12u", 32));
-	printf("mine hexa low : %d\n", printf("%.12x", 32));
-	printf("mine hexa up : %d\n", printf("%.12X", 32));*/
-	//printf("cmp : %d\n", printf("%c\n", '0') == ft_printf("%c\n", '0'));
 	return (0);
 }

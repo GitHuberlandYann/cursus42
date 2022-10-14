@@ -50,11 +50,17 @@ void	ft_printf_exec(const char *str, int *index, int *res, va_list *ap)
 	if (str[*index] == '.')
 	{
 		(*index)++;
-		if (ft_get_type(str, *index) == 's')
-			ft_loop_bonus_dot(str, index, res, ap);
+		if (ft_get_type(str, *index) == 's' || ft_get_int_copy(*ap) == 0)
+		{
+			if (ft_loop_bonus_dot(str, index, res, ap)
+				&& ft_get_type(str, *index) != 's' && ft_get_int_copy(*ap) == 0)
+				ft_call_util('d', ap, res);
+			else if (ft_get_int_copy(*ap) == 0)
+				va_arg(*ap, int);
+		}
 		else
 		{
-			minus -= ft_loop_bonus_dot(str, index, res, ap);
+			ft_loop_bonus_dot(str, index, res, ap);
 			ft_call_util(str[*index], ap, res);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:34:42 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/11 15:29:10 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/14 11:46:59 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,20 +89,22 @@ int	ft_loop_bonus_minus(const char *str, int *index, va_list ap)
 	int		len;
 	int		spaces;
 	int		index_dot;
+	char	type;
 	va_list	ap_cpy;
 
 	va_copy(ap_cpy, ap);
 	(*index)++;
 	while (str[*index] == '-')
 		(*index)++;
+	type = ft_get_type(str, *index);
 	spaces = ft_atoi_printf(str, index);
-	len = ft_len_arg(ft_get_type(str, *index), &spaces, ap_cpy);
+	len = ft_len_arg(type, &spaces, ap_cpy);
 	if (str[*index] == '.')
 	{
 		index_dot = *index + 1;
 		index_dot = ft_atoi_printf(str, &index_dot);
-		if (len > index_dot)
-			len = index_dot;
+		if (ft_checkstatement_minus(len, index_dot, type, ap))
+			len = index_dot + (ft_get_int_copy(ap_cpy) < 0 && type != 's');
 	}
 	va_end(ap_cpy);
 	return (spaces - len);
