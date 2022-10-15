@@ -6,33 +6,41 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/11 08:48:24 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/14 18:28:17 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/15 11:03:48 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = make.out
+NAME = gnl.a
 
-SRCS = get_next_line_utils.c get_next_line.c main.c
+SRCS = get_next_line_utils.c get_next_line.c
 
-SRCS_BONUS = get_next_line_bonus.c get_next_line_utils_bonus.c main_bonus.c
+OBJS = $(SRCS:.c=.o)
+
+SRCS_BONUS = get_next_line_bonus.c get_next_line_utils_bonus.c
+
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror
 
-BUFFER = -D BUFFER_SIZE=42
-
-SANITIZE = -fsanitize=address -g
+RM = rm -f
 
 all: $(NAME)
 
-$(NAME):
-	gcc $(CFLAGS) $(BUFFER) $(SRCS) -o $(NAME)
+$(NAME): $(OBJS)
+	ar -rcs $(NAME) $(OBJS)
 
-sanitize:
-	gcc $(CFLAGS) $(SANITIZE) $(BUFFER) $(SRCS) -o $(NAME)
+bonus: $(OBJS) $(OBJS_BONUS)
+	ar -rcs $(NAME) $(OBJS) $(OBJS_BONUS)
 
-s: sanitize
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
-bonus:
-	gcc $(CFLAGS) $(SANITIZE) $(BUFFER) $(SRCS_BONUS) -o $(NAME)
+clean:
+	$(RM) $(OBJS)
 
-.PHONY: all sanitize s
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+.PHONY: all bonus clean fclean re

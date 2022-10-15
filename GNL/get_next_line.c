@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:49 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/15 09:34:35 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/15 13:18:28 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ char	*get_next_line(int fd)
 		if (!buf)
 			return (ft_free_return(&memory));
 		read_ret = read(fd, buf, BUFFER_SIZE);
-		buf[read_ret] = '\0';
+		if (read_ret >= 0)
+			buf[read_ret] = '\0';
+		else
+			buf[0] = '\0';
 		memory = ft_strjoin(memory, buf);
 		if (!memory)
 			return (ft_free_return(&buf));
