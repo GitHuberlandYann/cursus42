@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 17:40:49 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/15 09:34:35 by yhuberla         ###   ########.fr       */
+/*   Created: 2022/10/14 18:22:36 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/10/15 09:27:32 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	find_end_line(char *str)
 {
@@ -54,24 +54,24 @@ char	*gnl_return(char **memory, int read_ret)
 
 char	*get_next_line(int fd)
 {
-	static char	*memory;
+	static char	*memory[OPEN_MAX];
 	char		*buf;
 	int			read_ret;
 
 	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
 		return (0);
 	read_ret = 1;
-	while (!find_end_line(memory) && read_ret > 0)
+	while (!find_end_line(memory[fd]) && read_ret > 0)
 	{
 		buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 		if (!buf)
-			return (ft_free_return(&memory));
+			return (ft_free_return(&memory[fd]));
 		read_ret = read(fd, buf, BUFFER_SIZE);
 		buf[read_ret] = '\0';
-		memory = ft_strjoin(memory, buf);
-		if (!memory)
+		memory[fd] = ft_strjoin(memory[fd], buf);
+		if (!memory[fd])
 			return (ft_free_return(&buf));
 		free(buf);
 	}
-	return (gnl_return(&memory, read_ret));
+	return (gnl_return(&memory[fd], read_ret));
 }

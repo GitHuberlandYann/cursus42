@@ -31,7 +31,7 @@ int	main(void)
 			free(line);
 			line = get_next_line(fd);
 		}
-		system("leaks a.out");
+		//system("leaks a.out");
 		return (close(fd));
 	}
 	return (0);
