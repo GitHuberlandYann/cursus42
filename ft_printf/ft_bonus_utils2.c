@@ -38,15 +38,15 @@ char	ft_get_type(const char *str, int index)
 	return ('E');
 }
 
-int	ft_special_case_string(int *spaces, va_list ap_cpy)
+int	ft_special_case_string(va_list ap_cpy)
 {
 	int		res;
 	char	*str;
 
 	str = va_arg(ap_cpy, char *);
-	if (!str)
-		(*spaces) -= 6;
 	res = ft_strlen(str);
+	if (!str)
+		res = 6;
 	return (res);
 }
 
@@ -62,7 +62,7 @@ int	ft_len_arg(char c, int *spaces, va_list ap)
 	else if (c == 'c')
 		len = 1;
 	else if (c == 's')
-		len = ft_special_case_string(spaces, ap_cpy);
+		len = ft_special_case_string(ap_cpy);
 	else if (c == 'p')
 		(*spaces) -= (2
 				+ ft_addresslen((unsigned long) va_arg(ap_cpy, void *)));
@@ -70,6 +70,8 @@ int	ft_len_arg(char c, int *spaces, va_list ap)
 		len = ft_unbrlen(va_arg(ap_cpy, unsigned int), 10);
 	else if (c == 'x' || c == 'X')
 		len = ft_unbrlen(va_arg(ap_cpy, unsigned int), 16);
+	else if (c == '%')
+		len = 1;
 	va_end(ap_cpy);
 	return (len);
 }

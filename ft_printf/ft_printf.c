@@ -37,13 +37,17 @@ void	ft_call_util(char c, va_list *ap, int *res)
 void	ft_printf_exec(const char *str, int *index, int *res, va_list *ap)
 {
 	int	minus;
+	int	plus;
+
+	va_list	ap_cpy;
+	va_copy(ap_cpy, *ap);
 
 	minus = 0;
-	ft_loop_bonus2(str, index, res, *ap);
+	plus = ft_loop_bonus2(str, index, res, *ap);
 	if (str[*index] != '-' && str[*index] != '0')
 		ft_loop_bonus_width(str, index, res, *ap);
 	if (str[*index] != '0')
-		ft_display_sign(str, *index, res, *ap);
+		ft_display_sign(ft_get_type(str, *index), plus, res, *ap);
 	if (str[*index] == '-')
 		minus = ft_loop_bonus_minus(str, index, *ap);
 	else if (str[*index] == '0')
@@ -67,7 +71,8 @@ void	ft_printf_exec(const char *str, int *index, int *res, va_list *ap)
 	}
 	else
 		ft_call_util(str[*index], ap, res);
-	ft_printf_many_char(' ', minus, res);
+	ft_printf_many_char(' ', minus - (ft_space_before(str, *index) && ft_get_int_copy(ap_cpy) >= 0), res);
+	va_end(ap_cpy);
 }
 
 int	ft_printf(const char *str, ...)

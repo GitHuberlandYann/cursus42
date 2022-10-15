@@ -6,13 +6,13 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:34:42 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/14 16:44:40 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/15 15:40:34 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_loop_bonus2(const char *str, int *index, int *res, va_list ap)
+int	ft_loop_bonus2(const char *str, int *index, int *res, va_list ap)
 {
 	int		previous;
 	int		nb;
@@ -32,9 +32,10 @@ void	ft_loop_bonus2(const char *str, int *index, int *res, va_list ap)
 			&& ft_get_type(str, *index) != 's')
 			previous += ft_lb2_printf_char(' ', res, 1);
 		else if (str[*index] == '+' && previous < 2 && nb >= 0)
-			previous += ft_lb2_printf_char('+', res, 2);
+			previous += 2;
 		(*index)++;
 	}
+	return (previous >= 2);
 }
 
 void	ft_loop_bonus_zero(const char *str, int *index, int *res, va_list ap)
@@ -57,14 +58,16 @@ void	ft_loop_bonus_zero(const char *str, int *index, int *res, va_list ap)
 			len = ft_atoi_dotzero(str, *index);
 		if (type == 'd' || type == 'i')
 			len += (len == 0 && ft_get_int_copy(ap) != 0)
-			+ (ft_get_int_copy(ap) < 0 && ft_len_arg(type, &zeros, ap_cpy) < ft_atoi_dotzero(str, *index));
-		ft_printf_many_char(' ', zeros - len, res);
-		ft_display_sign(str, *index, res, ap);
+				+ (ft_get_int_copy(ap) < 0
+					&& ft_len_arg(type, &zeros, ap_cpy)
+					< ft_atoi_dotzero(str, *index));
+		ft_printf_many_char(' ', zeros - len - (ft_space_before(str, *index) && ft_get_int_copy(ap) >= 0), res);
+		ft_display_sign(ft_get_type(str, *index), 0, res, ap);
 	}
 	else
 	{
-		ft_display_sign(str, *index, res, ap);
-		ft_printf_many_char('0', zeros - len, res);
+		ft_display_sign(ft_get_type(str, *index), 0, res, ap);
+		ft_printf_many_char('0', zeros - len - (ft_space_before(str, *index) && ft_get_int_copy(ap) >= 0), res);
 	}
 	va_end(ap_cpy);
 }
@@ -74,19 +77,25 @@ void	ft_loop_bonus_width(const char *str, int *index, int *res, va_list ap)
 	int		len;
 	int		spaces;
 	int		index_dot;
+	char	type;
 	va_list	ap_cpy;
 
 	va_copy(ap_cpy, ap);
 	spaces = ft_atoi_printf(str, index);
-	len = ft_len_arg(ft_get_type(str, *index), &spaces, ap_cpy);
+	type = ft_get_type(str, *index);
+	len = ft_len_arg(type, &spaces, ap_cpy);
 	if (str[*index] == '.')
 	{
 		index_dot = *index + 1;
 		index_dot = ft_atoi_printf(str, &index_dot);
-		if (len > index_dot && ft_get_type(str, *index) != 'X' && ft_get_type(str, *index) != 'x')
-			len = index_dot;
+		if ((len > index_dot && type != 'X'
+			&& type != 'x' && type != 'd' && type != 'i')
+			|| (len < (index_dot + (ft_get_int_copy(ap) < 0)) && (type == 'd' || type == 'i')))
+			len = index_dot + (ft_get_int_copy(ap) < 0);
+		else if ((type == 'd' || type == 'i') && ft_get_int_copy(ap) == 0 && index_dot == 0)
+			len = 0;
 	}
-	ft_printf_many_char(' ', spaces - len, res);
+	ft_printf_many_char(' ', spaces - len - (ft_space_before(str, *index) && ft_get_int_copy(ap) >= 0), res);
 	va_end(ap_cpy);
 }
 
@@ -111,6 +120,9 @@ int	ft_loop_bonus_minus(const char *str, int *index, va_list ap)
 		index_dot = ft_atoi_printf(str, &index_dot);
 		if (ft_checkstatement_minus(len, index_dot, type, ap))
 			len = index_dot + (ft_get_int_copy(ap_cpy) < 0 && type != 's');
+		else if ((type == 'd' || type == 'i')
+			&& ft_get_int_copy(ap) == 0 && index_dot == 0)
+			len = 0;
 	}
 	va_end(ap_cpy);
 	return (spaces - len);

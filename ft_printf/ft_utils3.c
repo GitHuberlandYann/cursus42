@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:03:56 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/10 11:45:36 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/15 14:06:40 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ int	ft_get_int_copy(va_list ap)
 	return (res);
 }
 
-void	ft_display_sign(const char *str, int index, int *res, va_list ap)
+void	ft_display_sign(char type, int plus, int *res, va_list ap)
 {
-	char	type;
-
-	type = ft_get_type(str, index);
 	if (type == 'd' || type == 'i')
 	{
 		if (ft_get_int_copy(ap) < 0)
 			ft_putchar_fd('-', 1, res);
+		else if (plus)
+			ft_putchar_fd('+', 1, res);
 	}
 }
