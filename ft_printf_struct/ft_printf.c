@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 16:16:35 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/15 17:08:34 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/15 17:11:55 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_parse	ft_parse(const char *str, int *cursor, t_parse *current)
 {
 	current->arglen = ;
 	current->int_copy = va_arg(*(current->ap), int);
-	
+	ft_fill_bonus2(str, cursor, current);
 	if (str[*cursor] == '-')
 		current->
 	current->type = ;
