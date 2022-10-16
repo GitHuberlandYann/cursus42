@@ -17,3 +17,15 @@ void	ft_putaddresshexa_fd(void *ptr, int fd, int *res)
 	ft_putstr_fd("0x", -1, fd, res);
 	ft_putaddresshexa2_fd((unsigned long) ptr, fd, res);
 }
+
+void	ft_putchars_fd(unsigned char c, int count, int fd, int *res)
+{
+	int	index;
+
+	index = 0;
+	while (index < count)
+	{
+		ft_putchar_fd(c, fd, res);
+		index ++;
+	}
+}

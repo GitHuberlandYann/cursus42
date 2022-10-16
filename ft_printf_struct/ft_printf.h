@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 16:15:31 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/16 17:06:55 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/16 18:17:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ int		ft_check_minus(const char *str, int start, int end);
 int		ft_check_zero(const char *str, int start, int end);
 int		ft_check_precision(const char *str, int start, int end);
 int		ft_atoi_precision(const char *str, int index, int end);
+int		ft_count_front_spaces(t_parse *current);
+int		ft_count_zeros(t_parse *current);
+int		ft_count_back_spaces(t_parse *current);
 char	ft_get_type(const char *str, int index);
 void	ft_putchar_fd(unsigned char c, int fd, int *res);
 void	ft_putstr_fd(char *str, int size, int fd, int *res);
@@ -55,6 +58,7 @@ void	ft_putnbr_fd(int nb, int fd, int *res);
 void	ft_putunbr_fd(unsigned int nb, int fd, int *res);
 void	ft_puthexa_fd(unsigned int nb, int upper, int fd, int *res);
 void	ft_putaddresshexa_fd(void *ptr, int fd, int *res);
+void	ft_putchars_fd(unsigned char c, int count, int fd, int *res);
 void	ft_reset_parsing(t_parse *current);
 void	ft_parse_bonus2(const char *str, int start, int end, t_parse *current);
 

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 16:16:35 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/16 16:32:19 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/16 18:17:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,27 @@ void	ft_display_arg(char type, int precision, int *res, va_list *ap)
 void	ft_printf_exec(t_parse *current, int *res, va_list *ap)
 {
 	//print spaces
+	ft_putchars_fd(' ', ft_count_front_spaces(current), 1, res);
+	//print sign, space, 0x or 0X if needed
 	if (current->int_copy < 0 && current->type == 'd')
 		ft_putchar_fd('-', 1, res);
+	else if (current->space && current->int_copy >= 0 && current->type == 'd')
+		ft_putchar_fd(' ', 1, res);
+	else if (current->plus && current->int_copy >= 0 && current->type == 'd')
+		ft_putchar_fd('+', 1, res);
+	else if (current->hashtag && current->type == 'x' && current->int_copy)
+		ft_putstr_fd("0x", -1, 1, res);
+	else if (current->hashtag && current->type == 'X' && current->int_copy)
+		ft_putstr_fd("0X", -1, 1, res);
 	//print zeros
-	ft_display_arg(current->type, current->precision, res, ap);
+	ft_putchars_fd('0', ft_count_zeros(current), 1, res);
+	//print conversion, if !(arg == 0 and precision == 0)
+	if (!(current->precision) && !(current->int_copy))
+		va_arg(*ap, int);
+	else
+		ft_display_arg(current->type, current->precision, res, ap);
 	//print spaces
+	ft_putchars_fd(' ', ft_count_back_spaces(current), 1, res);
 }
 
 int	ft_main_loop(const char *str, t_parse *current, va_list *ap)
@@ -72,7 +88,7 @@ int	ft_main_loop(const char *str, t_parse *current, va_list *ap)
 			index ++;
 			ft_reset_parsing(current);
 			index = ft_parse(str, index, current);
-			printf_struct(current);
+			//printf_struct(current);
 			if (current->type != 'E')
 				ft_printf_exec(current, &res, ap);
 		}

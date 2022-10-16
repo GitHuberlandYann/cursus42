@@ -21,6 +21,8 @@ int	ft_parse(const char *str, int start, t_parse *current)
 			current->width = ft_atoi(str, start, end);
 		if (ft_check_precision(str, start, end))
 			current->precision = ft_atoi_precision(str, start, end);
+		if (!current->precision && !current->int_copy)
+			current->arglen = 0;
 	}
 	return (end);
 }
