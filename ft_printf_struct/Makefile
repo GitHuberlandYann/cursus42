@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 16:13:52 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/15 16:15:15 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/16 17:06:32 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-FILES = ft_printf
+FILES = ft_printf ft_atoi ft_parsing ft_parsing2 ft_put_fd ft_put_fd2 \
+		ft_utils
 
 SRCS = $(addsuffix .c, $(FILES))
 
