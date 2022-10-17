@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/17 13:32:17 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/10/17 13:32:17 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	ft_parse(const char *str, int start, t_parse *current)
@@ -10,7 +22,8 @@ int	ft_parse(const char *str, int start, t_parse *current)
 	{
 		end = ft_get_end(str, start);
 		current->arglen = ft_arglen(current->type, current->ap);
-		current->int_copy = va_arg(current->ap, int);
+		if (current->type != '%')
+			current->int_copy = va_arg(current->ap, int);
 		ft_parse_bonus2(str, start, end, current);
 		if (ft_check_minus(str, start, end))
 			current->minus = ft_atoi(str, start, end);
@@ -29,10 +42,10 @@ int	ft_parse(const char *str, int start, t_parse *current)
 
 char	ft_get_type(const char *str, int index)
 {
-    while (str[index] && str[index] != 'c' && str[index] != 's'
-		 && str[index] != 'p' && str[index] != 'd' && str[index] != 'i'
-		 	 && str[index] != 'u' && str[index] != 'x' && str[index] != 'X'
-			 	 && str[index] != '%')
+	while (str[index] && str[index] != 'c' && str[index] != 's'
+		&& str[index] != 'p' && str[index] != 'd' && str[index] != 'i'
+		&& str[index] != 'u' && str[index] != 'x' && str[index] != 'X'
+		&& str[index] != '%')
 		index ++;
 	if (str[index] == 'i')
 		return ('d');
@@ -45,7 +58,7 @@ int	ft_get_end(const char *str, int index)
 {
 	while (str[index] != 'c' && str[index] != 's' && str[index] != 'p'
 		&& str[index] != 'd' && str[index] != 'i' && str[index] != 'u'
-			&& str[index] != 'x' && str[index] != 'X' && str[index] != '%')
+		&& str[index] != 'x' && str[index] != 'X' && str[index] != '%')
 		index ++;
 	return (index);
 }

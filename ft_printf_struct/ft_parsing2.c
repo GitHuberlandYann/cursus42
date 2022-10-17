@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/17 13:34:41 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/10/17 13:34:41 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	ft_reset_parsing(t_parse *current)
@@ -48,7 +60,7 @@ int	ft_check_zero(const char *str, int start, int end)
 	{
 		if (str[start] == '0')
 			return (1);
-    	start ++;
+		start ++;
 	}
 	return (0);
 }
