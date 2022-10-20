@@ -6,13 +6,13 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:59:37 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/20 12:03:41 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:11:42 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-static size_t	ft_get_mallen_split(char const *s, char c)
+static size_t	ft_get_mallen(char const *s, char c)
 {
 	size_t	index;
 	size_t	res;
@@ -77,7 +77,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (0);
-	mallen = ft_get_mallen_split(s, c);
+	mallen = ft_get_mallen(s, c);
 	res = malloc(sizeof(*res) * mallen);
 	if (!res)
 		return (0);
