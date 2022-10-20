@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoi_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 13:34:32 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/17 13:34:32 by yhuberla         ###   ########.fr       */
+/*   Created: 2022/10/18 14:19:48 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/10/18 14:19:48 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "fb_printf_bonus.h"
 
 int	ft_atoi(const char *str, int index, int end)
 {

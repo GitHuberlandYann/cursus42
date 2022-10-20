@@ -6,18 +6,23 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 10:15:27 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/18 10:27:58 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/18 15:32:52 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-FILES = ft_printf ft_atoi_bonus ft_parsing_bonus ft_parsing2_bonus \
-		ft_put_fd ft_put_fd2 ft_utils ft_count_bonus
+FILES = printf output output2 utils
 
-SRCS = $(addsuffix .c, $(FILES))
+SRCS = $(addprefix ft_, $(addsuffix .c, $(FILES)))
 
 OBJS = $(SRCS:.c=.o)
+
+FILES_BONUS = printf atoi parsing parsing2 output output2 utils count
+
+SRCS_BONUS = $(addprefix fb_, $(addsuffix _bonus.c, $(FILES_BONUS)))
+
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -30,13 +35,14 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)
 
-bonus: all
+bonus: $(OBJS_BONUS)
+	ar -rcs $(NAME) $(OBJS_BONUS)
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
 	$(RM) $(NAME)
