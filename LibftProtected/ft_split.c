@@ -6,13 +6,13 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:59:37 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/07 17:04:46 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:11:42 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-size_t	ft_get_mallen_split(char const *s, char c)
+static size_t	ft_get_mallen(char const *s, char c)
 {
 	size_t	index;
 	size_t	res;
@@ -24,23 +24,21 @@ size_t	ft_get_mallen_split(char const *s, char c)
 		while (s[index] == c)
 			index ++;
 		if (s[index] && s[index] != c)
-		{
 			res ++;
-			while (s[index] && s[index] != c)
-				index ++;
-		}
+		while (s[index] && s[index] != c)
+			index ++;
 	}
 	return (res + 1);
 }
 
-char	*ft_get_next_word(char const *s, char c, size_t *ptri)
+static char	*ft_get_next_word(char const *s, char c, size_t *ptri)
 {
 	size_t	len;
 	size_t	index;
 	char	*res;
 
 	while (s[*ptri] == c)
-		*ptri = *ptri + 1;
+		(*ptri)++;
 	len = 0;
 	while (s[*ptri + len] && s[*ptri + len] != c)
 		len ++;
@@ -53,12 +51,13 @@ char	*ft_get_next_word(char const *s, char c, size_t *ptri)
 	{
 		res[index] = s[*ptri];
 		index ++;
-		*ptri = *ptri + 1;
+		(*ptri)++;
 	}
+	res[index] = '\0';
 	return (res);
 }
 
-char	**ft_free_return(char **s, size_t limit)
+static char	**ft_free_return(char **s, size_t limit)
 {
 	size_t	index;
 
@@ -78,7 +77,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (0);
-	mallen = ft_get_mallen_split(s, c);
+	mallen = ft_get_mallen(s, c);
 	res = malloc(sizeof(*res) * mallen);
 	if (!res)
 		return (0);

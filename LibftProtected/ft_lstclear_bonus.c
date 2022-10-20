@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/06 08:32:48 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/06 08:32:48 by yhuberla         ###   ########.fr       */
+/*   Created: 2022/10/11 17:41:37 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/10/11 17:41:37 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*current;
+	t_list	*save;
 
-	if (!lst || !*lst || !del)
+	if (!lst)
 		return ;
 	current = *lst;
-	while (current->next)
+	while (current)
 	{
+		save = current->next;
 		ft_lstdelone(current, del);
-		current = current->next;
+		current = save;
 	}
-	ft_lstdelone(current, del);
 	*lst = 0;
 }

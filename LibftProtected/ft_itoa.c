@@ -6,19 +6,17 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 16:18:23 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/04 17:18:08 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:50:03 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-size_t	ft_get_mallen_itoa(int n)
+static size_t	ft_get_mallen_itoa(int n)
 {
 	size_t	res;
 
-	res = 2;
-	if (n < 0)
-		res ++;
+	res = 2 + (n < 0);
 	while (n / 10)
 	{
 		res ++;
@@ -27,7 +25,7 @@ size_t	ft_get_mallen_itoa(int n)
 	return (res);
 }
 
-void	ft_fill_itoa(char	*str, long n, int index)
+static void	ft_fill_itoa(char *str, long n, int index)
 {
 	if (n / 10)
 		ft_fill_itoa(str, n / 10, index - 1);

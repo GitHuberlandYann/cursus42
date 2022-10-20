@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:55:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/07 14:15:54 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:04:25 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	size_t	index;
 	size_t	dstlen;
 
-	if (!dst && !dstsize)
+	if (!dst || !src)
+		return (0);
+	if ((!dst && !dstsize) || !dstsize)
 		return (ft_strlen(src));
 	dstlen = ft_strlen(dst);
-	if (dstsize == 0)
-		return (ft_strlen(src));
 	if (dstlen >= dstsize)
 		return (dstsize + ft_strlen(src));
 	index = 0;

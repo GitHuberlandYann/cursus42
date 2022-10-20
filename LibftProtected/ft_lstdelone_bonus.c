@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/06 08:32:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/06 08:32:52 by yhuberla         ###   ########.fr       */
+/*   Created: 2022/10/11 17:41:46 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/10/11 17:41:46 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (!lst || !*del)
+	if (!lst)
 		return ;
-	(*del)(lst->content);
+	if (del)
+		del(lst->content);
 	free(lst);
 }

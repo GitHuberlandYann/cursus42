@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:46:25 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/06 12:10:37 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:04:42 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	index;
 
+	if (!src || !dst)
+		return (0);
 	index = 0;
 	if (!dst || dstsize == 0)
 		return (ft_strlen(src));

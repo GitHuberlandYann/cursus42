@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/04 10:58:05 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/06 11:13:53 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/14 10:52:06 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,15 +48,9 @@ bonus: $(OBJS) $(BONUS_OBJS)
 	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 clean:
-	$(RM) $(OBJS)
-
-fclean: clean
-	$(RM) $(NAME)
-
-cleanb:
 	$(RM) $(OBJS) $(BONUS_OBJS)
 
-fcleanb: cleanb
+fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all

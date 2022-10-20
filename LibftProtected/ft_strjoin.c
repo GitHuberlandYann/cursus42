@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:31:13 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/03 15:47:38 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:03:06 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	index;
 	size_t	sub_index;
 
-	if (!s1 || !s2)
+	if (!s1 && !s2)
 		return (0);
 	s1len = ft_strlen(s1);
 	s2len = ft_strlen(s2);

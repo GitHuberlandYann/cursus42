@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:24:45 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/04 16:10:19 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/15 09:50:58 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!s)
 		return (0);
 	slen = ft_strlen(s);
-	if (len > slen)
-		len = slen;
+	if (start > slen)
+		len = 0;
+	else if (len > slen - start)
+		len = slen - start;
 	res = malloc(sizeof(*res) * (len + 1));
 	if (!res)
 		return (0);

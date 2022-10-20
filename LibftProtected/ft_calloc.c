@@ -6,11 +6,11 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:10:39 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/11 16:37:58 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:47:14 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
 void	*ft_calloc(size_t count, size_t size)
 {
@@ -26,5 +26,5 @@ void	*ft_calloc(size_t count, size_t size)
 		res[index] = 0;
 		index ++;
 	}
-	return ((void *) res);
+	return (res);
 }

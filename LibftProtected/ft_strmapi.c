@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 16:40:23 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/06 17:20:22 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/14 10:48:01 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	unsigned int	index;
 	unsigned int	len;
 
-	if (!s || !*f)
+	if (!s || !f)
 		return (0);
 	len = (unsigned int)ft_strlen(s);
 	res = malloc(sizeof(*res) * (len + 1));
@@ -27,7 +27,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	index = 0;
 	while (index < len)
 	{
-		res[index] = (*f)(index, s[index]);
+		res[index] = f(index, s[index]);
 		index ++;
 	}
 	res[index] = '\0';

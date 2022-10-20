@@ -6,13 +6,13 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:39:24 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/04 17:34:42 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:06:44 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_is_charset(char c, const char *charset)
+static int	ft_is_charset(char c, const char *charset)
 {
 	size_t	index;
 
@@ -26,20 +26,21 @@ int	ft_is_charset(char c, const char *charset)
 	return (0);
 }
 
-size_t	ft_get_mallen_trim(char const *str, char const *charset, size_t *start)
+static size_t	ft_get_mallen(char const *str, char const *set, size_t *start)
 {
 	size_t	index;
 
 	index = 0;
-	while (ft_is_charset(str[index], charset))
+	while (ft_is_charset(str[index], set))
 		index ++;
 	*start = index;
 	while (str[index])
 		index ++;
-	index --;
-	while (index > *start && ft_is_charset(str[index], charset))
+	if (index > 0)
 		index --;
-	return (index - *start + 2);
+	while (index > *start && ft_is_charset(str[index], set))
+		index --;
+	return (index - *start + 2 - (ft_strlen(str) == 0));
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
@@ -52,7 +53,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (!s1 || !set)
 		return (0);
 	start = 0;
-	mallen = ft_get_mallen_trim(s1, set, &start);
+	mallen = ft_get_mallen(s1, set, &start);
 	res = malloc(sizeof(*res) * mallen);
 	if (!res)
 		return (0);

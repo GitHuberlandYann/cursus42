@@ -6,11 +6,11 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 14:08:17 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/06 17:16:58 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:02:10 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -22,10 +22,10 @@ char	*ft_strchr(const char *s, int c)
 	while (s[index])
 	{
 		if (s[index] == (char) c)
-			return ((char *) s + index);
+			return ((char *)&s[index]);
 		index ++;
 	}
 	if (s[index] == (char) c)
-		return ((char *) s + index);
+		return ((char *)&s[index]);
 	return (0);
 }

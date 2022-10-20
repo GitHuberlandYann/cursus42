@@ -6,11 +6,9 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 14:07:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/04 10:38:58 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:04:18 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_tolower(int c)
 {

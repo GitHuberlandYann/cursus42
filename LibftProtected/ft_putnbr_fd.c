@@ -6,13 +6,13 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 17:08:20 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/04 17:08:42 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:55:55 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_recursive_putnbr(long n, int fd)
+static void	ft_recursive_putnbr(long n, int fd)
 {
 	if (n / 10)
 		ft_recursive_putnbr(n / 10, fd);
