@@ -6,11 +6,11 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 16:53:07 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/03 16:54:49 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:01:37 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
 
 void	ft_putstr_fd(char *s, int fd)
 {

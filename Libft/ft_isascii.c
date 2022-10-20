@@ -6,11 +6,9 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:08:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/04 10:19:47 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:48:06 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_isascii(int c)
 {

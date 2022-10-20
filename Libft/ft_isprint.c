@@ -6,11 +6,9 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:10:00 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/04 10:20:33 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:48:16 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_isprint(int c)
 {

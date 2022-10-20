@@ -6,11 +6,9 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:02:12 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/04 10:20:12 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:48:11 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_isdigit(int c)
 {

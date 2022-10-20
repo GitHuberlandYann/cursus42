@@ -6,11 +6,9 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:00:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/20 11:38:55 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:41:29 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_atoi(const char *str)
 {

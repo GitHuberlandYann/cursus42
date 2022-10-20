@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_list	*ft_free_return_lstmap(t_list *lst, void (*del)(void *))
+static t_list	*ft_free_return_lstmap(t_list *lst, void (*del)(void *))
 {
 	ft_lstclear(&lst, del);
 	return (0);
@@ -23,7 +23,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*copy;
 	t_list	*copyter;
 
-	if (!lst || !f || !del)
+	if (!lst || !f)
 		return (0);
 	copy = malloc(sizeof(*copy));
 	if (!copy)

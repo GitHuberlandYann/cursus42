@@ -6,11 +6,11 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:40:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/06 13:23:16 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:00:48 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {

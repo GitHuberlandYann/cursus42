@@ -6,11 +6,11 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:18:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/12 10:09:31 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:46:47 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 void	ft_bzero(void *s, size_t n)
 {

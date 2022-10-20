@@ -6,13 +6,13 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:59:37 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/11 17:09:15 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:03:41 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-size_t	ft_get_mallen_split(char const *s, char c)
+static size_t	ft_get_mallen_split(char const *s, char c)
 {
 	size_t	index;
 	size_t	res;
@@ -31,7 +31,7 @@ size_t	ft_get_mallen_split(char const *s, char c)
 	return (res + 1);
 }
 
-char	*ft_get_next_word(char const *s, char c, size_t *ptri)
+static char	*ft_get_next_word(char const *s, char c, size_t *ptri)
 {
 	size_t	len;
 	size_t	index;
@@ -57,7 +57,7 @@ char	*ft_get_next_word(char const *s, char c, size_t *ptri)
 	return (res);
 }
 
-char	**ft_free_return(char **s, size_t limit)
+static char	**ft_free_return(char **s, size_t limit)
 {
 	size_t	index;
 
