@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 16:16:35 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/18 14:52:22 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:18:52 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	ft_printf_exec(t_parse *current, int *res, va_list *ap)
 		ft_putstr("0x", -1, res);
 	else if (current->hashtag && current->type == 'X' && current->int_copy)
 		ft_putstr("0X", -1, res);
+	if (current->type == 'p')
+		ft_putstr("0x", -1, res);
 	ft_putchars('0', ft_count_zeros(current), res);
 	if (!(current->precision) && !(current->int_copy))
 		va_arg(*ap, int);

@@ -28,14 +28,14 @@ int	ft_parse(const char *str, int start, t_parse *current)
 		if (ft_check_minus(str, start, end))
 			current->minus = ft_atoi(str, start, end);
 		else if (ft_check_zero(str, start, end)
-			&& !ft_check_precision(str, start, end))
+			&& (!ft_check_precision(str, start, end) || current->type == '%'))
 			current->zero = ft_atoi(str, start, end);
 		else
 			current->width = ft_atoi(str, start, end);
-		if (ft_check_precision(str, start, end))
+		if (ft_check_precision(str, start, end) && !current->zero)
 			current->precision = ft_atoi_precision(str, start, end);
 		if (!current->precision && !current->int_copy)
-			current->arglen = 0;
+			current->arglen = 2 * (current->type == 'p');
 	}
 	return (end);
 }

@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "fb_printf_bonus.h"
 #include "limits.h"
 #include "stdlib.h"
+#include <stdio.h>
 
 int	main(void)
 {
@@ -85,8 +86,8 @@ int	main(void)
 	printf("%d\n", printf("null dot : {%.u}\n", 0));
 	printf("%d\n", ft_printf("{%146.146s}\n" ,NULL));
 	printf("%d\n", printf("{%146.146s}\n" ,NULL));
-	printf("%d\n", ft_printf("%--101.115u\n%00114.174%\n" ,1158010145u));
-	printf("%d\n", printf("%--101.115u\n%00114.174%\n" ,1158010145u));
+	printf("%d\n", ft_printf("%00114.174%\n"));
+	printf("%d\n", printf("%00114.174%\n"));
 	printf("%d\n", ft_printf("%-91.78X\n%-85.50X\n%-195.180i\n" ,597874775u,2208405511u,1625226049));
 	printf("%d\n", printf("%-91.78X\n%-85.50X\n%-195.180i\n" ,597874775u,2208405511u,1625226049));
 	printf("%d\n", ft_printf("%--87.18d%180p%-130.84u" ,213284615,(void*)12365356750099397136lu,3648680271u));
@@ -99,18 +100,18 @@ int	main(void)
 	printf("%d\n", printf("{%4.3s}\n{%-7.4s}\n", "hello", "world"));
 	printf("%d\n", ft_printf("%0093.u\n", nbr));
 	printf("%d\n", printf("%0093.u\n", nbr));
-	printf("%d\n", ft_printf("{%-*.48u}\n" ,-95,2428147040u));
-	printf("%d\n", printf("{%-*.48u}\n" ,-95,2428147040u));
+	// printf("%d\n", ft_printf("{%-*.48u}\n" ,-95,2428147040u));
+	// printf("%d\n", printf("{%-*.48u}\n" ,-95,2428147040u));
 	printf("%d\n", ft_printf("{%0025.d}\n" ,1910242786));
 	printf("%d\n", printf("{%0025.d}\n" ,1910242786));
-	printf("%d\n", ft_printf("{%--191.%}\n{%026.159u}\n{%0*.137%}\n" ,1410971553u,-199));
-	printf("%d\n", printf("{%--191.%}\n{%026.159u}\n{%0*.137%}\n" ,1410971553u,-199));
-	printf("%d\n", ft_printf("{%155c}\n{%00*.x}\n{%-88%}\n" ,39,79,1886386166u));
-	printf("%d\n", printf("{%155c}\n{%00*.x}\n{%-88%}\n" ,39,79,1886386166u));
-	printf("%d\n", ft_printf("{%0185.*X}\n" ,-2,3540052352u));
-	printf("%d\n", printf("{%0185.*X}\n" ,-2,3540052352u));
-	printf("%d\n", ft_printf("{%00125.*i}\n" ,-69,-544350427));
-	printf("%d\n", printf("{%00125.*i}\n" ,-69,-544350427));
+	// printf("%d\n", ft_printf("{%--191.%}\n{%026.159u}\n{%0*.137%}\n" ,1410971553u,-199));
+	// printf("%d\n", printf("{%--191.%}\n{%026.159u}\n{%0*.137%}\n" ,1410971553u,-199));
+	// printf("%d\n", ft_printf("{%155c}\n{%00*.x}\n{%-88%}\n" ,39,79,1886386166u));
+	// printf("%d\n", printf("{%155c}\n{%00*.x}\n{%-88%}\n" ,39,79,1886386166u));
+	// printf("%d\n", ft_printf("{%0185.*X}\n" ,-2,3540052352u));
+	// printf("%d\n", printf("{%0185.*X}\n" ,-2,3540052352u));
+	// printf("%d\n", ft_printf("{%00125.*i}\n" ,-69,-544350427));
+	// printf("%d\n", printf("{%00125.*i}\n" ,-69,-544350427));
 	printf("%d\n", ft_printf("{%00169.d}\n" ,-513924419));
 	printf("%d\n", printf("{%00169.d}\n" ,-513924419));
 	printf("%d\n", ft_printf("{%015p}\n", 1234));

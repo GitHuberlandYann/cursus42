@@ -50,12 +50,10 @@ int	ft_count_zeros(t_parse *current)
 {
 	int	res;
 
-	if (current->type == 's')
-		return (0);
 	res = current->zero;
 	if (current->type == 'd' && current->precision == -1)
 		res -= ((current->space || current->plus) && (current->int_copy >= 0));
-	if (current->precision != -1)
+	if (current->precision != -1 && current->type != 's')
 		res += current->precision;
 	res -= current->arglen;
 	if (current->hashtag && (current->type == 'x' || current->type == 'X'))

@@ -26,7 +26,6 @@ void	ft_putaddresshexa2(unsigned long nb, int *res)
 
 void	ft_putaddresshexa(void *ptr, int *res)
 {
-	ft_putstr("0x", -1, res);
 	ft_putaddresshexa2((unsigned long) ptr, res);
 }
 
