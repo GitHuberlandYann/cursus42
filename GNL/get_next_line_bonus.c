@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:22:36 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/15 12:30:06 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/21 10:52:06 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
 		return (0);
 	read_ret = 1;
+	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (ft_free_return(&memory[fd]));
 	while (!find_end_line(memory[fd]) && read_ret > 0)
 	{
-		buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
-		if (!buf)
-			return (ft_free_return(&memory[fd]));
 		read_ret = read(fd, buf, BUFFER_SIZE);
 		if (read_ret >= 0)
 			buf[read_ret] = '\0';
@@ -74,7 +74,7 @@ char	*get_next_line(int fd)
 		memory[fd] = ft_strjoin(memory[fd], buf);
 		if (!memory[fd])
 			return (ft_free_return(&buf));
-		free(buf);
 	}
+	free(buf);
 	return (gnl_return(&memory[fd], read_ret));
 }
