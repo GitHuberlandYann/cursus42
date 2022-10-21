@@ -6,24 +6,21 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:22:36 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 10:52:06 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/21 11:18:29 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-int	find_end_line(char *str)
+int	find_end_line(char *str, int *index)
 {
-	int	index;
-
 	if (!str)
 		return (0);
-	index = 0;
-	while (str[index])
+	while (str[*index])
 	{
-		if (str[index] == '\n')
+		if (str[*index] == '\n')
 			return (1);
-		index ++;
+		(*index) ++;
 	}
 	return (0);
 }
@@ -57,14 +54,16 @@ char	*get_next_line(int fd)
 	static char	*memory[OPEN_MAX];
 	char		*buf;
 	int			read_ret;
+	int			index;
 
-	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (0);
-	read_ret = 1;
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (ft_free_return(&memory[fd]));
-	while (!find_end_line(memory[fd]) && read_ret > 0)
+	read_ret = 1;
+	index = 0;
+	while (!find_end_line(memory[fd], &index) && read_ret > 0)
 	{
 		read_ret = read(fd, buf, BUFFER_SIZE);
 		if (read_ret >= 0)
