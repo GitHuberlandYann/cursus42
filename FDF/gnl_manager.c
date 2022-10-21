@@ -6,8 +6,18 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:50:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 15:51:20 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:49:51 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GNL/get_next_line.h"
+
+char	**get_map(void)
+{
+	char	**res;
+	int		fd;
+
+	fd = open("maps/42.fdf");
+	res = 0;
+	return (res);
+}
