@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:49 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 12:06:23 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:36:54 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	find_end_line(char *str, int *index)
 	{
 		if (str[*index] == '\n')
 			return (1);
-		(*index) ++;
+		(*index)++;
 	}
 	return (0);
 }
