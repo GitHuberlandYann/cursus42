@@ -6,13 +6,14 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 15:34:22 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:10:07 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-int	mlx_related_stuff(void);
+int		mlx_related_stuff(void);
+char	**get_map(char	*path);
 
 #endif

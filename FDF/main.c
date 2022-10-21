@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:27:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 15:35:14 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:10:59 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	main(void)
 {
+	char	**map;
+
+	map = get_map("maps/42.fdf");
 	mlx_related_stuff();
 	return (0);
 }
