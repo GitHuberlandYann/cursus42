@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:56 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 11:25:29 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:06:32 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *str)
 	return (res);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*res;
 	size_t	s1len;
@@ -38,7 +38,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	s2len = ft_strlen(s2);
 	res = malloc(sizeof(*res) * (s1len + s2len + 1));
 	if (!res)
-		return (0);
+		return (ft_free_return(&s1));
 	index = 0;
 	while (index < s1len)
 	{
@@ -46,7 +46,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		index ++;
 	}
 	if (s1)
-		free((char *)s1);
+		free(s1);
 	sub_index = 0;
 	while (sub_index <= s2len)
 		res[index ++] = s2[sub_index ++];
@@ -62,7 +62,7 @@ char	*ft_strdup(char **str)
 	len = (int)ft_strlen(*str);
 	res = malloc(sizeof(*res) * (len + 1));
 	if (!res)
-		return (0);
+		return (ft_free_return(str));
 	index = 0;
 	while (index < len)
 	{

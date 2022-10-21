@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:22:36 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 11:18:29 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:07:24 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*gnl_return(char **memory, int read_ret)
 	if (*memory && read_ret > 0)
 	{
 		line = ft_strcpy_until_nl(*memory);
+		if (!line)
+			return (ft_free_return(memory));
 		*memory = ft_strcpy_from_nl(memory);
 	}
 	else if (read_ret <= 0 && !(*memory)[0])
@@ -66,10 +68,7 @@ char	*get_next_line(int fd)
 	while (!find_end_line(memory[fd], &index) && read_ret > 0)
 	{
 		read_ret = read(fd, buf, BUFFER_SIZE);
-		if (read_ret >= 0)
-			buf[read_ret] = '\0';
-		else
-			buf[0] = '\0';
+		buf[read_ret * (read_ret >= 0)] = '\0';
 		memory[fd] = ft_strjoin(memory[fd], buf);
 		if (!memory[fd])
 			return (ft_free_return(&buf));
