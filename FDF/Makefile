@@ -6,15 +6,17 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/21 15:22:01 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/21 15:44:19 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = getmeoutofhere
 
-FILE = main_tester.c
+FILE = main mlx_manager
 
-OBJ = $(FILE:.c=.o)
+SRCS = $(addsuffix .c, $(FILE))
+
+OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
@@ -36,16 +38,16 @@ GNL = $(GNL_PATH)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJS)
 	@make -C $(MLX_DIR)
 	@make -C $(GNL_DIR)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(MLX) $(GNL)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX) $(GNL)
 	make fclean -C $(GNL_DIR)
 	make clean -C $(MLX_DIR)
-	rm -f $(OBJ)
+	rm -f $(OBJS)
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJS)
 	rm -f $(NAME)
 
 .PHONY: all

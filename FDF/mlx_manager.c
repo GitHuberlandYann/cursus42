@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_tester.c                                      :+:      :+:    :+:   */
+/*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 14:21:39 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/21 15:35:55 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	do_stuff(void	*mlx_ptr, void *win_ptr, int sx, int sy)
 {
 	int	x;
 	int	y;
-	int	color; //0x00RRGGBB
+	int	color;
 
 	x = 0;
 	y = 0;
-	color = 0x000000FF;
+	color = 0x000000FF; //0x00RRGGBB
 	while (x < sx)
 	{
 		y = 0;
@@ -34,7 +34,7 @@ void	do_stuff(void	*mlx_ptr, void *win_ptr, int sx, int sy)
 	}
 }
 
-int	main(void)
+int	mlx_related_stuff(void)
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -57,9 +57,9 @@ int	main(void)
 			mlx_destroy_window(mlx_ptr, win_ptr);
 		}
 		else
-			printf("mlx_new_window failed.\n");
+			return (printf("mlx_new_window failed.\n"));
 	}
 	else
-		printf("mlx_init failed.\n");
+		return (printf("mlx_init failed.\n"));
 	return (0);
 }
