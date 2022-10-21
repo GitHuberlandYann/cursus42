@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 16:16:35 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/20 15:18:52 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 16:47:08 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	ft_main_loop(const char *str, t_parse *current, va_list *ap)
 			else
 				break ;
 		}
+		if (res < 0)
+			return (-1);
 		index ++;
 	}
 	return (res);

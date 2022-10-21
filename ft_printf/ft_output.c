@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:19:23 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/18 15:39:34 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/20 16:51:18 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,26 @@
 
 void	ft_putchar(unsigned char c, int *res)
 {
-	write(1, &c, 1);
+	ssize_t	ret;
+
+	ret = write(1, &c, 1);
 	(*res)++;
+	if (ret == -1)
+		*res = -1000000;
 }
 
 void	ft_putstr(char *str, int *res)
 {
-	int	len;
+	int		len;
+	ssize_t	ret;
 
 	if (!str)
 		str = "(null)";
 	len = ft_strlen(str);
-	write(1, str, len);
+	ret = write(1, str, len);
 	(*res) += len;
+	if (ret == -1)
+		*res = -1000000;
 }
 
 void	ft_putnbr2(int nb, int *res)
