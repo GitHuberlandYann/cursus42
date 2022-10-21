@@ -6,13 +6,13 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:49 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 14:36:54 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/21 15:08:20 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	find_end_line(char *str, int *index)
+static int	find_end_line(char *str, int *index)
 {
 	if (!str)
 		return (0);
@@ -33,7 +33,7 @@ char	*ft_free_return(char **str)
 	return (0);
 }
 
-char	*gnl_return(char **memory, int read_ret)
+static char	*gnl_return(char **memory, int read_ret)
 {
 	char	*line;
 
