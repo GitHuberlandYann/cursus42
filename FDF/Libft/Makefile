@@ -6,11 +6,11 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/11 08:48:24 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/21 15:14:21 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/21 16:56:18 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = gnl.a
+NAME = libft.a
 
 SRCS = get_next_line_utils.c get_next_line.c
 

@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/21 15:49:29 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/21 16:57:21 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,11 +28,11 @@ MLX_PATH = ${MLX_DIR}/libmlx.a
 
 MLX = -framework OpenGl -framework AppKit $(MLX_PATH)
 
-# /* ~~~~~~~ INCLUDING GNL ~~~~~~~~~~~~ */
-GNL_DIR = GNL
-GNL_PATH = $(GNL_DIR)/gnl.a
+# /* ~~~~~~~ INCLUDING Libft ~~~~~~~~~~ */
+LIBFT_DIR = Libft
+LIBFT_PATH = $(LIBFT_DIR)/libft.a
 
-GNL = $(GNL_PATH)
+LIBFT = $(LIBFT_PATH)
 
 # /* ~~~~~~~ RULING AND STUFF ~~~~~~~~~ */
 
@@ -40,9 +40,9 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(MLX_DIR)
-	@make -C $(GNL_DIR)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX) $(GNL)
-	make fclean -C $(GNL_DIR)
+	@make -C $(LIBFT_DIR)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX) $(LIBFT)
+	make fclean -C $(LIBFT_DIR)
 	make clean -C $(MLX_DIR)
 	rm -f $(OBJS)
 
