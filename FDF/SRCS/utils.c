@@ -12,6 +12,40 @@
 
 #include "fdf.h"
 
+int	***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a)
+{
+	int		***res;
+	int		row;
+	int		col;
+	float	xtmp;
+	float	ytmp;
+
+	res = malloc(sizeof(*res) * map->maplen);
+	if (!res)
+		return (0);
+	row = 0;
+	while (row < map->maplen)
+	{
+		res[row] = malloc(sizeof(*res[row]) * map->rowlen);
+		if (!res[row])
+			return (0); //and free but fkit for now
+		// res[row][col] = malloc(sizeof(*res[row][col] * 2));
+		// if (!res[row][col])
+		// 	return (0);
+		col = 0;
+		while (col < map->rowlen)
+		{
+			xtmp = ft_get_xcase(col, map->rowlen, mlx);
+			ytmp = ft_get_ycase(row, map->maplen, mlx);
+			res[row][col][0] = ft_rotation_x(a, xtmp, ytmp, map->map[row][col]);
+			res[row][col][1] = ft_rotation_y(a, xtmp, ytmp, map->map[row][col]);
+			++col;
+		}
+		++row;
+	}
+	return (res);
+}
+
 void	ft_display_lst_content(t_list *lst)
 {
 	while (lst)

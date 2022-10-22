@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:27:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/22 18:26:49 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/22 20:02:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int ac, char **av)
 		if (!map)
 			return (ft_free_return(angles, 0));
 		ft_display_map_content(map);
-		//mlx_related_stuff();
+		//mlx_related_stuff(map, angles);
 		ft_free_return(angles, map);
 	}
 	else
