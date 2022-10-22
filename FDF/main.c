@@ -3,20 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:27:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 17:10:59 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/22 13:49:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	char	**map;
+	t_map	*map;
 
-	map = get_map("maps/42.fdf");
-	mlx_related_stuff();
+	if (ac == 2)
+	{
+		map = get_map(av[1]);
+		ft_display_map_content(map);
+		//mlx_related_stuff();
+	}
+	else
+		ft_putstr("Program needs 1 argument of type <maps/*>\n");
 	return (0);
 }

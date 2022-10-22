@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/21 16:57:21 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/22 14:23:02 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = getmeoutofhere
 
-FILE = main mlx_manager
+FILE = main gnl_manager utils # mlx_manager
 
 SRCS = $(addsuffix .c, $(FILE))
 
@@ -39,15 +39,17 @@ LIBFT = $(LIBFT_PATH)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@make -C $(MLX_DIR)
+	# @make -C $(MLX_DIR)
 	@make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT) #$(MLX) $(LIBFT)
 	make fclean -C $(LIBFT_DIR)
-	make clean -C $(MLX_DIR)
+	# make clean -C $(MLX_DIR)
 	rm -f $(OBJS)
 
 clean:
 	rm -f $(OBJS)
+
+fclean: clean
 	rm -f $(NAME)
 
-.PHONY: all
+.PHONY: all clean fclean

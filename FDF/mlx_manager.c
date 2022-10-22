@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 15:35:55 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/22 14:29:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx/mlx.h"
-#include <stdio.h>
+#include "fdf.h"
 
 void	do_stuff(void	*mlx_ptr, void *win_ptr, int sx, int sy)
 {
@@ -57,9 +57,9 @@ int	mlx_related_stuff(void)
 			mlx_destroy_window(mlx_ptr, win_ptr);
 		}
 		else
-			return (printf("mlx_new_window failed.\n"));
+			ft_putstr("mlx_new_window failed.\n");
 	}
 	else
-		return (printf("mlx_init failed.\n"));
+		ft_putstr("mlx_init failed.\n");
 	return (0);
 }
