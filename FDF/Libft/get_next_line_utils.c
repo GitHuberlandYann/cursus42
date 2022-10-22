@@ -3,25 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:56 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 16:58:07 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/22 11:11:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_strlen(const char *str)
+static char	*ft_free_return(char **str)
 {
-	size_t	res;
-
-	if (!str)
-		return (0);
-	res = 0;
-	while (str[res])
-		res ++;
-	return (res);
+	if (*str)
+		free(*str);
+	*str = 0;
+	return (0);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

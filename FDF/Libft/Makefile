@@ -3,16 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/11 08:48:24 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/21 16:56:18 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/22 12:29:40 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-SRCS = get_next_line_utils.c get_next_line.c
+FILES = get_next_line_utils get_next_line \
+		ft_strlen ft_arraylen ft_split ft_atoi \
+		ft_printf ft_printf_output ft_printf_output2 ft_printf_utils \
+		ft_lstadd_back ft_lstclear ft_lstdelone ft_lstnew
+
+SRCS = $(addsuffix .c, $(FILES))
 
 OBJS = $(SRCS:.c=.o)
 
@@ -23,16 +28,16 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar -rcs $(NAME) $(OBJS)
+	@ar -rcs $(NAME) $(OBJS)
 
 .c.o:
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 clean:
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 

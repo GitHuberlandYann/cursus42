@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:49 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/21 16:58:12 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/22 12:54:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	find_end_line(char *str, int *index)
 	return (0);
 }
 
-char	*ft_free_return(char **str)
+static char	*ft_free_return(char **str)
 {
 	if (*str)
 		free(*str);
@@ -58,8 +58,8 @@ char	*get_next_line(int fd)
 	int			read_ret;
 	int			index;
 
-	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
-		return (0);
+	//if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0) <-- guess it's not the same on windows
+	//	return (0);
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (ft_free_return(&memory));
