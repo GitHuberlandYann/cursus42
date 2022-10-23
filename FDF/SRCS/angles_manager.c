@@ -32,23 +32,33 @@ int	ft_rotation_y(t_angles *a, float x, float y, float value)
 	return (res);
 }
 
-float	ft_get_xcase(int column, int nbr, t_mlx *mlx)
+float	ft_get_xcase(int column, int nbr, int size_x)
 {
 	float	res;
 	float	case_width;
 
-	case_width = mlx->size_x / (nbr + 4);
+	case_width = size_x / (nbr + 8);
 	res = (2 + column) * case_width;
 	return (res);
 }
 
-float	ft_get_ycase(int row, int nbr, t_mlx *mlx)
+float	ft_get_ycase(int row, int nbr, int size_y)
 {
 	float	res;
 	float	case_width;
 
-	case_width = mlx->size_y / (nbr + 4);
+	case_width = size_y / (nbr);
 	res = (2 + row) * case_width;
+	return (res);
+}
+
+float	ft_get_vcase(int row, int nbr, int size_y)
+{
+	float	res;
+	float	case_width;
+
+	case_width = size_y / (nbr);
+	res = -((size_y / 6) * row) / case_width;
 	return (res);
 }
 

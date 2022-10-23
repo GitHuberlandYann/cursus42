@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 15:08:19 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:11:46 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,9 @@ typedef struct s_angles
 t_angles	*angles_init(float alpha, float beta, float gamma);
 int			ft_rotation_x(t_angles *a, float row, float column, float value);
 int			ft_rotation_y(t_angles *a, float row, float column, float value);
-float		ft_get_xcase(int column, int nbr, t_mlx *mlx);
-float		ft_get_ycase(int row, int nbr, t_mlx *mlx);
+float		ft_get_xcase(int column, int nbr, int size_x);
+float		ft_get_ycase(int row, int nbr, int size_y);
+float		ft_get_vcase(int value, int nbr, int size_y);
 
 int			***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a);
 
