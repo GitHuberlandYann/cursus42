@@ -36,8 +36,8 @@ int	key_pressed(int keycode, void *param)
 	t_mlx	*mlx;
 
 	mlx = param;
-	ft_printf("key <%c> pressed on window %s\n", keycode, mlx->title);
-	if (keycode == 'E')
+	ft_printf("key <%d> pressed on window %s\n", keycode, mlx->title);
+	if (keycode == KEY_ESC)
 		mlx_exit(mlx);
 	return (0);
 }

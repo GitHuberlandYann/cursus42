@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 14:41:23 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/23 15:08:19 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,45 @@ enum {	//events supported on mac (only a fraction of what can be found on x11)
 	ON_MOUSEMOVE = 6,
 	ON_EXPOSE = 12,
 	ON_DESTROY = 17
+};
+
+enum { //mouse buttons
+	MOUSE_LEFT = 1,
+	MOUSE_RIGHT = 2,
+	MOUSE_WHEEL_DOWN = 4,
+	MOUSE_WHEEL_UP = 5,
+	MOUSE_WHEEL_RIGHT = 6,
+	MOUSE_WHEEL_LEFT = 7
+};
+
+enum {
+	KEY_A = 0,
+	KEY_B = 11,
+	KEY_C = 8,
+	KEY_D = 2,
+	KEY_E = 14,
+	KEY_F = 3,
+	KEY_G = 5,
+	KEY_H = 4,
+	KEY_I = 34,
+	KEY_J = 38,
+	KEY_K = 40,
+	KEY_L = 37,
+	KEY_M = 46,
+	KEY_N = 45,
+	KEY_O = 31,
+	KEY_P = 35,
+	KEY_Q = 12,
+	KEY_R = 15,
+	KEY_S = 1,
+	KEY_T = 17,
+	KEY_U = 32,
+	KEY_V = 9,
+	KEY_W = 13,
+	KEY_X = 7,
+	KEY_Y = 16,
+	KEY_Z = 6,
+	KEY_ESC = 53
 };
 
 typedef struct s_map
