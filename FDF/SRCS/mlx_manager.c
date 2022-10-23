@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/22 22:17:19 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/23 14:38:18 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx/mlx.h"
+#include "../mlx/mlx.h"
 #include "fdf.h"
 
 static void	mlx_fill_background(t_mlx *mlx, int color) //color = 0x00RRGGBB
@@ -32,7 +32,7 @@ static void	mlx_fill_background(t_mlx *mlx, int color) //color = 0x00RRGGBB
 	}
 }
 
-static void	mlx_draw_line(int ax, int ay, int bx, int by)
+static void	mlx_draw_line(t_mlx *mlx, int ax, int ay, int bx, int by)
 {
 	float	pixelx;
 	float	pixely;
@@ -47,7 +47,6 @@ static void	mlx_draw_line(int ax, int ay, int bx, int by)
 	dy /= len;
 	pixelx = ax;
 	pixely = ay;
-	count = 0;
 	while (len > 0)
 	{
 		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, pixelx, pixely, 0x0000FF00);
@@ -60,9 +59,9 @@ static void	mlx_draw_line(int ax, int ay, int bx, int by)
 static void	mlx_link_node(t_mlx *mlx, t_map *map, int ***copy, int r, int c)
 {
 	if (c < map->rowlen - 1)
-		mlx_draw_line(copy[r][c][0], copy[r][c][1], copy[r][c + 1][0], copy[r][c + 1][1]);
+		mlx_draw_line(mlx, copy[r][c][0], copy[r][c][1], copy[r][c + 1][0], copy[r][c + 1][1]);
 	if (r < map->maplen - 1)
-		mlx_draw_line(copy[r][c][0], copy[r][c][1], copy[r + 1][c][0], copy[r + 1][c][1]);
+		mlx_draw_line(mlx, copy[r][c][0], copy[r][c][1], copy[r + 1][c][0], copy[r + 1][c][1]);
 }
 
 static void	mlx_display_map(t_mlx *mlx, t_map *map, t_angles *angles)

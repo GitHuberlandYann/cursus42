@@ -10,12 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../mlx/mlx.h"
 #include "fdf.h"
 
-void	mlx_exit(void *params)
+int	mlx_exit(void *param)
 {
 	t_mlx	*mlx;
 
+	mlx = param;
 	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
 	exit(EXIT_SUCCESS); //+ some of those frees ?
 }

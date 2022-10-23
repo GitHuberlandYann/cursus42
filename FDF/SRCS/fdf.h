@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/22 22:01:44 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/23 14:41:23 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ float		ft_get_ycase(int row, int nbr, t_mlx *mlx);
 
 int			***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a);
 
-int			mlx_related_stuff(void);
+int			mlx_related_stuff(t_map *map, t_angles *angles);
 int			mouse_button_pressed(int button, int x, int y, void *param);
 int			key_pressed(int keycode, void *param);
 t_map 		*get_map(char	*path);
-void		mlx_exit(void *params);
+int			mlx_exit(void *param);
 
 void		ft_display_map_content(t_map *res);
 void		ft_display_lst_content(t_list *lst);
