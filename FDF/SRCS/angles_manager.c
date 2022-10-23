@@ -61,16 +61,3 @@ float	ft_get_vcase(int row, int nbr, int size_y)
 	res = -((size_y / 6) * row) / case_width;
 	return (res);
 }
-
-void	angles_init(t_angles *a, float alpha, float beta, float gamma)
-{
-	a->alpha = (alpha * M_PI) / 180;
-	a->beta = (beta * M_PI) / 180;
-	a->gamma = (gamma * M_PI) / 180;
-	a->sa = sin(a->alpha);
-	a->ca = cos(a->alpha);
-	a->sb = sin(a->beta);
-	a->cb = cos(a->beta);
-	a->sg = sin(a->gamma);
-	a->cg = cos(a->gamma);
-}

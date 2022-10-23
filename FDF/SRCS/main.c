@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:27:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 16:35:14 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/23 17:53:04 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ static int	ft_free_return(t_angles *angles, t_map *map)
 		free(map);
 	}
 	return (-1);
+}
+
+static void	angles_init(t_angles *a, float alpha, float beta, float gamma)
+{
+	a->alpha = (alpha * M_PI) / 180;
+	a->beta = (beta * M_PI) / 180;
+	a->gamma = (gamma * M_PI) / 180;
+	a->sa = sin(a->alpha);
+	a->ca = cos(a->alpha);
+	a->sb = sin(a->beta);
+	a->cb = cos(a->beta);
+	a->sg = sin(a->gamma);
+	a->cg = cos(a->gamma);
 }
 
 int	main(int ac, char **av)

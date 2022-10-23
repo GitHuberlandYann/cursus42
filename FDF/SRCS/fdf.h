@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 16:48:04 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/23 17:48:25 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ enum {
 typedef struct s_map
 {
 	int	**map;
-	int maplen;
-    int rowlen;
+	int	maplen;
+	int	rowlen;
 }				t_map;
 
 typedef struct s_mlx
@@ -106,7 +106,6 @@ typedef struct s_fdf
 	t_angles	*angles;
 }				t_fdf;
 
-void		angles_init(t_angles *a, float alpha, float beta, float gamma);
 int			ft_rotation_x(t_angles *a, float row, float column, float value);
 int			ft_rotation_y(t_angles *a, float row, float column, float value);
 float		ft_get_xcase(int column, int nbr, int size_x);
@@ -118,7 +117,7 @@ int			***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a);
 int			mlx_related_stuff(t_fdf *fdf, char *title);
 int			mouse_button_pressed(int button, int x, int y, void *param);
 int			key_pressed(int keycode, void *param);
-t_map 		*get_map(char	*path);
+t_map		*get_map(char	*path);
 int			mlx_exit(void *param);
 void		mlx_display_map(t_fdf *fdf);
 void		mlx_fill_background(t_mlx *mlx, int color);

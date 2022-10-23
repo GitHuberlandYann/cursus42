@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:50:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/22 13:49:17 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/23 17:49:53 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static t_map	*ft_parselst(t_map *res, t_list *lst)
 {
 	int		index;
 	char	**split;
-	
+
 	//ft_printf("entering parselist, size = %d\n", res->maplen);
 	res->map = malloc(sizeof(*res->map) * (res->maplen));
 	if (!res->map)
@@ -85,7 +85,6 @@ static t_map	*ft_parselst(t_map *res, t_list *lst)
 t_map	*get_map(char	*path)
 {
 	int		fd;
-	int		size;
 	t_map	*res;
 	char	*line;
 	t_list	*lst;
@@ -95,16 +94,14 @@ t_map	*get_map(char	*path)
 	if (!res)
 		return (0);
 	fd = open(path, O_RDONLY);
-	//ft_printf("fd : %d\n", fd);
-	size = 0;
+	res->maplen = 0;
 	lst = 0;
 	if (fd)
 	{
 		line = get_next_line(fd);
 		while (line && line[0])
 		{
-			//ft_printf("line at index %d : %s", size, line);
-			++size;
+			++res->maplen;
 			tmp = ft_lstnew(line);
 			if (!tmp)
 				return (ft_free_return(&lst, 0, 0));
@@ -113,9 +110,6 @@ t_map	*get_map(char	*path)
 		}
 		close(fd);
 	}
-	//ft_display_lst_content(lst);
-	res->maplen = size;
 	res = ft_parselst(res, lst);
-	//ft_display_map_content(res);
 	return (res);
 }

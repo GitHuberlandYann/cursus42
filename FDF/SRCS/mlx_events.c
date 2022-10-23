@@ -27,7 +27,7 @@ int	mouse_button_pressed(int button, int x, int y, void *param)
 	t_mlx	*mlx;
 
 	mlx = param;
-    ft_printf("mouse button %d pressed at location (%d, %d) on window %s\n", button, x, y, mlx->title);
+	ft_printf("mouse button %d pressed at location (%d, %d) on window %s\n", button, x, y, mlx->title);
 	return (0);
 }
 #include <stdio.h>
