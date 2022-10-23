@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 16:05:18 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:15:40 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	mlx_display_map(t_mlx *mlx, t_map *map, t_angles *angles)
 	}
 }
 
-int	mlx_related_stuff(t_map *map, t_angles *angles)
+int	mlx_related_stuff(t_map *map, t_angles *angles, char *title)
 {
 	t_mlx	*mlx;
 
@@ -100,7 +100,7 @@ int	mlx_related_stuff(t_map *map, t_angles *angles)
 	{
 		mlx->size_x = 612;
 		mlx->size_y = 306;
-		mlx->title = "<insert title>";
+		mlx->title = title;
 		mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, mlx->size_x, mlx->size_y, mlx->title);
 		if (mlx->win_ptr)
 		{

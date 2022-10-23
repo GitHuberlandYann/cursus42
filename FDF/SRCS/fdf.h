@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 16:11:46 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:15:53 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ float		ft_get_vcase(int value, int nbr, int size_y);
 
 int			***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a);
 
-int			mlx_related_stuff(t_map *map, t_angles *angles);
+int			mlx_related_stuff(t_map *map, t_angles *angles, char *title);
 int			mouse_button_pressed(int button, int x, int y, void *param);
 int			key_pressed(int keycode, void *param);
 t_map 		*get_map(char	*path);
