@@ -62,21 +62,15 @@ float	ft_get_vcase(int row, int nbr, int size_y)
 	return (res);
 }
 
-t_angles	*angles_init(float alpha, float beta, float gamma)
+void	angles_init(t_angles *a, float alpha, float beta, float gamma)
 {
-	t_angles	*res;
-
-	res = malloc(sizeof(*res));
-	if (!res)
-		return (0);
-	res->alpha = (alpha * M_PI) / 180;
-	res->beta = (beta * M_PI) / 180;
-	res->gamma = (gamma * M_PI) / 180;
-	res->sa = sin(res->alpha);
-	res->ca = cos(res->alpha);
-	res->sb = sin(res->beta);
-	res->cb = cos(res->beta);
-	res->sg = sin(res->gamma);
-	res->cg = cos(res->gamma);
-	return (res);
+	a->alpha = (alpha * M_PI) / 180;
+	a->beta = (beta * M_PI) / 180;
+	a->gamma = (gamma * M_PI) / 180;
+	a->sa = sin(a->alpha);
+	a->ca = cos(a->alpha);
+	a->sb = sin(a->beta);
+	a->cb = cos(a->beta);
+	a->sg = sin(a->gamma);
+	a->cg = cos(a->gamma);
 }

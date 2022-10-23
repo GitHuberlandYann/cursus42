@@ -6,14 +6,14 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 16:15:40 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:47:45 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mlx/mlx.h"
 #include "fdf.h"
 
-static void	mlx_fill_background(t_mlx *mlx, int color) //color = 0x00RRGGBB
+void	mlx_fill_background(t_mlx *mlx, int color) //color = 0x00RRGGBB
 {
 	int	x;
 	int	y;
@@ -64,52 +64,48 @@ static void	mlx_link_node(t_mlx *mlx, t_map *map, int ***copy, int r, int c)
 		mlx_draw_line(mlx, copy[r][c][0], copy[r][c][1], copy[r + 1][c][0], copy[r + 1][c][1]);
 }
 
-static void	mlx_display_map(t_mlx *mlx, t_map *map, t_angles *angles)
+void	mlx_display_map(t_fdf *fdf)
 {
 	int	***copy;
 	int	row;
 	int	col;
 
-	copy = ft_mapdup(mlx, map, angles);
+	copy = ft_mapdup(fdf->mlx, fdf->map, fdf->angles);
 	if (!copy)
-		mlx_exit(mlx);
+		mlx_exit(fdf->mlx);
 	row = 0;
-	while (row < map->maplen)
+	while (row < fdf->map->maplen)
 	{
 		col = 0;
-		while (col < map->rowlen)
+		while (col < fdf->map->rowlen)
 		{
-			mlx_link_node(mlx, map, copy, row, col);
+			mlx_link_node(fdf->mlx, fdf->map, copy, row, col);
 			++col;
 		}
 		++row;
 	}
 }
 
-int	mlx_related_stuff(t_map *map, t_angles *angles, char *title)
+int	mlx_related_stuff(t_fdf *fdf, char *title)
 {
-	t_mlx	*mlx;
-
-	(void)map;
-	(void)angles;
-	mlx = malloc(sizeof(*mlx));
-	if (!mlx)
+	fdf->mlx = malloc(sizeof(*fdf->mlx));
+	if (!fdf->mlx)
 		return (-1);
-	mlx->mlx_ptr = mlx_init();
-	if (mlx->mlx_ptr)
+	fdf->mlx->mlx_ptr = mlx_init();
+	if (fdf->mlx->mlx_ptr)
 	{
-		mlx->size_x = 612;
-		mlx->size_y = 306;
-		mlx->title = title;
-		mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, mlx->size_x, mlx->size_y, mlx->title);
-		if (mlx->win_ptr)
+		fdf->mlx->size_x = 612;
+		fdf->mlx->size_y = 306;
+		fdf->mlx->title = title;
+		fdf->mlx->win_ptr = mlx_new_window(fdf->mlx->mlx_ptr, fdf->mlx->size_x, fdf->mlx->size_y, fdf->mlx->title);
+		if (fdf->mlx->win_ptr)
 		{
-			mlx_fill_background(mlx, 0x0);
-			mlx_display_map(mlx, map, angles);
-			mlx_mouse_hook(mlx->win_ptr, mouse_button_pressed, mlx);
-			mlx_key_hook(mlx->win_ptr, key_pressed, mlx);
-			mlx_hook(mlx->win_ptr, ON_DESTROY, 0, &mlx_exit, mlx); //x_mask not supported
-			mlx_loop(mlx->mlx_ptr);
+			mlx_fill_background(fdf->mlx, 0x0);
+			mlx_display_map(fdf);
+			mlx_mouse_hook(fdf->mlx->win_ptr, mouse_button_pressed, fdf->mlx);
+			mlx_key_hook(fdf->mlx->win_ptr, key_pressed, fdf);
+			mlx_hook(fdf->mlx->win_ptr, ON_DESTROY, 0, &mlx_exit, fdf->mlx); //x_mask not supported
+			mlx_loop(fdf->mlx->mlx_ptr);
 		}
 		else
 			ft_putstr("mlx_new_window failed.\n");

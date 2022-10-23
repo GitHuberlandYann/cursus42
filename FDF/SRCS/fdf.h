@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 16:15:53 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:48:04 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,14 @@ typedef struct s_angles
 	float	cg;
 }				t_angles;
 
-t_angles	*angles_init(float alpha, float beta, float gamma);
+typedef struct s_fdf
+{
+	t_map		*map;
+	t_mlx		*mlx;
+	t_angles	*angles;
+}				t_fdf;
+
+void		angles_init(t_angles *a, float alpha, float beta, float gamma);
 int			ft_rotation_x(t_angles *a, float row, float column, float value);
 int			ft_rotation_y(t_angles *a, float row, float column, float value);
 float		ft_get_xcase(int column, int nbr, int size_x);
@@ -108,11 +115,13 @@ float		ft_get_vcase(int value, int nbr, int size_y);
 
 int			***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a);
 
-int			mlx_related_stuff(t_map *map, t_angles *angles, char *title);
+int			mlx_related_stuff(t_fdf *fdf, char *title);
 int			mouse_button_pressed(int button, int x, int y, void *param);
 int			key_pressed(int keycode, void *param);
 t_map 		*get_map(char	*path);
 int			mlx_exit(void *param);
+void		mlx_display_map(t_fdf *fdf);
+void		mlx_fill_background(t_mlx *mlx, int color);
 
 void		ft_display_map_content(t_map *res);
 void		ft_display_lst_content(t_list *lst);
