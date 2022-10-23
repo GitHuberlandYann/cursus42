@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 17:48:25 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/23 18:37:29 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <math.h>
 # include "../Libft/libft.h"
 
+# define WIN_SIZE_X 2560
+# define WIN_SIZE_Y 1440
 # define ISO_ALPHA 0
 # define ISO_BETA -35.264
 # define ISO_GAMMA -45
@@ -75,6 +77,7 @@ typedef struct s_map
 	int	**map;
 	int	maplen;
 	int	rowlen;
+	int	max_value;
 }				t_map;
 
 typedef struct s_mlx
@@ -110,7 +113,7 @@ int			ft_rotation_x(t_angles *a, float row, float column, float value);
 int			ft_rotation_y(t_angles *a, float row, float column, float value);
 float		ft_get_xcase(int column, int nbr, int size_x);
 float		ft_get_ycase(int row, int nbr, int size_y);
-float		ft_get_vcase(int value, int nbr, int size_y);
+float		ft_get_vcase(int value, int max_value, int nbr, int size_y);
 
 int			***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a);
 

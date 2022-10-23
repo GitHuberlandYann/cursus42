@@ -38,7 +38,7 @@ int	***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a)
 				return (0);
 			xtmp = ft_get_xcase(col, map->rowlen, mlx->size_x);
 			ytmp = ft_get_ycase(row, map->maplen, mlx->size_y);
-			vtmp = ft_get_vcase(map->map[row][col], map->maplen, mlx->size_y);
+			vtmp = ft_get_vcase(map->map[row][col], map->max_value, map->maplen, mlx->size_y);
 			res[row][col][0] = ft_rotation_x(a, xtmp, ytmp, vtmp);
 			res[row][col][1] = ft_rotation_y(a, xtmp, ytmp, vtmp);
 			++col;

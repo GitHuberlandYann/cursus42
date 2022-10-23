@@ -52,12 +52,15 @@ float	ft_get_ycase(int row, int nbr, int size_y)
 	return (res);
 }
 
-float	ft_get_vcase(int row, int nbr, int size_y)
+float	ft_get_vcase(int value, int max_value, int nbr, int size_y)
 {
 	float	res;
 	float	case_width;
 
 	case_width = size_y / (nbr);
-	res = -((size_y / 6) * row) / case_width;
+	if (value != 0)
+		res = -case_width * (max_value / value);
+	else
+		res = 0;
 	return (res);
 }
