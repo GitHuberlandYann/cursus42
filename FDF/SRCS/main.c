@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:27:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 17:53:04 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/24 11:34:59 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char **av)
 		fdf->map = get_map(av[1]);
 		if (!fdf->map)
 			return (ft_free_return(fdf->angles, 0));
-		ft_display_map_content(fdf->map);
+		//ft_display_map_content(fdf->map);
 		mlx_related_stuff(fdf, av[1]);
 	}
 	else

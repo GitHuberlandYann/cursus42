@@ -37,8 +37,8 @@ float	ft_get_xcase(int column, int nbr, int size_x)
 	float	res;
 	float	case_width;
 
-	case_width = size_x / (nbr + 8);
-	res = (2 + column) * case_width;
+	case_width = ((4 * size_x) / 6) / (nbr + 8);
+	res = (size_x / 6) + column * case_width;
 	return (res);
 }
 
@@ -48,7 +48,7 @@ float	ft_get_ycase(int row, int nbr, int size_y)
 	float	case_width;
 
 	case_width = size_y / (nbr);
-	res = (2 + row) * case_width;
+	res = (size_y / 6) + row * case_width;
 	return (res);
 }
 

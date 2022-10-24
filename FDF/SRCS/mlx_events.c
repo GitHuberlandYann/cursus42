@@ -30,13 +30,12 @@ int	mouse_button_pressed(int button, int x, int y, void *param)
 	ft_printf("mouse button %d pressed at location (%d, %d) on window %s\n", button, x, y, mlx->title);
 	return (0);
 }
-#include <stdio.h>
+
 int	key_pressed(int keycode, void *param)
 {
 	t_fdf	*fdf;
 
 	fdf = param;
-	//ft_printf("key <%d> pressed on window %s\n", keycode, fdf->mlx->title);
 	if (keycode == KEY_ESC)
 		mlx_exit(fdf->mlx);
 	else if (keycode == KEY_Z || keycode == KEY_N)
