@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:50:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 18:07:57 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:16:16 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static int	*ft_split_to_tab(char **split, t_map *map)
 	while (index < map->rowlen)
 	{
 		res[index] = ft_atoi(split[index]);
-		if (res[index] > map->max_value) //may want to add abs(res[index])
-			map->max_value = res[index];
+		if (abs(res[index]) > map->max_value) //may want to add abs(res[index])
+			map->max_value = abs(res[index]);
 		++index;
 	}
 	return (res);

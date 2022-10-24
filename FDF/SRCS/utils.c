@@ -77,3 +77,14 @@ void	ft_display_map_content(t_map *res)
 		++row;
 	}
 }
+
+int	ft_get_color(float value, int white)
+{
+	int	res;
+
+	if (white || !value)
+		return (0xffffff);
+	res = 0xff00;
+	res += (0xff0000) * value;
+	return (res);
+}

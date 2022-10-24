@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 18:37:29 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:46:49 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ float		ft_get_ycase(int row, int nbr, int size_y);
 float		ft_get_vcase(int value, int max_value, int nbr, int size_y);
 
 int			***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a);
+int			ft_get_color(float value, int white);
 
 int			mlx_related_stuff(t_fdf *fdf, char *title);
 int			mouse_button_pressed(int button, int x, int y, void *param);

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/23 17:58:39 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:13:58 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,16 @@ void	mlx_fill_background(t_mlx *mlx, int color) //color = 0x00RRGGBB
 		x ++;
 	}
 }
-
-static void	mlx_draw_line(t_mlx *mlx, int ax, int ay, int bx, int by)
+//#include <stdio.h>
+static void	mlx_draw_line(t_fdf *fdf, int ax, int ay, int bx, int by, int ar, int ac, int br, int bc)
 {
 	float	pixelx;
 	float	pixely;
 	float	dx;
 	float	dy;
 	float	len;
+	float	heighta;
+	float	deltaheightb;
 
 	dx = bx - ax;
 	dy = by - ay;
@@ -47,21 +49,27 @@ static void	mlx_draw_line(t_mlx *mlx, int ax, int ay, int bx, int by)
 	dy /= len;
 	pixelx = ax;
 	pixely = ay;
+	heighta = fdf->map->map[ar][ac] / fdf->map->max_value;
+	deltaheightb = fdf->map->map[br][bc] / fdf->map->max_value - heighta;
+	//printf("map ; %d, max : %d, heighta : %f, deltab : %f\n", fdf->map->map[ar][ac], fdf->map->max_value, heighta, deltaheightb);
+	deltaheightb /= len;
+	//printf("deltab : %f\n", deltaheightb);
 	while (len > 0)
 	{
-		mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, pixelx, pixely, 0xffffff);
+		mlx_pixel_put(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, pixelx, pixely, ft_get_color(heighta, 0));
 		pixelx += dx;
 		pixely += dy;
+		heighta += deltaheightb;
 		--len;
 	}
 }
 
-static void	mlx_link_node(t_mlx *mlx, t_map *map, int ***copy, int r, int c)
+static void	mlx_link_node(t_fdf *fdf, int ***copy, int r, int c)
 {
-	if (c < map->rowlen - 1)
-		mlx_draw_line(mlx, copy[r][c][0], copy[r][c][1], copy[r][c + 1][0], copy[r][c + 1][1]);
-	if (r < map->maplen - 1)
-		mlx_draw_line(mlx, copy[r][c][0], copy[r][c][1], copy[r + 1][c][0], copy[r + 1][c][1]);
+	if (c < fdf->map->rowlen - 1)
+		mlx_draw_line(fdf, copy[r][c][0], copy[r][c][1], copy[r][c + 1][0], copy[r][c + 1][1], r, c, r, c + 1);
+	if (r < fdf->map->maplen - 1)
+		mlx_draw_line(fdf, copy[r][c][0], copy[r][c][1], copy[r + 1][c][0], copy[r + 1][c][1], r, c, r + 1, c);
 }
 
 void	mlx_display_map(t_fdf *fdf)
@@ -79,7 +87,7 @@ void	mlx_display_map(t_fdf *fdf)
 		col = 0;
 		while (col < fdf->map->rowlen)
 		{
-			mlx_link_node(fdf->mlx, fdf->map, copy, row, col);
+			mlx_link_node(fdf, copy, row, col);
 			++col;
 		}
 		++row;
