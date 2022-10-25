@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/25 13:39:10 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:03:38 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ typedef struct s_mlx
 	t_img	*img;
 	int		size_x;
 	int		size_y;
+	int		offset_x;
+	int		offset_y;
 	char	*title;
 }				t_mlx;
 
@@ -122,11 +124,11 @@ typedef struct s_fdf
 
 int			ft_rotation_x(t_angles *a, float row, float column, float value);
 int			ft_rotation_y(t_angles *a, float row, float column, float value);
-float		ft_get_xcase(int column, int nbr, int size_x);
-float		ft_get_ycase(int row, int nbr, int size_y);
+float		ft_get_xcase(int column, int nbr, int size_x, int offset_x);
+float		ft_get_ycase(int row, int nbr, int size_y, int offset_y);
 float		ft_get_vcase(int value, int max_value, int nbr, int size_y, float ratio);
 
-int			***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a);
+int			***ft_mapdup(t_fdf *fdf);
 int			ft_get_color(float value, int white);
 
 int			mlx_related_stuff(t_fdf *fdf, char *title);

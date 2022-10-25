@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/25 13:24:14 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:06:20 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	mlx_clear_img(t_mlx *mlx, int color) //color = 0x00RRGGBB
 
 	x = 0;
 	y = 0;
-	while (x < mlx->size_x)
+	while (x < WIN_SIZE_X)
 	{
 		y = 0;
-		while (y < mlx->size_y)
+		while (y < WIN_SIZE_Y)
 		{
 			my_mlx_pixel_put(mlx->img, x, y, color);
 			y ++;
@@ -49,15 +49,10 @@ static void	mlx_draw_line(t_fdf *fdf, int ax, int ay, int bx, int by, int ar, in
 	pixelx = ax;
 	pixely = ay;
 	heighta = (float)fdf->map->map[ar][ac] / (float)fdf->map->max_value;
-	// printf("max : %d\n", fdf->map->max_value);
-	// printf("%d, %f ", fdf->map->map[ar][ac], heighta);
 	deltaheightb = (float)fdf->map->map[br][bc] / (float)fdf->map->max_value - heighta;
-	//printf("map ; %d, max : %d, heighta : %f, deltab : %f\n", fdf->map->map[ar][ac], fdf->map->max_value, heighta, deltaheightb);
 	deltaheightb /= len;
-	//printf("deltab : %f\n", deltaheightb);
 	while (len > 0)
 	{
-		//mlx_pixel_put(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, pixelx, pixely, ft_get_color(heighta, 0));
 		my_mlx_pixel_put(fdf->mlx->img, pixelx, pixely, ft_get_color(heighta, 0));
 		pixelx += dx;
 		pixely += dy;
@@ -80,7 +75,7 @@ void	mlx_map_img(t_fdf *fdf)
 	int	row;
 	int	col;
 
-	copy = ft_mapdup(fdf->mlx, fdf->map, fdf->angles);
+	copy = ft_mapdup(fdf);
 	if (!copy)
 		mlx_exit(fdf->mlx);
 	row = 0;
@@ -104,10 +99,12 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 	fdf->mlx->mlx_ptr = mlx_init();
 	if (fdf->mlx->mlx_ptr)
 	{
-		fdf->mlx->size_x = WIN_SIZE_X;
-		fdf->mlx->size_y = WIN_SIZE_Y;
+		fdf->mlx->size_x = WIN_SIZE_X / 2;
+		fdf->mlx->size_y = WIN_SIZE_Y / 2;
+		fdf->mlx->offset_x = WIN_SIZE_X / 4;
+		fdf->mlx->offset_y = WIN_SIZE_Y / 4;
 		fdf->mlx->title = title;
-		fdf->mlx->win_ptr = mlx_new_window(fdf->mlx->mlx_ptr, fdf->mlx->size_x, fdf->mlx->size_y, fdf->mlx->title);
+		fdf->mlx->win_ptr = mlx_new_window(fdf->mlx->mlx_ptr, WIN_SIZE_X, WIN_SIZE_Y, fdf->mlx->title);
 		if (fdf->mlx->win_ptr)
 		{
 			ft_create_img(fdf->mlx);

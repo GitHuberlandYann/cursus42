@@ -33,7 +33,7 @@ void	ft_create_img(t_mlx *mlx)
 	mlx->img = img;
 }
 
-int	***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a)
+int	***ft_mapdup(t_fdf *fdf)
 {
 	int		***res;
 	int		row;
@@ -42,26 +42,26 @@ int	***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a)
 	float	ytmp;
 	float	vtmp;
 
-	res = malloc(sizeof(*res) * map->maplen);
+	res = malloc(sizeof(*res) * fdf->map->maplen);
 	if (!res)
 		return (0);
 	row = 0;
-	while (row < map->maplen)
+	while (row < fdf->map->maplen)
 	{
-		res[row] = malloc(sizeof(*res[row]) * map->rowlen);
+		res[row] = malloc(sizeof(*res[row]) * fdf->map->rowlen);
 		if (!res[row])
 			return (0); //and free but fkit for now
 		col = 0;
-		while (col < map->rowlen)
+		while (col < fdf->map->rowlen)
 		{
 			res[row][col] = malloc(sizeof(*res[row][col]) * 2);
 			if (!res[row][col])
 				return (0);
-			xtmp = ft_get_xcase(col, map->rowlen, mlx->size_x);
-			ytmp = ft_get_ycase(row, map->maplen, mlx->size_y);
-			vtmp = ft_get_vcase(map->map[row][col], map->max_value, map->maplen, mlx->size_y, map->ratio);
-			res[row][col][0] = ft_rotation_x(a, xtmp, ytmp, vtmp);
-			res[row][col][1] = ft_rotation_y(a, xtmp, ytmp, vtmp);
+			xtmp = ft_get_xcase(col, fdf->map->rowlen, fdf->mlx->size_x, fdf->mlx->offset_x);
+			ytmp = ft_get_ycase(row, fdf->map->maplen, fdf->mlx->size_y, fdf->mlx->offset_y);
+			vtmp = ft_get_vcase(fdf->map->map[row][col], fdf->map->max_value, fdf->map->maplen, fdf->mlx->size_y, fdf->map->ratio);
+			res[row][col][0] = ft_rotation_x(fdf->angles, xtmp, ytmp, vtmp);
+			res[row][col][1] = ft_rotation_y(fdf->angles, xtmp, ytmp, vtmp);
 			++col;
 		}
 		++row;
