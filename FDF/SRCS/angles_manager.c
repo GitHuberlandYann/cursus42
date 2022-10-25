@@ -56,10 +56,12 @@ float	ft_get_vcase(int value, int max_value, int nbr, int size_y)
 {
 	float	res;
 	float	case_width;
+	float	ratio;
 
+	ratio = nbr / 10 + (nbr < 10);
 	case_width = size_y / (nbr);
 	if (value != 0)
-		res = -case_width * (max_value / value);
+		res = -case_width * ((float)value / (float)max_value) * ratio;
 	else
 		res = 0;
 	return (res);

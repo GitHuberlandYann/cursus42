@@ -77,14 +77,17 @@ void	ft_display_map_content(t_map *res)
 		++row;
 	}
 }
-
+//#include <stdio.h>
 int	ft_get_color(float value, int white)
 {
 	int	res;
 
 	if (white || !value)
 		return (0xffffff);
-	res = 0xff00;
-	res += (0xff0000) * value;
+	res = 0xffffff; //starting color
+	if (value > 0)
+		res += (0xff00ff - 0xffffff) * value; //endcolor
+	else
+		res += (0x80 - 0xffffff) * (-value);//printf("neg : %f\n", value);
 	return (res);
 }

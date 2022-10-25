@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/24 18:13:58 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:31:10 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ static void	mlx_draw_line(t_fdf *fdf, int ax, int ay, int bx, int by, int ar, in
 	dy /= len;
 	pixelx = ax;
 	pixely = ay;
-	heighta = fdf->map->map[ar][ac] / fdf->map->max_value;
-	deltaheightb = fdf->map->map[br][bc] / fdf->map->max_value - heighta;
+	heighta = (float)fdf->map->map[ar][ac] / (float)fdf->map->max_value;
+	// printf("max : %d\n", fdf->map->max_value);
+	// printf("%d, %f ", fdf->map->map[ar][ac], heighta);
+	deltaheightb = (float)fdf->map->map[br][bc] / (float)fdf->map->max_value - heighta;
 	//printf("map ; %d, max : %d, heighta : %f, deltab : %f\n", fdf->map->map[ar][ac], fdf->map->max_value, heighta, deltaheightb);
 	deltaheightb /= len;
 	//printf("deltab : %f\n", deltaheightb);
