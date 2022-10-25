@@ -12,6 +12,27 @@
 
 #include "fdf.h"
 
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
+
+void	ft_create_img(t_mlx *mlx)
+{
+	t_img	*img;
+
+	img = malloc(sizeof(*img));
+	if (!img)
+		mlx_exit(mlx);
+	img->img_ptr = mlx_new_image(mlx->mlx_ptr, WIN_SIZE_X, WIN_SIZE_Y);
+	img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, &img->line_length,
+								&img->endian);
+	mlx->img = img;
+}
+
 int	***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a)
 {
 	int		***res;

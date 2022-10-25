@@ -40,27 +40,30 @@ int	key_pressed(int keycode, void *param)
 		mlx_exit(fdf->mlx);
 	else if (keycode == KEY_Z || keycode == KEY_N)
 	{
-		mlx_fill_background(fdf->mlx, 0x0);
+		mlx_clear_img(fdf->mlx, 0x0);
 		fdf->angles->gamma += (M_PI / 180) * (1 - 2 * (keycode == KEY_N));
 		fdf->angles->sg = sin(fdf->angles->gamma);
 		fdf->angles->cg = cos(fdf->angles->gamma);
-		mlx_display_map(fdf);
+		mlx_map_img(fdf);
+		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 	}
 	else if (keycode == KEY_Y || keycode == KEY_T)
 	{
-		mlx_fill_background(fdf->mlx, 0x0);
+		mlx_clear_img(fdf->mlx, 0x0);
 		fdf->angles->beta += (M_PI / 180) * (1 - 2 * (keycode == KEY_T));
 		fdf->angles->sb = sin(fdf->angles->beta);
 		fdf->angles->cb = cos(fdf->angles->beta);
-		mlx_display_map(fdf);
+		mlx_map_img(fdf);
+		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 	}
 	else if (keycode == KEY_X || keycode == KEY_O)
 	{
-		mlx_fill_background(fdf->mlx, 0x0);
+		mlx_clear_img(fdf->mlx, 0x0);
 		fdf->angles->alpha += (M_PI / 180) * (1 - 2 * (keycode == KEY_O));
 		fdf->angles->sa = sin(fdf->angles->alpha);
 		fdf->angles->ca = cos(fdf->angles->alpha);
-		mlx_display_map(fdf);
+		mlx_map_img(fdf);
+		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 	}
 	return (0);
 }

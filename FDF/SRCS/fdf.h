@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/25 11:39:59 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:24:57 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include "../Libft/libft.h"
+#include "../mlx/mlx.h"
 
 # define WIN_SIZE_X 2560
 # define WIN_SIZE_Y 1440
@@ -80,10 +81,19 @@ typedef struct s_map
 	int	max_value;
 }				t_map;
 
+typedef struct	s_img {
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_img;
+
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	t_img	*img;
 	int		size_x;
 	int		size_y;
 	char	*title;
@@ -119,12 +129,16 @@ int			***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a);
 int			ft_get_color(float value, int white);
 
 int			mlx_related_stuff(t_fdf *fdf, char *title);
+void		ft_create_img(t_mlx *mlx);
+void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
 int			mouse_button_pressed(int button, int x, int y, void *param);
 int			key_pressed(int keycode, void *param);
 t_map		*get_map(char	*path);
 int			mlx_exit(void *param);
-void		mlx_display_map(t_fdf *fdf);
-void		mlx_fill_background(t_mlx *mlx, int color);
+
+void		mlx_map_img(t_fdf *fdf);
+void		mlx_clear_img(t_mlx *mlx, int color);
 
 void		ft_display_map_content(t_map *res);
 void		ft_display_lst_content(t_list *lst);

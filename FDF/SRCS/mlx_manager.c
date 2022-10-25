@@ -6,14 +6,13 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/25 11:31:10 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:24:14 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mlx/mlx.h"
 #include "fdf.h"
 
-void	mlx_fill_background(t_mlx *mlx, int color) //color = 0x00RRGGBB
+void	mlx_clear_img(t_mlx *mlx, int color) //color = 0x00RRGGBB
 {
 	int	x;
 	int	y;
@@ -25,7 +24,7 @@ void	mlx_fill_background(t_mlx *mlx, int color) //color = 0x00RRGGBB
 		y = 0;
 		while (y < mlx->size_y)
 		{
-			mlx_pixel_put(mlx->mlx_ptr, mlx->win_ptr, x, y, color);
+			my_mlx_pixel_put(mlx->img, x, y, color);
 			y ++;
 		}
 		x ++;
@@ -58,7 +57,8 @@ static void	mlx_draw_line(t_fdf *fdf, int ax, int ay, int bx, int by, int ar, in
 	//printf("deltab : %f\n", deltaheightb);
 	while (len > 0)
 	{
-		mlx_pixel_put(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, pixelx, pixely, ft_get_color(heighta, 0));
+		//mlx_pixel_put(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, pixelx, pixely, ft_get_color(heighta, 0));
+		my_mlx_pixel_put(fdf->mlx->img, pixelx, pixely, ft_get_color(heighta, 0));
 		pixelx += dx;
 		pixely += dy;
 		heighta += deltaheightb;
@@ -74,7 +74,7 @@ static void	mlx_link_node(t_fdf *fdf, int ***copy, int r, int c)
 		mlx_draw_line(fdf, copy[r][c][0], copy[r][c][1], copy[r + 1][c][0], copy[r + 1][c][1], r, c, r + 1, c);
 }
 
-void	mlx_display_map(t_fdf *fdf)
+void	mlx_map_img(t_fdf *fdf)
 {
 	int	***copy;
 	int	row;
@@ -110,8 +110,9 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 		fdf->mlx->win_ptr = mlx_new_window(fdf->mlx->mlx_ptr, fdf->mlx->size_x, fdf->mlx->size_y, fdf->mlx->title);
 		if (fdf->mlx->win_ptr)
 		{
-			mlx_fill_background(fdf->mlx, 0x0);
-			mlx_display_map(fdf);
+			ft_create_img(fdf->mlx);
+			mlx_map_img(fdf);
+			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 			mlx_mouse_hook(fdf->mlx->win_ptr, mouse_button_pressed, fdf->mlx);
 			mlx_key_hook(fdf->mlx->win_ptr, key_pressed, fdf);
 			mlx_hook(fdf->mlx->win_ptr, ON_DESTROY, 0, &mlx_exit, fdf->mlx); //x_mask not supported
