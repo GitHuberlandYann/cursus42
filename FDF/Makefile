@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/24 18:29:26 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/25 13:30:19 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,11 +45,10 @@ $(NAME): $(OBJS)
 	@make -C $(MLX_DIR)
 	@make -C $(LIBFT_DIR)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX) $(LIBFT) $(MATH)
-	# make fclean -C $(LIBFT_DIR)
-	# make clean -C $(MLX_DIR)
-	# rm -f $(OBJS)
 
 clean:
+	make fclean -C $(LIBFT_DIR)
+	make clean -C $(MLX_DIR)
 	rm -f $(OBJS)
 
 fclean: clean
