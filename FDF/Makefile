@@ -6,13 +6,13 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/25 13:30:19 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/25 19:18:46 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = getmeoutofhere
 
-FILE = main gnl_manager angles_manager utils mlx_manager mlx_events
+FILE = main gnl_manager angles_manager utils mlx_utils mlx_manager mlx_events
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILE)))
 

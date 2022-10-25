@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/25 18:06:20 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/25 20:14:25 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ static void	mlx_draw_line(t_fdf *fdf, int ax, int ay, int bx, int by, int ar, in
 	float	pixely;
 	float	dx;
 	float	dy;
+	float	m;
 	float	len;
 	float	heighta;
 	float	deltaheightb;
 
 	dx = bx - ax;
 	dy = by - ay;
+	m = dy / dx;
 	len = sqrt(dx * dx + dy * dy);
 	dx /= len;
 	dy /= len;
@@ -50,12 +52,20 @@ static void	mlx_draw_line(t_fdf *fdf, int ax, int ay, int bx, int by, int ar, in
 	pixely = ay;
 	heighta = (float)fdf->map->map[ar][ac] / (float)fdf->map->max_value;
 	deltaheightb = (float)fdf->map->map[br][bc] / (float)fdf->map->max_value - heighta;
+	if (!fdf->map->max_value)
+	{
+		heighta = 0;
+		deltaheightb = 0;
+	}
 	deltaheightb /= len;
 	while (len > 0)
 	{
 		my_mlx_pixel_put(fdf->mlx->img, pixelx, pixely, ft_get_color(heighta, 0));
 		pixelx += dx;
-		pixely += dy;
+		if (dx)
+			pixely = m * (pixelx - ax) + ay;
+		else
+			pixely += dy;
 		heighta += deltaheightb;
 		--len;
 	}
@@ -108,6 +118,7 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 		if (fdf->mlx->win_ptr)
 		{
 			ft_create_img(fdf->mlx);
+			//ft_create_overlay(fdf->mlx);
 			mlx_map_img(fdf);
 			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 			mlx_mouse_hook(fdf->mlx->win_ptr, mouse_button_pressed, fdf->mlx);

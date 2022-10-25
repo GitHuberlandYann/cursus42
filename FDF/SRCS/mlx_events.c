@@ -37,7 +37,7 @@ int	key_pressed(int keycode, void *param)
 
 	fdf = param;
 	//printf("keycode : %d\n", keycode);
-	if (keycode == KEY_ESC)
+	if (keycode == KEY_ESC || keycode == KEY_Q)
 		mlx_exit(fdf->mlx);
 	else if (keycode == KEY_Z || keycode == KEY_N)
 	{
@@ -70,6 +70,8 @@ int	key_pressed(int keycode, void *param)
 	{
 		mlx_clear_img(fdf->mlx, 0x0);
 		fdf->map->ratio += 0.5 * (1 - 2 * (keycode == KEY_E));
+		if (fdf->map->ratio > -0.5 && fdf->map->ratio < 0.5)
+			fdf->map->ratio = 0;
 		mlx_map_img(fdf);
 		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 	}
@@ -92,6 +94,8 @@ int	key_pressed(int keycode, void *param)
 		mlx_clear_img(fdf->mlx, 0x0);
 		fdf->mlx->size_x += 100 * (1 - 2 * (keycode == KEY_MINUS));
 		fdf->mlx->size_y += 100 * (1 - 2 * (keycode == KEY_MINUS));
+		fdf->mlx->offset_x += 50 * (1 - 2 * (keycode == KEY_PLUS));
+		fdf->mlx->offset_y += 50 * (1 - 2 * (keycode == KEY_PLUS));
 		mlx_map_img(fdf);
 		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 	}
