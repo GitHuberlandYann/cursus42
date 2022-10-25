@@ -36,6 +36,7 @@ int	key_pressed(int keycode, void *param)
 	t_fdf	*fdf;
 
 	fdf = param;
+	//printf("keycode : %d\n", keycode);
 	if (keycode == KEY_ESC)
 		mlx_exit(fdf->mlx);
 	else if (keycode == KEY_Z || keycode == KEY_N)
@@ -83,6 +84,14 @@ int	key_pressed(int keycode, void *param)
 	{
 		mlx_clear_img(fdf->mlx, 0x0);
 		fdf->mlx->offset_y += 100 * (1 - 2 * (keycode == KEY_W));
+		mlx_map_img(fdf);
+		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
+	}
+	else if (keycode == KEY_PLUS || keycode == KEY_MINUS)
+	{
+		mlx_clear_img(fdf->mlx, 0x0);
+		fdf->mlx->size_x += 100 * (1 - 2 * (keycode == KEY_MINUS));
+		fdf->mlx->size_y += 100 * (1 - 2 * (keycode == KEY_MINUS));
 		mlx_map_img(fdf);
 		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 	}

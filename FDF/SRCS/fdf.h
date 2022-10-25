@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/25 18:03:38 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:46:41 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ enum {
 	KEY_X = 7,
 	KEY_Y = 16,
 	KEY_Z = 6,
-	KEY_ESC = 53
+	KEY_ESC = 53,
+	KEY_PLUS = 24,
+	KEY_MINUS = 27
 };
 
 typedef struct s_map
