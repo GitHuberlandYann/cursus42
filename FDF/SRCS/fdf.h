@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/25 13:24:57 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:39:10 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,11 @@ enum {
 
 typedef struct s_map
 {
-	int	**map;
-	int	maplen;
-	int	rowlen;
-	int	max_value;
+	int		**map;
+	int		maplen;
+	int		rowlen;
+	int		max_value;
+	float	ratio;
 }				t_map;
 
 typedef struct	s_img {
@@ -123,7 +124,7 @@ int			ft_rotation_x(t_angles *a, float row, float column, float value);
 int			ft_rotation_y(t_angles *a, float row, float column, float value);
 float		ft_get_xcase(int column, int nbr, int size_x);
 float		ft_get_ycase(int row, int nbr, int size_y);
-float		ft_get_vcase(int value, int max_value, int nbr, int size_y);
+float		ft_get_vcase(int value, int max_value, int nbr, int size_y, float ratio);
 
 int			***ft_mapdup(t_mlx *mlx, t_map *map, t_angles *a);
 int			ft_get_color(float value, int white);

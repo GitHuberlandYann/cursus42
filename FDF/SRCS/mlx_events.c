@@ -65,5 +65,12 @@ int	key_pressed(int keycode, void *param)
 		mlx_map_img(fdf);
 		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 	}
+	else if (keycode == KEY_R || keycode == KEY_E)
+	{
+		mlx_clear_img(fdf->mlx, 0x0);
+		fdf->map->ratio += 0.5 * (1 - 2 * (keycode == KEY_E));
+		mlx_map_img(fdf);
+		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
+	}
 	return (0);
 }

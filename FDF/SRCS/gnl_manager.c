@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:50:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/24 18:16:16 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:38:51 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static t_map	*ft_parselst(t_map *res, t_list *lst)
 	int		index;
 	char	**split;
 
-	//ft_printf("entering parselist, size = %d\n", res->maplen);
 	res->map = malloc(sizeof(*res->map) * (res->maplen));
 	if (!res->map)
 		return (ft_free_return(&lst, 0, 0));
@@ -114,5 +113,6 @@ t_map	*get_map(char	*path)
 		close(fd);
 	}
 	res = ft_parselst(res, lst);
+	res->ratio = (float)res->maplen / 10.0 + (res->maplen < 10);
 	return (res);
 }
