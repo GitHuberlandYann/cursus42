@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/25 18:46:41 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/26 14:45:31 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,23 @@ enum {
 	KEY_Z = 6,
 	KEY_ESC = 53,
 	KEY_PLUS = 24,
-	KEY_MINUS = 27
+	KEY_MINUS = 27,
+	KEY_UP = 126,
+	KEY_RIGHT = 124,
+	KEY_DOWN = 125,
+	KEY_LEFT = 123,
+	KEY_0 = 82,
+	KEY_1 = 83,
+	KEY_2 = 84,
+	KEY_3 = 85,
+	KEY_4 = 86,
+	KEY_5 = 87,
+	KEY_6 = 88,
+	KEY_7 = 89,
+	KEY_8 = 91,
+	KEY_9 = 92,
+	KEY_PLUS_PAD = 69,
+	KEY_MINUS_PAD = 78
 };
 
 typedef struct s_map
@@ -82,6 +98,7 @@ typedef struct s_map
 	int		rowlen;
 	int		max_value;
 	float	ratio;
+	int		colors_enable;
 }				t_map;
 
 typedef struct	s_img {
@@ -126,16 +143,20 @@ typedef struct s_fdf
 
 int			ft_rotation_x(t_angles *a, float row, float column, float value);
 int			ft_rotation_y(t_angles *a, float row, float column, float value);
-float		ft_get_xcase(int column, int nbr, int size_x, int offset_x);
-float		ft_get_ycase(int row, int nbr, int size_y, int offset_y);
-float		ft_get_vcase(int value, int max_value, int nbr, int size_y, float ratio);
+float		ft_get_xcase(float column, float len, float size_x);
+float		ft_get_ycase(float row, float len, float size_y);
+float		ft_get_vcase(t_map *map, float value, float size_y);
 
 int			***ft_mapdup(t_fdf *fdf);
-int			ft_get_color(float value, int white);
+int			ft_get_color(float value, int white, float ratio);
 
 int			mlx_related_stuff(t_fdf *fdf, char *title);
 void		ft_create_img(t_mlx *mlx);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+void		rotation_x(t_fdf * fdf, int rotation);
+void		rotation_y(t_fdf * fdf, int rotation);
+void		rotation_z(t_fdf * fdf, int rotation);
 
 int			mouse_button_pressed(int button, int x, int y, void *param);
 int			key_pressed(int keycode, void *param);

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/25 20:14:25 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/26 14:25:02 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	mlx_draw_line(t_fdf *fdf, int ax, int ay, int bx, int by, int ar, in
 	deltaheightb /= len;
 	while (len > 0)
 	{
-		my_mlx_pixel_put(fdf->mlx->img, pixelx, pixely, ft_get_color(heighta, 0));
+		my_mlx_pixel_put(fdf->mlx->img, pixelx, pixely, ft_get_color(heighta, fdf->map->colors_enable, fdf->map->ratio));
 		pixelx += dx;
 		if (dx)
 			pixely = m * (pixelx - ax) + ay;

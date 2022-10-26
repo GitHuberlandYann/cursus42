@@ -16,7 +16,7 @@ int	ft_rotation_x(t_angles *a, float x, float y, float value)
 {
 	float	res;
 
-	res = a->ca * a->cb * x;
+	res = a->cb * a->cg * x;
 	res += (a->sa * a->sb * a->cg - a->ca * a->sg) * y;
 	res += (a->ca * a->sb * a->cg + a->sa * a->sg) * value;
 	return (res); //may need a nearbyint(res) or some rounding shinanigans
@@ -26,41 +26,38 @@ int	ft_rotation_y(t_angles *a, float x, float y, float value)
 {
 	float	res;
 
-	res = a->sa * a->cb * x;
+	res = a->cb * a->sg * x;
 	res += (a->sa * a->sb * a->sg + a->ca * a->cg) * y;
-	res += (a->ca * a->sb * a->sg + a->sa * a->cg) * value;
+	res += (a->ca * a->sb * a->sg - a->sa * a->cg) * value;
 	return (res);
 }
 
-float	ft_get_xcase(int column, int nbr, int size_x, int offset_x)
+float	ft_get_xcase(float column, float len, float size_x)
 {
 	float	res;
 	float	case_width;
 
-	case_width = ((6 * size_x) / 8) / (nbr + 8);
-	res = offset_x + column * case_width;
+	case_width = size_x / len;
+	res = column * case_width;
 	return (res);
 }
 
-float	ft_get_ycase(int row, int nbr, int size_y, int offset_y)
+float	ft_get_ycase(float row, float len, float size_y)
 {
 	float	res;
 	float	case_width;
 
-	case_width = size_y / (nbr);
-	res = offset_y + row * case_width;
+	case_width = size_y / len;
+	res = row * case_width;
 	return (res);
 }
 
-float	ft_get_vcase(int value, int max_value, int nbr, int size_y, float ratio)
+float	ft_get_vcase(t_map *map, float value, float size_y)
 {
 	float	res;
 	float	case_width;
 
-	case_width = size_y / (nbr);
-	if (value != 0)
-		res = -case_width * ((float)value / (float)max_value) * ratio;
-	else
-		res = 0;
+	case_width = size_y / (float)map->maplen;
+	res = -case_width * (value / (float)map->max_value) * map->ratio;
 	return (res);
 }

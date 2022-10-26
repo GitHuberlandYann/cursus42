@@ -36,11 +36,15 @@ int	***ft_mapdup(t_fdf *fdf)
 			res[row][col] = malloc(sizeof(*res[row][col]) * 2);
 			if (!res[row][col])
 				return (0);
-			xtmp = ft_get_xcase(col, fdf->map->rowlen, fdf->mlx->size_x, fdf->mlx->offset_x);
-			ytmp = ft_get_ycase(row, fdf->map->maplen, fdf->mlx->size_y, fdf->mlx->offset_y);
-			vtmp = ft_get_vcase(fdf->map->map[row][col], fdf->map->max_value, fdf->map->maplen, fdf->mlx->size_y, fdf->map->ratio);
-			res[row][col][0] = ft_rotation_x(fdf->angles, xtmp, ytmp, vtmp);
-			res[row][col][1] = ft_rotation_y(fdf->angles, xtmp, ytmp, vtmp);
+			xtmp = ft_get_xcase(col, fdf->map->rowlen, fdf->mlx->size_x);
+			ytmp = ft_get_ycase(row, fdf->map->maplen, fdf->mlx->size_y);
+			vtmp = ft_get_vcase(fdf->map, fdf->map->map[row][col], fdf->mlx->size_y);
+			res[row][col][0] = ft_rotation_x(fdf->angles, xtmp, ytmp, vtmp) + fdf->mlx->offset_x;
+			res[row][col][1] = ft_rotation_y(fdf->angles, xtmp, ytmp, vtmp) + fdf->mlx->offset_y;
+			// res[row][col][0] = ft_rotation_x(fdf->angles, (float)col * (float)fdf->mlx->size_x / (float)fdf->map->rowlen, 
+			// 								(float)row * (float)fdf->mlx->size_y / (float)fdf->map->maplen, fdf->map->map[row][col] * fdf->map->ratio) + fdf->mlx->offset_x;
+			// res[row][col][1] = ft_rotation_y(fdf->angles, (float)col * (float)fdf->mlx->size_x / (float)fdf->map->rowlen, 
+			// 								(float)row * (float)fdf->mlx->size_y / (float)fdf->map->maplen, fdf->map->map[row][col] * fdf->map->ratio) + fdf->mlx->offset_y;
 			++col;
 		}
 		++row;
@@ -78,16 +82,16 @@ void	ft_display_map_content(t_map *res)
 	}
 }
 //#include <stdio.h>
-int	ft_get_color(float value, int white)
+int	ft_get_color(float value, int colors, float ratio)
 {
 	int	res;
 
-	if (white || !value)
+	if (!colors || !value || !ratio)
 		return (0xffffff);
 	res = 0xffffff; //starting color
-	if (value > 0)
+	if ((value > 0 && ratio > 0) || (value < 0 && ratio < 0))
 		res += (0xff00ff - 0xffffff) * value; //endcolor
 	else
-		res += (0x80 - 0xffffff) * (-value);//printf("neg : %f\n", value);
+		res += (0x80 - 0xffffff) * (fabsf(value));
 	return (res);
 }
