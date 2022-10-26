@@ -6,17 +6,51 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:15:53 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/26 18:57:45 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/26 20:02:30 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+void	mlx_clear_img(t_img *img, int color) //color = 0x00RRGGBB
+{
+	int	x;
+	int	y;
+	int	limit_x;
+	int	limit_y;
+
+	x = !img->type;
+	limit_x = WIN_SIZE_X * img->type + (OVERLAY_SIZE_X - 1) * !img->type;
+	limit_y = WIN_SIZE_Y * img->type + (OVERLAY_SIZE_Y - 1) * !img->type;
+	while (x < limit_x)
+	{
+		y = !img->type;
+		while (y < limit_y)
+		{
+			my_mlx_pixel_put(img, x, y, color);
+			y ++;
+		}
+		x ++;
+	}
+}
+
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
+	int		limit_x;
+	int		limit_y;
 
-	if (y >= 0 && y < WIN_SIZE_Y && x >= 0 && x < WIN_SIZE_X)
+	if (img->type)
+	{
+		limit_x = WIN_SIZE_X;
+		limit_y = WIN_SIZE_Y;
+	}
+	else
+	{
+		limit_x = OVERLAY_SIZE_X;
+		limit_y = OVERLAY_SIZE_Y;
+	}
+	if (y >= 0 && y < limit_y && x >= 0 && x < limit_x)
 	{
 		dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 		*(unsigned int*)dst = color;
@@ -33,13 +67,26 @@ void	ft_create_img(t_mlx *mlx)
 	img->img_ptr = mlx_new_image(mlx->mlx_ptr, WIN_SIZE_X, WIN_SIZE_Y);
 	img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, &img->line_length,
 								&img->endian);
+	img->type = 1;
 	mlx->img = img;
 }
 
-// void	ft_create_overlay(t_mlx *mlx)
-// {
-// 	t_img	*overlay;
+void	ft_create_overlay(t_mlx *mlx)
+{
+	t_img	*overlay;
 
-// 	overlay = 0;
+	overlay = malloc(sizeof(*overlay));
+	if (!overlay)
+		mlx_exit(mlx);
+	overlay->img_ptr = mlx_new_image(mlx->mlx_ptr, OVERLAY_SIZE_X, OVERLAY_SIZE_Y);
+	overlay->addr = mlx_get_data_addr(overlay->img_ptr, &overlay->bits_per_pixel, &overlay->line_length,
+								&overlay->endian);
+	overlay->type = 0;
+	mlx->overlay = overlay;
+}
 
-// }
+void	mlx_map_overlay(t_fdf *fdf)
+{
+	(void)fdf;
+	return ;
+}

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/26 18:58:05 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/26 20:02:49 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 
 # define WIN_SIZE_X 2560
 # define WIN_SIZE_Y 1440
+# define OVERLAY_SIZE_X 300
+# define OVERLAY_SIZE_Y 900
+
 # define ISO_ALPHA 0
 # define ISO_BETA -35.264
 # define ISO_GAMMA -45
@@ -107,6 +110,7 @@ typedef struct	s_img {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		type;
 }				t_img;
 
 typedef struct s_mlx
@@ -114,6 +118,7 @@ typedef struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	*img;
+	t_img	*overlay;
 	int		size_x;
 	int		size_y;
 	int		offset_x;
@@ -152,6 +157,8 @@ int			ft_get_color(float value, int white, float ratio);
 
 int			mlx_related_stuff(t_fdf *fdf, char *title);
 void		ft_create_img(t_mlx *mlx);
+void		ft_create_overlay(t_mlx *mlx);
+void		mlx_map_overlay(t_fdf *fdf);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 void		rotation_x(t_fdf * fdf, int rotation);
@@ -164,7 +171,7 @@ t_map		*get_map(char	*path);
 int			mlx_exit(void *param);
 
 void		mlx_map_img(t_fdf *fdf);
-void		mlx_clear_img(t_mlx *mlx, int color);
+void		mlx_clear_img(t_img *img, int color);
 
 void		ft_display_map_content(t_map *res);
 void		ft_display_lst_content(t_list *lst);

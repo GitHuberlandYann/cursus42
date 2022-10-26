@@ -6,30 +6,12 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/26 18:58:00 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/26 20:21:25 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	mlx_clear_img(t_mlx *mlx, int color) //color = 0x00RRGGBB
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (x < WIN_SIZE_X)
-	{
-		y = 0;
-		while (y < WIN_SIZE_Y)
-		{
-			my_mlx_pixel_put(mlx->img, x, y, color);
-			y ++;
-		}
-		x ++;
-	}
-}
 //#include <stdio.h>
 static void	mlx_draw_line(t_fdf *fdf, int ax, int ay, int bx, int by, int ar, int ac, int br, int bc)
 {
@@ -101,6 +83,23 @@ void	mlx_map_img(t_fdf *fdf)
 	}
 }
 
+// static void	mlx_border_overlay(t_fdf *fdf)
+// {
+// 	int	x;
+// 	int	y;
+
+// 	x = 0;
+// 	y = 0;
+// 	while (x < OVERLAY_SIZE_X - 1)
+// 		my_mlx_pixel_put(fdf->mlx->overlay, x++, y, 0xffffff);
+// 	while (y < OVERLAY_SIZE_Y - 1)
+// 		my_mlx_pixel_put(fdf->mlx->overlay, x, y++, 0xffffff);
+// 	while (x > 0)
+// 		my_mlx_pixel_put(fdf->mlx->overlay, x--, y, 0xffffff);
+// 	while (y > 0)
+// 		my_mlx_pixel_put(fdf->mlx->overlay, x, y--, 0xffffff);
+// }
+
 int	mlx_related_stuff(t_fdf *fdf, char *title)
 {
 	fdf->mlx = malloc(sizeof(*fdf->mlx));
@@ -118,9 +117,12 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 		if (fdf->mlx->win_ptr)
 		{
 			ft_create_img(fdf->mlx);
-			//ft_create_overlay(fdf->mlx);
+			ft_create_overlay(fdf->mlx);
 			mlx_map_img(fdf);
 			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
+			// mlx_border_overlay(fdf);
+			// mlx_map_overlay(fdf);
+			// mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->overlay->img_ptr, 20, 20);
 			mlx_mouse_hook(fdf->mlx->win_ptr, mouse_button_pressed, fdf->mlx);
 			mlx_hook(fdf->mlx->win_ptr, ON_KEYDOWN, 0, key_pressed, fdf);
 			mlx_hook(fdf->mlx->win_ptr, ON_DESTROY, 0, mlx_exit, fdf->mlx); //x_mask not supported
