@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/26 14:25:02 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/26 18:58:00 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,8 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 			mlx_map_img(fdf);
 			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 			mlx_mouse_hook(fdf->mlx->win_ptr, mouse_button_pressed, fdf->mlx);
-			mlx_key_hook(fdf->mlx->win_ptr, key_pressed, fdf);
-			mlx_hook(fdf->mlx->win_ptr, ON_DESTROY, 0, &mlx_exit, fdf->mlx); //x_mask not supported
+			mlx_hook(fdf->mlx->win_ptr, ON_KEYDOWN, 0, key_pressed, fdf);
+			mlx_hook(fdf->mlx->win_ptr, ON_DESTROY, 0, mlx_exit, fdf->mlx); //x_mask not supported
 			mlx_loop(fdf->mlx->mlx_ptr);
 		}
 		else

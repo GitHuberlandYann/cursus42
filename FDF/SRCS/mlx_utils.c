@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:15:53 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/25 19:23:25 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/26 18:57:45 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	if (y >= 0 && y < WIN_SIZE_Y && x >= 0 && x < WIN_SIZE_X)
+	{
+		dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+		*(unsigned int*)dst = color;
+	}
 }
 
 void	ft_create_img(t_mlx *mlx)

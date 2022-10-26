@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/26 14:41:13 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/26 18:29:53 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -Imlx
+CFLAGS = -Wall -Werror -Wextra -Imlx -fsanitize=address -g
 
 # ^^^^^^^^^^^^^ INCLUDING MINILIBX ^^^^^^^^^^^^^
 MLX_DIR = mlx
@@ -55,4 +55,6 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-.PHONY: all clean fclean
+re: fclean all
+
+.PHONY: all clean fclean re
