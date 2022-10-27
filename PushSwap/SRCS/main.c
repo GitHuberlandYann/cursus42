@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:37:22 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/27 17:24:18 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/27 17:51:02 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,26 @@ static int	*ft_check_args(int ac, char **av)
 	return (res);
 }
 
+static int	ft_duplicate(int *tab, int limit)
+{
+	int	index;
+	int	subindex;
+
+	index = 0;
+	while (index < limit)
+	{
+		subindex = 0;
+		while (subindex < index)
+		{
+			if (tab[subindex] == tab[index])
+				return (0);
+			++subindex;
+		}
+		++index;
+	}
+	return (1);
+}
+
 int	main(int ac, char **av)
 {
 	int	*taba;
@@ -66,6 +86,12 @@ int	main(int ac, char **av)
 		taba = ft_check_args(ac, av);
 		if (taba)
 		{
+			if (!ft_duplicate(taba, ac - 1))
+			{
+				ft_putstr("Error\n");
+				free(taba);
+				return (1);
+			}
 			ft_putstr("enough arguments.\n");
 			tabb = malloc(sizeof(*tabb) * (ac - 1));
 			if (tabb)
@@ -78,7 +104,10 @@ int	main(int ac, char **av)
 			free(taba);
 		}
 		else
+		{
 			ft_putstr("Error\n");
+			return (1);
+		}
 	}
 	return (0);
 }
