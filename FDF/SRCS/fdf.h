@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/26 20:02:49 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/27 14:01:37 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,18 @@ typedef struct	s_img {
 	int		type;
 }				t_img;
 
+typedef struct s_key {
+	int	rot_x;
+	int	rot_y;
+	int	rot_z;
+	int	vertical;
+	int	horizontal;
+	int	zoom;
+	int	ratio;
+	int	reset_ratio;
+	int	rot_special;
+}				t_key;
+
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
@@ -124,6 +136,7 @@ typedef struct s_mlx
 	int		offset_x;
 	int		offset_y;
 	char	*title;
+	t_key	*key;
 }				t_mlx;
 
 typedef struct s_angles
@@ -157,8 +170,8 @@ int			ft_get_color(float value, int white, float ratio);
 
 int			mlx_related_stuff(t_fdf *fdf, char *title);
 void		ft_create_img(t_mlx *mlx);
+void		mlx_set_keys(t_mlx *mlx);
 void		ft_create_overlay(t_mlx *mlx);
-void		mlx_map_overlay(t_fdf *fdf);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 void		rotation_x(t_fdf * fdf, int rotation);
@@ -167,6 +180,9 @@ void		rotation_z(t_fdf * fdf, int rotation);
 
 int			mouse_button_pressed(int button, int x, int y, void *param);
 int			key_pressed(int keycode, void *param);
+int			key_released(int keycode, void *param);
+int			mlx_draw(void *param);
+
 t_map		*get_map(char	*path);
 int			mlx_exit(void *param);
 

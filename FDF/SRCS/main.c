@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:27:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/26 11:53:27 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/27 13:36:03 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,9 @@ int	main(int ac, char **av)
 		if (!fdf->angles)
 			exit(EXIT_FAILURE);
 		angles_init(fdf->angles, ISO_ALPHA, ISO_BETA, ISO_GAMMA);
-		if (!fdf->angles)
-			return (-1);
-		ft_rotation_x(fdf->angles, 100, 100, 100);
 		fdf->map = get_map(av[1]);
 		if (!fdf->map)
 			return (ft_free_return(fdf->angles, 0));
-		//ft_display_map_content(fdf->map);
 		fdf->map->colors_enable = 1;
 		mlx_related_stuff(fdf, av[1]);
 	}

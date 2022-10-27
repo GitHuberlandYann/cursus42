@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:15:53 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/26 20:02:30 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/27 14:01:55 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,21 @@ void	ft_create_overlay(t_mlx *mlx)
 	mlx->overlay = overlay;
 }
 
-void	mlx_map_overlay(t_fdf *fdf)
+void	mlx_set_keys(t_mlx *mlx)
 {
-	(void)fdf;
-	return ;
+	t_key *keys;
+
+	keys = malloc(sizeof(*keys));
+	if (!keys)
+		mlx_exit(mlx);
+	keys->rot_x = 0;
+	keys->rot_y = 0;
+	keys->rot_z = 0;
+	keys->vertical = 0;
+	keys->horizontal = 0;
+	keys->zoom = 0;
+	keys->ratio = 0;
+	keys->reset_ratio = 0;
+	keys->rot_special = 0;
+	mlx->key = keys;
 }

@@ -86,12 +86,26 @@ int	ft_get_color(float value, int colors, float ratio)
 {
 	int	res;
 
-	if (!colors || !value || !ratio)
+	if ((!colors || !value || !ratio) && colors != 2)
 		return (0xffffff);
-	res = 0xffffff; //starting color
-	if ((value > 0 && ratio > 0) || (value < 0 && ratio < 0))
-		res += (0xff00ff - 0xffffff) * value; //endcolor
+	else if (colors == 1)
+	{
+		res = 0xffffff; //starting color
+		if ((value > 0 && ratio > 0) || (value < 0 && ratio < 0))
+			res += (0xff00ff - 0xffffff) * value; //endcolor
+		else
+			res += (0x80 - 0xffffff) * (fabsf(value));
+	}
 	else
-		res += (0x80 - 0xffffff) * (fabsf(value));
+	{
+		if (value <= 0.02)
+			res = 0xff;
+		else if (value <= 0.18)
+			res = 0xff00;
+		else if (value <= 0.35)
+			res = 0x800000;
+		else
+			res = 0xffffff;
+	}
 	return (res);
 }
