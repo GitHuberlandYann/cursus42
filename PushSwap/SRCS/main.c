@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:37:22 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/27 16:01:30 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/27 17:24:18 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static int	ft_check_arg(char *str)
 	while (str[index])
 	{
 		if (str[index] < '0' || str[index] > '9')
-			return (0);
+		{
+			if (str[index] != '-' || (str[index] == '-' && (!str[index + 1] || index > 0)))
+				return (0);
+		}
 		++index;
 	}
 	return (1);
@@ -55,6 +58,8 @@ int	main(int ac, char **av)
 {
 	int	*taba;
 	int	*tabb;
+	int	sizea;
+	int	sizeb;
 
 	if (ac > 1)
 	{
@@ -65,7 +70,9 @@ int	main(int ac, char **av)
 			tabb = malloc(sizeof(*tabb) * (ac - 1));
 			if (tabb)
 			{
-				ft_compute(taba, tabb);
+				sizea = ac - 1;
+				sizeb = 0;
+				ft_compute(taba, tabb, &sizea, &sizeb);
 				free(tabb);
 			}
 			free(taba);

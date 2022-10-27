@@ -6,13 +6,13 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/27 15:35:23 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/27 15:38:17 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/27 16:19:41 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pushtheswap
 
-FILE = main 
+FILE = main enigma
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILE)))
 
