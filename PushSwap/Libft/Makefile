@@ -3,45 +3,41 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/27 15:35:23 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/27 15:38:17 by yhuberla         ###   ########.fr        #
+#    Created: 2022/10/11 08:48:24 by yhuberla          #+#    #+#              #
+#    Updated: 2022/10/22 12:29:40 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = pushtheswap
+NAME = libft.a
 
-FILE = main 
+FILES = get_next_line_utils get_next_line \
+		ft_strlen ft_arraylen ft_split ft_atoi \
+		ft_printf ft_printf_output ft_printf_output2 ft_printf_utils \
+		ft_lstadd_back ft_lstclear ft_lstdelone ft_lstnew
 
-SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILE)))
+SRCS = $(addsuffix .c, $(FILES))
 
 OBJS = $(SRCS:.c=.o)
 
-CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
-
-# ^^^^^^^^^^^^^ INCLUDING Libft ^^^^^^^^^^^^^^^^
-LIBFT_DIR = Libft
-LIBFT_PATH = $(LIBFT_DIR)/libft.a
-
-LIBFT = $(LIBFT_PATH)
-
-# ^^^^^^^^^^^^^ RULING AND STUFF ^^^^^^^^^^^^^^^
+RM = rm -f
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT)
+	@ar -rcs $(NAME) $(OBJS)
+
+.c.o:
+	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 clean:
-	make fclean -C $(LIBFT_DIR)
-	rm -f $(OBJS)
+	@$(RM) $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 
