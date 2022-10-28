@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 15:00:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/28 16:21:47 by marvin           ###   ########.fr       */
+/*   Created: 2022/10/03 14:37:37 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/10/28 17:51:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long	ft_atoi(const char *str)
+#include <stddef.h>
+
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int		index;
-	int		sign;
-	long	res;
-	long	save;
+	size_t	index;
 
 	index = 0;
-	sign = 1;
-	res = 0;
-	while (str[index] == ' ' || (str[index] >= '\t' && str[index] <= '\r'))
+	if (!s1 || !s2)
+		return (-1);
+	while (s1[index] && s2[index] && s1[index] == s2[index])
 		index ++;
-	if (str[index] == '+' || str[index] == '-')
-	{
-		if (str[index ++] == '-')
-			sign *= -1;
-	}
-	while (str[index] >= '0' && str[index] <= '9')
-	{
-		save = res;
-		res = res * 10 + str[index ++] - '0';
-		if (res < save)
-			return (save);
-	}
-	return (res * sign);
+	return ((unsigned char) s1[index] - (unsigned char) s2[index]);
 }

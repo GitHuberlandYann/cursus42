@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:41:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/22 13:33:07 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/28 17:52:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 # include <limits.h>
 # include <stdarg.h>
 
-int	    ft_atoi(const char *str);
+long    ft_atoi(const char *str);
 int     ft_arraylen(char **array);
+int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlen(const char *str);
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);

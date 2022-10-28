@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:37:22 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/27 17:51:02 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/10/28 15:05:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	*ft_check_args(int ac, char **av)
 	return (res);
 }
 
-static int	ft_duplicate(int *tab, int limit)
+static int	ft_check_duplicate(int *tab, int limit)
 {
 	int	index;
 	int	subindex;
@@ -74,34 +74,75 @@ static int	ft_duplicate(int *tab, int limit)
 	return (1);
 }
 
+static int	ft_situate(int *tab, int value, int size)
+{
+	int	index;
+	int	res;
+
+	index = 0;
+	res = 0;
+	while (index < size)
+	{
+		if (tab[index] < value)
+			++res;
+		++index;
+	}
+	return (res);
+}
+
+static int	*ft_transform_tab(int *tab, int size)
+{
+	int	index;
+	int	*res;
+
+	res = malloc(sizeof(*res) * size);
+	if (!res)
+	{
+		free(tab);
+		return (0);
+	}
+	index = 0;
+	while (index < size)
+	{
+		res[index] = ft_situate(tab, tab[index], size);
+		++index;
+	}
+	free(tab);
+	return (res);
+}
+
 int	main(int ac, char **av)
 {
-	int	*taba;
-	int	*tabb;
-	int	sizea;
-	int	sizeb;
+	t_stack	a;
+	t_stack	b;
+	int	*tab;
 
 	if (ac > 1)
 	{
-		taba = ft_check_args(ac, av);
-		if (taba)
+		tab = ft_check_args(ac, av);
+		if (tab)
 		{
-			if (!ft_duplicate(taba, ac - 1))
+			if (!ft_check_duplicate(tab, ac - 1))
 			{
 				ft_putstr("Error\n");
-				free(taba);
+				free(tab);
 				return (1);
 			}
-			ft_putstr("enough arguments.\n");
-			tabb = malloc(sizeof(*tabb) * (ac - 1));
-			if (tabb)
+			//ft_putstr("enough arguments.\n");
+			a.arr = ft_transform_tab(tab, ac - 1);
+			if (!a.arr)
+				return (1);
+			b.arr = malloc(sizeof(*(b.arr)) * (ac - 1));
+			if (b.arr)
 			{
-				sizea = ac - 1;
-				sizeb = 0;
-				ft_compute(taba, tabb, &sizea, &sizeb);
-				free(tabb);
+				a.size = ac - 1;
+				b.size = 0;
+				// ft_display_stack(a);
+				// ft_display_stack(b);
+				ft_compute(&a, &b);
+				free(b.arr);
 			}
-			free(taba);
+			free(a.arr);
 		}
 		else
 		{

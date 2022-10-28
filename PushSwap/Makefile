@@ -3,20 +3,29 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/27 15:35:23 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/27 16:19:41 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/10/28 21:06:52 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pushtheswap
 
-FILE = main enigma
+CHECKER = checker
 
-SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILE)))
+FILES = main enigma stack utils small big \
+		sort_no_b sort_selection sort_bubble sort_insertion
+
+SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 
 OBJS = $(SRCS:.c=.o)
+
+BONUS_FILES = main stack arg_parser gnl_manager execution
+
+BONUS_SRCS = $(addprefix Bonus/, $(addsuffix .c, $(BONUS_FILES)))
+
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 CC = gcc
 
@@ -36,13 +45,17 @@ $(NAME): $(OBJS)
 	@make -C $(LIBFT_DIR)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT)
 
+bonus: $(BONUS_OBJS)
+	@make -C $(LIBFT_DIR)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) -o $(CHECKER) $(LIBFT)
+
 clean:
 	make fclean -C $(LIBFT_DIR)
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(CHECKER)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
