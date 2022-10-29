@@ -108,23 +108,23 @@ static void ft_push_ba(t_stack *a, t_stack *b, int move)
         ft_operation(a, b, PA);
 }
 
-void    ft_sort_section_selection(t_stack *a, t_stack *b)
+void    ft_sort_section_selection(t_stack *a, t_stack *b, int base)
 {
     int section;
 	int	save;
 	int	min;
 	int	max;
 
-    section = a->size / 10 + (a->size % 10 > 0);
+    section = a->size / base + (a->size % base > 0);
     save = section;
 	while (section > 0)
     {
-		min = 10 * (section - 1) - (10 - a->size % 10) * (a->size % 10 > 0);
-		max = 10 * section - (10 - a->size % 10) * (a->size % 10 > 0);
-		if (section == 1 && (a->size % 10 > 0))
+		min = base * (section - 1) - (base - a->size % base) * (a->size % base > 0);
+		max = base * section - (base - a->size % base) * (a->size % base > 0);
+		if (section == 1 && (a->size % base > 0))
 		{
 			min = 0;
-			max = a->size % 10;
+			max = a->size % base;
 		}
         ft_push_tenab(a, b, min, max);
 		// ft_display_stack(*a);
