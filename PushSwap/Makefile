@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/27 15:35:23 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/29 11:21:16 by marvin           ###   ########.fr        #
+#    Updated: 2022/10/29 14:50:07 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ BONUS_SRCS = $(addprefix Bonus/, $(addsuffix .c, $(BONUS_FILES)))
 
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
-TESTER_FILES = main gnl_manager
+TESTER_FILES = main gnl_manager tests
 
 TESTER_SRCS = $(addprefix Tester_/, $(addsuffix .c, $(TESTER_FILES)))
 

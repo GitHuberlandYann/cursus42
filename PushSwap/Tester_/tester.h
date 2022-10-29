@@ -24,5 +24,9 @@ typedef struct s_parse
 }				t_parse;
 
 t_parse	*ft_read_output(void);
+void	ft_test_case(t_stack *a, int section);
+void	ft_test_case_small(t_stack *a);
+int		ft_load_test_big(t_stack *a, int nb);
+int		ft_load_test_small(t_stack *a, int nb);
 
 #endif

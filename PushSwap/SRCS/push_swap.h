@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:39:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/29 09:48:43 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/29 14:54:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		ft_stack_sorted(t_stack *stack);
 void    ft_small(t_stack *a, t_stack *b);
 void	ft_big(t_stack *a, t_stack *b);
 
-void	ft_sort_no_b(t_stack *a, t_stack *b);
+void	ft_sort_no_b(t_stack *a);
 void	ft_sort_selection(t_stack *a, t_stack *b);
 void	ft_sort_bubble(t_stack *a);
 void	ft_sort_insertion(t_stack *a, t_stack *b);
