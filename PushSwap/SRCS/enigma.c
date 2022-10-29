@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:58:06 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/28 21:14:10 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/29 02:34:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	ft_compute(t_stack *a, t_stack *b)
 {
 	if (b->size == 0 && ft_stack_sorted(a))
 		return ;
-	ft_sort_insertion(a, b);
+	//ft_display_stack(*a);
+	//ft_sort_section_selection(a, b);
+	ft_sort_section_insertion(a, b, 19);
+	//ft_sort_insertion(a, b);
 	//ft_sort_bubble(a);
 	//ft_sort_selection(a, b);
 	//ft_sort_no_b(a, b);
@@ -38,4 +41,6 @@ void	ft_compute(t_stack *a, t_stack *b)
 	// 	ft_small(a, b);
 	// else
 	// 	ft_big(a, b);
+	//ft_display_stack(*a);
+	//ft_stack_sorted(a) ? ft_putstr("SORTED\n") : ft_putstr("NOT SORTED\n");
 }

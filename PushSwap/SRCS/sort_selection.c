@@ -36,9 +36,11 @@ static void	ft_rotate(t_stack *a, int goal)
 void	ft_sort_selection(t_stack *a, t_stack *b)
 {
 	int	goal;
+	int	limit;
 
+	limit = a->size - 1;
 	goal = 0;
-	while (goal < a->size - 1 && !ft_stack_sorted(a))
+	while (goal < limit && !ft_stack_sorted(a))
 	{
 		while (a->arr[0] != goal)
 			ft_rotate(a, goal);

@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/27 15:35:23 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/28 21:06:52 by marvin           ###   ########.fr        #
+#    Updated: 2022/10/29 02:02:22 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME = pushtheswap
 CHECKER = checker
 
 FILES = main enigma stack utils small big \
-		sort_no_b sort_selection sort_bubble sort_insertion
+		sort_no_b sort_selection sort_bubble sort_insertion \
+		sort_section_selection sort_section_insertion
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 
