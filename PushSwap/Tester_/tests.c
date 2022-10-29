@@ -37,7 +37,7 @@ void	ft_test_case(t_stack *a, int section)
 	if (!b.arr)
 		return ;
 	b.size = 0;
-	ft_sort_section_selection(a, &b, section);
+	ft_sort_section_insertion(a, &b, section);
 	free(b.arr);
 }
 
@@ -49,7 +49,7 @@ void	ft_test_case_small(t_stack *a)
 	if (!b.arr)
 		return ;
 	b.size = 0;
-	ft_sort_bubble(a);
+	ft_sort_small(a, &b);
 	free(b.arr);
 }
 

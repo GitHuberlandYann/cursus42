@@ -29,10 +29,12 @@ static void	ft_free_arr(t_parse *gnl)
 static int	ft_test_small(void)
 {
 	int		test_nb;
+	int		total;
 	t_stack	a;
 	t_parse	*gnl;
 
-	test_nb = 1;
+	test_nb = 0;
+	total = 0;
 	while (!ft_load_test_small(&a, test_nb))
 	{
 		ft_printf("Test %d\n", test_nb);
@@ -48,22 +50,26 @@ static int	ft_test_small(void)
 		close(1);
 		open("/dev/tty", O_WRONLY);
 		ft_printf("\twc : %d\n\t", gnl->wc);
+		total += gnl->wc;
 		ft_stack_sorted(&a) ? ft_putstr("SORTED\n") : ft_putstr("NOT SORTED\n");
 		free(a.arr);
 		ft_free_arr(gnl);
 		++test_nb;
 	}
+	ft_printf("Total operations : %d\n", total);
 	return (0);
 }
 
 static int	ft_test_big(void)
 {
 	int		test_nb;
+	int		total;
 	int		section;
 	t_stack a;
 	t_parse	*gnl;
 
 	test_nb = 1;
+	total = 0;
 	section = 20;
 	ft_printf("Test %d\n", test_nb);
 	while (!ft_load_test_big(&a, test_nb))
@@ -79,6 +85,7 @@ static int	ft_test_big(void)
 		close(1);
 		open("/dev/tty", O_WRONLY);
 		ft_printf("\twc : %d\n\t", gnl->wc);
+		total += gnl->wc;
 		ft_stack_sorted(&a) ? ft_putstr("SORTED\n") : ft_putstr("NOT SORTED\n");
 		free(a.arr);
 		ft_free_arr(gnl);
@@ -91,6 +98,7 @@ static int	ft_test_big(void)
 			ft_printf("\nTest %d\n", test_nb);
 		}
 	}
+	ft_printf("Total operations : %d\n", total);
 	return (0);
 }
 

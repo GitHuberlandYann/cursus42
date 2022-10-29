@@ -12,21 +12,13 @@
 
 #include "push_swap.h"
 
-static int	ft_get_loc(t_stack *b, int goal)
-{
-	int	res;
-
-	res = 0;
-	while (b->arr[res] != goal)
-		++res;
-	return (res);
-}
-
 static void	ft_rotate_b(t_stack *b, int goal)
 {
 	int	location;
 
-	location = ft_get_loc(b, goal);
+	location = 0;
+	while (b->arr[location] != goal)
+		++location;
 	if (location <= b->size / 2)
 		ft_operation(0, b, RB);
 	else
@@ -65,10 +57,66 @@ static int	ft_get_max(t_stack *stack)
 	return (res);
 }
 
+static int	ft_big_of_smalls(int value, t_stack *stack)
+{
+	int	res;
+	int	index;
+
+	res = -1;
+	index = 0;
+	while (index < stack->size)
+	{
+		if (stack->arr[index] > res && stack->arr[index] < value)
+			res = stack->arr[index];
+		++index;
+	}
+	if (res == -1)
+		return (value);
+	return (res);
+}
+
+static int	ft_small_of_bigs(int value, t_stack *stack)
+{
+	int	res;
+	int	index;
+
+	res = -1;
+	index = 0;
+	while (index < stack->size)
+	{
+		if (stack->arr[index] < res && stack->arr[index] > value)
+			res = stack->arr[index];
+		++index;
+	}
+	if (res == -1)
+		return (value);
+	return (res);
+}
+
+static void  ft_rotate_special_b(t_stack *stack, int min, int max)
+{
+    int start;
+    int end;
+    
+    start = 0;
+    end = stack->size - 1;
+    while (stack->arr[start] < min || stack->arr[start] >= max)
+        ++start;
+    while (stack->arr[end] < min || stack->arr[end] >= max)
+        --end;
+    end = stack->size - 1 - end;
+    if (start < end)
+        ft_operation(0, stack, RB);
+    else
+        ft_operation(0, stack, RRB);
+}
+
 static void	ft_insert(int value, t_stack *stack)
 {
 	int	max;
 	int	min;
+	int	bofs;
+	int	sofb;
 
 	max = ft_get_max(stack);
 	min = ft_get_min(stack);
@@ -84,8 +132,10 @@ static void	ft_insert(int value, t_stack *stack)
 	}
 	else
 	{
-		while (!(value > stack->arr[0] && value < stack->arr[stack->size - 1]))
-			ft_operation(0, stack, RB);
+		bofs = ft_big_of_smalls(value, stack);
+		sofb = ft_small_of_bigs(value, stack);
+		while (stack->arr[0] != bofs && stack->arr[0] != sofb)
+			ft_rotate_special_b(stack, bofs, sofb);
 	}
 }
 
@@ -117,11 +167,7 @@ static void ft_push_tenab(t_stack *a, t_stack *b, int min, int max)
         while (a->arr[0] < min || a->arr[0] >= max)
             ft_rotate(a, min, max); //memorize those and do them in ft_insert whit rr and rrr
         if (b->size < 2)
-		{
 			ft_operation(a, b, PB);
-			if (b->size == 2 && b->arr[0] < b->arr[1])
-				ft_operation(0, b, SB);
-		}
 		else
 		{
 			ft_insert(a->arr[0], b);

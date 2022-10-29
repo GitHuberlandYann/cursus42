@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	ft_big(t_stack *a, t_stack *b)
+void	ft_sort_big(t_stack *a, t_stack *b)
 {
 	(void)a;
 	(void)b;
