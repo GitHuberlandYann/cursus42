@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:39:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/29 15:25:14 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/30 14:38:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ typedef struct s_stack
 {
     int	size;
     int	*arr;
+	int	s_size;
+	int	nb_s;
+	int	r;
+	int	rr;
 }				t_stack;
 
 void	ft_compute(t_stack *a, t_stack *b);
@@ -46,12 +50,11 @@ void	ft_sort_bubble(t_stack *a);
 void	ft_sort_insertion(t_stack *a, t_stack *b);
 void    ft_sort_section_selection(t_stack *a, t_stack *b, int base);
 void    ft_sort_section_insertion(t_stack *a, t_stack *b, int base);
+void	ft_sort_insertion_big(t_stack *a, t_stack *b, int section);
 
 void	ft_display_stack(t_stack stack);
 
-
 void	ft_operation(t_stack *a, t_stack *b, int operation);
-void	ft_pushstack(t_stack *dst, t_stack *src, char *txt);
-void	ft_swap(int *tab, char *txt);
+void	ft_rot_big(t_stack *stack, int ope);
 
 #endif

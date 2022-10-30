@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	ft_rotate(t_stack *stack, char *txt)
+static void	ft_rotate(t_stack *stack, char *txt)
 {
 	int	index;
 	int	save;
@@ -30,7 +30,7 @@ void	ft_rotate(t_stack *stack, char *txt)
 	
 }
 
-void	ft_rrotate(t_stack *stack, char *txt)
+static void	ft_rrotate(t_stack *stack, char *txt)
 {
 	int	index;
 	int	save;
@@ -47,7 +47,7 @@ void	ft_rrotate(t_stack *stack, char *txt)
 	stack->arr[index] = save;
 }
 
-void	ft_pushstack(t_stack *dst, t_stack *src, char *txt)
+static void	ft_pushstack(t_stack *dst, t_stack *src, char *txt)
 {
 	int	index;
 
@@ -69,7 +69,7 @@ void	ft_pushstack(t_stack *dst, t_stack *src, char *txt)
 	--(src->size);
 }
 
-void	ft_swap(int *tab, char *txt)
+static void	ft_swap(int *tab, char *txt)
 {
 	int	save;
 
@@ -113,4 +113,16 @@ void	ft_operation(t_stack *a, t_stack *b, int operation)
 		ft_rrotate(a, "rrr\n");
 		ft_rrotate(b, 0);
 	}
+}
+
+void	ft_rot_big(t_stack *stack, int ope)
+{
+	if (ope == RA)
+		ft_rotate(stack, "");
+	else if (ope == RB)
+		ft_rotate(stack, "");
+	else if (ope == RRA)
+		ft_rrotate(stack, "");
+	else if (ope == RRB)
+		ft_rrotate(stack, "");
 }

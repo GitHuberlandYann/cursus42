@@ -89,7 +89,7 @@ static int	ft_test_big(void)
 		ft_stack_sorted(&a) ? ft_putstr("SORTED\n") : ft_putstr("NOT SORTED\n");
 		free(a.arr);
 		ft_free_arr(gnl);
-		if (section < 60)
+		if (section < 60 && section < a.size)
 			section += 5;
 		else
 		{

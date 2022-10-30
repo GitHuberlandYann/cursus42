@@ -17,7 +17,7 @@ void	ft_display_stack(t_stack stack)
     int	index;
 
 	index = 0;
-	ft_putstr("stack content : ");
+	ft_printf("size %d, stack: ", stack.size);
 	while (index < stack.size)
 		ft_printf("%d, ", stack.arr[index++]);
 	ft_putchar('\n');

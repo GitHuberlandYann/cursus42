@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/27 15:35:23 by yhuberla          #+#    #+#              #
-#    Updated: 2022/10/29 14:50:07 by marvin           ###   ########.fr        #
+#    Updated: 2022/10/30 12:20:38 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ TESTER = tester
 
 FILES = enigma stack utils small big \
 		sort_no_b sort_selection sort_bubble sort_insertion \
-		sort_section_selection sort_section_insertion
+		sort_section_selection sort_section_insertion sort_insertion_big
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 
