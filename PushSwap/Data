@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Data                                               :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/28 21:18:32 by marvin            #+#    #+#              #
-#    Updated: 2022/10/28 21:18:32 by marvin           ###   ########.fr        #
+#    Created: 2022/10/31 14:01:52 by yhuberla          #+#    #+#              #
+#    Updated: 2022/10/31 14:01:52 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,3 +39,8 @@ insertion	|	3	7	11	13	25		75		39		136		2639	2455	10485
 bubble		|	1	3	3	4	101		530		21		319		11466
 
 no_b		|	1	3	3	4	89		530		21		319		11274
+
+
+
+# idea
+# list avg distance to good position relative to 0, PB 0, rotate pile en fonction

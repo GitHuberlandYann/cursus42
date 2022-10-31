@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 13:43:47 by marvin            #+#    #+#             */
-/*   Updated: 2022/10/28 13:43:47 by marvin           ###   ########.fr       */
+/*   Created: 2022/10/31 13:37:58 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/10/31 13:37:58 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	ft_rotate(t_stack *stack, char *txt)
 		++index;
 	}
 	stack->arr[index] = save;
-	
 }
 
 static void	ft_rrotate(t_stack *stack, char *txt)
