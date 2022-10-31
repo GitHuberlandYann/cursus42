@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enigma.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:58:06 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/30 14:52:18 by marvin           ###   ########.fr       */
+/*   Updated: 2022/10/31 11:34:03 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ void	ft_compute(t_stack *a, t_stack *b)
 	// 	ft_small(a, b);
 	// else
 	// 	ft_big(a, b);
-	ft_display_stack(*a);
-	ft_stack_sorted(a) ? ft_putstr("SORTED\n") : ft_putstr("NOT SORTED\n");
+	// ft_display_stack(*a);
+	// ft_stack_sorted(a) ? ft_putstr("SORTED\n") : ft_putstr("NOT SORTED\n");
 }
