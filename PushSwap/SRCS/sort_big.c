@@ -89,5 +89,4 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 	free(lis);
 	ft_insert_back(a, b);
 	ft_put_ontop(a, 0);
-	ft_exec_push(a, b, ""); //print rotations and swaps left
 }

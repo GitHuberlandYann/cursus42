@@ -54,3 +54,21 @@ void	ft_put_ontop(t_stack *stack, int value)
 			ft_operation(stack, NULL, RR);
 	}
 }
+
+int	ft_kinda_sorted(t_stack *stack)
+{
+	int	count;
+	int	res;
+
+	count = 0;
+	res = 1;
+	while (count < stack->size)
+	{
+		ft_operation(stack, NULL, R);
+		if (res && ft_stack_sorted(stack))
+			res = 0;
+		++count;
+	}
+	stack->r = 0;
+	return (res);
+}

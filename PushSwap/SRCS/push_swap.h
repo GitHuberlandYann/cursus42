@@ -43,6 +43,7 @@ void	ft_exec_push(t_stack *a, t_stack *b, char *msg);
 
 void	ft_display_stack(t_stack stack);
 int		ft_stack_sorted(t_stack *stack);
+int		ft_kinda_sorted(t_stack *stack);
 void	ft_put_ontop(t_stack *stack, int value);
 
 #endif
