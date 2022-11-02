@@ -4,7 +4,7 @@ CHECKER = checker
 
 TESTER = tester
 
-FILES = arg_parser enigma index_insert longest_subseq push_unwanted sort_big stack stack2 utils
+FILES = arg_parser enigma index_insert longest_subseq push_unwanted sort_big sort_small stack stack2 utils
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 

@@ -12,20 +12,6 @@
 
 #include "tester.h"
 
-int	ft_stack_sorted(t_stack *stack)
-{
-	int	index;
-
-	index = 0;
-	while (index < stack->size - 1)
-	{
-		if (stack->arr[index] > stack->arr[index + 1])
-			return (0);
-		++index;
-	}
-	return (1);
-}
-
 static void	ft_free_arr(t_parse *gnl)
 {
 	int	index;
@@ -47,7 +33,7 @@ static int	ft_test_small(void)
 	t_stack	a;
 	t_parse	*gnl;
 
-	test_nb = 0;
+	test_nb = 1;
 	total = 0;
 	while (!ft_load_test_small(&a, test_nb))
 	{
@@ -56,7 +42,7 @@ static int	ft_test_small(void)
 		ft_display_stack(a);
 		close(1);
 		open("Tester_/output_test", O_WRONLY);
-		ft_test_case_small(&a);
+		ft_test_case(&a);
 		ft_putchar('\n');
 		close(1);
 		open("Tester_/output_test", O_RDONLY);
