@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:53:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/02 15:09:44 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/02 15:34:14 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,27 @@ static void	ft_four_stack(t_stack *a, t_stack *b)
 		ft_put_ontop(a, 0);
 }
 
+static void	ft_five_stack(t_stack *a, t_stack *b)
+{
+	ft_exec_push(a, b, "pb\n");
+	ft_exec_push(a, b, "pb\n");
+	if (ft_kinda_sorted(a))
+		ft_exec_swap(a, b, 0);
+	ft_insert_back(a, b);
+	ft_put_ontop(a, 0);
+}
+
+static void	ft_six_stack(t_stack *a, t_stack *b)
+{
+	ft_exec_push(a, b, "pb\n");
+	ft_exec_push(a, b, "pb\n");
+	ft_exec_push(a, b, "pb\n");
+	if (ft_kinda_sorted(a))
+		ft_exec_swap(a, b, 0);
+	ft_insert_back(a, b);
+	ft_put_ontop(a, 0);
+}
+
 void	ft_sort_small(t_stack *a, t_stack *b) //a->size + b->size <= 6
 {
 	if (a->size == 3)
@@ -54,7 +75,7 @@ void	ft_sort_small(t_stack *a, t_stack *b) //a->size + b->size <= 6
 	else if (a->size == 4)
 		ft_four_stack(a, b);
 	else if (a->size == 5)
-		ft_putstr("todo\n");
+		ft_five_stack(a, b);
 	else if (a->size == 6)
-		ft_putstr("todo\n");
+		ft_six_stack(a, b);
 }

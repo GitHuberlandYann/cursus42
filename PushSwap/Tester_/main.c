@@ -33,7 +33,7 @@ static int	ft_test_small(void)
 	t_stack	a;
 	t_parse	*gnl;
 
-	test_nb = 1;
+	test_nb = 28;
 	total = 0;
 	while (!ft_load_test_small(&a, test_nb))
 	{

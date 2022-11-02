@@ -36,6 +36,7 @@ void	ft_sort_big(t_stack *a, t_stack *b);
 void	ft_sort_small(t_stack *a, t_stack *b);
 t_stack	*ft_longest_subseq(t_stack *stack);
 void	ft_push_unwanted(t_stack *a, t_stack *b, t_stack *lis);
+void	ft_insert_back(t_stack *a, t_stack *b);
 int		ft_get_place_insert(t_stack *stack, int value);
 void	ft_operation(t_stack *main, t_stack *other, int ope);
 void	ft_exec_swap(t_stack *a, t_stack *b, int stack);

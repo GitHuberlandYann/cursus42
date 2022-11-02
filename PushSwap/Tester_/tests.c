@@ -104,7 +104,19 @@ int	ft_load_test_small(t_stack *a, int nb)
 	else if (nb == 27)
 		ft_fill_arr(a, 4, 3, 2, 0, 1);
 	else if (nb == 28)
-		ft_fill_arr(a, 4, 3, 2, 1, 0);	
+		ft_fill_arr(a, 4, 3, 2, 1, 0);
+	else if (nb == 29)
+		ft_fill_arr(a, 5, 0, 4, 1, 3, 2);
+	else if (nb == 30)
+		ft_fill_arr(a, 5, 4, 3, 2, 1, 0);
+	else if (nb == 31)
+		ft_fill_arr(a, 6, 0, 1, 2, 3, 5, 4);
+	else if (nb == 32)
+		ft_fill_arr(a, 6, 0, 1, 2, 4, 3, 5);
+	else if (nb == 33)
+		ft_fill_arr(a, 6, 0, 1, 3, 2, 4, 5);
+	else if (nb == 34)
+		ft_fill_arr(a, 6, 5, 4, 3, 2, 1, 0);
 	else
 		return (1);
 	return (0);

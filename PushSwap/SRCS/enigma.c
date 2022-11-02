@@ -20,7 +20,7 @@ void	ft_compute(t_stack *a, t_stack *b)
 	// }
 	if (!ft_kinda_sorted(a))
 		ft_put_ontop(a, 0);
-	else if (a->size < 5)
+	else if (a->size <= 6)
 		ft_sort_small(a, b);
 	else
 		ft_sort_big(a, b);
