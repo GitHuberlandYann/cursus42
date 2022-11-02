@@ -76,7 +76,7 @@ static void	ft_insert_back(t_stack *a, t_stack *b)
 
 void	ft_sort_big(t_stack *a, t_stack *b)
 {
-	t_stack *lis;
+	t_stack	*lis;
 
 	(void)b;
 	lis = ft_longest_subseq(a);

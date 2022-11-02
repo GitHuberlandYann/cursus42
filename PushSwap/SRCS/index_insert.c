@@ -60,9 +60,9 @@ static int	ft_smallest_of_bigs(int value, t_stack *stack)
 	return (res);
 }
 
-static int  ft_cost_top(t_stack *stack, int value)
+static int	ft_cost_top(t_stack *stack, int value)
 {
-    int	index;
+	int	index;
 	int	res;
 
 	res = -1;
@@ -83,7 +83,7 @@ int	ft_get_place_insert(t_stack *stack, int value)
 	int	max;
 	int	min;
 	int	sofb;
-    int	res;
+	int	res;
 
 	max = ft_max_stack(stack);
 	min = ft_min_stack(stack);
@@ -95,6 +95,6 @@ int	ft_get_place_insert(t_stack *stack, int value)
 	{
 		sofb = ft_smallest_of_bigs(value, stack);
 		res = ft_cost_top(stack, sofb);
-    }
-    return (res);
+	}
+	return (res);
 }

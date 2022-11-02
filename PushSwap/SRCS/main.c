@@ -68,7 +68,7 @@ static void	ft_set_ab(t_stack *a, t_stack *b, int size)
 	b->rr = 0;
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_stack	a;
 	t_stack	b;
@@ -79,8 +79,8 @@ int main(int ac, char **av)
 		a.arr = ft_transform_tab(a.arr, ac - 1);
 		if (!a.arr)
 			return (ft_error(NULL));
-        b.arr = malloc(sizeof(*(b.arr)) * (ac - 1));
-        if (!b.arr)
+		b.arr = malloc(sizeof(*(b.arr)) * (ac - 1));
+		if (!b.arr)
 			return (ft_error(a.arr));
 		ft_set_ab(&a, &b, ac - 1);
 		// ft_display_stack(a);
