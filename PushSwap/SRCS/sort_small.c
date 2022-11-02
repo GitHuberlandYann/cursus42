@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:53:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/02 13:06:10 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:15:14 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,6 @@ static void	ft_three_stack(t_stack *a, t_stack *b)
 	}
 }
 
-static void	ft_rotate(t_stack *a, int goal)
-{
-	int	location;
-
-	location = 0;
-	while (a->arr[location] != goal)
-		++location;
-	if (location <= a->size / 2)
-		ft_operation(a, 0, R);
-	else
-		ft_operation(a, 0, RR);
-}
-
 void	ft_sort_small(t_stack *a, t_stack *b) //a->size + b->size <= 6
 {
 	if (ft_stack_sorted(a))
@@ -87,7 +74,7 @@ void	ft_sort_small(t_stack *a, t_stack *b) //a->size + b->size <= 6
 		if (ft_kinda_foursorted(a))
 		{
 			while (a->arr[0] != 0)
-				ft_rotate(a, 0);
+				ft_put_ontop(a, 0);
 		}
 		else
 		{
@@ -95,12 +82,12 @@ void	ft_sort_small(t_stack *a, t_stack *b) //a->size + b->size <= 6
 			if (!ft_kinda_threesorted(a))
 				ft_exec_swap(a, b, 0);
 			while (b->arr[0] != a->size && a->arr[0] != b->arr[0] + 1)
-				ft_rotate(a, b->arr[0] + 1);
+				ft_put_ontop(a, b->arr[0] + 1);
 			while (b->arr[0] == a->size && a->arr[0] != 0)
-				ft_rotate(a, 0);
+				ft_put_ontop(a, 0);
 			ft_exec_push(a, b, "pa\n");
 			while (a->arr[0] != 0)
-				ft_rotate(a, 0);
+				ft_put_ontop(a, 0);
 		}
 	}
 	else if (a->size == 5)

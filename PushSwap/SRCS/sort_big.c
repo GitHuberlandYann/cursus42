@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_big.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/02 13:17:53 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/11/02 13:17:53 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static int	ft_get_cost(t_stack *a, t_stack *b, int value, int indexb)
@@ -43,22 +55,6 @@ static int	ft_find_cheapest(t_stack *a, t_stack *b)
 		++index;
 	}
 	return (res);
-}
-
-static void	ft_put_ontop(t_stack *stack, int value)
-{
-	int	index;
-
-	index = 0;
-	while (stack->arr[index] != value)
-		++index;
-	while (stack->arr[0] != value)
-	{
-		if (index <= stack->size / 2)
-			ft_operation(stack, NULL, R);
-		else
-			ft_operation(stack, NULL, RR);
-	}
 }
 
 static void	ft_insert_back(t_stack *a, t_stack *b)

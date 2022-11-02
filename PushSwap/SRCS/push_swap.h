@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/02 13:17:43 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/11/02 13:17:43 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -31,5 +43,6 @@ void	ft_exec_push(t_stack *a, t_stack *b, char *msg);
 
 void	ft_display_stack(t_stack stack);
 int		ft_stack_sorted(t_stack *stack);
+void	ft_put_ontop(t_stack *stack, int value);
 
 #endif
