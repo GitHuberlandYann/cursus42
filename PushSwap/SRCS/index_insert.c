@@ -49,7 +49,7 @@ static int	ft_smallest_of_bigs(int value, t_stack *stack)
 	int	res;
 	int	index;
 
-	res = value + 1000; //if list > 1000 element, could have problem
+	res = value + 1000;
 	index = 0;
 	while (index < stack->size)
 	{

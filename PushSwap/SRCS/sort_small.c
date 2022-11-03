@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:53:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/02 15:34:14 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/03 13:39:07 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	ft_six_stack(t_stack *a, t_stack *b)
 	ft_put_ontop(a, 0);
 }
 
-void	ft_sort_small(t_stack *a, t_stack *b) //a->size + b->size <= 6
+void	ft_sort_small(t_stack *a, t_stack *b)
 {
 	if (a->size == 3)
 		ft_three_stack(a, b);

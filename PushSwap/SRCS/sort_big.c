@@ -20,8 +20,6 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 	lis = ft_longest_subseq(a);
 	if (!lis)
 		return ;
-	// ft_putstr("\nLIS -> ");
-	// ft_display_stack(*lis);
 	ft_push_unwanted(a, b, lis);
 	free(lis->arr);
 	free(lis);

@@ -41,7 +41,7 @@ static int	ft_more_unwanted(t_stack *a, t_stack *lis, int end, int start)
 }
 
 void	ft_push_unwanted(t_stack *a, t_stack *b, t_stack *lis)
-{ //could opti by pushing closest unwanted found
+{
 	int	count;
 	int	size;
 

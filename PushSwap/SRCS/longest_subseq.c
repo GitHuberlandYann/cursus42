@@ -19,15 +19,6 @@ static t_stack	*ft_free_return(t_stack *res, int *tab)
 	return (NULL);
 }
 
-static void	ft_arrayset(int *tab, int value, int size)
-{
-	int	index;
-
-	index = 0;
-	while (index < size)
-		tab[index++] = value;
-}
-
 static void	ft_lis(int *a, int *d, int *p, int size)
 {
 	int	index;
@@ -86,10 +77,13 @@ static void	ft_set_subseq(int *p, int pos, t_stack *res, int *a)
 	}
 }
 
-t_stack	*ft_longest_subseq(t_stack *stack) //may want to find lis for each possible rotation of stack
+/* may want to find lis for each possible rotation of stack */
+/* d[index] = longest lis untill index */
+/* p[index] = index j at witch highest value d[index] was obtained */
+t_stack	*ft_longest_subseq(t_stack *stack)
 {
-	int		*d; //d[index] = longest lis untill index
-	int		*p; //p[index] = index j at witch highest value d[index] was obtained
+	int		*d;
+	int		*p;
 	int		pos;
 	t_stack	*res;
 

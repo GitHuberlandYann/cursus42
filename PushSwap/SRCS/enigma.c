@@ -14,15 +14,11 @@
 
 void	ft_compute(t_stack *a, t_stack *b)
 {
-	// if (ft_rotate_sorted(a))
-	// {
-	// 	return ;
-	// }
 	if (!ft_kinda_sorted(a))
 		ft_put_ontop(a, 0);
 	else if (a->size <= 6)
 		ft_sort_small(a, b);
 	else
 		ft_sort_big(a, b);
-	ft_exec_push(a, b, ""); //print rotations and swaps left
+	ft_exec_push(a, b, "");
 }

@@ -74,8 +74,6 @@ void	ft_exec_push(t_stack *a, t_stack *b, char *msg)
 	ft_do_rrotations(a, b);
 	if (msg[0] == '\0')
 		return ;
-	// ft_display_stack(*a);
-	// ft_display_stack(*b);
 	if (msg[1] == 'a')
 		ft_operation(a, b, P);
 	else if (msg[1] == 'b')
