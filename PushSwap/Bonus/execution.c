@@ -22,7 +22,7 @@ static int	ft_strtoi(char *str)
 {
 	if (!ft_strcmp(str, "sa\n"))
 		return (SA);
-	else if(!ft_strcmp(str, "sb\n"))
+	else if (!ft_strcmp(str, "sb\n"))
 		return (SB);
 	else if (!ft_strcmp(str, "ss\n"))
 		return (SS);
@@ -45,32 +45,54 @@ static int	ft_strtoi(char *str)
 	return (-1);
 }
 
-static int	ft_exec_instruction(t_stack *a, t_stack *b, int ins)
+static void	ft_exec_double(t_stack *a, t_stack *b, int ins)
 {
-	if (ins == SA && a->size < 2)
-		return (1);
+	if (a->size < 2 && b->size < 2)
+		return ;
+	if (ins == SS)
+	{
+		if (a->size >= 2)
+			ft_operation(a, b, SA);
+		if (b->size >= 2)
+			ft_operation(a, b, SB);
+	}
+	else if (ins == RR)
+	{
+		if (a->size >= 2)
+			ft_operation(a, b, RA);
+		if (b->size >= 2)
+			ft_operation(a, b, RB);
+	}
+	else if (ins == RRR)
+	{
+		if (a->size >= 2)
+			ft_operation(a, b, RRA);
+		if (b->size >= 2)
+			ft_operation(a, b, RRB);
+	}
+}
+
+static void	ft_exec_instruction(t_stack *a, t_stack *b, int ins)
+{
+	if (ins == SS || ins == RR || ins == RRR)
+		ft_exec_double(a, b, ins);
+	else if (ins == SA && a->size < 2)
+		return ;
 	else if (ins == SB && b->size < 2)
-		return (1);
-	else if (ins == SS && (a->size < 2 || b->size < 2))
-		return (1);
+		return ;
 	else if (ins == PA && b->size == 0)
-		return (1);
+		return ;
 	else if (ins == PB && a->size == 0)
-		return (1);
+		return ;
 	else if (ins == RA && a->size < 2)
-		return (1);
+		return ;
 	else if (ins == RB && b->size < 2)
-		return (1);
-	else if (ins == RR && (a->size < 2 || b->size < 2))
-		return (1);
+		return ;
 	else if (ins == RRA && a->size < 2)
-		return (1);
+		return ;
 	else if (ins == RRB && b->size < 2)
-		return (1);
-	else if (ins == RRR && (a->size < 2 || b->size < 2))
-		return (1);
+		return ;
 	ft_operation(a, b, ins);
-	return (0);
 }
 
 int	ft_exec_instructions(t_stack *a, char **ins)
@@ -89,8 +111,7 @@ int	ft_exec_instructions(t_stack *a, char **ins)
 		ins_int = ft_strtoi(ins[index]);
 		if (ins_int == -1)
 			return (ft_free_return(b.arr));
-		if (ft_exec_instruction(a, &b, ins_int))
-			return (ft_free_return(b.arr));
+		ft_exec_instruction(a, &b, ins_int);
 		++index;
 	}
 	free(b.arr);

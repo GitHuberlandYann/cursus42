@@ -45,18 +45,9 @@ static int	ft_stack_sorted(t_stack stack)
 	return (1);
 }
 
-// static void	deletethis_display(char **arr)
-// {
-// 	int	index;
-
-// 	index = 0;
-// 	while (arr[index])
-// 		ft_putstr(arr[index++]);
-// }
-
 int	main(int ac, char **av)
 {
-	t_stack stack;
+	t_stack	stack;
 	char	**instructions;
 
 	if (ac > 1)
@@ -68,10 +59,8 @@ int	main(int ac, char **av)
 		instructions = ft_read_input();
 		if (!instructions)
 			return (ft_error(stack.arr, 0));
-		// deletethis_display(instructions);
 		if (ft_exec_instructions(&stack, instructions))
 			return (ft_error(stack.arr, instructions));
-		//ft_printf("a.size : %d, ac : %d, a.arr[0] : %d\n", stack.size, ac, stack.arr[0]);
 		if (stack.size == ac - 1 && ft_stack_sorted(stack))
 			ft_putstr("OK\n");
 		else

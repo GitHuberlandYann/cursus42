@@ -25,7 +25,6 @@ static void	ft_rotate(t_stack *stack)
 		++index;
 	}
 	stack->arr[index] = save;
-	
 }
 
 static void	ft_rrotate(t_stack *stack)
@@ -78,11 +77,6 @@ void	ft_operation(t_stack *a, t_stack *b, int operation)
 		ft_swap(a->arr);
 	else if (operation == SB)
 		ft_swap(b->arr);
-	else if (operation == SS)
-	{
-		ft_swap(a->arr);
-		ft_swap(b->arr);
-	}
 	else if (operation == PA)
 		ft_pushstack(a, b);
 	else if (operation == PB)
@@ -91,18 +85,8 @@ void	ft_operation(t_stack *a, t_stack *b, int operation)
 		ft_rotate(a);
 	else if (operation == RB)
 		ft_rotate(b);
-	else if (operation == RR)
-	{
-		ft_rotate(a);
-		ft_rotate(b);
-	}
 	else if (operation == RRA)
 		ft_rrotate(a);
 	else if (operation == RRB)
 		ft_rrotate(b);
-	else if (operation == RRR)
-	{
-		ft_rrotate(a);
-		ft_rrotate(b);
-	}
 }

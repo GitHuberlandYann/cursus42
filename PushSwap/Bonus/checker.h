@@ -31,8 +31,8 @@ enum {
 
 typedef struct s_stack
 {
-    int	size;
-    int	*arr;
+	int	size;
+	int	*arr;
 }				t_stack;
 
 void	ft_operation(t_stack *a, t_stack *b, int operation);
