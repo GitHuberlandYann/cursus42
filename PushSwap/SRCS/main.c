@@ -75,7 +75,7 @@ int	main(int ac, char **av)
 
 	if (ac > 1)
 	{
-		a.arr = ft_parse_args(ac, av);
+		a.arr = ft_parse_args(&ac, av);
 		a.arr = ft_transform_tab(a.arr, ac - 1);
 		if (!a.arr)
 			return (ft_error(NULL));

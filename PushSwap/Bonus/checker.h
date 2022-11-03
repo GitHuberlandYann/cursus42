@@ -36,7 +36,7 @@ typedef struct s_stack
 }				t_stack;
 
 void	ft_operation(t_stack *a, t_stack *b, int operation);
-int		*ft_parse_args(int ac, char **av);
+int		*ft_parse_args(int *ac, char **av);
 char	**ft_read_input(void);
 int		ft_exec_instructions(t_stack *stack, char **ins);
 

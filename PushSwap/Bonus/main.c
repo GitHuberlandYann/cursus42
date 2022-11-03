@@ -61,7 +61,7 @@ int	main(int ac, char **av)
 
 	if (ac > 1)
 	{
-		stack.arr = ft_parse_args(ac, av);
+		stack.arr = ft_parse_args(&ac, av);
 		if (!stack.arr)
 			return (ft_error(0, 0));
 		stack.size = ac - 1;

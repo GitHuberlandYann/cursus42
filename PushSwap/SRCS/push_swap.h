@@ -30,7 +30,7 @@ typedef struct s_stack
 	int	rr;
 }				t_stack;
 
-int		*ft_parse_args(int ac, char **av);
+int		*ft_parse_args(int *ac, char **av);
 void	ft_compute(t_stack *a, t_stack *b);
 void	ft_sort_big(t_stack *a, t_stack *b);
 void	ft_sort_small(t_stack *a, t_stack *b);

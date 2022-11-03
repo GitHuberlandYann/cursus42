@@ -49,24 +49,55 @@ static int	ft_duplicate(int *tab, int value, int size)
 	return (0);
 }
 
-int	*ft_parse_args(int ac, char **av)
+static int	*ft_parse_split(char *str, int *ac)
+{
+	int		index;
+	long	buf;
+	char	**av;
+	int		*res;
+
+	av = ft_split(str, ' ');
+	if (!av)
+		return (NULL);
+	*ac = ft_arraylen(av) + 1;
+	res = malloc(sizeof(*res) * (*ac - 1));
+	if (!res)
+		return (NULL);
+	index = 0;
+	while (index < *ac - 1)
+	{
+		if (ft_check_arg(av[index]))
+			return (ft_free_return(res));
+		buf = ft_atoi(av[index]);
+		if (buf > INT_MAX || buf < INT_MIN || ft_duplicate(res, buf, index))
+			return (ft_free_return(res));
+		res[index] = buf;
+		free(av[index++]);
+	}
+	free(av);
+	return (res);
+}
+
+int	*ft_parse_args(int *ac, char **av)
 {
 	int		index;
 	int		*res;
 	long	buf;
 
-	res = malloc(sizeof(*res) * (ac - 1));
+	if (*ac == 2 && ft_check_arg(av[1]))
+		return (ft_parse_split(av[1], ac));
+	res = malloc(sizeof(*res) * (*ac - 1));
 	if (!res)
-		return (0);
+		return (NULL);
 	index = 1;
-	while (index < ac)
+	while (index < *ac)
 	{
 		if (ft_check_arg(av[index]))
 			return (ft_free_return(res));
 		buf = ft_atoi(av[index]);
 		if (buf > INT_MAX || buf < INT_MIN || ft_duplicate(res, buf, index - 1))
 			return (ft_free_return(res));
-		res[index - 1] = ft_atoi(av[index]);
+		res[index - 1] = buf;
 		++index;
 	}
 	return (res);
