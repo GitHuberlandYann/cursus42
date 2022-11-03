@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:41:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/01 21:14:43 by marvin           ###   ########.fr       */
+/*   Updated: 2022/11/03 13:34:35 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		ft_min(int a, int b);
 int		ft_abs(int nb);
 
 long    ft_atoi(const char *str);
+void	ft_arrayset(int *tab, int value, int size);
 int     ft_arraylen(char **array);
 int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlen(const char *str);

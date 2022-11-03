@@ -3,17 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/11 08:48:24 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/01 21:15:12 by marvin           ###   ########.fr        #
+#    Updated: 2022/11/03 13:35:53 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 FILES = get_next_line_utils get_next_line \
-		ft_strlen ft_arraylen ft_split ft_atoi ft_strcmp ft_maxminabs \
+		ft_arraylen ft_arrayset ft_atoi ft_maxminabs ft_split ft_strcmp \
+		ft_strlen \
 		ft_printf ft_printf_output ft_printf_output2 ft_printf_utils \
 		ft_lstadd_back ft_lstclear ft_lstdelone ft_lstnew
 
