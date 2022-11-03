@@ -75,7 +75,7 @@ t_parse	*ft_read_output(void)
 		ft_lstadd_back(&lst, tmp);
 		line = get_next_line(1);
 	}
-	while (line) //countering leaks
+	while (line)
 	{
 		free(line);
 		line = get_next_line(1);

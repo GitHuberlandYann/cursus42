@@ -13,9 +13,9 @@
 #ifndef TESTER_H
 # define TESTER_H
 
-#include "../SRCS/push_swap.h"
-#include <fcntl.h>
-#include <stdarg.h>
+# include "../SRCS/push_swap.h"
+# include <fcntl.h>
+# include <stdarg.h>
 
 typedef struct s_parse
 {
