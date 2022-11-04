@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 14:11:55 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/04 11:25:33 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/04 12:21:24 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static char	**ft_set_env(void)
 int	main(int ac, char **av)
 {
 	char	**envp;
+	char	**gnl_file1;
 
 	if (ac == 5)
 	{
@@ -59,7 +60,8 @@ int	main(int ac, char **av)
 		envp = ft_set_env();
 		if (!envp)
 			return (1); // ->print msg of some sort ?
-		ft_exec_first_command(av, envp);
+		gnl_file1 = ft_read_file(av[1]);
+		ft_exec_first_command(av, envp, gnl_file1);
 	}
 	else
 		printf("wrong number of ac, yours : %d\n", ac);

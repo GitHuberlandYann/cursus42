@@ -6,13 +6,15 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 10:53:35 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/04 11:11:11 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/11/04 12:17:02 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-FILES = ft_split ft_strjoin_free ft_strlen
+FILES = ft_split ft_strjoin_free ft_strlen \
+		get_next_line get_next_line_utils \
+		ft_lstadd_back ft_lstclear ft_lstdelone ft_lstnew
 
 SRCS = $(addsuffix .c, $(FILES))
 

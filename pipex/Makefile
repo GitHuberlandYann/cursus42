@@ -6,13 +6,13 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 14:05:55 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/04 11:16:42 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/11/04 12:11:21 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-FILES = main execve
+FILES = main execve gnl_manager
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 

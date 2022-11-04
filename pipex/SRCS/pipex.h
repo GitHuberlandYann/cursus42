@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:27:06 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/04 11:05:36 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/04 12:22:00 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 #include "../Libft/libft.h"
 
-# include <unistd.h>
 # include <stdio.h>
+# include <fcntl.h>
 
-void	ft_exec_first_command(char **av, char **envp);
+void	ft_exec_first_command(char **av, char **envp, char **gnl);
+char	**ft_read_file(char *path);
 
 #endif

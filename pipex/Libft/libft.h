@@ -6,20 +6,20 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:41:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/04 11:04:08 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/04 12:23:53 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-// # ifndef BUFFER_SIZE
-// #  define BUFFER_SIZE 42
-// # endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
-// # include <unistd.h>
+# include <unistd.h>
 # include <stdlib.h>
-// # include <limits.h>
+# include <limits.h>
 // # include <stdarg.h>
 
 // int		ft_max(int a, int b);
@@ -30,14 +30,14 @@
 // void	ft_arrayset(int *tab, int value, int size);
 // int     ft_arraylen(char **array);
 // int		ft_strcmp(const char *s1, const char *s2);
-// char	*get_next_line(int fd);
-// char	*ft_strjoin(char *s1, char *s2);
-// char	*ft_strdup(char **str);
-// char	*ft_strcpy_from_nl(char **str);
-// char	*ft_strcpy_until_nl(char *str);
+char	*get_next_line(int fd);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strdup(char **str);
+char	*ft_strcpy_from_nl(char **str);
+char	*ft_strcpy_until_nl(char *str);
 
 size_t	ft_strlen(const char *str);
-char	**ft_split(char const *s, char c);
+char	**ft_split_plus(char const *s, char c);
 char	*ft_strjoin_free(char const *s1, char const *s2);
 
 // void		ft_printf(const char *str, ...);
@@ -52,15 +52,15 @@ char	*ft_strjoin_free(char const *s1, char const *s2);
 // void	ft_puthexa(unsigned int nb, int upper);
 // void	ft_putaddresshexa(void *ptr);
 
-// typedef struct s_list
-// {
-// 	void			*content;
-// 	struct s_list	*next;
-// }				t_list;
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}				t_list;
 
-// void	ft_lstadd_back(t_list **lst, t_list *new);
-// void	ft_lstdelone(t_list *lst, void (*del)(void *));
-// void	ft_lstclear(t_list **lst, void (*del)(void *));
-// t_list	*ft_lstnew(void *content);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstdelone(t_list *lst, void (*del)(void *));
+void	ft_lstclear(t_list **lst, void (*del)(void *));
+t_list	*ft_lstnew(void *content);
 
 #endif
