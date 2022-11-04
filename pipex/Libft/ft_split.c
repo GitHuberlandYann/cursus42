@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:59:34 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/04 12:23:39 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/04 13:21:29 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ static char	**ft_free_return(char **res, size_t limit)
 	return (0);
 }
 
-/* split where I malloc 1 more space to put gnl at end later on */
-char	**ft_split_plus(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	size_t	index;
 	size_t	sindex;
@@ -79,7 +78,7 @@ char	**ft_split_plus(char const *s, char c)
 	if (!s)
 		return (0);
 	mallen = ft_get_mallen(s, c);
-	res = malloc(sizeof(*res) * (mallen + 1));
+	res = malloc(sizeof(*res) * mallen);
 	if (!res)
 		return (0);
 	index = 0;
