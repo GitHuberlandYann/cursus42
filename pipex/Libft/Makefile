@@ -5,47 +5,38 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/31 14:05:55 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/04 11:16:42 by yhuberla         ###   ########.fr        #
+#    Created: 2022/11/04 10:53:35 by yhuberla          #+#    #+#              #
+#    Updated: 2022/11/04 11:11:11 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = pipex
+NAME = libft.a
 
-FILES = main execve
+FILES = ft_split ft_strjoin_free ft_strlen
 
-SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
+SRCS = $(addsuffix .c, $(FILES))
 
 OBJS = $(SRCS:.c=.o)
 
+CFLAGS = -Wall -Wextra -Werror
+
+RM = rm -f
+
 CC = gcc
-
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
-
-# ===---===---===---===---===---===---===---===---===---===---===---===---
-
-LIBFT_DIR = Libft
-LIBFT_PATH = $(LIBFT_DIR)/libft.a
-
-LIBFT = $(LIBFT_PATH)
-
-
-# ===---===---===---===---===---===---===---===---===---===---===---===---
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT)
+$(NAME): $(OBJS)
+	@ar -rcs $(NAME) $(OBJS)
 
-$(LIBFT):
-	make -C $(LIBFT_DIR)
+.c.o:
+	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 clean:
-	make fclean -C $(LIBFT_DIR)
-	rm -f $(OBJS)
+	@$(RM) $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 
