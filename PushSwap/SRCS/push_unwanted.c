@@ -55,7 +55,7 @@ void	ft_push_unwanted(t_stack *a, t_stack *b, t_stack *lis)
 				&& (a->arr[1] > a->arr[a->size - 1] || count == 0))
 			{
 				ft_exec_swap(a, b, 0);
-				if (ft_more_unwanted(a, lis, size - count - 1, 1))
+				if (ft_more_unwanted(a, lis, size - count, 1))
 					ft_operation(a, NULL, R);
 				else
 					return ;
