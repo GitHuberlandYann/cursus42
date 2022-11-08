@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:41:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/03 13:34:35 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:40:25 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int		ft_max(int a, int b);
 int		ft_min(int a, int b);
 int		ft_abs(int nb);
 
-long    ft_atoi(const char *str);
+long	ft_atoi(const char *str);
 void	ft_arrayset(int *tab, int value, int size);
-int     ft_arraylen(char **array);
+int		ft_arraylen(char **array);
 int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlen(const char *str);
 char	*get_next_line(int fd);
@@ -38,7 +38,7 @@ char	*ft_strcpy_from_nl(char **str);
 char	*ft_strcpy_until_nl(char *str);
 char	**ft_split(char const *s, char c);
 
-void		ft_printf(const char *str, ...);
+void	ft_printf(const char *str, ...);
 int		ft_abs(int nb);
 int		ft_nbrlen(int nb);
 char	ft_get_type(char c);
