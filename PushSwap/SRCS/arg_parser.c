@@ -12,9 +12,18 @@
 
 #include "push_swap.h"
 
-static int	*ft_free_return(int *tab)
+static int	*ft_free_return(int *tab, char **split)
 {
+	int	index;
+
 	free(tab);
+	if (split)
+	{
+		index = 0;
+		while (split[index])
+			free(split[index++]);
+		free(split);
+	}
 	return (0);
 }
 
@@ -67,14 +76,13 @@ static int	*ft_parse_split(char *str, int *ac)
 	while (index < *ac - 1)
 	{
 		if (ft_check_arg(av[index]))
-			return (ft_free_return(res));
+			return (ft_free_return(res, av));
 		buf = ft_atoi(av[index]);
 		if (buf > INT_MAX || buf < INT_MIN || ft_duplicate(res, buf, index))
-			return (ft_free_return(res));
-		res[index] = buf;
-		free(av[index++]);
+			return (ft_free_return(res, av));
+		res[index++] = buf;
 	}
-	free(av);
+	ft_free_return(NULL, av);
 	return (res);
 }
 
@@ -93,10 +101,10 @@ int	*ft_parse_args(int *ac, char **av)
 	while (index < *ac)
 	{
 		if (ft_check_arg(av[index]))
-			return (ft_free_return(res));
+			return (ft_free_return(res, NULL));
 		buf = ft_atoi(av[index]);
 		if (buf > INT_MAX || buf < INT_MIN || ft_duplicate(res, buf, index - 1))
-			return (ft_free_return(res));
+			return (ft_free_return(res, NULL));
 		res[index - 1] = buf;
 		++index;
 	}

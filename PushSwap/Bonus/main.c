@@ -12,21 +12,10 @@
 
 #include "checker.h"
 
-static void	ft_free_arr(char **arr)
-{
-	int	index;
-
-	index = 0;
-	while (arr[index])
-		free(arr[index++]);
-	free(arr);
-}
-
-static int	ft_error(int *tab, char **arr)
+static int	ft_error(int *tab, int *ins)
 {
 	free(tab);
-	if (arr)
-		ft_free_arr(arr);
+	free(ins);
 	write(2, "Error\n", 6);
 	return (1);
 }
@@ -48,7 +37,7 @@ static int	ft_stack_sorted(t_stack stack)
 int	main(int ac, char **av)
 {
 	t_stack	stack;
-	char	**instructions;
+	int		*instructions;
 
 	if (ac > 1)
 	{
@@ -66,9 +55,7 @@ int	main(int ac, char **av)
 		else
 			ft_putstr("KO\n");
 		free(stack.arr);
-		ft_free_arr(instructions);
+		free(instructions);
 	}
-	else
-		return (ft_error(0, 0));
 	return (0);
 }

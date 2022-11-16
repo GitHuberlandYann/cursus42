@@ -55,20 +55,34 @@ void	ft_put_ontop(t_stack *stack, int value)
 	}
 }
 
-int	ft_kinda_sorted(t_stack *stack)
+int	ft_min_stack(t_stack *stack)
 {
-	int	count;
+	int	index;
 	int	res;
 
-	count = 0;
-	res = 1;
-	while (count < stack->size)
+	res = stack->arr[0];
+	index = 1;
+	while (index < stack->size)
 	{
-		ft_operation(stack, NULL, R);
-		if (res && ft_stack_sorted(stack))
-			res = 0;
-		++count;
+		if (stack->arr[index] < res)
+			res = stack->arr[index];
+		++index;
 	}
+	return (res);
+}
+
+int	ft_kinda_sorted(t_stack *stack)
+{
+	int	save;
+	int	res;
+	int	min;
+
+	save = stack->arr[0];
+	min = ft_min_stack(stack);
+	ft_put_ontop(stack, min);
+	res = !ft_stack_sorted(stack);
+	ft_put_ontop(stack, save);
 	stack->r = 0;
+	stack->rr = 0;
 	return (res);
 }

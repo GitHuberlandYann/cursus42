@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_small.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 12:53:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/03 13:39:07 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/09 15:39:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static void	ft_four_stack(t_stack *a, t_stack *b)
 
 static void	ft_five_stack(t_stack *a, t_stack *b)
 {
+	if (a->arr[1] < a->arr[0] && a->arr[0] != 4)
+		ft_exec_swap(a, b, 0);
 	ft_exec_push(a, b, "pb\n");
 	ft_exec_push(a, b, "pb\n");
 	if (ft_kinda_sorted(a))
@@ -59,6 +61,12 @@ static void	ft_five_stack(t_stack *a, t_stack *b)
 
 static void	ft_six_stack(t_stack *a, t_stack *b)
 {
+	if (a->arr[1] < a->arr[0] && a->arr[0] < a->arr[2])
+		ft_exec_swap(a, b, 0);
+	if (a->arr[1] == 0)
+		ft_operation(a, NULL, R);
+	if (a->arr[1] < a->arr[0] && a->arr[0] < a->arr[2])
+		ft_exec_swap(a, b, 0);
 	ft_exec_push(a, b, "pb\n");
 	ft_exec_push(a, b, "pb\n");
 	ft_exec_push(a, b, "pb\n");

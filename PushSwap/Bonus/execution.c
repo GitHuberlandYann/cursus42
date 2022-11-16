@@ -12,39 +12,6 @@
 
 #include "checker.h"
 
-static int	ft_free_return(int *tab)
-{
-	free(tab);
-	return (1);
-}
-
-static int	ft_strtoi(char *str)
-{
-	if (!ft_strcmp(str, "sa\n"))
-		return (SA);
-	else if (!ft_strcmp(str, "sb\n"))
-		return (SB);
-	else if (!ft_strcmp(str, "ss\n"))
-		return (SS);
-	else if (!ft_strcmp(str, "pa\n"))
-		return (PA);
-	else if (!ft_strcmp(str, "pb\n"))
-		return (PB);
-	else if (!ft_strcmp(str, "ra\n"))
-		return (RA);
-	else if (!ft_strcmp(str, "rb\n"))
-		return (RB);
-	else if (!ft_strcmp(str, "rr\n"))
-		return (RR);
-	else if (!ft_strcmp(str, "rra\n"))
-		return (RRA);
-	else if (!ft_strcmp(str, "rrb\n"))
-		return (RRB);
-	else if (!ft_strcmp(str, "rrr\n"))
-		return (RRR);
-	return (-1);
-}
-
 static void	ft_exec_double(t_stack *a, t_stack *b, int ins)
 {
 	if (a->size < 2 && b->size < 2)
@@ -95,10 +62,9 @@ static void	ft_exec_instruction(t_stack *a, t_stack *b, int ins)
 	ft_operation(a, b, ins);
 }
 
-int	ft_exec_instructions(t_stack *a, char **ins)
+int	ft_exec_instructions(t_stack *a, int *ins)
 {
 	int		index;
-	int		ins_int;
 	t_stack	b;
 
 	b.size = 0;
@@ -106,14 +72,8 @@ int	ft_exec_instructions(t_stack *a, char **ins)
 	if (!b.arr)
 		return (1);
 	index = 0;
-	while (ins[index])
-	{
-		ins_int = ft_strtoi(ins[index]);
-		if (ins_int == -1)
-			return (ft_free_return(b.arr));
-		ft_exec_instruction(a, &b, ins_int);
-		++index;
-	}
+	while (ins[index] != -1)
+		ft_exec_instruction(a, &b, ins[index++]);
 	free(b.arr);
 	return (0);
 }

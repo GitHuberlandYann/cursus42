@@ -12,22 +12,6 @@
 
 #include "push_swap.h"
 
-static int	ft_min_stack(t_stack *stack)
-{
-	int	index;
-	int	res;
-
-	res = stack->arr[0];
-	index = 1;
-	while (index < stack->size)
-	{
-		if (stack->arr[index] < res)
-			res = stack->arr[index];
-		++index;
-	}
-	return (res);
-}
-
 static int	ft_max_stack(t_stack *stack)
 {
 	int	index;

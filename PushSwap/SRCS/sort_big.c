@@ -16,7 +16,6 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 {
 	t_stack	*lis;
 
-	(void)b;
 	lis = ft_longest_subseq(a);
 	if (!lis)
 		return ;

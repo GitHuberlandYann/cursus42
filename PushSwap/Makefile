@@ -14,30 +14,22 @@ NAME = push_swap
 
 CHECKER = checker
 
-TESTER = tester
-
 FILES = arg_parser enigma index_insert insert longest_subseq push_unwanted \
-		sort_big sort_small stack stack2 utils
+		sort_big sort_small stack stack2 utils main
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 
-SRCS += SRCS/main.c
+OBJS = $(addprefix Objs/, $(SRCS:.c=.o))
 
-OBJS = $(SRCS:.c=.o)
+DIR_OBJ = Objs
+DIR_OBJ_SRCS = Objs/SRCS
+DIR_OBJ_BONUS = Objs/Bonus
 
 BONUS_FILES = main stack arg_parser gnl_manager execution
 
 BONUS_SRCS = $(addprefix Bonus/, $(addsuffix .c, $(BONUS_FILES)))
 
-BONUS_OBJS = $(BONUS_SRCS:.c=.o)
-
-TESTER_FILES = main gnl_manager tests
-
-TESTER_SRCS = $(addprefix Tester_/, $(addsuffix .c, $(TESTER_FILES)))
-
-TESTER_SRCS += $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
-
-TESTER_OBJS = $(TESTER_SRCS:.c=.o)
+BONUS_OBJS = $(addprefix Objs/, $(BONUS_SRCS:.c=.o))
 
 CC = gcc
 
@@ -51,27 +43,40 @@ LIBFT = $(LIBFT_PATH)
 
 # ^^^^^^^^^^^^^ RULING AND STUFF ^^^^^^^^^^^^^^^
 
-all: $(NAME)
+all: | $(DIR_OBJ)/ $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
+$(DIR_OBJ)/:
+	@mkdir $(DIR_OBJ)
+
+$(NAME): | $(DIR_OBJ_SRCS)/ $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT)
 
-bonus: $(BONUS_OBJS) $(LIBFT)
+$(DIR_OBJ_SRCS)/:
+	@mkdir $(DIR_OBJ_SRCS)
+
+$(DIR_OBJ_SRCS)/%.o: SRCS/%.c
+	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	@mv $(<:.c=.o) $(DIR_OBJ_SRCS)
+
+bonus: | $(DIR_OBJ_BONUS)/ $(BONUS_OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(BONUS_OBJS) -o $(CHECKER) $(LIBFT)
 
-tester: $(TESTER_OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(TESTER_OBJS) -o $(TESTER) $(LIBFT)
-	
+$(DIR_OBJ_BONUS)/: | $(DIR_OBJ)/
+	@mkdir $(DIR_OBJ_BONUS)
+
+$(DIR_OBJ_BONUS)/%.o: Bonus/%.c
+	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	@mv $(<:.c=.o) $(DIR_OBJ_BONUS)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
 clean:
 	make fclean -C $(LIBFT_DIR)
-	rm -f $(OBJS) $(BONUS_OBJS) $(TESTER_OBJS)
+	rm -rf $(DIR_OBJ)
 
 fclean: clean
-	rm -f $(NAME) $(CHECKER) $(TESTER)
+	rm -f $(NAME) $(CHECKER)
 
 re: fclean all
 

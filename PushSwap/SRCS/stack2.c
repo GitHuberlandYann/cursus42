@@ -56,16 +56,16 @@ void	ft_exec_swap(t_stack *a, t_stack *b, int stack)
 {
 	ft_do_rotations(a, b);
 	ft_do_rrotations(a, b);
-	if (stack == 0)
-	{
+	if (stack == 0 || stack == 2)
 		ft_operation(a, NULL, S);
-		ft_putstr("sa\n");
-	}
-	else
-	{
+	if (stack == 1 || stack == 2)
 		ft_operation(b, NULL, S);
+	if (stack == 0)
+		ft_putstr("sa\n");
+	else if (stack == 1)
 		ft_putstr("sb\n");
-	}
+	else if (stack == 2)
+		ft_putstr("ss\n");
 }
 
 void	ft_exec_push(t_stack *a, t_stack *b, char *msg)
