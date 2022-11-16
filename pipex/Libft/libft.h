@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:41:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/04 14:53:18 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:55:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,18 @@
 
 // long    ft_atoi(const char *str);
 // void	ft_arrayset(int *tab, int value, int size);
-// int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 char	*get_next_line(int fd);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strdup(char **str);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*ft_strdup_gnl(char **str);
 char	*ft_strcpy_from_nl(char **str);
 char	*ft_strcpy_until_nl(char *str);
 
 size_t	ft_strlen(const char *str);
 char	**ft_split(char const *s, char c);
-char	*ft_strjoin_free(char const *s1, char const *s2);
-char	**ft_arrayjoin_free(char **cmd, char **gnl);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(char *str);
+char	**ft_arrayadd_back(char **arr, char *str);
 int		ft_arraylen(char **array);
 
 // void		ft_printf(const char *str, ...);
@@ -47,7 +48,7 @@ int		ft_arraylen(char **array);
 // char	ft_get_type(char c);
 // void	ft_putchar(unsigned char c);
 // void	ft_putchars(unsigned char c, int size);
-// void	ft_putstr(char *str);
+void	ft_putstr_fd(char *str, int fd);
 // void	ft_putnbr(int nb);
 // void	ft_putunbr(unsigned int nb);
 // void	ft_puthexa(unsigned int nb, int upper);

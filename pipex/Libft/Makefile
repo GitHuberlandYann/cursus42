@@ -3,22 +3,25 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 10:53:35 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/04 14:34:23 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/11/16 17:54:16 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-FILES = ft_split ft_arrayjoin_free ft_arraylen ft_strjoin_free ft_strlen \
+FILES = ft_split ft_arrayadd_back ft_arraylen ft_strjoin ft_strlen \
+		ft_strcmp ft_putstr_fd ft_strdup \
 		get_next_line get_next_line_utils \
 		ft_lstadd_back ft_lstclear ft_lstdelone ft_lstnew
 
 SRCS = $(addsuffix .c, $(FILES))
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(addprefix ../Objs/Libft/, $(SRCS:.c=.o))
+
+DIR_OBJ = ../Objs/Libft
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -26,20 +29,21 @@ RM = rm -f
 
 CC = gcc
 
-all: $(NAME)
+all: | $(DIR_OBJ)/ $(NAME)
+
+$(DIR_OBJ)/:
+	@mkdir $(DIR_OBJ)
 
 $(NAME): $(OBJS)
 	@ar -rcs $(NAME) $(OBJS)
 
-.c.o:
+$(DIR_OBJ)/%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	@mv $(<:.c=.o) $(DIR_OBJ)
 
-clean:
-	@$(RM) $(OBJS)
-
-fclean: clean
+fclean:
 	@$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all fclean re

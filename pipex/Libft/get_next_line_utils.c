@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:56 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/22 11:11:44 by marvin           ###   ########.fr       */
+/*   Updated: 2022/11/16 17:50:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*ft_free_return(char **str)
 	return (0);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char	*res;
 	size_t	s1len;
@@ -49,7 +49,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (res);
 }
 
-char	*ft_strdup(char **str)
+char	*ft_strdup_gnl(char **str)
 {
 	int		index;
 	int		len;
