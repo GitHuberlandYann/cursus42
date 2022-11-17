@@ -83,11 +83,7 @@ int	main(int ac, char **av)
 		if (!b.arr)
 			return (ft_error(a.arr));
 		ft_set_ab(&a, &b, ac - 1);
-		// ft_display_stack(a);
-		// ft_display_stack(b);
 		ft_compute(&a, &b);
-		// ft_display_stack(a);
-		// ft_display_stack(b);
 		free(b.arr);
 		free(a.arr);
 	}
