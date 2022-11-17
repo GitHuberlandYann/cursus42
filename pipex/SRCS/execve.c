@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:48:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/16 23:39:56 by marvin           ###   ########.fr       */
+/*   Updated: 2022/11/17 12:43:52 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_exec_forkcat(t_parent child_p, char *path, char **envp)
 	ft_fork(&child_p.c_pid);
 	if (!child_p.c_pid) //CHILD OF CHILD
 	{
-		dup2(child_p.pipefd[1], 1);	//output of cat is input of next cmd
+		dup2(child_p.pipefd[1], 1); //output of cat is input of next cmd
 		execve("/bin/cat", args, envp);
 		ft_perror(strerror(errno));
 	}
@@ -55,11 +55,10 @@ void	ft_exec_main_child(t_parent p, char **av, char **envp)
 	ft_exec_forkcat(child_p, av[1], envp);
 	//ft_putstr_fd(cmd, 1);
 	dup2(child_p.pipefd[0], 0);
-	dup2(p.pipefd[1], 1);	//output of cmd is input of next cmd
+	dup2(p.pipefd[1], 1); //output of cmd is input of next cmd
 	execve(cmd, cmds, envp);
 	ft_perror(strerror(errno));
 }
-
 
 // void	ft_exec_first_command(char **av, char **envp, char **gnl)
 // {

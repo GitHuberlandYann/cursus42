@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/17 12:45:02 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/11/17 12:45:02 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-void	ft_pipe(int	pipefd[2])
+void	ft_pipe(int pipefd[2])
 {
 	int	pipe_ret;
 
@@ -9,7 +21,7 @@ void	ft_pipe(int	pipefd[2])
 		ft_perror("pipe");
 }
 
-void	ft_fork(int	*child_pid)
+void	ft_fork(int *child_pid)
 {
 	*child_pid = fork();
 	if (*child_pid == -1)

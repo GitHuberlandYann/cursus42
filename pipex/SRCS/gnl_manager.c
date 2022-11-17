@@ -24,7 +24,7 @@ char	*ft_read_file(char *path)
 		return (0);
 	line = get_next_line(fd);
 	res = 0;
-	while (line)	//what if error in gnl ??? -> todo
+	while (line) //what if error in gnl ??? -> todo
 	{
 		res_save = res;
 		res = ft_strjoin(res, line);
