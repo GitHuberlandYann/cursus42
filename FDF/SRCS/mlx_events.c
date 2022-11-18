@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 20:41:00 by marvin            #+#    #+#             */
-/*   Updated: 2022/10/22 20:41:00 by marvin           ###   ########.fr       */
+/*   Created: 2022/11/18 16:18:02 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/11/18 16:18:02 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ int	mouse_button_pressed(int button, int x, int y, void *param)
 
 	mlx = param;
 	ft_printf("mouse button %d pressed at location (%d, %d) on window %s\n", button, x, y, mlx->title);
+	if (mlx->key->overlay)
+	{
+		if (x >= mlx->overlay->x && x < mlx->overlay->x + OVERLAY_SIZE_X
+				&& y >= mlx->overlay->y && y< mlx->overlay->y + OVERLAY_SIZE_Y)
+			ft_printf("inside of overlay");
+	}
 	return (0);
 }
 //#include <stdio.h>
@@ -58,8 +64,12 @@ int	key_pressed(int keycode, void *param)
 		fdf->mlx->key->zoom = ((keycode == KEY_PLUS) + (keycode == KEY_PLUS_PAD) - ((keycode == KEY_MINUS) + (keycode == KEY_MINUS_PAD)));
 	else if (keycode == KEY_P)
 		fdf->mlx->key->reset_ratio = 1;
+	else if (keycode == KEY_C && ++fdf->mlx->key->color == 1)
+		fdf->map->colors_enable = !fdf->map->colors_enable + (2 * (fdf->map->colors_enable == 1));
 	else if (keycode == KEY_1 || keycode == KEY_2)
 		fdf->mlx->key->rot_special = 3 * (2 * (keycode == KEY_1) - 2 * (keycode == KEY_2));
+	else if (keycode == KEY_H)
+		fdf->mlx->key->overlay = 1;
 	return (0);
 }
 
@@ -86,9 +96,11 @@ int	key_released(int keycode, void *param)
 	else if (keycode == KEY_P)
 		fdf->mlx->key->reset_ratio = 0;
 	else if (keycode == KEY_C)
-		fdf->map->colors_enable = !fdf->map->colors_enable + (2 * (fdf->map->colors_enable == 1));
+		fdf->mlx->key->color = 0;
 	else if (keycode == KEY_1 || keycode == KEY_2)
 		fdf->mlx->key->rot_special = 0;
+	else if (keycode == KEY_H)
+		fdf->mlx->key->overlay = 0;
 	return (0);
 }
 
@@ -136,5 +148,7 @@ int	mlx_draw(void *param)
 	mlx_clear_img(fdf->mlx->img, 0x0);
 	mlx_map_img(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
+	if (fdf->mlx->key->overlay)
+		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->overlay->img_ptr, fdf->mlx->overlay->x, fdf->mlx->overlay->y);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/27 14:20:05 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:21:45 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,22 +83,22 @@ void	mlx_map_img(t_fdf *fdf)
 	}
 }
 
-// static void	mlx_border_overlay(t_fdf *fdf)
-// {
-// 	int	x;
-// 	int	y;
+static void	mlx_border_overlay(t_fdf *fdf)
+{
+	int	x;
+	int	y;
 
-// 	x = 0;
-// 	y = 0;
-// 	while (x < OVERLAY_SIZE_X - 1)
-// 		my_mlx_pixel_put(fdf->mlx->overlay, x++, y, 0xffffff);
-// 	while (y < OVERLAY_SIZE_Y - 1)
-// 		my_mlx_pixel_put(fdf->mlx->overlay, x, y++, 0xffffff);
-// 	while (x > 0)
-// 		my_mlx_pixel_put(fdf->mlx->overlay, x--, y, 0xffffff);
-// 	while (y > 0)
-// 		my_mlx_pixel_put(fdf->mlx->overlay, x, y--, 0xffffff);
-// }
+	x = 0;
+	y = 0;
+	while (x < OVERLAY_SIZE_X - 1)
+		my_mlx_pixel_put(fdf->mlx->overlay, x++, y, 0xffffff);
+	while (y < OVERLAY_SIZE_Y - 1)
+		my_mlx_pixel_put(fdf->mlx->overlay, x, y++, 0xffffff);
+	while (x > 0)
+		my_mlx_pixel_put(fdf->mlx->overlay, x--, y, 0xffffff);
+	while (y > 0)
+		my_mlx_pixel_put(fdf->mlx->overlay, x, y--, 0xffffff);
+}
 
 int	mlx_related_stuff(t_fdf *fdf, char *title)
 {
@@ -118,16 +118,16 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 		{
 			ft_create_img(fdf->mlx);
 			mlx_set_keys(fdf->mlx);
-			//ft_create_overlay(fdf->mlx);
+			ft_create_overlay(fdf->mlx);
 			mlx_map_img(fdf);
 			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
-			// mlx_border_overlay(fdf);
-			// mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->overlay->img_ptr, 20, 20);
-			//mlx_mouse_hook(fdf->mlx->win_ptr, mouse_button_pressed, fdf->mlx);
+			mlx_border_overlay(fdf);
+			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->overlay->img_ptr, fdf->mlx->overlay->x, fdf->mlx->overlay->y);
 			mlx_hook(fdf->mlx->win_ptr, ON_KEYDOWN, 0, key_pressed, fdf);
 			mlx_hook(fdf->mlx->win_ptr, ON_KEYUP, 0, key_released, fdf);
 			mlx_hook(fdf->mlx->win_ptr, ON_DESTROY, 0, mlx_exit, fdf->mlx); //x_mask not supported
 			mlx_loop_hook(fdf->mlx->mlx_ptr, mlx_draw, fdf);
+			mlx_mouse_hook(fdf->mlx->win_ptr, mouse_button_pressed, fdf->mlx);
 			mlx_loop(fdf->mlx->mlx_ptr);
 		}
 		else

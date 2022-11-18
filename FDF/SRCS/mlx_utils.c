@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:15:53 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/27 14:01:55 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:29:29 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	ft_create_overlay(t_mlx *mlx)
 	overlay->addr = mlx_get_data_addr(overlay->img_ptr, &overlay->bits_per_pixel, &overlay->line_length,
 								&overlay->endian);
 	overlay->type = 0;
+	overlay->x = WIN_SIZE_X - OVERLAY_SIZE_X - 50;
+	overlay->y = 50;
 	mlx->overlay = overlay;
 }
 
@@ -101,5 +103,7 @@ void	mlx_set_keys(t_mlx *mlx)
 	keys->ratio = 0;
 	keys->reset_ratio = 0;
 	keys->rot_special = 0;
+	keys->color = 0;
+	keys->overlay = 0;
 	mlx->key = keys;
 }

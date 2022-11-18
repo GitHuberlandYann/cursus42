@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/27 14:01:37 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:29:11 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define WIN_SIZE_X 2560
 # define WIN_SIZE_Y 1440
 # define OVERLAY_SIZE_X 300
-# define OVERLAY_SIZE_Y 900
+# define OVERLAY_SIZE_Y 300
 
 # define ISO_ALPHA 0
 # define ISO_BETA -35.264
@@ -111,6 +111,8 @@ typedef struct	s_img {
 	int		line_length;
 	int		endian;
 	int		type;
+	int		x;
+	int		y;
 }				t_img;
 
 typedef struct s_key {
@@ -123,6 +125,8 @@ typedef struct s_key {
 	int	ratio;
 	int	reset_ratio;
 	int	rot_special;
+	int	color;
+	int	overlay;
 }				t_key;
 
 typedef struct s_mlx
