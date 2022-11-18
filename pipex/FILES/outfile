@@ -1,1 +1,12 @@
-19
+FILES
+Libft
+Makefile
+Objs
+SRCS
+pipex
+22_brussels    170 Nov 17 11:04 FILES
+drwxr-xr-x  19 yhuberla  2022_brussels    646 Nov 18 14:20 Libft
+-rw-r--r--   1 yhuberla  2022_brussels   1829 Nov 18 12:02 Makefile
+drwxr-xr-x   4 yhuberla  2022_brussels    136 Nov 18 14:20 Objs
+drwxr-xr-x   8 yhuberla  2022_brussels    272 Nov 18 14:31 SRCS
+-rwxr-xr-x   1 yhuberla  2022_brussels  74984 Nov 18 14:31 pipex

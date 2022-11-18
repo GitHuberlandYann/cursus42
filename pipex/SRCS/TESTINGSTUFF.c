@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <stdio.h>
 
 void	ft_testing_ground(int ac, char **av, char **envp)
 {
 	t_parent	p;
-	char		buf[101];
-	int			read_ret;
+	int			fd;
 
 	(void)ac;
 	(void)av;
@@ -28,16 +28,9 @@ void	ft_testing_ground(int ac, char **av, char **envp)
 	else //PARENT, first wait for child to finish
 	{
 		ft_wait_child(p);
+		fd = open(av[4], O_WRONLY);
+		ft_exec_second_cmd(p, av, envp, fd);
 		ft_putstr_fd("Parent when fork == 1\n", 1);
-		read_ret = read(p.pipefd[0], buf, 100);
-		while (read_ret == 100)
-		{
-			buf[read_ret] = '\0';
-			write(STDOUT_FILENO, buf, 100);
-			read_ret = read(p.pipefd[0], buf, 100);
-		}
-		buf[read_ret] = '\0';
-		write(STDOUT_FILENO, buf, ft_strlen(buf));
 		exit(EXIT_SUCCESS);
 	}
 }

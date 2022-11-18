@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 14:05:55 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/16 17:00:41 by marvin           ###   ########.fr        #
+#    Updated: 2022/11/18 12:02:46 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,14 +31,13 @@ LIBFT_OBJS = $(LIBFT_DIR)/Objs
 
 LIBFT = $(LIBFT_PATH)
 
-
 # ===---===---===---===---===---===---===---===---===---===---===---===---
 
-all: | $(OBJS_DIR)/ $(NAME)
+all: $(OBJS_DIR) $(NAME)
 
-$(OBJS_DIR)/:
-	@mkdir $(OBJS_DIR)
-	@mkdir $(OBJS_DIR)/SRCS
+$(OBJS_DIR):
+	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)/SRCS
 
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT)

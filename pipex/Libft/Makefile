@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 10:53:35 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/16 17:54:16 by marvin           ###   ########.fr        #
+#    Updated: 2022/11/18 12:03:11 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,10 @@ RM = rm -f
 
 CC = gcc
 
-all: | $(DIR_OBJ)/ $(NAME)
+all: $(DIR_OBJ) $(NAME)
 
-$(DIR_OBJ)/:
-	@mkdir $(DIR_OBJ)
+$(DIR_OBJ):
+	@mkdir -p $(DIR_OBJ)
 
 $(NAME): $(OBJS)
 	@ar -rcs $(NAME) $(OBJS)

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:27:06 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/17 12:44:53 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/18 14:16:08 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_perror(char *str);
 
 void	ft_testing_ground(int ac, char **av, char **envp);
 void	ft_exec_main_child(t_parent p, char **av, char **envp);
+void	ft_exec_second_cmd(t_parent p, char **av, char **envp, int fd);
 
 void	ft_pipe(int pipefd[2]);
 void	ft_fork(int	*child_pid);
