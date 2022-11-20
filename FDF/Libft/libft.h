@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:41:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/22 13:33:07 by marvin           ###   ########.fr       */
+/*   Updated: 2022/11/19 14:30:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ char	*ft_strdup(char **str);
 char	*ft_strcpy_from_nl(char **str);
 char	*ft_strcpy_until_nl(char *str);
 char	**ft_split(char const *s, char c);
+void	ft_fill_tab(int *tab, int nb, ...);
 
-void		ft_printf(const char *str, ...);
+void	ft_printf(const char *str, ...);
 int		ft_abs(int nb);
 int		ft_nbrlen(int nb);
 char	ft_get_type(char c);

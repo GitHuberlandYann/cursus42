@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/18 16:15:15 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/11/19 13:24:51 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = getmeoutofhere
 
 FILE = main gnl_manager angles_manager utils mlx_utils mlx_manager mlx_events \
-		animation_utils
+		animation_utils mlx_colors
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILE)))
 

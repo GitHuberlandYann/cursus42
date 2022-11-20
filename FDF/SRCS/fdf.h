@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/18 17:29:11 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/19 14:51:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,12 +129,19 @@ typedef struct s_key {
 	int	overlay;
 }				t_key;
 
+typedef struct s_hexa
+{
+	int		color_tab[13][13];
+	float	hexa_r;
+}				t_hexa;
+
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	*img;
 	t_img	*overlay;
+	t_hexa	*hex;
 	int		size_x;
 	int		size_y;
 	int		offset_x;
@@ -171,6 +178,7 @@ float		ft_get_vcase(t_map *map, float value, float size_y);
 
 int			***ft_mapdup(t_fdf *fdf);
 int			ft_get_color(float value, int white, float ratio);
+void		ft_set_hexa(t_mlx *mlx);
 
 int			mlx_related_stuff(t_fdf *fdf, char *title);
 void		ft_create_img(t_mlx *mlx);

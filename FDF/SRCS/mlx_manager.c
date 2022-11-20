@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/18 17:21:45 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/19 14:39:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 			ft_create_img(fdf->mlx);
 			mlx_set_keys(fdf->mlx);
 			ft_create_overlay(fdf->mlx);
+			ft_set_hexa(fdf->mlx);
 			mlx_map_img(fdf);
 			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 			mlx_border_overlay(fdf);
