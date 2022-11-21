@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/19 14:51:03 by marvin           ###   ########.fr       */
+/*   Updated: 2022/11/21 10:18:00 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ typedef struct	s_img {
 	int		type;
 	int		x;
 	int		y;
+	int		width;
+	int		height;
 }				t_img;
 
 typedef struct s_key {
@@ -141,13 +143,16 @@ typedef struct s_mlx
 	void	*win_ptr;
 	t_img	*img;
 	t_img	*overlay;
-	t_hexa	*hex;
+	t_img	*hex;
 	int		size_x;
 	int		size_y;
 	int		offset_x;
 	int		offset_y;
 	char	*title;
 	t_key	*key;
+	int		col_top;
+	int		col_zero;
+	int		col_bottom;
 }				t_mlx;
 
 typedef struct s_angles
@@ -177,14 +182,16 @@ float		ft_get_ycase(float row, float len, float size_y);
 float		ft_get_vcase(t_map *map, float value, float size_y);
 
 int			***ft_mapdup(t_fdf *fdf);
-int			ft_get_color(float value, int white, float ratio);
-void		ft_set_hexa(t_mlx *mlx);
+int			ft_get_color(float value, int white, float ratio, t_mlx *mlx);
+// void		ft_set_hexa(t_mlx *mlx);
+void		ft_create_hexa(t_mlx *mlx);
+unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y);
 
 int			mlx_related_stuff(t_fdf *fdf, char *title);
 void		ft_create_img(t_mlx *mlx);
 void		mlx_set_keys(t_mlx *mlx);
 void		ft_create_overlay(t_mlx *mlx);
-void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 void		rotation_x(t_fdf * fdf, int rotation);
 void		rotation_y(t_fdf * fdf, int rotation);

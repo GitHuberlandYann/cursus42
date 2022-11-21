@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:15:53 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/18 17:29:29 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/21 09:55:02 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	mlx_clear_img(t_img *img, int color) //color = 0x00RRGGBB
 		y = !img->type;
 		while (y < limit_y)
 		{
-			my_mlx_pixel_put(img, x, y, color);
+			ft_mlx_pixel_put(img, x, y, color);
 			y ++;
 		}
 		x ++;
 	}
 }
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 	int		limit_x;

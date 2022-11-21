@@ -27,15 +27,23 @@ int	mlx_exit(void *param)
 
 int	mouse_button_pressed(int button, int x, int y, void *param)
 {
-	t_mlx	*mlx;
+	t_mlx			*mlx;
+	unsigned int	col;
 
 	mlx = param;
-	ft_printf("mouse button %d pressed at location (%d, %d) on window %s\n", button, x, y, mlx->title);
+	//ft_printf("mouse button %d pressed at location (%d, %d) on window %s\n", button, x, y, mlx->title);
 	if (mlx->key->overlay)
 	{
-		if (x >= mlx->overlay->x && x < mlx->overlay->x + OVERLAY_SIZE_X
-				&& y >= mlx->overlay->y && y< mlx->overlay->y + OVERLAY_SIZE_Y)
-			ft_printf("inside of overlay");
+		if (x >= mlx->hex->x && x < mlx->hex->x + mlx->hex->width
+				&& y >= mlx->hex->y && y < mlx->hex->y + mlx->hex->height)
+		{
+			col = ft_mlx_pixel_get(mlx->hex, x - mlx->hex->x, y - mlx->hex->y) % 0xff000000;
+			//ft_printf("pixel at %d, %d : %x\n", x - mlx->hex->x, y - mlx->hex->y, col);
+			if (button == 1)
+				mlx->col_top = col;
+			else
+				mlx->col_bottom = col;
+		}
 	}
 	return (0);
 }
@@ -149,6 +157,9 @@ int	mlx_draw(void *param)
 	mlx_map_img(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 	if (fdf->mlx->key->overlay)
+	{
 		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->overlay->img_ptr, fdf->mlx->overlay->x, fdf->mlx->overlay->y);
+		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->hex->img_ptr, fdf->mlx->hex->x, fdf->mlx->hex->y);
+	}
 	return (0);
 }

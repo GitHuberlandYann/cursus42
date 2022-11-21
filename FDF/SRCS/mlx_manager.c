@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/19 14:39:53 by marvin           ###   ########.fr       */
+/*   Updated: 2022/11/21 10:17:04 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	mlx_draw_line(t_fdf *fdf, int ax, int ay, int bx, int by, int ar, in
 	deltaheightb /= len;
 	while (len > 0)
 	{
-		my_mlx_pixel_put(fdf->mlx->img, pixelx, pixely, ft_get_color(heighta, fdf->map->colors_enable, fdf->map->ratio));
+		ft_mlx_pixel_put(fdf->mlx->img, pixelx, pixely, ft_get_color(heighta, fdf->map->colors_enable, fdf->map->ratio, fdf->mlx));
 		pixelx += dx;
 		if (dx)
 			pixely = m * (pixelx - ax) + ay;
@@ -91,13 +91,13 @@ static void	mlx_border_overlay(t_fdf *fdf)
 	x = 0;
 	y = 0;
 	while (x < OVERLAY_SIZE_X - 1)
-		my_mlx_pixel_put(fdf->mlx->overlay, x++, y, 0xffffff);
+		ft_mlx_pixel_put(fdf->mlx->overlay, x++, y, 0xffffff);
 	while (y < OVERLAY_SIZE_Y - 1)
-		my_mlx_pixel_put(fdf->mlx->overlay, x, y++, 0xffffff);
+		ft_mlx_pixel_put(fdf->mlx->overlay, x, y++, 0xffffff);
 	while (x > 0)
-		my_mlx_pixel_put(fdf->mlx->overlay, x--, y, 0xffffff);
+		ft_mlx_pixel_put(fdf->mlx->overlay, x--, y, 0xffffff);
 	while (y > 0)
-		my_mlx_pixel_put(fdf->mlx->overlay, x, y--, 0xffffff);
+		ft_mlx_pixel_put(fdf->mlx->overlay, x, y--, 0xffffff);
 }
 
 int	mlx_related_stuff(t_fdf *fdf, char *title)
@@ -108,6 +108,9 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 	fdf->mlx->mlx_ptr = mlx_init();
 	if (fdf->mlx->mlx_ptr)
 	{
+		fdf->mlx->col_zero = 0xffffff;
+		fdf->mlx->col_top = 0xff00ff;
+		fdf->mlx->col_bottom = 0x80;
 		fdf->mlx->size_x = WIN_SIZE_X / 2;
 		fdf->mlx->size_y = WIN_SIZE_Y / 2;
 		fdf->mlx->offset_x = WIN_SIZE_X / 4;
@@ -119,7 +122,8 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 			ft_create_img(fdf->mlx);
 			mlx_set_keys(fdf->mlx);
 			ft_create_overlay(fdf->mlx);
-			ft_set_hexa(fdf->mlx);
+			ft_create_hexa(fdf->mlx);
+			// ft_set_hexa(fdf->mlx);
 			mlx_map_img(fdf);
 			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 			mlx_border_overlay(fdf);
