@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:48:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/18 14:31:13 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/21 17:11:17 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	ft_exec_forkcat(t_parent *child_p, char *path, char **envp)
 	{
 		ft_putstr_fd("cat\n", 1);
 		dup2(child_p->pipefd[1], 1); //output of cat is input of next cmd
+		close(child_p->pipefd[0]);
+		close(child_p->pipefd[1]);
 		execve(args[0], args, envp);
 		ft_perror(args[0]);
 	}
@@ -43,6 +45,31 @@ static void	ft_exec_forkcmd(t_parent *child_p, t_parent *p, char *cmd, char **cm
 	{
 		dup2(p->pipefd[1], 1); //output of cmd is input of next cmd
 		dup2(child_p->pipefd[0], 0); //input of cmd is output of cat done previously
+		close(p->pipefd[0]);
+		close(child_p->pipefd[1]);
+		close(p->pipefd[1]);
+		close(child_p->pipefd[0]);
+		execve(cmd, cmds, envp);
+		free(cmd);
+		cmd = ft_strjoin("/usr/bin/", cmds[0]);
+		if (!cmd)
+			ft_perror(strerror(ENOMEM));
+		execve(cmd, cmds, envp);
+		ft_putstr_fd(cmd, 1);
+		ft_perror(cmd);
+	}
+}
+
+static void	ft_exec_forkcmdput(t_parent *child_p, int fd, char *cmd, char **cmds, char **envp)
+{
+	ft_fork(&child_p->c_pid);
+	if (!child_p->c_pid) //child
+	{
+		dup2(fd, 1); //output of cmd is input of next cmd
+		dup2(child_p->pipefd[0], 0); //input of cmd is output of cat done previously
+		close(child_p->pipefd[1]);
+		close(child_p->pipefd[0]);
+		close(fd);
 		execve(cmd, cmds, envp);
 		free(cmd);
 		cmd = ft_strjoin("/usr/bin/", cmds[0]);
@@ -76,19 +103,6 @@ void	ft_exec_main_child(t_parent p, char **av, char **envp)
 	ft_exec_forkcmd(&child_p, &p, cmd, cmds, envp);
 }
 
-static void	ft_exec_put(int fdin, int fdout, char **envp)
-{
-	char		*args[2];
-
-	args[0] = "/bin/cat"; //anything will do, just needs something,
-						//convention = name of current executable
-	args[1] = 0;
-
-	dup2(fdout, 1);
-	dup2(fdin, 0);
-	execve(args[0], args, envp);
-}
-
 void	ft_exec_second_cmd(t_parent p, char **av, char **envp, int fd)
 {
 	char		*cmd;
@@ -103,7 +117,8 @@ void	ft_exec_second_cmd(t_parent p, char **av, char **envp, int fd)
 	if (!cmd)
 		ft_perror(strerror(ENOMEM));
 	ft_pipe(child_p.pipefd);
-	ft_exec_forkcmd(&p, &child_p, cmd, cmds, envp);
+	ft_exec_forkcmdput(&p, fd, cmd, cmds, envp);
 	ft_putstr_fd("Now, we put\n", 1);
-	ft_exec_put(child_p.pipefd[0], fd, envp);
+	close(child_p.pipefd[1]);
+	close(2);
 }
