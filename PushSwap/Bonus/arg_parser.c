@@ -36,7 +36,8 @@ static int	ft_check_arg(char *str)
 	{
 		if (str[index] < '0' || str[index] > '9')
 		{
-			if (str[index] != '-' || index > 0 || !str[index + 1])
+			if ((str[index] != '-' && str[index] != '+') || index > 0
+				|| !str[index + 1])
 				return (1);
 		}
 		++index;
