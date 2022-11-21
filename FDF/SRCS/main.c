@@ -6,24 +6,18 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:27:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/18 16:11:26 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/21 13:58:05 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	ft_free_return(t_angles *angles, t_map *map)
+static int	ft_free_return(t_angles *angles, t_fdf *fdf)
 {
 	int	index;
 
 	free(angles);
-	if (map)
-	{
-		index = 0;
-		while (index < map->maplen)
-			free(map->map[index ++]);
-		free(map);
-	}
+	free(fdf);
 	return (-1);
 }
 
@@ -55,7 +49,7 @@ int	main(int ac, char **av)
 		angles_init(fdf->angles, ISO_ALPHA, ISO_BETA, ISO_GAMMA);
 		fdf->map = get_map(av[1]);
 		if (!fdf->map)
-			return (ft_free_return(fdf->angles, 0));
+			return (ft_free_return(fdf->angles, fdf));
 		fdf->map->colors_enable = 1;
 		mlx_related_stuff(fdf, av[1]);
 	}

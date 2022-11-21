@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/21 10:18:00 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/21 13:54:36 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,9 +150,9 @@ typedef struct s_mlx
 	int		offset_y;
 	char	*title;
 	t_key	*key;
-	int		col_top;
-	int		col_zero;
-	int		col_bottom;
+	float	col_top;
+	float	col_zero;
+	float	col_bottom;
 }				t_mlx;
 
 typedef struct s_angles
@@ -171,6 +171,7 @@ typedef struct s_angles
 typedef struct s_fdf
 {
 	t_map		*map;
+	t_map		*map2;
 	t_mlx		*mlx;
 	t_angles	*angles;
 }				t_fdf;
@@ -198,7 +199,8 @@ void		rotation_y(t_fdf * fdf, int rotation);
 void		rotation_z(t_fdf * fdf, int rotation);
 
 int			mouse_button_pressed(int button, int x, int y, void *param);
-int			key_pressed(int keycode, void *param);
+int			key_down(int keycode, void *param);
+int			key_pressed(int key_code, void *param);
 int			key_released(int keycode, void *param);
 int			mlx_draw(void *param);
 

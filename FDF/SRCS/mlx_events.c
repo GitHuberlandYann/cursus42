@@ -25,12 +25,21 @@ int	mlx_exit(void *param)
 	exit(EXIT_SUCCESS); //+ some of those frees ?
 }
 
+int	key_pressed(int key_code, void *param)
+{
+	(void)param;
+	ft_printf("key %d pressed.\n", key_code);
+	return (0);
+}
+
 int	mouse_button_pressed(int button, int x, int y, void *param)
 {
+	t_fdf			*fdf;
 	t_mlx			*mlx;
 	unsigned int	col;
 
-	mlx = param;
+	fdf = param;
+	mlx = fdf->mlx;
 	//ft_printf("mouse button %d pressed at location (%d, %d) on window %s\n", button, x, y, mlx->title);
 	if (mlx->key->overlay)
 	{
@@ -39,16 +48,23 @@ int	mouse_button_pressed(int button, int x, int y, void *param)
 		{
 			col = ft_mlx_pixel_get(mlx->hex, x - mlx->hex->x, y - mlx->hex->y) % 0xff000000;
 			//ft_printf("pixel at %d, %d : %x\n", x - mlx->hex->x, y - mlx->hex->y, col);
-			if (button == 1)
-				mlx->col_top = col;
-			else
-				mlx->col_bottom = col;
+			if (fdf->map->colors_enable == 1)
+			{
+				if (button == 1)
+					mlx->col_top = col;
+				else
+					mlx->col_bottom = col;
+			}
+			else if (fdf->map->colors_enable == 0)
+				mlx->col_zero = col;
+			else if (fdf->map->colors_enable == 2)
+				mlx->col_zero = col;
 		}
 	}
 	return (0);
 }
 //#include <stdio.h>
-int	key_pressed(int keycode, void *param)
+int	key_down(int keycode, void *param)
 {
 	t_fdf	*fdf;
 
@@ -86,7 +102,7 @@ int	key_released(int keycode, void *param)
 	t_fdf *fdf;
 
 	fdf = param;
-	//printf("keycode : %d\n", keycode);
+	ft_printf("key released : %d\n", keycode);
 	if (keycode == KEY_Z || keycode == KEY_N)
 		fdf->mlx->key->rot_z = 0;
 	else if (keycode == KEY_Y || keycode == KEY_T)

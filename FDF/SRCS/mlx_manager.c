@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/21 10:17:04 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/21 11:47:13 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,12 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 			mlx_border_overlay(fdf);
 			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->overlay->img_ptr, fdf->mlx->overlay->x, fdf->mlx->overlay->y);
-			mlx_hook(fdf->mlx->win_ptr, ON_KEYDOWN, 0, key_pressed, fdf);
+			mlx_hook(fdf->mlx->win_ptr, ON_KEYDOWN, 0, key_down, fdf);
 			mlx_hook(fdf->mlx->win_ptr, ON_KEYUP, 0, key_released, fdf);
 			mlx_hook(fdf->mlx->win_ptr, ON_DESTROY, 0, mlx_exit, fdf->mlx); //x_mask not supported
+			//mlx_key_hook(fdf->mlx->win_ptr, key_pressed, fdf);
 			mlx_loop_hook(fdf->mlx->mlx_ptr, mlx_draw, fdf);
-			mlx_mouse_hook(fdf->mlx->win_ptr, mouse_button_pressed, fdf->mlx);
+			mlx_mouse_hook(fdf->mlx->win_ptr, mouse_button_pressed, fdf);
 			mlx_loop(fdf->mlx->mlx_ptr);
 		}
 		else
