@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/21 11:47:13 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/21 18:03:05 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 		fdf->mlx->size_x = WIN_SIZE_X / 2;
 		fdf->mlx->size_y = WIN_SIZE_Y / 2;
 		fdf->mlx->offset_x = WIN_SIZE_X / 4;
-		fdf->mlx->offset_y = WIN_SIZE_Y / 4;
+		fdf->mlx->offset_y = WIN_SIZE_Y / 2;
 		fdf->mlx->title = title;
 		fdf->mlx->win_ptr = mlx_new_window(fdf->mlx->mlx_ptr, WIN_SIZE_X, WIN_SIZE_Y, fdf->mlx->title);
 		if (fdf->mlx->win_ptr)

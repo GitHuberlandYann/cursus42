@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:27:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/21 13:58:05 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:58:23 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	ft_free_return(t_angles *angles, t_fdf *fdf)
 {
-	int	index;
-
 	free(angles);
 	free(fdf);
 	return (-1);

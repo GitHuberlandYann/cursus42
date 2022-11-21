@@ -96,8 +96,8 @@ int	ft_get_color(float value, int colors, float ratio, t_mlx *mlx)
 	else if (colors == 1)
 	{
 		res = mlx->col_zero; //starting color
-		if ((value > 0 && ratio > 0) || (value < 0 && ratio < 0))
-			res += (mlx->col_top - mlx->col_zero) * value; //endcolor
+		if (value * ratio >= 0)
+			res += (mlx->col_top - mlx->col_zero) * (fabsf(value)); //endcolor
 		else
 			res += (mlx->col_bottom - mlx->col_zero) * (fabsf(value));
 	}

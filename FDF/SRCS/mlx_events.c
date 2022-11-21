@@ -102,7 +102,7 @@ int	key_released(int keycode, void *param)
 	t_fdf *fdf;
 
 	fdf = param;
-	ft_printf("key released : %d\n", keycode);
+	//ft_printf("key released : %d\n", keycode);
 	if (keycode == KEY_Z || keycode == KEY_N)
 		fdf->mlx->key->rot_z = 0;
 	else if (keycode == KEY_Y || keycode == KEY_T)
