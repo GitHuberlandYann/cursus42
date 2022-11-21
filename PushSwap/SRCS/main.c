@@ -15,7 +15,7 @@
 static int	ft_error(int *tab)
 {
 	free(tab);
-	ft_putstr("Error\n");
+	write(2, "Error\n", 6);
 	return (1);
 }
 
