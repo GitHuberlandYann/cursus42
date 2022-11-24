@@ -57,6 +57,8 @@ float	ft_get_vcase(t_map *map, float value, float size_y)
 	float	res;
 	float	case_width;
 
+	if (!map->max_value)
+		return (0);
 	case_width = size_y / (float)map->maplen;
 	res = -case_width * (value / (float)map->max_value) * map->ratio;
 	return (res);
