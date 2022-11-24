@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/21 16:11:18 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/11/24 15:43:26 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -Imlx -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -O3 -O2 -Os -Imlx -fsanitize=address -g
 
 # ^^^^^^^^^^^^^ INCLUDING MINILIBX ^^^^^^^^^^^^^
 MLX_DIR = mlx
