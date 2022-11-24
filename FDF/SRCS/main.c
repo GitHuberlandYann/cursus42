@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:27:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/21 15:58:23 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:07:46 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,21 @@ static void	angles_init(t_angles *a, float alpha, float beta, float gamma)
 int	main(int ac, char **av)
 {
 	t_fdf	*fdf;
-
+	
+	fdf = malloc(sizeof(*fdf));
+	if (!fdf)
+		return (-1);
+	if (ac == 3)
+	{
+		fdf->map2 = get_map(av[2]); //need to free this when next mallocs fail -> TODO
+		if (!fdf->map2)
+			return (-1);
+		ac = 2;
+	}
+	else
+		fdf->map2 = 0;
 	if (ac == 2)
 	{
-		fdf = malloc(sizeof(*fdf));
-		if (!fdf)
-			return (-1);
 		fdf->angles = malloc(sizeof(*fdf->angles));
 		if (!fdf->angles)
 			exit(EXIT_FAILURE);
@@ -53,5 +62,6 @@ int	main(int ac, char **av)
 	}
 	else
 		ft_putstr("Program needs 1 argument of type <maps/*>\n");
+	free(fdf);
 	return (0);
 }

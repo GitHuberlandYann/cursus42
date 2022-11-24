@@ -6,14 +6,14 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/24 15:43:26 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/11/24 17:54:49 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = getmeoutofhere
 
 FILE = main gnl_manager angles_manager utils mlx_utils mlx_manager mlx_events \
-		animation_utils mlx_colors
+		animation_utils mlx_colors map2
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILE)))
 

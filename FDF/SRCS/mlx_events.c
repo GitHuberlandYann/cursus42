@@ -169,8 +169,11 @@ int	mlx_draw(void *param)
 		rotation_y(fdf, fdf->mlx->key->rot_special);
 		rotation_z(fdf, fdf->mlx->key->rot_special);
 	}
+	if (fdf->map2)
+		fdf->map2->ratio = fdf->map->ratio;
 	mlx_clear_img(fdf->mlx->img, 0x0);
 	mlx_map_img(fdf);
+	mlx_map2_img(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 	if (fdf->mlx->key->overlay)
 	{

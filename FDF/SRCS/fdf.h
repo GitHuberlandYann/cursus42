@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/21 13:54:36 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:59:34 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,9 @@ int			mlx_draw(void *param);
 t_map		*get_map(char	*path);
 int			mlx_exit(void *param);
 
+void		mlx_link_node(t_fdf *fdf, int ***copy, int r, int c);
 void		mlx_map_img(t_fdf *fdf);
+void		mlx_map2_img(t_fdf *fdf);
 void		mlx_clear_img(t_img *img, int color);
 
 void		ft_display_map_content(t_map *res);

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/24 11:25:05 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:06:43 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,23 @@ static void	mlx_draw_line(t_fdf *fdf, int ax, int ay, int bx, int by, int ar, in
 	}
 }
 
-static void	mlx_link_node(t_fdf *fdf, int ***copy, int r, int c)
+static void	ft_free_map(t_fdf *fdf, int ***map)
+{
+	int	row;
+	int	col;
+
+	row = 0;
+	while (row < fdf->map->maplen)
+	{
+		col = 0;
+		while (col < fdf->map->rowlen)
+			free(map[row][col++]);
+		free(map[row++]);
+	}
+	free(map);
+}
+
+void	mlx_link_node(t_fdf *fdf, int ***copy, int r, int c)
 {
 	if (c < fdf->map->rowlen - 1)
 		mlx_draw_line(fdf, copy[r][c][0], copy[r][c][1], copy[r][c + 1][0], copy[r][c + 1][1], r, c, r, c + 1);
@@ -81,6 +97,7 @@ void	mlx_map_img(t_fdf *fdf)
 		}
 		++row;
 	}
+	ft_free_map(fdf, copy);
 }
 
 static void	mlx_border_overlay(t_fdf *fdf)
@@ -125,6 +142,7 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 			ft_create_hexa(fdf->mlx);
 			// ft_set_hexa(fdf->mlx);
 			mlx_map_img(fdf);
+			mlx_map2_img(fdf);
 			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
 			mlx_border_overlay(fdf);
 			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->overlay->img_ptr, fdf->mlx->overlay->x, fdf->mlx->overlay->y);
