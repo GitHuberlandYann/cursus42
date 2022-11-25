@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:18:10 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/25 12:34:26 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/25 16:49:40 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		ft_check_zero(const char *str, int start, int end);
 int		ft_check_precision(const char *str, int start, int end);
 int		ft_atoi_precision(const char *str, int index, int end);
 int		ft_count_front_spaces(t_parse *current);
-int		ft_count_zeros(t_parse *current);
+int		ft_count_zeros(t_parse *cur);
 int		ft_count_back_spaces(t_parse *current);
 char	ft_get_type(const char *str, int index);
 void	ft_putchar(unsigned char c, t_res *res);

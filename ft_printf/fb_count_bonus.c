@@ -39,25 +39,25 @@ int	ft_count_front_spaces(t_parse *current)
 	}
 	else if (current->type == 'x' || current->type == 'X')
 		res -= 2 * (current->hashtag && current->int_copy);
-	if (current->type != 's')
+	if (current->type != 's' && current->type != '%')
 		res -= ft_max(current->arglen, current->precision);
 	else
 		res -= ft_min(current->arglen, current->precision);
 	return (res);
 }
 
-int	ft_count_zeros(t_parse *current)
+int	ft_count_zeros(t_parse *cur)
 {
 	int	res;
 
-	res = current->zero;
-	if (current->type == 'd' && current->precision == -1)
-		res -= ((current->space || current->plus) && (current->int_copy >= 0));
-	if (current->precision != -1 && current->type != 's')
-		res += current->precision;
-	res -= current->arglen;
-	if (current->hashtag && (current->type == 'x' || current->type == 'X'))
-		res -= 2 * (current->int_copy != 0 && current->precision == -1);
+	res = cur->zero;
+	if (cur->type == 'd' && cur->precision == -1)
+		res -= ((cur->space || cur->plus) && (cur->int_copy >= 0));
+	if (cur->precision != -1 && cur->type != 's' && cur->type != '%')
+		res += cur->precision;
+	res -= cur->arglen;
+	if (cur->hashtag && (cur->type == 'x' || cur->type == 'X'))
+		res -= 2 * (cur->int_copy != 0 && cur->precision == -1);
 	return (res);
 }
 
@@ -73,7 +73,7 @@ int	ft_count_back_spaces(t_parse *current)
 	}
 	else if (current->type == 'x' || current->type == 'X')
 		res -= 2 * (current->hashtag && current->int_copy);
-	if (current->type != 's')
+	if (current->type != 's' && current->type != '%')
 		res -= ft_max(current->arglen, current->precision);
 	else
 		res -= ft_min(current->arglen, current->precision);
