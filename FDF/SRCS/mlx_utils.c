@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:15:53 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/21 09:55:02 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/25 11:50:01 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ void	mlx_set_keys(t_mlx *mlx)
 	keys->rot_special = 0;
 	keys->color = 0;
 	keys->overlay = 0;
+	keys->mirror = 0;
 	mlx->key = keys;
 }

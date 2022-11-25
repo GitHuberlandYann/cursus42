@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/24 17:59:34 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/25 11:54:02 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_map
 	int		max_value;
 	float	ratio;
 	int		colors_enable;
+	int		mirror;
 }				t_map;
 
 typedef struct	s_img {
@@ -129,6 +130,7 @@ typedef struct s_key {
 	int	rot_special;
 	int	color;
 	int	overlay;
+	int	mirror;
 }				t_key;
 
 typedef struct s_hexa

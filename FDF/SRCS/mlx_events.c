@@ -94,6 +94,8 @@ int	key_down(int keycode, void *param)
 		fdf->mlx->key->rot_special = 3 * (2 * (keycode == KEY_1) - 2 * (keycode == KEY_2));
 	else if (keycode == KEY_H)
 		fdf->mlx->key->overlay = 1;
+	else if (keycode == KEY_M && ++fdf->mlx->key->mirror == 1)
+		fdf->map->mirror = !fdf->map->mirror;
 	return (0);
 }
 
@@ -125,6 +127,8 @@ int	key_released(int keycode, void *param)
 		fdf->mlx->key->rot_special = 0;
 	else if (keycode == KEY_H)
 		fdf->mlx->key->overlay = 0;
+	else if (keycode == KEY_M)
+		fdf->mlx->key->mirror = 0;
 	return (0);
 }
 
@@ -169,9 +173,15 @@ int	mlx_draw(void *param)
 		rotation_y(fdf, fdf->mlx->key->rot_special);
 		rotation_z(fdf, fdf->mlx->key->rot_special);
 	}
+	mlx_clear_img(fdf->mlx->img, 0x0);
 	if (fdf->map2)
 		fdf->map2->ratio = fdf->map->ratio;
-	mlx_clear_img(fdf->mlx->img, 0x0);
+	else if (fdf->map->mirror)
+	{
+		fdf->map->ratio = -fdf->map->ratio;
+		mlx_map_img(fdf);
+		fdf->map->ratio = -fdf->map->ratio;
+	}
 	mlx_map_img(fdf);
 	mlx_map2_img(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);
