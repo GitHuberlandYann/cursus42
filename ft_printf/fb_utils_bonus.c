@@ -20,7 +20,7 @@ int	ft_strlen(char *str)
 		return (0);
 	res = 0;
 	while (str[res])
-		res ++;
+		++res;
 	return (res);
 }
 
@@ -32,7 +32,7 @@ int	ft_nbrlen(int nb)
 	while (nb / 10)
 	{
 		nb /= 10;
-		res ++;
+		++res;
 	}
 	return (res);
 }
@@ -45,7 +45,7 @@ int	ft_unbrlen(unsigned int nb, int base)
 	while (nb / base)
 	{
 		nb /= base;
-		res ++;
+		++res;
 	}
 	return (res);
 }
@@ -58,7 +58,7 @@ int	ft_addresslen(unsigned long nb)
 	while (nb / 16)
 	{
 		nb /= 16;
-		res ++;
+		++res;
 	}
 	return (res);
 }

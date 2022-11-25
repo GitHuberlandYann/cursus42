@@ -28,6 +28,6 @@ int	ft_atoi(const char *str, int index, int end)
 int	ft_atoi_precision(const char *str, int index, int end)
 {
 	while (str[index] != '.')
-		index ++;
+		++index;
 	return (ft_atoi(str, index + 1, end));
 }

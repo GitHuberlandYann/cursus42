@@ -6,13 +6,13 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 16:16:35 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/20 16:47:08 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/25 13:31:12 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fb_printf_bonus.h"
 
-void	ft_display_arg(char type, int precision, int *res, va_list *ap)
+static void	ft_display_arg(char type, int precision, t_res *res, va_list *ap)
 {
 	if (type == 'c')
 		ft_putchar(va_arg(*ap, int), res);
@@ -32,7 +32,7 @@ void	ft_display_arg(char type, int precision, int *res, va_list *ap)
 		ft_putchar(type, res);
 }
 
-void	ft_printf_exec(t_parse *current, int *res, va_list *ap)
+static void	ft_printf_exec(t_parse *current, t_res *res, va_list *ap)
 {
 	ft_putchars(' ', ft_count_front_spaces(current), res);
 	if (current->int_copy < 0 && current->type == 'd')
@@ -55,37 +55,34 @@ void	ft_printf_exec(t_parse *current, int *res, va_list *ap)
 	ft_putchars(' ', ft_count_back_spaces(current), res);
 }
 
-int	ft_main_loop(const char *str, t_parse *current, va_list *ap)
+static void	ft_main_loop(const char *str, t_parse *cur, t_res *res, va_list *ap)
 {
-	int	res;
 	int	index;
 
-	res = 0;
 	index = 0;
 	while (str[index])
 	{
 		if (str[index] != '%')
-			ft_putchar(str[index], &res);
+			ft_putchar(str[index], res);
 		else
 		{
-			index ++;
-			ft_reset_parsing(current);
-			index = ft_parse(str, index, current);
-			if (current->type != 'E')
-				ft_printf_exec(current, &res, ap);
+			++index;
+			ft_reset_parsing(cur);
+			index = ft_parse(str, index, cur);
+			if (cur->type != 'E')
+				ft_printf_exec(cur, res, ap);
 			else
 				break ;
 		}
-		if (res < 0)
-			return (-1);
-		index ++;
+		if (res->error)
+			break ;
+		++index;
 	}
-	return (res);
 }
 
 int	ft_printf(const char *str, ...)
 {
-	int		res;
+	t_res	res;
 	va_list	ap;
 	t_parse	*current;
 
@@ -96,9 +93,13 @@ int	ft_printf(const char *str, ...)
 	if (!current)
 		return (-1);
 	va_copy(current->ap, ap);
-	res = ft_main_loop(str, current, &ap);
+	res.count = 0;
+	res.error = 0;
+	ft_main_loop(str, current, &res, &ap);
 	va_end(current->ap);
 	free(current);
 	va_end(ap);
-	return (res);
+	if (res.error)
+		return (-1);
+	return (res.count);
 }

@@ -6,13 +6,13 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:21:26 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/20 15:18:30 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/25 12:32:50 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_puthexa(unsigned int nb, int upper, int *res)
+void	ft_puthexa(unsigned int nb, int upper, t_res *res)
 {
 	char	mod;
 
@@ -26,7 +26,7 @@ void	ft_puthexa(unsigned int nb, int upper, int *res)
 	ft_putchar(mod, res);
 }
 
-void	ft_putaddresshexa2(unsigned long nb, int *res)
+void	ft_putaddresshexa2(unsigned long nb, t_res *res)
 {
 	char	mod;
 
@@ -38,7 +38,7 @@ void	ft_putaddresshexa2(unsigned long nb, int *res)
 	ft_putchar(mod, res);
 }
 
-void	ft_putaddresshexa(void *ptr, int *res)
+void	ft_putaddresshexa(void *ptr, t_res *res)
 {
 	ft_putstr("0x", res);
 	ft_putaddresshexa2((unsigned long) ptr, res);

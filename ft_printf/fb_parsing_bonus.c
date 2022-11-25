@@ -46,7 +46,7 @@ char	ft_get_type(const char *str, int index)
 		&& str[index] != 'p' && str[index] != 'd' && str[index] != 'i'
 		&& str[index] != 'u' && str[index] != 'x' && str[index] != 'X'
 		&& str[index] != '%')
-		index ++;
+		++index;
 	if (str[index] == 'i')
 		return ('d');
 	else if (str[index])
@@ -59,7 +59,7 @@ int	ft_get_end(const char *str, int index)
 	while (str[index] != 'c' && str[index] != 's' && str[index] != 'p'
 		&& str[index] != 'd' && str[index] != 'i' && str[index] != 'u'
 		&& str[index] != 'x' && str[index] != 'X' && str[index] != '%')
-		index ++;
+		++index;
 	return (index);
 }
 

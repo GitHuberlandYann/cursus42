@@ -12,7 +12,7 @@
 
 #include "fb_printf_bonus.h"
 
-void	ft_putaddresshexa2(unsigned long nb, int *res)
+void	ft_putaddresshexa2(unsigned long nb, t_res *res)
 {
 	char	mod;
 
@@ -24,12 +24,12 @@ void	ft_putaddresshexa2(unsigned long nb, int *res)
 	ft_putchar(mod, res);
 }
 
-void	ft_putaddresshexa(void *ptr, int *res)
+void	ft_putaddresshexa(void *ptr, t_res *res)
 {
 	ft_putaddresshexa2((unsigned long) ptr, res);
 }
 
-void	ft_putchars(unsigned char c, int count, int *res)
+void	ft_putchars(unsigned char c, int count, t_res *res)
 {
 	int	index;
 
@@ -37,6 +37,6 @@ void	ft_putchars(unsigned char c, int count, int *res)
 	while (index < count)
 	{
 		ft_putchar(c, res);
-		index ++;
+		++index;
 	}
 }

@@ -36,7 +36,7 @@ void	ft_parse_bonus2(const char *str, int start, int end, t_parse *current)
 			current->hashtag = 1;
 		else if (str[start] == '+')
 			current->plus = 1;
-		start ++;
+		++start;
 	}
 	if (current->plus)
 		current->space = 0;
@@ -48,7 +48,7 @@ int	ft_check_minus(const char *str, int start, int end)
 	{
 		if (str[start] == '-')
 			return (1);
-		start ++;
+		++start;
 	}
 	return (0);
 }
@@ -60,7 +60,7 @@ int	ft_check_zero(const char *str, int start, int end)
 	{
 		if (str[start] == '0')
 			return (1);
-		start ++;
+		++start;
 	}
 	return (0);
 }
@@ -71,7 +71,7 @@ int	ft_check_precision(const char *str, int start, int end)
 	{
 		if (str[start] == '.')
 			return (1);
-		start ++;
+		++start;
 	}
 	return (0);
 }

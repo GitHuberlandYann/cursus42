@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 15:25:26 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/10/18 15:27:24 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/25 13:30:03 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_strlen(char *str)
 		return (0);
 	res = 0;
 	while (str[res])
-		res ++;
+		++res;
 	return (res);
 }
 
