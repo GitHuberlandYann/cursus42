@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:48:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/21 17:11:17 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/26 15:53:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_exec_forkcat(t_parent *child_p, char *path, char **envp)
 {
 	char		*args[3];
 
-	args[0] = "/bin/cat"; //anything will do, just needs something,
+	args[0] = "/bin/cat"; //anything will do, just needs something
 						//convention = name of current executable
 	args[1] = path;
 	args[2] = 0;
@@ -101,6 +101,8 @@ void	ft_exec_main_child(t_parent p, char **av, char **envp)
 	ft_pipe(child_p.pipefd);
 	ft_exec_forkcat(&child_p, av[1], envp);
 	ft_exec_forkcmd(&child_p, &p, cmd, cmds, envp);
+	ft_free_arr(cmds);
+	free(cmd);
 }
 
 void	ft_exec_second_cmd(t_parent p, char **av, char **envp, int fd)
@@ -121,4 +123,6 @@ void	ft_exec_second_cmd(t_parent p, char **av, char **envp, int fd)
 	ft_putstr_fd("Now, we put\n", 1);
 	close(child_p.pipefd[1]);
 	close(2);
+	ft_free_arr(cmds);
+	free(cmd);
 }

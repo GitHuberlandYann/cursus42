@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:27:06 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/18 14:16:08 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/26 15:52:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_parent
 void	ft_exec_first_command(char **av, char **envp, char **gnl);
 char	*ft_read_file(char *path);
 void	ft_perror(char *str);
+void	ft_free_arr(char **arr);
 
 void	ft_testing_ground(int ac, char **av, char **envp);
 void	ft_exec_main_child(t_parent p, char **av, char **envp);

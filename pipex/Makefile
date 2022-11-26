@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 14:05:55 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/18 12:02:46 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/11/26 15:39:42 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-FILES = main execve gnl_manager TESTINGSTUFF utils
+FILES = main execve TESTINGSTUFF utils
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 
