@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:15:53 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/25 11:50:01 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/26 16:29:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,11 @@ void	mlx_set_keys(t_mlx *mlx)
 	keys->color = 0;
 	keys->overlay = 0;
 	keys->mirror = 0;
+	keys->level0d = 0;
+	keys->level0u = 0;
+	keys->level1d = 0;
+	keys->level1u = 0;
+	keys->level2d = 0;
+	keys->level2u = 0;
 	mlx->key = keys;
 }

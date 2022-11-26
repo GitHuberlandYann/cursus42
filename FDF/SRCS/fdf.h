@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/25 11:54:02 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/26 16:27:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,13 +131,23 @@ typedef struct s_key {
 	int	color;
 	int	overlay;
 	int	mirror;
+	int	level0u;
+	int	level0d;
+	int	level1u;
+	int	level1d;
+	int	level2u;
+	int	level2d;
 }				t_key;
 
-typedef struct s_hexa
+typedef struct s_colors
 {
-	int		color_tab[13][13];
-	float	hexa_r;
-}				t_hexa;
+	float	top;
+	float	zero;
+	float	bottom;
+	float	level0;
+	float	level1;
+	float	level2;
+}				t_col;
 
 typedef struct s_mlx
 {
@@ -152,9 +162,7 @@ typedef struct s_mlx
 	int		offset_y;
 	char	*title;
 	t_key	*key;
-	float	col_top;
-	float	col_zero;
-	float	col_bottom;
+	t_col	*col;
 }				t_mlx;
 
 typedef struct s_angles
@@ -185,8 +193,7 @@ float		ft_get_ycase(float row, float len, float size_y);
 float		ft_get_vcase(t_map *map, float value, float size_y);
 
 int			***ft_mapdup(t_fdf *fdf);
-int			ft_get_color(float value, int white, float ratio, t_mlx *mlx);
-// void		ft_set_hexa(t_mlx *mlx);
+int			ft_get_color(float value, int white, float ratio, t_col *col);
 void		ft_create_hexa(t_mlx *mlx);
 unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/25 12:13:19 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/26 16:22:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	mlx_draw_line(t_fdf *fdf, int ax, int ay, int bx, int by, int ar, in
 	while (len > 0)
 	{
 		if ((!fdf->map2 && !fdf->map->mirror) || heighta)
-			ft_mlx_pixel_put(fdf->mlx->img, pixelx, pixely, ft_get_color(heighta, fdf->map->colors_enable, fdf->map->ratio, fdf->mlx));
+			ft_mlx_pixel_put(fdf->mlx->img, pixelx, pixely, ft_get_color(heighta, fdf->map->colors_enable, fdf->map->ratio, fdf->mlx->col));
 		pixelx += dx;
 		if (dx)
 			pixely = m * (pixelx - ax) + ay;
@@ -126,9 +126,12 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 	fdf->mlx->mlx_ptr = mlx_init();
 	if (fdf->mlx->mlx_ptr)
 	{
-		fdf->mlx->col_zero = 0xffffff;
-		fdf->mlx->col_top = 0xff00ff;
-		fdf->mlx->col_bottom = 0x80;
+		fdf->mlx->col->zero = 0xffffff;
+		fdf->mlx->col->top = 0xff00ff;
+		fdf->mlx->col->bottom = 0x80;
+		fdf->mlx->col->level0 = 0.02;
+		fdf->mlx->col->level1 = 0.18;
+		fdf->mlx->col->level2 = 0.35;
 		fdf->mlx->size_x = WIN_SIZE_X / 2;
 		fdf->mlx->size_y = WIN_SIZE_X / 2; //WIN_SIZE_Y / 2;
 		fdf->mlx->offset_x = WIN_SIZE_X / 4;
@@ -141,7 +144,6 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 			mlx_set_keys(fdf->mlx);
 			ft_create_overlay(fdf->mlx);
 			ft_create_hexa(fdf->mlx);
-			// ft_set_hexa(fdf->mlx);
 			mlx_map_img(fdf);
 			mlx_map2_img(fdf);
 			mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr, fdf->mlx->img->img_ptr, 0, 0);

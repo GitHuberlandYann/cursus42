@@ -51,14 +51,14 @@ int	mouse_button_pressed(int button, int x, int y, void *param)
 			if (fdf->map->colors_enable == 1)
 			{
 				if (button == 1)
-					mlx->col_top = col;
+					mlx->col->top = col;
 				else
-					mlx->col_bottom = col;
+					mlx->col->bottom = col;
 			}
 			else if (fdf->map->colors_enable == 0)
-				mlx->col_zero = col;
+				mlx->col->zero = col;
 			else if (fdf->map->colors_enable == 2)
-				mlx->col_zero = col;
+				mlx->col->zero = col;
 		}
 	}
 	return (0);
@@ -86,8 +86,13 @@ int	key_down(int keycode, void *param)
 		fdf->mlx->key->vertical = ((keycode == KEY_S) + (keycode == KEY_DOWN) - ((keycode == KEY_W) + (keycode == KEY_UP)));
 	else if (keycode == KEY_PLUS || keycode == KEY_MINUS || keycode == KEY_PLUS_PAD || keycode == KEY_MINUS_PAD)
 		fdf->mlx->key->zoom = ((keycode == KEY_PLUS) + (keycode == KEY_PLUS_PAD) - ((keycode == KEY_MINUS) + (keycode == KEY_MINUS_PAD)));
-	else if (keycode == KEY_P)
-		fdf->mlx->key->reset_ratio = 1;
+	else if (keycode == KEY_P && ++fdf->mlx->key->reset_ratio == 1)
+	{
+		if (fdf->map->ratio != fdf->map->max_value)
+			fdf->map->ratio = fdf->map->max_value;
+		else
+			fdf->map->ratio = (float)fdf->map->maplen / 5.0 + (fdf->map->maplen < 10);
+	}
 	else if (keycode == KEY_C && ++fdf->mlx->key->color == 1)
 		fdf->map->colors_enable = !fdf->map->colors_enable + (2 * (fdf->map->colors_enable == 1));
 	else if (keycode == KEY_1 || keycode == KEY_2)
@@ -96,6 +101,18 @@ int	key_down(int keycode, void *param)
 		fdf->mlx->key->overlay = 1;
 	else if (keycode == KEY_M && ++fdf->mlx->key->mirror == 1)
 		fdf->map->mirror = !fdf->map->mirror;
+	else if (keycode == KEY_8 && ++fdf->mlx->key->level0u == 1)
+		fdf->mlx->col->level0 -= 0.01;
+	else if (keycode == KEY_9 && ++fdf->mlx->key->level0d == 1)
+		fdf->mlx->col->level0 += 0.01;
+	else if (keycode == KEY_5 && ++fdf->mlx->key->level1u == 1)
+		fdf->mlx->col->level1 -= 0.01;
+	else if (keycode == KEY_6 && ++fdf->mlx->key->level1d == 1)
+		fdf->mlx->col->level1 += 0.01;
+	else if (keycode == KEY_2 && ++fdf->mlx->key->level2u == 1)
+		fdf->mlx->col->level2 -= 0.01;
+	else if (keycode == KEY_3 && ++fdf->mlx->key->level2d == 1)
+		fdf->mlx->col->level2 += 0.01;
 	return (0);
 }
 
@@ -129,6 +146,18 @@ int	key_released(int keycode, void *param)
 		fdf->mlx->key->overlay = 0;
 	else if (keycode == KEY_M)
 		fdf->mlx->key->mirror = 0;
+	else if (keycode == KEY_8)
+		fdf->mlx->key->level0u = 0;
+	else if (keycode == KEY_9)
+		fdf->mlx->key->level0d = 0;
+	else if (keycode == KEY_5)
+		fdf->mlx->key->level1u = 0;
+	else if (keycode == KEY_6)
+		fdf->mlx->key->level1d = 0;
+	else if (keycode == KEY_2)
+		fdf->mlx->key->level2u = 0;
+	else if (keycode == KEY_3)
+		fdf->mlx->key->level2d = 0;
 	return (0);
 }
 
@@ -159,13 +188,6 @@ int	mlx_draw(void *param)
 		fdf->mlx->size_y += 100 * fdf->mlx->key->zoom;
 		fdf->mlx->offset_x -= 50 * fdf->mlx->key->zoom;
 		fdf->mlx->offset_y -= 50 * fdf->mlx->key->zoom;
-	}
-	if (fdf->mlx->key->reset_ratio)
-	{
-		if (fdf->map->ratio != fdf->map->max_value)
-			fdf->map->ratio = fdf->map->max_value;
-		else
-			fdf->map->ratio = (float)fdf->map->maplen / 5.0 + (fdf->map->maplen < 10);
 	}
 	if (fdf->mlx->key->rot_special)
 	{
