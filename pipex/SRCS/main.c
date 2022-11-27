@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 14:11:55 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/26 15:55:18 by marvin           ###   ########.fr       */
+/*   Updated: 2022/11/27 16:23:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	ft_check_files(char **av)
 		ft_perror(av[4]);
 	// else
 	// 	printf("no problemo\n");
-	return (0);
 }
 
 // static char	**ft_set_env(void)
@@ -71,12 +70,22 @@ void	ft_free_arr(char **arr)
 
 int	main(int ac, char **av, char **envp)
 {
+	t_env	env;
+
 	if (ac >= 5)
 	{
 		ft_check_files(av);
-		ft_testing_ground(ac, av, envp);
+		env.ac = ac;
+		env.av = av;
+		env.envp = envp;
+		env.paths = ft_get_paths(envp);
+		ft_testing_ground(&env);
+		ft_free_arr(env.paths);
 	}
 	else
 		printf("wrong number of ac, yours : %d\n", ac);
+	// env.paths = ft_get_paths(envp);
+	// ft_print_arr(env.paths);
+	// ft_free_arr(env.paths);
 	return (0);
 }

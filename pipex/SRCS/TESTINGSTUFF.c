@@ -11,26 +11,22 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>
 
-void	ft_testing_ground(int ac, char **av, char **envp)
+void	ft_testing_ground(t_env *env)
 {
 	t_parent	p;
 	int			fd;
 
-	(void)ac;
-	(void)av;
-	(void)envp;
 	ft_pipe(p.pipefd);
 	ft_fork(&p.c_pid);
 	if (!p.c_pid) //CHILD
-		ft_exec_main_child(p, av, envp);
+		ft_exec_main_child(p, env);
 	else //PARENT, first wait for child to finish
 	{
 		ft_wait_child(p);
-		fd = open(av[4], O_WRONLY);
-		ft_exec_second_cmd(p, av, envp, fd);
-		ft_putstr_fd("Parent when fork == 1\n", 1);
+		fd = open(env->av[4], O_WRONLY | O_TRUNC); //O_APPEND for '>>' bonus
+		ft_exec_second_cmd(p, env, fd);
+		//ft_putstr_fd("Parent when fork == 1\n", 1);
 		exit(EXIT_SUCCESS);
 	}
 }

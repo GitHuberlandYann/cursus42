@@ -6,13 +6,13 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 14:05:55 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/26 15:39:42 by marvin           ###   ########.fr        #
+#    Updated: 2022/11/27 16:01:05 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-FILES = main execve TESTINGSTUFF utils
+FILES = main execve TESTINGSTUFF utils path
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 

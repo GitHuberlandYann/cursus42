@@ -1,0 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/27 15:53:53 by marvin            #+#    #+#             */
+/*   Updated: 2022/11/27 15:53:53 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "pipex.h"
+
+static char	*ft_get_pathstr(char **envp)
+{
+	int	index;
+
+	index = 0;
+	while (envp[index])
+	{
+		if (!ft_strncmp(envp[index], "PATH=", 5))
+			return (&envp[index][5]);
+		++index;
+	}
+	return (0);
+}
+
+char	**ft_get_paths(char **envp)
+{
+	char	**res;
+	char	*path;
+
+	if (!envp)
+		return (0);
+	path = ft_get_pathstr(envp);
+	if (!path)
+		return (0);
+	res = ft_split(path, ':');
+	return (res);
+}
+
+char	*ft_get_cmdpath(char *cmd, char **paths)
+{
+	int		index;
+	char	*res;
+
+	index = 0;
+	cmd = ft_strjoin("/", cmd);
+	while (paths[index])
+	{
+		res = ft_strjoin(paths[index], cmd);
+		if (!access(res, X_OK))
+		{
+			free(cmd);
+			return (res);
+		}
+		free(res);
+		++index;
+	}
+	ft_perror(cmd);
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:27:06 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/26 15:52:54 by marvin           ###   ########.fr       */
+/*   Updated: 2022/11/27 16:29:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,24 @@ typedef struct s_parent
 	int		pipefd[2]; //[read_fd, write_fd]
 }				t_parent;
 
-void	ft_exec_first_command(char **av, char **envp, char **gnl);
-char	*ft_read_file(char *path);
+typedef struct s_env
+{
+	int		ac;
+	char	**av;
+	char	**envp;
+	char	**paths;
+}				t_env;
+
+
+char	**ft_get_paths(char **envp);
+char	*ft_get_cmdpath(char *cmd, char **paths);
 void	ft_perror(char *str);
 void	ft_free_arr(char **arr);
 
-void	ft_testing_ground(int ac, char **av, char **envp);
-void	ft_exec_main_child(t_parent p, char **av, char **envp);
-void	ft_exec_second_cmd(t_parent p, char **av, char **envp, int fd);
+void	ft_testing_ground(t_env *env);
+void	ft_exec_main_child(t_parent p, t_env *env);
+void	ft_exec_first_command(char **av, char **envp, char **gnl);
+void	ft_exec_second_cmd(t_parent p, t_env *env, int fd);
 
 void	ft_pipe(int pipefd[2]);
 void	ft_fork(int	*child_pid);
