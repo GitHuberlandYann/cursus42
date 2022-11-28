@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 17:41:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/27 16:04:39 by marvin           ###   ########.fr       */
+/*   Created: 2022/11/28 12:41:11 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/11/28 14:29:46 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
-// # include <stdarg.h>
+# include <stdarg.h>
 
 // int		ft_max(int a, int b);
 // int		ft_min(int a, int b);
@@ -37,8 +37,10 @@ char	*ft_strcpy_from_nl(char **str);
 char	*ft_strcpy_until_nl(char *str);
 
 size_t	ft_strlen(const char *str);
+char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoins(int ac, ...);
 char	*ft_strdup(char *str);
 char	**ft_arrayadd_back(char **arr, char *str);
 int		ft_arraylen(char **array);

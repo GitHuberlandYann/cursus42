@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 14:11:55 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/27 16:23:17 by marvin           ###   ########.fr       */
+/*   Updated: 2022/11/28 14:38:24 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 static void	ft_check_files(char **av)
 {
-	if (access(av[1], W_OK)) // ->return -1 on error, and sets errno
-		ft_perror(av[1]);
-	else if (access(av[4], R_OK))
-		ft_perror(av[4]);
+	if (access(av[1], R_OK)) // ->return -1 on error, and sets errno
+		ft_perror(ft_strjoins(7, __FILE__, ": ", __func__, ": line ", ft_itoa(__LINE__ - 1),
+					": ", av[1]));
+	// else if (access(av[4], W_OK))
+	// 	ft_perror(av[4]);
 	// else
 	// 	printf("no problemo\n");
 }
@@ -56,6 +57,12 @@ void	ft_perror(char *str)
 	exit(EXIT_FAILURE);
 }
 
+void	ft_perror_cmd(char *str)
+{
+	write(2, str, ft_strlen(str));
+	exit(127);
+}
+
 void	ft_free_arr(char **arr)
 {
 	int	index;
@@ -83,9 +90,9 @@ int	main(int ac, char **av, char **envp)
 		ft_free_arr(env.paths);
 	}
 	else
+	{
 		printf("wrong number of ac, yours : %d\n", ac);
-	// env.paths = ft_get_paths(envp);
-	// ft_print_arr(env.paths);
-	// ft_free_arr(env.paths);
+		return (1);
+	}
 	return (0);
 }
