@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/26 16:27:53 by marvin           ###   ########.fr       */
+/*   Updated: 2022/11/28 12:22:15 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "../mlx/mlx.h"
 
 # define WIN_SIZE_X 2560
-# define WIN_SIZE_Y 1440
+# define WIN_SIZE_Y 1400
 # define OVERLAY_SIZE_X 300
 # define OVERLAY_SIZE_Y 300
 

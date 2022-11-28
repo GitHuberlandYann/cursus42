@@ -69,7 +69,7 @@ int	key_down(int keycode, void *param)
 	t_fdf	*fdf;
 
 	fdf = param;
-	//printf("keycode : %d\n", keycode);
+	//printf("keycode : %d\n", keycode)
 	if (keycode == KEY_ESC || keycode == KEY_Q)
 		mlx_exit(fdf->mlx);
 	else if (keycode == KEY_Z || keycode == KEY_N)
@@ -95,8 +95,8 @@ int	key_down(int keycode, void *param)
 	}
 	else if (keycode == KEY_C && ++fdf->mlx->key->color == 1)
 		fdf->map->colors_enable = !fdf->map->colors_enable + (2 * (fdf->map->colors_enable == 1));
-	else if (keycode == KEY_1 || keycode == KEY_2)
-		fdf->mlx->key->rot_special = 3 * (2 * (keycode == KEY_1) - 2 * (keycode == KEY_2));
+	else if (keycode == KEY_1)
+		fdf->mlx->key->rot_special = 6 * (keycode == KEY_1);
 	else if (keycode == KEY_H)
 		fdf->mlx->key->overlay = 1;
 	else if (keycode == KEY_M && ++fdf->mlx->key->mirror == 1)
@@ -140,7 +140,7 @@ int	key_released(int keycode, void *param)
 		fdf->mlx->key->reset_ratio = 0;
 	else if (keycode == KEY_C)
 		fdf->mlx->key->color = 0;
-	else if (keycode == KEY_1 || keycode == KEY_2)
+	else if (keycode == KEY_1)
 		fdf->mlx->key->rot_special = 0;
 	else if (keycode == KEY_H)
 		fdf->mlx->key->overlay = 0;

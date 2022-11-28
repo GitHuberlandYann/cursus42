@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/26 16:22:56 by marvin           ###   ########.fr       */
+/*   Updated: 2022/11/28 12:10:36 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,9 @@ int	mlx_related_stuff(t_fdf *fdf, char *title)
 	fdf->mlx->mlx_ptr = mlx_init();
 	if (fdf->mlx->mlx_ptr)
 	{
+		fdf->mlx->col = malloc(sizeof(*fdf->mlx->col));
+		if (!fdf->mlx->col)
+			mlx_exit(fdf->mlx);
 		fdf->mlx->col->zero = 0xffffff;
 		fdf->mlx->col->top = 0xff00ff;
 		fdf->mlx->col->bottom = 0x80;
