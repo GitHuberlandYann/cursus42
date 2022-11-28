@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/28 17:44:33 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/11/28 17:54:55 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILE)))
 
 OBJS = $(SRCS:.c=.o)
 
-FILES_BONUS = main gnl_manager gnl_utils utils ft_atof
+FILES_BONUS = main gnl_manager gnl_utils utils
 
 SRCS_BONUS = $(addprefix BONUS/, $(addsuffix .c, $(FILES_BONUS)))
 

@@ -6,15 +6,15 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:04:04 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/28 17:26:50 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:57:27 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_bonus.h"
 
-static void	ft_vertadd_back(t_vertex **vert, t_vertex *new)
+static void	ft_vertadd_back(t_vertice **vert, t_vertice *new)
 {
-	t_vertex	*current;
+	t_vertice	*current;
 
 	if (!vert || !new)
 		return ;
@@ -29,9 +29,9 @@ static void	ft_vertadd_back(t_vertex **vert, t_vertex *new)
 	}
 }
 
-static t_vertex	*ft_vertnew(char **content)
+static t_vertice	*ft_vertnew(char **content)
 {
-	t_vertex	*res;
+	t_vertice	*res;
 
 	res = malloc(sizeof(*res));
 	if (!res)
