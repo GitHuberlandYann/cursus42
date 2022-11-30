@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/28 17:54:55 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/11/30 21:17:50 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILE)))
 
 OBJS = $(SRCS:.c=.o)
 
-FILES_BONUS = main gnl_manager gnl_utils utils
+FILES_BONUS = main gnl_manager gnl_utils utils mlx_manager mlx_events mlx_draw \
+				mlx_img angles_manager
 
 SRCS_BONUS = $(addprefix BONUS/, $(addsuffix .c, $(FILES_BONUS)))
 

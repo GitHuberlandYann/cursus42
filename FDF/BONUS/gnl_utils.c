@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:04:04 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/28 17:57:27 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/30 20:07:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static t_vertice	*ft_vertnew(char **content)
 
 	res = malloc(sizeof(*res));
 	if (!res)
-		return (0);
-	res->x = ft_atof(content[1]);
-	res->y = ft_atof(content[2]);
-	res->z = ft_atof(content[3]);
+		ft_perror("ft_vertnew");
+	res->x = ft_atolf(content[1]);
+	res->y = ft_atolf(content[2]);
+	res->z = ft_atolf(content[3]);
 	res->next = 0;
 	return (res);
 }
@@ -63,13 +63,18 @@ static void	ft_faceadd_back(t_face **face, t_face *new)
 static t_face	*ft_facenew(char **content)
 {
 	t_face	*res;
+	int		index;
 
 	res = malloc(sizeof(*res));
 	if (!res)
-		return (0);
-	res->first = ft_atoi(content[1]);
-	res->second = ft_atoi(content[2]);
-	res->third = ft_atoi(content[3]);
+		ft_perror("ft_facenew");
+	index = 0;
+	while (content[index + 1] && index < 4)
+	{
+		res->face[index] = ft_atoi(content[index + 1]);
+		++index;
+	}
+	res->poly = index;
 	res->next = 0;
 	return (res);
 }
@@ -82,9 +87,9 @@ void	ft_add_line(t_map *res, char *line)
 	if (!arr)
 		ft_perror("ft_split");
 	if (!ft_strcmp(arr[0], "v"))
-		ft_vertadd_back(&res->vert, ft_vertnew(arr)); //todo check error here
+		ft_vertadd_back(&res->vert, ft_vertnew(arr));
 	else if (!ft_strcmp(arr[0], "f"))
-		ft_faceadd_back(&res->faces, ft_facenew(arr)); //todo check error here
+		ft_faceadd_back(&res->faces, ft_facenew(arr));
 	ft_free_arr(arr);
 	free(line);
 }

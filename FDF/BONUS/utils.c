@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:02:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/28 17:02:26 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/30 21:12:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_bonus.h"
 
-void	ft_perror(char *str)
+void	ft_perror(const char *str)
 {
 	perror(str);
 	exit(EXIT_FAILURE);
@@ -22,8 +22,30 @@ void	ft_free_arr(char **arr)
 {
 	int	index;
 
+	if (!arr)
+		return ;
 	index = 0;
 	while (arr[index])
 		free(arr[index++]);
 	free(arr);
+}
+
+void	ft_free_map(t_map *map)
+{
+	t_vertice	*tmpv;
+	t_face		*tmpf;
+
+	while (map->vert)
+	{
+		tmpv = map->vert->next;
+		free(map->vert);
+		map->vert = tmpv;
+	}
+	while (map->faces)
+	{
+		tmpf = map->faces->next;
+		free(map->faces);
+		map->faces = tmpf;
+	}
+	free(map);
 }
