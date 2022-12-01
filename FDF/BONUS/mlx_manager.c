@@ -64,24 +64,23 @@ static void	ft_mlx_init(t_fdf *fdf, char *title)
 		ft_perror("mlx_new_window");
 	ft_create_img(mlx);
 	ft_mlx_set_keys(mlx);
-	mlx->keycpy = malloc(sizeof(*mlx->keycpy));
-	if (!mlx->keycpy)
-		ft_perror(__func__);
-	mlx->keycpy->horizontal = 404;
 	fdf->mlx = mlx;
 }
 
 void	mlx_related_stuff(t_map *map, t_angles *a, char *title)
 {
-	t_fdf	fdf;
+	t_fdf	*fdf;
 
-	fdf.map = map;
-	fdf.angles = a;
-	ft_mlx_init(&fdf, title);
-	mlx_hook(fdf.mlx->win_ptr, ON_KEYDOWN, 0, key_down, &fdf);
-	mlx_hook(fdf.mlx->win_ptr, ON_KEYUP, 0, key_released, &fdf);
-	mlx_hook(fdf.mlx->win_ptr, ON_DESTROY, 0, mlx_exit, fdf.mlx);
-	mlx_loop_hook(fdf.mlx->mlx_ptr, mlx_draw, &fdf);
-	// mlx_mouse_hook(fdf.mlx->win_ptr, mouse_button_pressed, fdf);
-	mlx_loop(fdf.mlx->mlx_ptr);
+	fdf = malloc(sizeof(*fdf));
+	if (!fdf)
+		ft_perror(__func__);
+	fdf->map = map;
+	fdf->angles = a;
+	ft_mlx_init(fdf, title);
+	mlx_hook(fdf->mlx->win_ptr, ON_KEYDOWN, 0, key_down, fdf);
+	mlx_hook(fdf->mlx->win_ptr, ON_KEYUP, 0, key_released, fdf);
+	mlx_hook(fdf->mlx->win_ptr, ON_DESTROY, 0, mlx_exit, fdf->mlx);
+	mlx_loop_hook(fdf->mlx->mlx_ptr, mlx_draw, fdf);
+	// mlx_mouse_hook(fdf->mlx->win_ptr, mouse_button_pressed, fdf);
+	mlx_loop(fdf->mlx->mlx_ptr);
 }

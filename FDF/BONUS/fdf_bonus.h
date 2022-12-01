@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:46:20 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/30 21:12:43 by marvin           ###   ########.fr       */
+/*   Updated: 2022/12/01 15:40:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,6 @@ typedef struct s_mlx
 	int		offset_x;
 	int		offset_y;
 	t_key	*key;
-	t_key	*keycpy;
 	// t_col	*col;
 }				t_mlx;
 

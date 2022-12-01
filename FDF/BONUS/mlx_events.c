@@ -27,16 +27,44 @@ int	mlx_exit(void *param)
 	exit(EXIT_SUCCESS);
 }
 
-int	key_down(int keycode, void *param)
+int	key_down(int kcode, void *param)
 {
-	(void)keycode;
-	(void)param;
+	t_fdf	*fdf;
+
+	fdf = param;
+	if (kcode == KEY_ESC || kcode == KEY_Q)
+		mlx_exit(fdf->mlx);
+	else if (kcode == KEY_E || kcode == KEY_R)
+		fdf->mlx->key->rot_z = (kcode == KEY_E) - (kcode == KEY_R);
+	else if (kcode == KEY_W || kcode == KEY_S)
+		fdf->mlx->key->rot_y = (kcode == KEY_W) - (kcode == KEY_S);
+	else if (kcode == KEY_A || kcode == KEY_D)
+		fdf->mlx->key->rot_x = (kcode == KEY_A) - (kcode == KEY_D);
+	else if (kcode == KEY_LEFT || kcode == KEY_RIGHT)
+		fdf->mlx->key->horizontal = (kcode == KEY_RIGHT) - (kcode == KEY_LEFT);
+	else if (kcode == KEY_UP || kcode == KEY_DOWN)
+		fdf->mlx->key->vertical = (kcode == KEY_DOWN) - (kcode == KEY_UP);
+	else if (keycode == KEY_PLUS || keycode == KEY_MINUS)
+		fdf->mlx->key->zoom = (keycode == KEY_PLUS) - (keycode == KEY_MINUS);
 	return (0);
 }
 
-int	key_released(int keycode, void *param)
+int	key_released(int kcode, void *param)
 {
-	(void)keycode;
-	(void)param;
+	t_fdf	*fdf;
+
+	fdf = param;
+	if (kcode == KEY_E || kcode == KEY_R)
+		fdf->mlx->key->rot_z = 0;
+	else if (kcode == KEY_W || kcode == KEY_S)
+		fdf->mlx->key->rot_y = 0;
+	else if (kcode == KEY_A || kcode == KEY_D)
+		fdf->mlx->key->rot_x = 0;
+	else if (kcode == KEY_LEFT || kcode == KEY_RIGHT)
+		fdf->mlx->key->horizontal = 0;
+	else if (kcode == KEY_UP || kcode == KEY_DOWN)
+		fdf->mlx->key->vertical = 0;
+	else if (keycode == KEY_PLUS || keycode == KEY_MINUS)
+		fdf->mlx->key->zoom = 0;
 	return (0);
 }

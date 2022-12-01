@@ -12,26 +12,35 @@
 
 #include "fdf_bonus.h"
 
-static	void	save_keys(t_key *key, t_key *save)
+static int	check_pressed(t_key *key)
 {
-	save->rot_x = key->rot_x;
-	save->rot_y = key->rot_y;
-	save->rot_z = key->rot_z;
-	save->vertical = key->vertical;
-	save->horizontal = key->horizontal;
-	save->zoom = key->zoom;
-	// save->rot_special = key->rot_special;
-	// save->color = key->color;
-	// save->overlay = key->overlay;
+	return (!key->rot_x && !key->rot_y && !key->rot_z && !key->horizontal
+			&& !key->vertical && !key->zoom);
 }
 
-static int	check_pressed(t_key *key, t_key *save)
+static void	exec_keys(t_key *keys, t_mlx *mlx)
 {
-	if (save->horizontal == 404)
-		return (0);
-	return (key->rot_x == save->rot_x && key->rot_y == save->rot_y
-			&& key->rot_z == save->rot_z && key->horizontal == save->horizontal
-			&& key->vertical == save->vertical && key->zoom == save->zoom);
+	if (keys->rot_x)
+	{
+		fdf->angles->alpha += (M_PI / 180) * keys->rot_x;
+		fdf->angles->sa = sin(fdf->angles->alpha);
+		fdf->angles->ca = cos(fdf->angles->alpha);
+	}
+	if (keys->rot_y)
+	{
+		fdf->angles->beta += (M_PI / 180) * keys->rot_y;
+		fdf->angles->sb = sin(fdf->angles->beta);
+		fdf->angles->cb = cos(fdf->angles->beta);
+	}
+	if (keys->rot_z)
+	{
+		fdf->angles->gamma += (M_PI / 180) * keys->rot_z;
+		fdf->angles->sg = sin(fdf->angles->gamma);
+		fdf->angles->cg = cos(fdf->angles->gamma);
+	}
+	mlx->offset_x += 100 * keys->horizontal;
+	mlx->offset_y += 100 * keys->vertical;
+	mlx->size += 5 * keys->zoom;
 }
 
 static void	mlx_clear_img(t_img *img, int color)
@@ -67,12 +76,12 @@ int	mlx_draw(void *param)
 	t_fdf	*fdf;
 
 	fdf = param;
-	if (check_pressed(fdf->mlx->key, fdf->mlx->keycpy))
-		return (0);
+	if (check_pressed(fdf->mlx->key))
+		return (1);
+	exec_keys(fdf->mlx->key, fdf->mlx);
 	mlx_clear_img(fdf->mlx->img, 0x0);
 	mlx_map_img(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr,
 							fdf->mlx->img->img_ptr, 0, 0);
-	save_keys(fdf->mlx->key, fdf->mlx->keycpy);
 	return (0);
 }
