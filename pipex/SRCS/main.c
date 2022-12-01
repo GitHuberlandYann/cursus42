@@ -3,53 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 14:11:55 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/28 14:38:24 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/01 15:26:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	ft_check_files(char **av)
+static void	ft_check_file(char *path, int fd)
 {
-	if (access(av[1], R_OK)) // ->return -1 on error, and sets errno
-		ft_perror(ft_strjoins(7, __FILE__, ": ", __func__, ": line ", ft_itoa(__LINE__ - 1),
-					": ", av[1]));
-	// else if (access(av[4], W_OK))
-	// 	ft_perror(av[4]);
-	// else
-	// 	printf("no problemo\n");
+	char	*itoa_out;
+	char	*joins;
+
+	if (access(path, R_OK))
+	{
+		write(fd, "0\n", 2); //incorrect, need to exec com2 and put output in oufile instead
+		itoa_out = ft_itoa(__LINE__ - 2);
+		joins = ft_strjoins(7, __FILE__, ": ", __func__, ": line ", itoa_out,
+							": ", path);
+		free(itoa_out);
+		ft_perror(joins);
+	}
 }
-
-// static char	**ft_set_env(void)
-// {
-// 	char	**res;
-
-// 	res = malloc(sizeof(*res) * 2);
-// 	if (!res)
-// 		ft_perror(strerror(ENOMEM));
-// 	res[0] = malloc(sizeof(*res[0]) * 2);
-// 	if (!res[0])
-// 		ft_perror(strerror(ENOMEM));
-// 	res[0][0] = '.';
-// 	res[0][1] = '\0';
-// 	res[1] = NULL;
-// 	return (res);
-// }
-
-// static void	ft_print_arr(char **arr)
-// {
-// 	int	index;
-
-// 	index = 0;
-// 	while (arr[index])
-// 	{
-// 		ft_putstr_fd(arr[index++], 1);
-// 		ft_putstr_fd("\n", 1);
-// 	}
-// }
 
 void	ft_perror(char *str)
 {
@@ -78,15 +55,19 @@ void	ft_free_arr(char **arr)
 int	main(int ac, char **av, char **envp)
 {
 	t_env	env;
+	int		fd;
 
 	if (ac >= 5)
 	{
-		ft_check_files(av);
+		fd = open(av[4], O_WRONLY | O_TRUNC | O_CREAT);
+		if (fd == -1)
+			ft_perror(av[4]);
+		ft_check_file(av[1], fd);
 		env.ac = ac;
 		env.av = av;
 		env.envp = envp;
 		env.paths = ft_get_paths(envp);
-		ft_testing_ground(&env);
+		ft_testing_ground(&env, fd);
 		ft_free_arr(env.paths);
 	}
 	else

@@ -12,10 +12,9 @@
 
 #include "pipex.h"
 
-void	ft_testing_ground(t_env *env)
+void	ft_testing_ground(t_env *env, int fd)
 {
 	t_parent	p;
-	int			fd;
 
 	ft_pipe(p.pipefd);
 	ft_fork(&p.c_pid);
@@ -24,7 +23,6 @@ void	ft_testing_ground(t_env *env)
 	else //PARENT, first wait for child to finish
 	{
 		ft_wait_child(p);
-		fd = open(env->av[4], O_WRONLY | O_TRUNC | O_CREAT); //O_APPEND for '>>' bonus
 		ft_exec_second_cmd(p, env, fd);
 		//ft_putstr_fd("Parent when fork == 1\n", 1);
 		exit(EXIT_SUCCESS);
