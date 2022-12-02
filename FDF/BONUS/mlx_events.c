@@ -19,10 +19,10 @@ int	mlx_exit(void *param)
 
 	fdf = param;
 	mlx = fdf->mlx;
-	if (mlx->img)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->img);
-	if (mlx->win_ptr)
-		mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
+	// if (mlx->img && mlx->mlx_ptr)
+	// 	mlx_destroy_image(mlx->mlx_ptr, mlx->img);
+	// if (mlx->win_ptr)
+	// 	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
 	ft_free_map(fdf->map);
 	exit(EXIT_SUCCESS);
 }
@@ -44,8 +44,8 @@ int	key_down(int kcode, void *param)
 		fdf->mlx->key->horizontal = (kcode == KEY_RIGHT) - (kcode == KEY_LEFT);
 	else if (kcode == KEY_UP || kcode == KEY_DOWN)
 		fdf->mlx->key->vertical = (kcode == KEY_DOWN) - (kcode == KEY_UP);
-	else if (keycode == KEY_PLUS || keycode == KEY_MINUS)
-		fdf->mlx->key->zoom = (keycode == KEY_PLUS) - (keycode == KEY_MINUS);
+	else if (kcode == KEY_PLUS || kcode == KEY_MINUS)
+		fdf->mlx->key->zoom = (kcode == KEY_PLUS) - (kcode == KEY_MINUS);
 	return (0);
 }
 
@@ -64,7 +64,7 @@ int	key_released(int kcode, void *param)
 		fdf->mlx->key->horizontal = 0;
 	else if (kcode == KEY_UP || kcode == KEY_DOWN)
 		fdf->mlx->key->vertical = 0;
-	else if (keycode == KEY_PLUS || keycode == KEY_MINUS)
+	else if (kcode == KEY_PLUS || kcode == KEY_MINUS)
 		fdf->mlx->key->zoom = 0;
 	return (0);
 }

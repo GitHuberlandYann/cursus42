@@ -18,7 +18,7 @@ static int	check_pressed(t_key *key)
 			&& !key->vertical && !key->zoom);
 }
 
-static void	exec_keys(t_key *keys, t_mlx *mlx)
+static void	exec_keys(t_key *keys, t_fdf *fdf)
 {
 	if (keys->rot_x)
 	{
@@ -38,9 +38,9 @@ static void	exec_keys(t_key *keys, t_mlx *mlx)
 		fdf->angles->sg = sin(fdf->angles->gamma);
 		fdf->angles->cg = cos(fdf->angles->gamma);
 	}
-	mlx->offset_x += 100 * keys->horizontal;
-	mlx->offset_y += 100 * keys->vertical;
-	mlx->size += 5 * keys->zoom;
+	fdf->mlx->offset_x += 100 * keys->horizontal;
+	fdf->mlx->offset_y += 100 * keys->vertical;
+	fdf->mlx->size += 5 * keys->zoom;
 }
 
 static void	mlx_clear_img(t_img *img, int color)
@@ -78,7 +78,7 @@ int	mlx_draw(void *param)
 	fdf = param;
 	if (check_pressed(fdf->mlx->key))
 		return (1);
-	exec_keys(fdf->mlx->key, fdf->mlx);
+	exec_keys(fdf->mlx->key, fdf);
 	mlx_clear_img(fdf->mlx->img, 0x0);
 	mlx_map_img(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr,

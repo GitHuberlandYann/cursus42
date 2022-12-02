@@ -56,7 +56,7 @@ static void	ft_mlx_init(t_fdf *fdf, char *title)
 	mlx->mlx_ptr = mlx_init();
 	if (!mlx->mlx_ptr)
 		ft_perror("mlx_init");
-	mlx->size = 50;
+	mlx->size = 5;
 	mlx->offset_x = WIN_SIZE_X / 2;
 	mlx->offset_y = WIN_SIZE_Y / 2;
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIN_SIZE_X, WIN_SIZE_Y, title);

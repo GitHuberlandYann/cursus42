@@ -59,7 +59,7 @@ static t_vertice	*ft_get_node(t_vertice *vert, int index)
 
 	res = vert;
 	count = 1;
-	while (count < index && vert)
+	while (count < index && res)
 	{
 		res = res->next;
 		++count;
@@ -80,14 +80,17 @@ void	mlx_map_img(t_fdf *fdf)
 		index = 0;
 		while (index < tmp->poly - 1)
 		{
-			if (tmp->face[index] < tmp->face[index + 1])
-			{
-				start = ft_get_node(fdf->map->vert, tmp->face[index]);
-				end = ft_get_node(fdf->map->vert, tmp->face[index + 1]);
-				mlx_link_nodes(fdf, start, end);
-			}
+			// if (tmp->face[index] < tmp->face[index + 1])
+			// {
+			start = ft_get_node(fdf->map->vert, tmp->face[index]);
+			end = ft_get_node(fdf->map->vert, tmp->face[index + 1]);
+			mlx_link_nodes(fdf, start, end);
+			// }
 			++index;
 		}
+		start = ft_get_node(fdf->map->vert, tmp->face[index]);
+		end = ft_get_node(fdf->map->vert, tmp->face[0]);
+		mlx_link_nodes(fdf, start, end);
 		tmp = tmp->next;
 	}
 }
