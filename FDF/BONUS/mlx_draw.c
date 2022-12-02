@@ -22,25 +22,25 @@ static void	exec_keys(t_key *keys, t_fdf *fdf)
 {
 	if (keys->rot_x)
 	{
-		fdf->angles->alpha += (M_PI / 180) * keys->rot_x;
+		fdf->angles->alpha += 2 * (M_PI / 180) * keys->rot_x;
 		fdf->angles->sa = sin(fdf->angles->alpha);
 		fdf->angles->ca = cos(fdf->angles->alpha);
 	}
 	if (keys->rot_y)
 	{
-		fdf->angles->beta += (M_PI / 180) * keys->rot_y;
+		fdf->angles->beta += 2 * (M_PI / 180) * keys->rot_y;
 		fdf->angles->sb = sin(fdf->angles->beta);
 		fdf->angles->cb = cos(fdf->angles->beta);
 	}
 	if (keys->rot_z)
 	{
-		fdf->angles->gamma += (M_PI / 180) * keys->rot_z;
+		fdf->angles->gamma += 2 * (M_PI / 180) * keys->rot_z;
 		fdf->angles->sg = sin(fdf->angles->gamma);
 		fdf->angles->cg = cos(fdf->angles->gamma);
 	}
 	fdf->mlx->offset_x += 100 * keys->horizontal;
 	fdf->mlx->offset_y += 100 * keys->vertical;
-	fdf->mlx->size += 5 * keys->zoom;
+	fdf->mlx->size += keys->zoom;
 }
 
 static void	mlx_clear_img(t_img *img, int color)

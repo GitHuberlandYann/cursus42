@@ -52,7 +52,7 @@ static void	mlx_link_nodes(t_fdf *fdf, t_vertice *dne, t_vertice *end)
 	mlx_draw_line(fdf, s, e);
 }
 
-static t_vertice	*ft_get_node(t_vertice *vert, int index)
+t_vertice	*ft_get_node(t_vertice *vert, int index)
 {
 	int			count;
 	t_vertice	*res;
@@ -70,8 +70,6 @@ static t_vertice	*ft_get_node(t_vertice *vert, int index)
 void	mlx_map_img(t_fdf *fdf)
 {
 	t_face		*tmp;
-	t_vertice	*start;
-	t_vertice	*end;
 	int			index;
 
 	tmp = fdf->map->faces;
@@ -82,15 +80,11 @@ void	mlx_map_img(t_fdf *fdf)
 		{
 			// if (tmp->face[index] < tmp->face[index + 1])
 			// {
-			start = ft_get_node(fdf->map->vert, tmp->face[index]);
-			end = ft_get_node(fdf->map->vert, tmp->face[index + 1]);
-			mlx_link_nodes(fdf, start, end);
+			mlx_link_nodes(fdf, &tmp->face[index], &tmp->face[index + 1]);
 			// }
 			++index;
 		}
-		start = ft_get_node(fdf->map->vert, tmp->face[index]);
-		end = ft_get_node(fdf->map->vert, tmp->face[0]);
-		mlx_link_nodes(fdf, start, end);
+		mlx_link_nodes(fdf, &tmp->face[index], &tmp->face[0]);
 		tmp = tmp->next;
 	}
 }

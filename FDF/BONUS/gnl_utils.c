@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:04:04 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/30 20:07:15 by marvin           ###   ########.fr       */
+/*   Updated: 2022/12/02 11:33:53 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,11 @@ static void	ft_faceadd_back(t_face **face, t_face *new)
 	}
 }
 
-static t_face	*ft_facenew(char **content)
+static t_face	*ft_facenew(char **content, t_vertice *vert)
 {
 	t_face	*res;
 	int		index;
+	int		vert_index;
 
 	res = malloc(sizeof(*res));
 	if (!res)
@@ -71,7 +72,8 @@ static t_face	*ft_facenew(char **content)
 	index = 0;
 	while (content[index + 1] && index < 4)
 	{
-		res->face[index] = ft_atoi(content[index + 1]);
+		vert_index = ft_atoi(content[index + 1]);
+		res->face[index] = *ft_get_node(vert, vert_index);
 		++index;
 	}
 	res->poly = index;
@@ -89,7 +91,7 @@ void	ft_add_line(t_map *res, char *line)
 	if (!ft_strcmp(arr[0], "v"))
 		ft_vertadd_back(&res->vert, ft_vertnew(arr));
 	else if (!ft_strcmp(arr[0], "f"))
-		ft_faceadd_back(&res->faces, ft_facenew(arr));
+		ft_faceadd_back(&res->faces, ft_facenew(arr, res->vert));
 	ft_free_arr(arr);
 	free(line);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:46:20 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/01 15:40:03 by marvin           ###   ########.fr       */
+/*   Updated: 2022/12/02 11:33:46 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ typedef struct s_vertice
 
 typedef struct s_face
 {
-	int				poly;
-	int				face[4];
-	struct s_face	*next;
+	int					poly;
+	struct s_vertice	face[4];
+	struct s_face		*next;
 }				t_face;
 
 typedef struct s_map
@@ -180,6 +180,7 @@ void	mlx_related_stuff(t_map *map, t_angles *a, char *title);
 
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	mlx_map_img(t_fdf *fdf);
+t_vertice	*ft_get_node(t_vertice *vert, int index);
 
 double	ft_rotation_x(t_angles *a, t_vertice *node);
 double	ft_rotation_y(t_angles *a, t_vertice *node);
