@@ -78,10 +78,7 @@ void	mlx_map_img(t_fdf *fdf)
 		index = 0;
 		while (index < tmp->poly - 1)
 		{
-			// if (tmp->face[index] < tmp->face[index + 1])
-			// {
 			mlx_link_nodes(fdf, &tmp->face[index], &tmp->face[index + 1]);
-			// }
 			++index;
 		}
 		mlx_link_nodes(fdf, &tmp->face[index], &tmp->face[0]);

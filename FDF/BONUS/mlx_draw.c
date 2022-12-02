@@ -67,7 +67,7 @@ unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y) //move this ?
 	int		limit_x;
 	int		limit_y;
 
-	limit_x = img->width;//changethisshit
+	limit_x = img->width;
 	limit_y = img->height;
 	if (y < 0 || y >= limit_y || x < 0 || x >= limit_x)
 		return (0);
@@ -84,7 +84,7 @@ void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color_mode)
 	if (y < 0 || y >= WIN_SIZE_Y || x < 0 || x >= WIN_SIZE_X)
 		return ;
 	if (!color_mode)
-		color = 0xffffff;
+		color = 0x949494;
 	else if (color_mode == -1)
 		color = 0x0;
 	else
