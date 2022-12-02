@@ -54,7 +54,7 @@ static void	ft_create_backimg(t_mlx *mlx)
 	if (!img)
 		ft_perror(__func__);
 	img->img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr,
-						"maps_xpm/wallpaperflare.com_wallpaper.xpm",
+						"maps_xpm/wallpaperflare.com_wallpaper-2.xpm",
 						&img->width, &img->height);
 	if (!img->img_ptr)
 		ft_perror("mlx_new_image");
