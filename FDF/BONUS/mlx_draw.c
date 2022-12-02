@@ -15,7 +15,7 @@
 static int	check_pressed(t_key *key)
 {
 	return (!key->rot_x && !key->rot_y && !key->rot_z && !key->horizontal
-			&& !key->vertical && !key->zoom);
+			&& !key->vertical && !key->zoom && key->color != 1);
 }
 
 static void	exec_keys(t_key *keys, t_fdf *fdf)
@@ -43,7 +43,7 @@ static void	exec_keys(t_key *keys, t_fdf *fdf)
 	fdf->mlx->size += keys->zoom;
 }
 
-static void	mlx_clear_img(t_img *img, int color)
+static void	mlx_clear_img(t_mlx *mlx, int color)
 {
 	int	x;
 	int	y;
@@ -54,19 +54,42 @@ static void	mlx_clear_img(t_img *img, int color)
 		y = 0;
 		while (y < WIN_SIZE_Y)
 		{
-			ft_mlx_pixel_put(img, x, y, color);
+			ft_mlx_pixel_put(mlx, x, y, color);
 			y ++;
 		}
 		x ++;
 	}
 }
 
-void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
+unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y) //move this ?
 {
 	char	*dst;
+	int		limit_x;
+	int		limit_y;
+
+	limit_x = img->width;//changethisshit
+	limit_y = img->height;
+	if (y < 0 || y >= limit_y || x < 0 || x >= limit_x)
+		return (0);
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	return (*(unsigned int*)dst);
+}
+
+void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color_mode)
+{
+	char	*dst;
+	int		color;
+	t_img	*img;
 
 	if (y < 0 || y >= WIN_SIZE_Y || x < 0 || x >= WIN_SIZE_X)
 		return ;
+	if (!color_mode)
+		color = 0xffffff;
+	else if (color_mode == -1)
+		color = 0x0;
+	else
+		color = ft_mlx_pixel_get(mlx->back, x, y);
+	img = mlx->img;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
@@ -79,7 +102,7 @@ int	mlx_draw(void *param)
 	if (check_pressed(fdf->mlx->key))
 		return (1);
 	exec_keys(fdf->mlx->key, fdf);
-	mlx_clear_img(fdf->mlx->img, 0x0);
+	mlx_clear_img(fdf->mlx, -!fdf->mlx->color_mode);
 	mlx_map_img(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr,
 							fdf->mlx->img->img_ptr, 0, 0);

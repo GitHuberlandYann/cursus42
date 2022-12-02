@@ -28,7 +28,7 @@ static void	mlx_draw_line(t_fdf *fdf, t_vertice a, t_vertice b)
 	pixel.y = a.y;
 	while (len > 0)
 	{
-		ft_mlx_pixel_put(fdf->mlx->img, pixel.x, pixel.y, 0xffffff);
+		ft_mlx_pixel_put(fdf->mlx, pixel.x, pixel.y, fdf->mlx->color_mode);
 		pixel.x += delta.x;
 		if (delta.x)
 			pixel.y = delta.z * (pixel.x - a.x) + a.y;

@@ -23,7 +23,7 @@ int	mlx_exit(void *param)
 	// 	mlx_destroy_image(mlx->mlx_ptr, mlx->img);
 	// if (mlx->win_ptr)
 	// 	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-	ft_free_map(fdf->map);
+	// ft_free_map(fdf->map);
 	exit(EXIT_SUCCESS);
 }
 
@@ -46,6 +46,8 @@ int	key_down(int kcode, void *param)
 		fdf->mlx->key->vertical = (kcode == KEY_DOWN) - (kcode == KEY_UP);
 	else if (kcode == KEY_PLUS || kcode == KEY_MINUS)
 		fdf->mlx->key->zoom = (kcode == KEY_PLUS) - (kcode == KEY_MINUS);
+	else if (kcode == KEY_C && ++fdf->mlx->key->color == 1)
+		fdf->mlx->color_mode = !fdf->mlx->color_mode;
 	return (0);
 }
 
@@ -66,5 +68,7 @@ int	key_released(int kcode, void *param)
 		fdf->mlx->key->vertical = 0;
 	else if (kcode == KEY_PLUS || kcode == KEY_MINUS)
 		fdf->mlx->key->zoom = 0;
+	else if (kcode == KEY_C)
+		fdf->mlx->key->color = 0;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:46:20 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/02 11:33:46 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:49:28 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ typedef struct	s_img {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }				t_img;
 
 typedef struct s_key {
@@ -130,7 +132,7 @@ typedef struct s_key {
 	int	horizontal;
 	int	zoom;
 	// int	rot_special;
-	// int	color;
+	int	color;
 	// int	overlay;
 }				t_key;
 
@@ -139,11 +141,13 @@ typedef struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	*img;
+	t_img	*back;
 	// t_img	*overlay;
 	// t_img	*hex;
 	int		size;
 	int		offset_x;
 	int		offset_y;
+	int		color_mode;
 	t_key	*key;
 	// t_col	*col;
 }				t_mlx;
@@ -178,7 +182,7 @@ void	ft_free_map(t_map *map);
 
 void	mlx_related_stuff(t_map *map, t_angles *a, char *title);
 
-void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color_mode);
 void	mlx_map_img(t_fdf *fdf);
 t_vertice	*ft_get_node(t_vertice *vert, int index);
 
