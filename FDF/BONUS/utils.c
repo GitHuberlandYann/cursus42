@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:02:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/30 21:12:37 by marvin           ###   ########.fr       */
+/*   Updated: 2022/12/03 16:11:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,19 @@ void	ft_free_map(t_map *map)
 		map->faces = tmpf;
 	}
 	free(map);
+}
+
+t_vertice	*ft_get_node(t_vertice *vert, int index)
+{
+	int			count;
+	t_vertice	*res;
+
+	res = vert;
+	count = 1;
+	while (count < index && res)
+	{
+		res = res->next;
+		++count;
+	}
+	return (res);
 }

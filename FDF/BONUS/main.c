@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:46:57 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/02 12:50:09 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/03 16:56:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,12 @@
 // 	while (face)
 // 	{
 // 		index = 0;
-// 		ft_putstr("f ");
 // 		while (index < face->poly)
 // 		{
-// 			ft_putnbr(face->face[index]);
+// 			printf("\tv  %lf %lf %lf\n", face->face[index].x, face->face[index].y, face->face[index].z);
 // 			++index;
-// 			if (index < face->poly)
-// 				ft_putstr(" ");
-// 			else
-// 				ft_putstr("\n");
 // 		}
+// 		ft_putstr("\n");
 // 		face = face->next;
 // 	}
 // }
@@ -77,7 +73,6 @@ int	main(int ac, char **av)
 		// ft_display_vertice(map->vert);
 		// ft_display_faces(map->faces);
 		mlx_related_stuff(map, a, av[1]);
-		ft_free_map(map);
 	}
 	else
 		ft_putstr("Program needs 1 argument of type <maps/*>\n");

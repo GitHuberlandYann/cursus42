@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:49:06 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/30 16:02:19 by marvin           ###   ########.fr       */
+/*   Updated: 2022/12/03 16:26:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ static t_map	*ft_map_init(void)
 
 	res = malloc(sizeof(*res));
 	if (!res)
-		return (0);
+		ft_perror(__func__);
 	res->vert = 0;
 	res->faces = 0;
+	res->vert_last = 0;
+	res->faces_last = 0;
 	return (res);
 }
 
@@ -55,8 +57,6 @@ t_map	*get_map(char	*path)
 	char	*line;
 
 	res = ft_map_init();
-	if (!res)
-		return (0);
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		ft_perror(path);

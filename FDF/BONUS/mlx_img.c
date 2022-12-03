@@ -52,21 +52,6 @@ static void	mlx_link_nodes(t_fdf *fdf, t_vertice *dne, t_vertice *end)
 	mlx_draw_line(fdf, s, e);
 }
 
-t_vertice	*ft_get_node(t_vertice *vert, int index)
-{
-	int			count;
-	t_vertice	*res;
-
-	res = vert;
-	count = 1;
-	while (count < index && res)
-	{
-		res = res->next;
-		++count;
-	}
-	return (res);
-}
-
 void	mlx_map_img(t_fdf *fdf)
 {
 	t_face		*tmp;

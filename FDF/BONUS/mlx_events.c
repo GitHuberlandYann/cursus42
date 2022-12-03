@@ -14,11 +14,12 @@
 
 int	mlx_exit(void *param)
 {
-	t_fdf	*fdf;
-	t_mlx	*mlx;
+	// t_fdf	*fdf;
+	// t_mlx	*mlx;
 
-	fdf = param;
-	mlx = fdf->mlx;
+	(void)param;
+	//fdf = param;
+	//mlx = fdf->mlx;
 	// if (mlx->img && mlx->mlx_ptr)
 	// 	mlx_destroy_image(mlx->mlx_ptr, mlx->img);
 	// if (mlx->win_ptr)

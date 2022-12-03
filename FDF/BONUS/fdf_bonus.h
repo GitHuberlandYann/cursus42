@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:46:20 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/02 15:32:01 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/03 15:56:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ typedef struct s_map
 {
 	t_vertice	*vert;
 	t_face		*faces;
+	t_vertice	*vert_last;
+	t_face		*faces_last;
 }				t_map;
 
 typedef struct	s_img {
