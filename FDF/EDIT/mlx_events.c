@@ -14,17 +14,7 @@
 
 int	mlx_exit(void *param)
 {
-	// t_fdf	*fdf;
-	// t_mlx	*mlx;
-
 	(void)param;
-	//fdf = param;
-	//mlx = fdf->mlx;
-	// if (mlx->img && mlx->mlx_ptr)
-	// 	mlx_destroy_image(mlx->mlx_ptr, mlx->img);
-	// if (mlx->win_ptr)
-	// 	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-	// ft_free_map(fdf->map);
 	exit(EXIT_SUCCESS);
 }
 
@@ -35,7 +25,6 @@ int	mlx_update_mouse(int x, int y, void *param)
 	mlx = param;
 	mlx->mx = x;
 	mlx->my = y;
-	// printf("mouse_at <%d, %d>\n", x, y);
 	return (0);
 }
 
@@ -43,8 +32,6 @@ int	key_down(int kcode, void *param)
 {
 	t_fdf	*fdf;
 
-	// ft_putnbr(kcode);
-	// ft_putchar('\n');
 	fdf = param;
 	if (kcode == KEY_ESC || kcode == KEY_Q)
 		mlx_exit(fdf->mlx);
@@ -58,12 +45,12 @@ int	key_down(int kcode, void *param)
 		fdf->mlx->key->horizontal = (kcode == KEY_RIGHT) - (kcode == KEY_LEFT);
 	else if (kcode == KEY_UP || kcode == KEY_DOWN)
 		fdf->mlx->key->vertical = (kcode == KEY_DOWN) - (kcode == KEY_UP);
-	else if (kcode == KEY_PLUS_PAD || kcode == KEY_MINUS_PAD)
-		fdf->mlx->key->zoom = (kcode == KEY_PLUS_PAD) - (kcode == KEY_MINUS_PAD);
+	else if (kcode == KEY_PLUS || kcode == KEY_MINUS)
+		fdf->mlx->key->zoom = (kcode == KEY_PLUS) - (kcode == KEY_MINUS);
 	else if (kcode == KEY_C && ++fdf->mlx->key->color == 1)
 		fdf->mlx->color_mode = !fdf->mlx->color_mode;
-	else if (kcode == KEY_L || kcode == KEY_M)
-		fdf->mlx->key->edit = (kcode == KEY_M) - (kcode == KEY_L);
+	else if (kcode == KEY_L || kcode == KEY_K)
+		fdf->mlx->key->edit = (kcode == KEY_K) - (kcode == KEY_L);
 	return (0);
 }
 
@@ -82,11 +69,11 @@ int	key_released(int kcode, void *param)
 		fdf->mlx->key->horizontal = 0;
 	else if (kcode == KEY_UP || kcode == KEY_DOWN)
 		fdf->mlx->key->vertical = 0;
-	else if (kcode == KEY_PLUS_PAD || kcode == KEY_MINUS_PAD)
+	else if (kcode == KEY_PLUS || kcode == KEY_MINUS)
 		fdf->mlx->key->zoom = 0;
 	else if (kcode == KEY_C)
 		fdf->mlx->key->color = 0;
-	else if (kcode == KEY_L || kcode == KEY_M)
+	else if (kcode == KEY_L || kcode == KEY_K)
 		fdf->mlx->key->edit = 0;
 	return (0);
 }

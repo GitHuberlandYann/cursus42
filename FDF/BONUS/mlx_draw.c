@@ -12,12 +12,6 @@
 
 #include "fdf_bonus.h"
 
-static int	check_pressed(t_key *key)
-{
-	return (!key->rot_x && !key->rot_y && !key->rot_z && !key->horizontal
-			&& !key->vertical && !key->zoom && key->color != 1);
-}
-
 static void	exec_keys(t_key *keys, t_fdf *fdf)
 {
 	if (keys->rot_x)
@@ -61,7 +55,7 @@ static void	mlx_clear_img(t_mlx *mlx, int color)
 	}
 }
 
-unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y) //move this ?
+static unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y)
 {
 	char	*dst;
 	int		limit_x;
@@ -72,7 +66,7 @@ unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y) //move this ?
 	if (y < 0 || y >= limit_y || x < 0 || x >= limit_x)
 		return (0);
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	return (*(unsigned int*)dst);
+	return (*(unsigned int *) dst);
 }
 
 void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color_mode)
@@ -91,20 +85,23 @@ void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color_mode)
 		color = ft_mlx_pixel_get(mlx->back, x, y);
 	img = mlx->img;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *) dst = color;
 }
 
 int	mlx_draw(void *param)
 {
 	t_fdf	*fdf;
+	t_key	*key;
 
 	fdf = param;
-	if (check_pressed(fdf->mlx->key))
+	key = fdf->mlx->key;
+	if (!key->rot_x && !key->rot_y && !key->rot_z && !key->horizontal
+		&& !key->vertical && !key->zoom && key->color != 1)
 		return (1);
 	exec_keys(fdf->mlx->key, fdf);
 	mlx_clear_img(fdf->mlx, -!fdf->mlx->color_mode);
 	mlx_map_img(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr,
-							fdf->mlx->img->img_ptr, 0, 0);
+		fdf->mlx->img->img_ptr, 0, 0);
 	return (0);
 }

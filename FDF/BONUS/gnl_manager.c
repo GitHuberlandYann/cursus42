@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:49:06 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/03 16:26:07 by marvin           ###   ########.fr       */
+/*   Updated: 2022/12/05 08:43:01 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 double	ft_atolf(char *str)
 {
 	return (strtod(str, NULL));
+}
 	// int		len;
 	// double	res;
 	// char	**sp;
@@ -34,7 +35,6 @@ double	ft_atolf(char *str)
 	// 	res -= (double)ft_atoi(sp[1]) / pow(10, len);
 	// ft_free_arr(sp);
 	// return (res);
-}
 
 static t_map	*ft_map_init(void)
 {

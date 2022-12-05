@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:46:57 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/03 16:56:48 by marvin           ###   ########.fr       */
+/*   Updated: 2022/12/05 08:43:43 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@
 // 		index = 0;
 // 		while (index < face->poly)
 // 		{
-// 			printf("\tv  %lf %lf %lf\n", face->face[index].x, face->face[index].y, face->face[index].z);
+// 			printf("\tv  %lf %lf %lf\n", face->face[index].x,
+					// face->face[index].y, face->face[index].z);
 // 			++index;
 // 		}
 // 		ft_putstr("\n");
@@ -70,8 +71,6 @@ int	main(int ac, char **av)
 		if (!map)
 			return (1);
 		a = angles_init();
-		// ft_display_vertice(map->vert);
-		// ft_display_faces(map->faces);
 		mlx_related_stuff(map, a, av[1]);
 	}
 	else

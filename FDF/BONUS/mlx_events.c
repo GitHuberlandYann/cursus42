@@ -14,17 +14,7 @@
 
 int	mlx_exit(void *param)
 {
-	// t_fdf	*fdf;
-	// t_mlx	*mlx;
-
 	(void)param;
-	//fdf = param;
-	//mlx = fdf->mlx;
-	// if (mlx->img && mlx->mlx_ptr)
-	// 	mlx_destroy_image(mlx->mlx_ptr, mlx->img);
-	// if (mlx->win_ptr)
-	// 	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-	// ft_free_map(fdf->map);
 	exit(EXIT_SUCCESS);
 }
 

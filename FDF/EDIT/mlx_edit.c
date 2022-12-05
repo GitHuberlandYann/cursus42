@@ -12,57 +12,40 @@
 
 #include "fdf_edit.h"
 
-static void ft_edit_pixel_put(t_img *edit, t_map *map, int x, int y, double z)
+static void	ft_edit_pixel_put(t_img *edit, int x, int y, double z)
 {
-	unsigned	col;
-	char		*dst;
+	unsigned int	col;
+	char			*dst;
 
 	if (y < 0 || y >= edit->height || x < 0 || x >= edit->width)
 		return ;
 	if (z > 0)
-		col = 0x60ff60 - ((double) z / (double) map->max) * 0xff00;
+		col = 0x60ff60 - ((double) z / (double) edit->max) * 0xff00;
 	else if (z < 0)
-		col = 0xffff - ((double) -z / (double) map->max) * 0xff00;
+		col = 0xffff - ((double) -z / (double) edit->max) * 0xff00;
 	else
 		col = 0xffffff;
 	dst = edit->addr + (y * edit->line_length + x * (edit->bits_per_pixel / 8));
-	*(unsigned int*)dst = col;
+	*(unsigned int *) dst = col;
 }
 
-static void ft_draw_square(t_img *edit, t_map *map, int x, int y, double z)
+static void	ft_draw_square(t_img *edit, int x, int y, double z)
 {
 	int			startx;
 	int			starty;
-	double		sq_width;
-	double		sq_height;
 
-	sq_width = (double) edit->width / (double) map->width; //put this in struct, no need to math it out
-	sq_height = (double) edit->height / (double) map->height;
-	startx = sq_width * x;
-	starty = sq_height * y;
-	while (startx < sq_width * (x + 1))
+	startx = edit->sq_width * x;
+	starty = edit->sq_height * y;
+	while (startx < edit->sq_width * (x + 1))
 	{
-		starty = sq_height * y;
-		while (starty < sq_height * (y + 1))
+		starty = edit->sq_height * y;
+		while (starty < edit->sq_height * (y + 1))
 		{
-			ft_edit_pixel_put(edit, map, startx, starty, z);
+			ft_edit_pixel_put(edit, startx, starty, z);
 			++starty;
 		}
 		++startx;
 	}
-}
-
-static t_vertice	ft_get_square(t_img *edit, t_map *map, t_vertice diff)
-{
-	t_vertice	res;
-	double		sq_width;
-	double		sq_height;
-
-	sq_width = (double) edit->width / (double) map->width; //put in struct instead
-	sq_height = (double) edit->height / (double) map->height;
-	res.x = (int) (diff.x / sq_width);
-	res.y = (int) (diff.y / sq_height);
-	return (res);
 }
 
 void	ft_create_edit(t_mlx *mlx, t_map *map)
@@ -78,7 +61,10 @@ void	ft_create_edit(t_mlx *mlx, t_map *map)
 	if (!img->img_ptr)
 		ft_perror("mlx_new_image");
 	img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel,
-								&img->line_length, &img->endian);
+			&img->line_length, &img->endian);
+	img->sq_width = (double) img->width / (double) map->width;
+	img->sq_height = (double) img->height / (double) map->height;
+	img->max = map->max;
 	mlx->edit = img;
 }
 
@@ -97,7 +83,7 @@ void	mlx_map_edit(t_fdf *fdf)
 		while (y < fdf->map->height)
 		{
 			vert = ft_get_node(fdf->map->vert, y * fdf->map->width + x + 1);
-			ft_draw_square(edit, fdf->map, x, y, vert->z);
+			ft_draw_square(edit, x, y, vert->z);
 			++y;
 		}
 		++x;
@@ -117,9 +103,9 @@ void	ft_edit_edit(int mode, t_fdf *fdf)
 	if (diff.x < 0 || diff.x >= EDIT_WIDTH || diff.y < 0
 		|| diff.y >= fdf->mlx->edit->height)
 		return ;
-	sq = ft_get_square(fdf->mlx->edit, fdf->map, diff);
+	sq.x = (int)(diff.x / fdf->mlx->edit->sq_width);
+	sq.y = (int)(diff.y / fdf->mlx->edit->sq_height);
 	node = ft_get_node(fdf->map->vert, sq.y * fdf->map->width + sq.x + 1);
 	if (fabs(node->z + (double)mode / 10) < fdf->map->max)
 		node->z += (double)mode / 10;
-	// printf("sq <%d, %d> with mouse at <%d, %d>\n", (int)sq.x, (int)sq.y, fdf->mlx->mx, fdf->mlx->my);
 }

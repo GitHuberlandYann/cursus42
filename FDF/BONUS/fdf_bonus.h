@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:46:20 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/03 15:56:30 by marvin           ###   ########.fr       */
+/*   Updated: 2022/12/05 08:42:38 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ typedef struct s_map
 	t_face		*faces_last;
 }				t_map;
 
-typedef struct	s_img {
+typedef struct s_img {
 	void	*img_ptr;
 	char	*addr;
 	int		bits_per_pixel;
@@ -133,9 +133,7 @@ typedef struct s_key {
 	int	vertical;
 	int	horizontal;
 	int	zoom;
-	// int	rot_special;
 	int	color;
-	// int	overlay;
 }				t_key;
 
 typedef struct s_mlx
@@ -144,14 +142,11 @@ typedef struct s_mlx
 	void	*win_ptr;
 	t_img	*img;
 	t_img	*back;
-	// t_img	*overlay;
-	// t_img	*hex;
 	int		size;
 	int		offset_x;
 	int		offset_y;
 	int		color_mode;
 	t_key	*key;
-	// t_col	*col;
 }				t_mlx;
 
 typedef struct s_angles
@@ -174,25 +169,25 @@ typedef struct s_fdf
 	t_angles	*angles;
 }				t_fdf;
 
-t_map	*get_map(char	*path);
-void	ft_add_line(t_map *res, char *line);
-double	ft_atolf(char *str);
+t_map		*get_map(char	*path);
+void		ft_add_line(t_map *res, char *line);
+double		ft_atolf(char *str);
 
-void	ft_perror(const char *str);
-void	ft_free_arr(char **arr);
-void	ft_free_map(t_map *map);
+void		ft_perror(const char *str);
+void		ft_free_arr(char **arr);
+void		ft_free_map(t_map *map);
 
-void	mlx_related_stuff(t_map *map, t_angles *a, char *title);
+void		mlx_related_stuff(t_map *map, t_angles *a, char *title);
 
-void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color_mode);
-void	mlx_map_img(t_fdf *fdf);
+void		ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color_mode);
+void		mlx_map_img(t_fdf *fdf);
 t_vertice	*ft_get_node(t_vertice *vert, int index);
 
-double	ft_rotation_x(t_angles *a, t_vertice *node);
-double	ft_rotation_y(t_angles *a, t_vertice *node);
+double		ft_rotation_x(t_angles *a, t_vertice *node);
+double		ft_rotation_y(t_angles *a, t_vertice *node);
 
-int		mlx_exit(void *param);
-int		key_down(int keycode, void *param);
-int		key_released(int keycode, void *param);
-int		mlx_draw(void *param);
+int			mlx_exit(void *param);
+int			key_down(int keycode, void *param);
+int			key_released(int keycode, void *param);
+int			mlx_draw(void *param);
 #endif
