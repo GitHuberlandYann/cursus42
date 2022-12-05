@@ -72,9 +72,6 @@ int	main(int ac, char **av)
 		a = angles_init();
 		// ft_display_vertice(map->vert);
 		// ft_display_faces(map->faces);
-		map->vert->z = 5;
-		map->vert->next->z = -5;
-		map->vert->next->next->z = 2;
 		mlx_related_stuff(map, a, "Edit mode.");
 	}
 	else

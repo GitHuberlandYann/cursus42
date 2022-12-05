@@ -3,16 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/11/30 21:17:50 by marvin           ###   ########.fr        #
+#    Updated: 2022/12/05 08:19:40 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = getmeoutofhere
+NAME = fdf
 
 NAMEB = fdf_bonus
+
+NAMEE = fdf_edit
 
 FILE = main gnl_manager angles_manager utils mlx_utils mlx_manager mlx_events \
 		animation_utils mlx_colors map2
@@ -27,6 +29,14 @@ FILES_BONUS = main gnl_manager gnl_utils utils mlx_manager mlx_events mlx_draw \
 SRCS_BONUS = $(addprefix BONUS/, $(addsuffix .c, $(FILES_BONUS)))
 
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
+
+FILES_EDIT = main angles_manager map_utils map mlx_draw mlx_edit mlx_events \
+				mlx_img mlx_manager utils
+
+
+SRCS_EDIT = $(addprefix EDIT/, $(addsuffix .c, $(FILES_EDIT)))
+
+OBJS_EDIT = $(SRCS_EDIT:.c=.o)
 
 CC = gcc
 
@@ -61,14 +71,19 @@ bonus: $(OBJS_BONUS)
 	@make -C $(LIBFT_DIR)
 	$(CC) $(CFLAGS) $(OBJS_BONUS) -o $(NAMEB) $(MLX) $(LIBFT) $(MATH)
 
+edit: $(OBJS_EDIT)
+	@make -C $(MLX_DIR)
+	@make -C $(LIBFT_DIR)
+	$(CC) $(CFLAGS) $(OBJS_EDIT) -o $(NAMEE) $(MLX) $(LIBFT) $(MATH)
+
 clean:
 	make fclean -C $(LIBFT_DIR)
 	make clean -C $(MLX_DIR)
-	rm -f $(OBJS) $(OBJS_BONUS)
+	rm -f $(OBJS) $(OBJS_BONUS) $(OBJS_EDIT)
 
 fclean: clean
-	rm -f $(NAME) $(NAMEB)
+	rm -f $(NAME) $(NAMEB) $(NAMEE)
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus edit NAME
