@@ -106,6 +106,6 @@ void	ft_edit_edit(int mode, t_fdf *fdf)
 	sq.x = (int)(diff.x / fdf->mlx->edit->sq_width);
 	sq.y = (int)(diff.y / fdf->mlx->edit->sq_height);
 	node = ft_get_node(fdf->map->vert, sq.y * fdf->map->width + sq.x + 1);
-	if (fabs(node->z + (double)mode / 10) < fdf->map->max)
-		node->z += (double)mode / 10;
+	if (fabs(node->z + (double)mode) < fdf->map->max)
+		node->z += (double)mode;
 }

@@ -132,6 +132,8 @@ typedef struct s_key {
 	int	zoom;
 	int	color;
 	int	edit;
+	int	sphere;
+	int	reset;
 }				t_key;
 
 typedef struct s_mlx
@@ -148,6 +150,7 @@ typedef struct s_mlx
 	t_key	*key;
 	int		mx;
 	int		my;
+	int		sphere;
 }				t_mlx;
 
 typedef struct s_angles

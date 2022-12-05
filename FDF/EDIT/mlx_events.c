@@ -12,6 +12,18 @@
 
 #include "fdf_edit.h"
 
+static void	ft_reset_map(t_vertice *vert)
+{
+	t_vertice	*tmp;
+
+	tmp = vert;
+	while (tmp)
+	{
+		tmp->z = 0;
+		tmp = tmp->next;
+	}
+}
+
 int	mlx_exit(void *param)
 {
 	(void)param;
@@ -33,7 +45,7 @@ int	key_down(int kcode, void *param)
 	t_fdf	*fdf;
 
 	fdf = param;
-	if (kcode == KEY_ESC || kcode == KEY_Q)
+	if (kcode == KEY_ESC)
 		mlx_exit(fdf->mlx);
 	else if (kcode == KEY_E || kcode == KEY_R)
 		fdf->mlx->key->rot_z = (kcode == KEY_E) - (kcode == KEY_R);
@@ -51,6 +63,10 @@ int	key_down(int kcode, void *param)
 		fdf->mlx->color_mode = !fdf->mlx->color_mode;
 	else if (kcode == KEY_L || kcode == KEY_K)
 		fdf->mlx->key->edit = (kcode == KEY_K) - (kcode == KEY_L);
+	else if (kcode == KEY_P && ++fdf->mlx->key->sphere == 1)
+		fdf->mlx->sphere = !fdf->mlx->sphere;
+	else if (kcode == KEY_Q && ++fdf->mlx->key->reset == 1)
+		ft_reset_map(fdf->map->vert);
 	return (0);
 }
 
@@ -75,5 +91,9 @@ int	key_released(int kcode, void *param)
 		fdf->mlx->key->color = 0;
 	else if (kcode == KEY_L || kcode == KEY_K)
 		fdf->mlx->key->edit = 0;
+	else if (kcode == KEY_P)
+		fdf->mlx->key->sphere = 0;
+	else if (kcode == KEY_Q)
+		fdf->mlx->key->reset = 0;
 	return (0);
 }
