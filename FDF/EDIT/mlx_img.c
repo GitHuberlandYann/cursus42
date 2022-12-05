@@ -56,12 +56,12 @@ static void	plane_to_sphere(t_map *map, t_vertice *spnt, t_vertice *pnt)
 {
 	t_vertice	rlonlat;
 
-	rlonlat.y = M_PI * (double)pnt->x / (double)(map->width - 1);
-	rlonlat.z = 2 * M_PI * (double)pnt->y / (double)(map->height - 1);
+	rlonlat.z = 2 * M_PI * (double)pnt->x / (double)(map->width - 1);
+	rlonlat.y = M_PI * (double)pnt->y / (double)(map->height - 1);
 	rlonlat.x = map->max - pnt->z;
-	spnt->x = rlonlat.x * cos(rlonlat.z) * cos(rlonlat.y);
-	spnt->y = rlonlat.x * cos(rlonlat.z) * sin(rlonlat.y);
-	spnt->z = rlonlat.x * sin(rlonlat.z);
+	spnt->x = rlonlat.x * sin(rlonlat.y) * cos(rlonlat.z);
+	spnt->y = rlonlat.x * sin(rlonlat.y) * sin(rlonlat.z);
+	spnt->z = rlonlat.x * cos(rlonlat.y);
 }
 
 static void	mlx_link_sphere(t_fdf *fdf, t_vertice *dne, t_vertice *end)
