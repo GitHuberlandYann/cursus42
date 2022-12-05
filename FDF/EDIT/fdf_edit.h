@@ -138,19 +138,19 @@ typedef struct s_key {
 
 typedef struct s_mlx
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	*img;
-	t_img	*back;
-	t_img	*edit;
-	int		size;
-	int		offset_x;
-	int		offset_y;
-	int		color_mode;
-	t_key	*key;
-	int		mx;
-	int		my;
-	int		sphere;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_img		*img;
+	t_img		*back;
+	t_img		*edit;
+	int			size;
+	int			offset_x;
+	int			offset_y;
+	int			color_mode;
+	t_key		*key;
+	int			mx;
+	int			my;
+	int			sphere;
 }				t_mlx;
 
 typedef struct s_angles
@@ -173,28 +173,28 @@ typedef struct s_fdf
 	t_angles	*angles;
 }				t_fdf;
 
-t_map		*get_map(char	*width, char *height);
-void		ft_vert_init(t_map *map);
-void		ft_faces_init(t_map *map);
+t_map			*get_map(char	*width, char *height);
+void			ft_vert_init(t_map *map);
+void			ft_faces_init(t_map *map);
 
-void		ft_perror(const char *str);
-t_vertice	*ft_get_node(t_vertice *vert, int index);
+void			ft_perror(const char *str);
+t_vertice		*ft_get_node(t_vertice *vert, int index);
 
-void		mlx_related_stuff(t_map *map, t_angles *a, char *title);
+void			mlx_related_stuff(t_map *map, t_angles *a, char *title);
 
-void		ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color_mode);
-void		mlx_map_img(t_fdf *fdf);
-void		ft_create_edit(t_mlx *mlx, t_map *map);
-void		mlx_map_edit(t_fdf *fdf);
-void		ft_edit_edit(int mode, t_fdf *fdf);
+void			ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color_mode);
+void			mlx_map_img(t_fdf *fdf);
+void			ft_create_edit(t_mlx *mlx, t_map *map);
+void			mlx_map_edit(t_fdf *fdf);
+void			ft_edit_edit(int mode, t_fdf *fdf);
 
-double		ft_rotation_x(t_angles *a, t_vertice *node);
-double		ft_rotation_y(t_angles *a, t_vertice *node);
+double			ft_rotation_x(t_angles *a, t_vertice *node);
+double			ft_rotation_y(t_angles *a, t_vertice *node);
 
-int			mlx_exit(void *param);
-int			mlx_update_mouse(int x, int y, void *param);
-int			key_down(int keycode, void *param);
-int			key_released(int keycode, void *param);
-int			mlx_draw(void *param);
+int				mlx_exit(void *param);
+int				mlx_update_mouse(int x, int y, void *param);
+int				key_down(int keycode, t_fdf *fdf);
+int				key_released(int keycode, void *param);
+int				mlx_draw(void *param);
 
 #endif

@@ -76,6 +76,19 @@ static void	mlx_link_sphere(t_fdf *fdf, t_vertice *dne, t_vertice *end)
 	mlx_link_nodes(fdf, &s, &e);
 }
 
+// static void	set_origin(t_fdf *fdf)
+// {
+// 	t_vertice	zero;
+
+// 	zero.x = 0;
+// 	zero.y = 0;
+// 	zero.z = 0;
+// 	fdf->mlx->origin.x = ft_rotation_x(fdf->angles, &zero) * fdf->mlx->size
+// 			+ fdf->mlx->offset_x;
+// 	fdf->mlx->origin.y = ft_rotation_y(fdf->angles, &zero) * fdf->mlx->size
+// 			+ fdf->mlx->offset_y;
+// }
+
 void	mlx_map_img(t_fdf *fdf)
 {
 	t_face		*tmp;

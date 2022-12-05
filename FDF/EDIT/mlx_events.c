@@ -40,11 +40,8 @@ int	mlx_update_mouse(int x, int y, void *param)
 	return (0);
 }
 
-int	key_down(int kcode, void *param)
+int	key_down(int kcode, t_fdf *fdf)
 {
-	t_fdf	*fdf;
-
-	fdf = param;
 	if (kcode == KEY_ESC)
 		mlx_exit(fdf->mlx);
 	else if (kcode == KEY_E || kcode == KEY_R)
