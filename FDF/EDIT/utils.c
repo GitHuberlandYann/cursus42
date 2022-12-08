@@ -32,3 +32,20 @@ t_vertice	*ft_get_node(t_vertice *vert, int index)
 	}
 	return (res);
 }
+
+unsigned int	get_color(double z, int max)
+{
+	double			value;
+	unsigned int	res;
+
+	value = -z / (double)max;
+	if (value <= 0.02)
+		res = 0xff;
+	else if (value <= 0.18)
+		res = 0xff00;
+	else if (value <= 0.35)
+		res = 0x800000;
+	else
+		res = 0xffffff;
+	return (res);
+}

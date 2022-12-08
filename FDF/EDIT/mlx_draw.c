@@ -40,23 +40,23 @@ static void	exec_keys(t_key *keys, t_fdf *fdf)
 
 static void	mlx_clear_img(t_mlx *mlx, int color)
 {
-	int	x;
-	int	y;
+	t_vertice	pt;
 
-	x = 0;
-	while (x < WIN_SIZE_X)
+	pt.x = 0;
+	pt.z = 0;
+	while (pt.x < WIN_SIZE_X)
 	{
-		y = 0;
-		while (y < WIN_SIZE_Y)
+		pt.y = 0;
+		while (pt.y < WIN_SIZE_Y)
 		{
-			ft_mlx_pixel_put(mlx, x, y, color);
-			y ++;
+			mlx_pxl_put(mlx, pt, 0, color);
+			++pt.y;
 		}
-		x ++;
+		++pt.x;
 	}
 }
 
-unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y)
+static unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y)
 {
 	char	*dst;
 	int		limit_x;
@@ -70,21 +70,27 @@ unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color_mode)
+void	mlx_pxl_put(t_mlx *mlx, t_vertice pt, int max, int color_mode)
 {
 	char	*dst;
 	int		color;
 	t_img	*img;
+	int		x;
+	int		y;
 
-	if (y < 0 || y >= WIN_SIZE_Y || x < 0 || x >= WIN_SIZE_X)
+	if (pt.y < 0 || pt.y >= WIN_SIZE_Y || pt.x < 0 || pt.x >= WIN_SIZE_X)
 		return ;
 	if (!color_mode)
 		color = 0x949494;
 	else if (color_mode == -1)
 		color = 0x0;
+	else if (color_mode == 1)
+		color = ft_mlx_pixel_get(mlx->back, pt.x, pt.y);
 	else
-		color = ft_mlx_pixel_get(mlx->back, x, y);
+		color = get_color(pt.z, max);
 	img = mlx->img;
+	x = pt.x;
+	y = pt.y;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *) dst = color;
 }
@@ -98,12 +104,13 @@ int	mlx_draw(void *param)
 	key = fdf->mlx->key;
 	if (!key->rot_x && !key->rot_y && !key->rot_z && !key->horizontal
 		&& !key->vertical && !key->zoom && key->color != 1 && !key->edit
-		&& !key->sphere && key->reset != 1)
+		&& !key->sphere && !key->reset)
 		return (1);
 	exec_keys(fdf->mlx->key, fdf);
 	mlx_clear_img(fdf->mlx, -!fdf->mlx->color_mode);
 	mlx_map_img(fdf);
-	mlx_map_edit(fdf);
+	if (key->edit || key->reset)
+		mlx_map_edit(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr,
 		fdf->mlx->img->img_ptr, 0, 0);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr,

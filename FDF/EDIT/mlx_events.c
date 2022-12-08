@@ -57,7 +57,8 @@ int	key_down(int kcode, t_fdf *fdf)
 	else if (kcode == KEY_PLUS || kcode == KEY_MINUS)
 		fdf->mlx->key->zoom = (kcode == KEY_PLUS) - (kcode == KEY_MINUS);
 	else if (kcode == KEY_C && ++fdf->mlx->key->color == 1)
-		fdf->mlx->color_mode = !fdf->mlx->color_mode;
+		fdf->mlx->color_mode = !fdf->mlx->color_mode
+			+ (2 * (fdf->mlx->color_mode == 1));
 	else if (kcode == KEY_L || kcode == KEY_K)
 		fdf->mlx->key->edit = (kcode == KEY_K) - (kcode == KEY_L);
 	else if (kcode == KEY_P && ++fdf->mlx->key->sphere == 1)

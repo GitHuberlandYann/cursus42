@@ -90,6 +90,7 @@ typedef struct s_vertice
 	double				x;
 	double				y;
 	double				z;
+	double				zcol;
 	struct s_vertice	*next;
 }				t_vertice;
 
@@ -179,10 +180,11 @@ void			ft_faces_init(t_map *map);
 
 void			ft_perror(const char *str);
 t_vertice		*ft_get_node(t_vertice *vert, int index);
+unsigned int	get_color(double z, int max);
 
 void			mlx_related_stuff(t_map *map, t_angles *a, char *title);
 
-void			ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color_mode);
+void			mlx_pxl_put(t_mlx *mlx, t_vertice pt, int max, int color_mode);
 void			mlx_map_img(t_fdf *fdf);
 void			ft_create_edit(t_mlx *mlx, t_map *map);
 void			mlx_map_edit(t_fdf *fdf);
