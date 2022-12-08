@@ -19,12 +19,7 @@ static void	ft_edit_pixel_put(t_img *edit, int x, int y, double z)
 
 	if (y < 0 || y >= edit->height || x < 0 || x >= edit->width)
 		return ;
-	if (z > 0)
-		col = 0x60ff60 - ((double) z / (double) edit->max) * 0xff00;
-	else if (z < 0)
-		col = 0xffff - ((double) -z / (double) edit->max) * 0xff00;
-	else
-		col = 0xffffff;
+	col = get_color(z, edit->max);
 	dst = edit->addr + (y * edit->line_length + x * (edit->bits_per_pixel / 8));
 	*(unsigned int *) dst = col;
 }
