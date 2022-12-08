@@ -6,37 +6,29 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:48:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/08 15:59:19 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/11/28 13:45:00 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	ft_exec_forkcat(t_parent *child_p, char *path)
+static void	ft_exec_forkcat(t_parent *child_p, char *path, char **envp)
 {
-	int		fd;
-	char	buf[43];
-	int		read_ret;
+	char		*args[3];
 
-
+	args[0] = "/bin/cat"; //anything will do, just needs something
+						//convention = name of current executable
+	args[1] = path;
+	args[2] = 0;
 	ft_fork(&child_p->c_pid);
 	if (!child_p->c_pid) //CHILD OF CHILD
 	{
-		fd = open(path, O_RDONLY);
-		if (fd == -1)
-			ft_perror(path);
-		dup2(child_p->pipefd[1], 1); //output of read is input of next cmd
+		//ft_putstr_fd("cat\n", 1);
+		dup2(child_p->pipefd[1], 1); //output of cat is input of next cmd
 		close(child_p->pipefd[0]);
 		close(child_p->pipefd[1]);
-		read_ret = read(fd, buf, 42);
-		buf[read_ret] = '\0';
-		while (read_ret > 0)
-		{
-			write(1, buf, read_ret);
-			read_ret = read(fd, buf, 42);
-			buf[read_ret] = '\0';
-		}
-		exit(0);
+		execve(args[0], args, envp);
+		ft_perror(args[0]);
 	}
 	else
 	{
@@ -61,11 +53,6 @@ static void	ft_exec_forkcmd(t_parent *child_p, t_parent *p, char *cmd, char **cm
 		//ft_putstr_fd(cmd, 1);
 		ft_perror(cmd);
 	}
-	else
-	{
-		ft_wait_child(*child_p);
-		close(child_p->pipefd[1]);
-	}
 }
 
 static void	ft_exec_forkcmdput(t_parent *child_p, int fd, char *cmd, char **cmds, char **envp)
@@ -82,11 +69,6 @@ static void	ft_exec_forkcmdput(t_parent *child_p, int fd, char *cmd, char **cmds
 		//ft_putstr_fd(cmd, 1);
 		ft_perror(cmd);
 	}
-	else
-	{
-		ft_wait_child(*child_p);
-		close(child_p->pipefd[1]);
-	}
 }
 
 void	ft_exec_main_child(t_parent p, t_env *env)
@@ -102,7 +84,7 @@ void	ft_exec_main_child(t_parent p, t_env *env)
 	cmd = ft_get_cmdpath(cmds[0], env->paths);
 	// ft_putstr_fd(cmd, 1);
 	ft_pipe(child_p.pipefd);
-	ft_exec_forkcat(&child_p, env->av[1]);
+	ft_exec_forkcat(&child_p, env->av[1], env->envp);
 	ft_exec_forkcmd(&child_p, &p, cmd, cmds, env->envp);
 	ft_free_arr(cmds);
 	free(cmd);

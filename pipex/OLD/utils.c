@@ -46,15 +46,3 @@ void	ft_wait_child(t_parent p)
 			printf("continued\n");
 	}
 }
-
-void	ft_perror(char *str)
-{
-	perror(str);
-	exit(EXIT_FAILURE);
-}
-
-void	ft_perror_cmd(char *str)
-{
-	write(2, str, ft_strlen(str));
-	exit(127);
-}

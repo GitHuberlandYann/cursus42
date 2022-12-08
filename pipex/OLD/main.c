@@ -3,50 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 14:52:13 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/08 15:37:13 by yhuberla         ###   ########.fr       */
+/*   Created: 2022/10/31 14:11:55 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/12/01 15:26:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	ft_check_file(char *path, int *ret)
+static void	ft_check_file(char *path, int fd)
 {
 	char	*itoa_out;
 	char	*joins;
 
 	if (access(path, R_OK))
 	{
-		itoa_out = ft_itoa(__LINE__ - 1);
+		write(fd, "0\n", 2); //incorrect, need to exec com2 and put output in oufile instead
+		itoa_out = ft_itoa(__LINE__ - 2);
 		joins = ft_strjoins(7, __FILE__, ": ", __func__, ": line ", itoa_out,
 							": ", path);
 		free(itoa_out);
-		perror(joins);
-		free(joins);
-		*ret = 1;
+		ft_perror(joins);
 	}
 }
 
-static void	ft_exec(t_env *env)
+void	ft_perror(char *str)
 {
-	t_parent	p;
-	int			fd;
+	perror(str);
+	exit(EXIT_FAILURE);
+}
 
-	ft_pipe(p.pipefd);
-	ft_fork(&p.c_pid);
-	if (!p.c_pid) //CHILD
-		ft_exec_main_child(p, env);
-	else //PARENT, first wait for child to finish
-	{
-		fd = open(env->av[4], O_WRONLY | O_TRUNC | O_CREAT);
-		if (fd == -1)
-			ft_perror(env->av[4]);
-		ft_wait_child(p);
-		ft_exec_second_cmd(p, env, fd);
-		//ft_putstr_fd("Parent when fork == 1\n", 1);
-	}
+void	ft_perror_cmd(char *str)
+{
+	write(2, str, ft_strlen(str));
+	exit(127);
 }
 
 void	ft_free_arr(char **arr)
@@ -64,23 +55,25 @@ void	ft_free_arr(char **arr)
 int	main(int ac, char **av, char **envp)
 {
 	t_env	env;
-	int		ret;
+	int		fd;
 
-	ret = 0;
-	if (ac == 5)
+	if (ac >= 5)
 	{
-		ft_check_file(av[1], &ret);
+		fd = open(av[4], O_WRONLY | O_TRUNC | O_CREAT);
+		if (fd == -1)
+			ft_perror(av[4]);
+		ft_check_file(av[1], fd);
 		env.ac = ac;
 		env.av = av;
 		env.envp = envp;
 		env.paths = ft_get_paths(envp);
-		ft_exec(&env);
+		ft_testing_ground(&env, fd);
 		ft_free_arr(env.paths);
 	}
 	else
 	{
-		ft_putstr_fd("Wrong number of arguments.\n", 1);
+		printf("wrong number of ac, yours : %d\n", ac);
 		return (1);
 	}
-	return (ret);
+	return (0);
 }

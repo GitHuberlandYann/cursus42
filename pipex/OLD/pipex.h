@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 14:52:57 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/08 15:33:57 by yhuberla         ###   ########.fr       */
+/*   Created: 2022/11/03 15:27:06 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/12/01 14:20:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,14 @@ typedef struct s_env
 	char	**paths;
 }				t_env;
 
+
 char	**ft_get_paths(char **envp);
 char	*ft_get_cmdpath(char *cmd, char **paths);
+void	ft_perror(char *str);
+void	ft_perror_cmd(char *str);
 void	ft_free_arr(char **arr);
 
+void	ft_testing_ground(t_env *env, int fd);
 void	ft_exec_main_child(t_parent p, t_env *env);
 void	ft_exec_first_command(char **av, char **envp, char **gnl);
 void	ft_exec_second_cmd(t_parent p, t_env *env, int fd);
@@ -48,6 +52,4 @@ void	ft_exec_second_cmd(t_parent p, t_env *env, int fd);
 void	ft_pipe(int pipefd[2]);
 void	ft_fork(int	*child_pid);
 void	ft_wait_child(t_parent p);
-void	ft_perror(char *str);
-void	ft_perror_cmd(char *str);
 #endif
