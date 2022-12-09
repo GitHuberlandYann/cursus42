@@ -26,6 +26,7 @@ static void	ft_mlx_set_keys(t_mlx *mlx)
 	keys->horizontal = 0;
 	keys->zoom = 0;
 	keys->color = 0;
+	keys->fill = 0;
 	mlx->key = keys;
 }
 
@@ -75,6 +76,7 @@ static void	ft_mlx_init(t_fdf *fdf, char *title)
 	mlx->offset_x = WIN_SIZE_X / 2;
 	mlx->offset_y = WIN_SIZE_Y / 2;
 	mlx->color_mode = 0;
+	mlx->fill = 0;
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIN_SIZE_X, WIN_SIZE_Y, title);
 	if (!mlx->win_ptr)
 		ft_perror("mlx_new_window");

@@ -12,7 +12,21 @@
 
 #include "fdf_bonus.h"
 
-static void	mlx_draw_line(t_fdf *fdf, t_vertice a, t_vertice b)
+static void	mlx_link_nodes(t_fdf *fdf, t_vertice *dne, t_vertice *end)
+{
+	t_vertice	s;
+	t_vertice	e;
+
+	if (!fdf || !dne || !end)
+		return ;
+	s.x = ft_rotation_x(fdf->angles, dne) * fdf->mlx->size + fdf->mlx->offset_x;
+	s.y = ft_rotation_y(fdf->angles, dne) * fdf->mlx->size + fdf->mlx->offset_y;
+	e.x = ft_rotation_x(fdf->angles, end) * fdf->mlx->size + fdf->mlx->offset_x;
+	e.y = ft_rotation_y(fdf->angles, end) * fdf->mlx->size + fdf->mlx->offset_y;
+	mlx_draw_line(fdf, s, e);
+}
+
+void	mlx_draw_line(t_fdf *fdf, t_vertice a, t_vertice b)
 {
 	t_vertice	delta;
 	t_vertice	pixel;
@@ -38,25 +52,13 @@ static void	mlx_draw_line(t_fdf *fdf, t_vertice a, t_vertice b)
 	}
 }
 
-static void	mlx_link_nodes(t_fdf *fdf, t_vertice *dne, t_vertice *end)
-{
-	t_vertice	s;
-	t_vertice	e;
-
-	if (!fdf || !dne || !end)
-		return ;
-	s.x = ft_rotation_x(fdf->angles, dne) * fdf->mlx->size + fdf->mlx->offset_x;
-	s.y = ft_rotation_y(fdf->angles, dne) * fdf->mlx->size + fdf->mlx->offset_y;
-	e.x = ft_rotation_x(fdf->angles, end) * fdf->mlx->size + fdf->mlx->offset_x;
-	e.y = ft_rotation_y(fdf->angles, end) * fdf->mlx->size + fdf->mlx->offset_y;
-	mlx_draw_line(fdf, s, e);
-}
-
 void	mlx_map_img(t_fdf *fdf)
 {
 	t_face		*tmp;
 	int			index;
 
+	if (fdf->mlx->fill)
+		return (mlx_fill_faces(fdf));
 	tmp = fdf->map->faces;
 	while (tmp)
 	{

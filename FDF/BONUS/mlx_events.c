@@ -39,6 +39,8 @@ int	key_down(int kcode, void *param)
 		fdf->mlx->key->zoom = (kcode == KEY_PLUS) - (kcode == KEY_MINUS);
 	else if (kcode == KEY_C && ++fdf->mlx->key->color == 1)
 		fdf->mlx->color_mode = !fdf->mlx->color_mode;
+	else if (kcode == KEY_F && ++fdf->mlx->key->fill == 1)
+		fdf->mlx->fill = !fdf->mlx->fill;
 	return (0);
 }
 
@@ -61,5 +63,7 @@ int	key_released(int kcode, void *param)
 		fdf->mlx->key->zoom = 0;
 	else if (kcode == KEY_C)
 		fdf->mlx->key->color = 0;
+	else if (kcode == KEY_F)
+		fdf->mlx->key->fill = 0;
 	return (0);
 }

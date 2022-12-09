@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:46:20 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/05 08:42:38 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:54:06 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ typedef struct s_key {
 	int	horizontal;
 	int	zoom;
 	int	color;
+	int	fill;
 }				t_key;
 
 typedef struct s_mlx
@@ -147,6 +148,7 @@ typedef struct s_mlx
 	int		offset_y;
 	int		color_mode;
 	t_key	*key;
+	int		fill;
 }				t_mlx;
 
 typedef struct s_angles
@@ -185,6 +187,11 @@ t_vertice	*ft_get_node(t_vertice *vert, int index);
 
 double		ft_rotation_x(t_angles *a, t_vertice *node);
 double		ft_rotation_y(t_angles *a, t_vertice *node);
+
+void		mlx_draw_line(t_fdf *fdf, t_vertice a, t_vertice b);
+void		mlx_fill_faces(t_fdf *fdf);
+void		set_points(t_vertice *sa, t_vertice *sc, t_vertice a, t_vertice c);
+void		set_delta(t_vertice *delta, t_vertice s, t_vertice e);
 
 int			mlx_exit(void *param);
 int			key_down(int keycode, void *param);

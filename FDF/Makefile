@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/12/09 14:15:12 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/12/09 14:42:32 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILE)))
 OBJS = $(SRCS:.c=.o)
 
 FILES_BONUS = main gnl_manager gnl_utils utils mlx_manager mlx_events mlx_draw \
-				mlx_img angles_manager
+				mlx_img angles_manager mlx_fill mlx_fill_utils
 
 SRCS_BONUS = $(addprefix BONUS/, $(addsuffix .c, $(FILES_BONUS)))
 
