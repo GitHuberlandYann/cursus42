@@ -104,7 +104,7 @@ int	mlx_draw(void *param)
 	key = fdf->mlx->key;
 	if (!key->rot_x && !key->rot_y && !key->rot_z && !key->horizontal
 		&& !key->vertical && !key->zoom && key->color != 1 && !key->edit
-		&& !key->sphere && !key->reset)
+		&& key->sphere != 1 && key->reset != 1 && key->fill != 1)
 		return (1);
 	exec_keys(fdf->mlx->key, fdf);
 	mlx_clear_img(fdf->mlx, -!fdf->mlx->color_mode);

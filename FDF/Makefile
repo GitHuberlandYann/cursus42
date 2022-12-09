@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/12/05 08:19:40 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/12/09 14:15:12 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS_BONUS = $(addprefix BONUS/, $(addsuffix .c, $(FILES_BONUS)))
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 FILES_EDIT = main angles_manager map_utils map mlx_draw mlx_edit mlx_events \
-				mlx_img mlx_manager utils
+				mlx_img mlx_manager utils mlx_colors mlx_fill mlx_fill_utils
 
 
 SRCS_EDIT = $(addprefix EDIT/, $(addsuffix .c, $(FILES_EDIT)))

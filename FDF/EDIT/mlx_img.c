@@ -12,35 +12,6 @@
 
 #include "fdf_edit.h"
 
-static void	mlx_draw_line(t_fdf *fdf, t_vertice a, t_vertice b)
-{
-	t_vertice	delta;
-	t_vertice	pixel;
-	double		len;
-
-	delta.x = b.x - a.x;
-	delta.y = b.y - a.y;
-	delta.z = delta.y / delta.x;
-	len = sqrt(delta.x * delta.x + delta.y * delta.y);
-	delta.x /= len;
-	delta.y /= len;
-	b.z /= len;
-	pixel.x = a.x;
-	pixel.y = a.y;
-	pixel.z = a.zcol;
-	while (len > 0)
-	{
-		mlx_pxl_put(fdf->mlx, pixel, fdf->map->max, fdf->mlx->color_mode);
-		pixel.x += delta.x;
-		pixel.z += b.z;
-		if (delta.x)
-			pixel.y = delta.z * (pixel.x - a.x) + a.y;
-		else
-			pixel.y += delta.y;
-		--len;
-	}
-}
-
 static void	mlx_link_nodes(t_fdf *fdf, t_vertice *dne, t_vertice *end, int sph)
 {
 	t_vertice	s;
@@ -87,24 +58,42 @@ static void	mlx_link_sphere(t_fdf *fdf, t_vertice *dne, t_vertice *end)
 	mlx_link_nodes(fdf, &s, &e, 1);
 }
 
-// static void	set_origin(t_fdf *fdf)
-// {
-// 	t_vertice	zero;
+void	mlx_draw_line(t_fdf *fdf, t_vertice a, t_vertice b)
+{
+	t_vertice	delta;
+	t_vertice	pixel;
+	double		len;
 
-// 	zero.x = 0;
-// 	zero.y = 0;
-// 	zero.z = 0;
-// 	fdf->mlx->origin.x = ft_rotation_x(fdf->angles, &zero) * fdf->mlx->size
-// 			+ fdf->mlx->offset_x;
-// 	fdf->mlx->origin.y = ft_rotation_y(fdf->angles, &zero) * fdf->mlx->size
-// 			+ fdf->mlx->offset_y;
-// }
+	delta.x = b.x - a.x;
+	delta.y = b.y - a.y;
+	delta.z = delta.y / delta.x;
+	len = sqrt(delta.x * delta.x + delta.y * delta.y);
+	delta.x /= len;
+	delta.y /= len;
+	b.z /= len;
+	pixel.x = a.x;
+	pixel.y = a.y;
+	pixel.z = a.zcol;
+	while (len > 0)
+	{
+		mlx_pxl_put(fdf->mlx, pixel, fdf->map->max, fdf->mlx->color_mode);
+		pixel.x += delta.x;
+		pixel.z += b.z;
+		if (delta.x)
+			pixel.y = delta.z * (pixel.x - a.x) + a.y;
+		else
+			pixel.y += delta.y;
+		--len;
+	}
+}
 
 void	mlx_map_img(t_fdf *fdf)
 {
-	t_face		*tmp;
-	int			index;
+	t_face	*tmp;
+	int		index;
 
+	if (fdf->mlx->fill)
+		return (mlx_fill_faces(fdf));
 	tmp = fdf->map->faces;
 	while (tmp)
 	{

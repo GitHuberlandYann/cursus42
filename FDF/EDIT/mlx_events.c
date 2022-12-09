@@ -24,10 +24,11 @@ static void	ft_reset_map(t_vertice *vert)
 	}
 }
 
-int	mlx_exit(void *param)
+static int	key_down_extended(int kcode, t_fdf *fdf)
 {
-	(void)param;
-	exit(EXIT_SUCCESS);
+	if (kcode == KEY_F && ++fdf->mlx->key->fill == 1)
+		fdf->mlx->fill = !fdf->mlx->fill;
+	return (0);
 }
 
 int	mlx_update_mouse(int x, int y, void *param)
@@ -65,14 +66,11 @@ int	key_down(int kcode, t_fdf *fdf)
 		fdf->mlx->sphere = !fdf->mlx->sphere;
 	else if (kcode == KEY_Q && ++fdf->mlx->key->reset == 1)
 		ft_reset_map(fdf->map->vert);
-	return (0);
+	return (key_down_extended(kcode, fdf));
 }
 
-int	key_released(int kcode, void *param)
+int	key_released(int kcode, t_fdf *fdf)
 {
-	t_fdf	*fdf;
-
-	fdf = param;
 	if (kcode == KEY_E || kcode == KEY_R)
 		fdf->mlx->key->rot_z = 0;
 	else if (kcode == KEY_W || kcode == KEY_S)
@@ -93,5 +91,7 @@ int	key_released(int kcode, void *param)
 		fdf->mlx->key->sphere = 0;
 	else if (kcode == KEY_Q)
 		fdf->mlx->key->reset = 0;
+	else if (kcode == KEY_F)
+		fdf->mlx->key->fill = 0;
 	return (0);
 }

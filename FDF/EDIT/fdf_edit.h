@@ -135,6 +135,7 @@ typedef struct s_key {
 	int	edit;
 	int	sphere;
 	int	reset;
+	int	fill;
 }				t_key;
 
 typedef struct s_mlx
@@ -152,6 +153,7 @@ typedef struct s_mlx
 	int			mx;
 	int			my;
 	int			sphere;
+	int			fill;
 }				t_mlx;
 
 typedef struct s_angles
@@ -186,6 +188,14 @@ void			mlx_related_stuff(t_map *map, t_angles *a, char *title);
 
 void			mlx_pxl_put(t_mlx *mlx, t_vertice pt, int max, int color_mode);
 void			mlx_map_img(t_fdf *fdf);
+void			mlx_fill_faces(t_fdf *fdf);
+void			mlx_draw_line(t_fdf *fdf, t_vertice a, t_vertice b);
+
+void			set_points(t_vertice *sa, t_vertice *sc, t_vertice a,
+					t_vertice c);
+void			set_delta(t_vertice *delta, t_vertice s, t_vertice e);
+void			set_cols(t_vertice *a, t_vertice *b, t_vertice *c, double len);
+
 void			ft_create_edit(t_mlx *mlx, t_map *map);
 void			mlx_map_edit(t_fdf *fdf);
 void			ft_edit_edit(int mode, t_fdf *fdf);
@@ -196,7 +206,7 @@ double			ft_rotation_y(t_angles *a, t_vertice *node);
 int				mlx_exit(void *param);
 int				mlx_update_mouse(int x, int y, void *param);
 int				key_down(int keycode, t_fdf *fdf);
-int				key_released(int keycode, void *param);
+int				key_released(int keycode, t_fdf *fdf);
 int				mlx_draw(void *param);
 
 #endif
