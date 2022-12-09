@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:48:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/08 15:59:19 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/09 17:13:54 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ static void	ft_exec_forkcat(t_parent *child_p, char *path)
 			read_ret = read(fd, buf, 42);
 			buf[read_ret] = '\0';
 		}
+		close(fd);
 		exit(0);
 	}
 	else
 	{
 		ft_wait_child(*child_p);
 		close(child_p->pipefd[1]);
-		//ft_putstr_fd("parent in forkcat\n", 1);
+		// ft_putstr_fd("parent in forkcat\n", 1);
 	}
 }
 
@@ -58,7 +59,6 @@ static void	ft_exec_forkcmd(t_parent *child_p, t_parent *p, char *cmd, char **cm
 		close(p->pipefd[1]);
 		close(child_p->pipefd[0]);
 		execve(cmd, cmds, envp);
-		//ft_putstr_fd(cmd, 1);
 		ft_perror(cmd);
 	}
 	else
@@ -79,13 +79,7 @@ static void	ft_exec_forkcmdput(t_parent *child_p, int fd, char *cmd, char **cmds
 		close(child_p->pipefd[0]);
 		close(fd);
 		execve(cmd, cmds, envp);
-		//ft_putstr_fd(cmd, 1);
 		ft_perror(cmd);
-	}
-	else
-	{
-		ft_wait_child(*child_p);
-		close(child_p->pipefd[1]);
 	}
 }
 
@@ -98,7 +92,7 @@ void	ft_exec_main_child(t_parent p, t_env *env)
 	cmds = ft_split(env->av[2], ' ');
 	if (!cmds)
 		ft_perror(strerror(ENOMEM));
-	//ft_putstr_fd("Child doing stuff\n", 1);
+	// ft_putstr_fd("Child doing stuff\n", 1);
 	cmd = ft_get_cmdpath(cmds[0], env->paths);
 	// ft_putstr_fd(cmd, 1);
 	ft_pipe(child_p.pipefd);
@@ -112,18 +106,15 @@ void	ft_exec_second_cmd(t_parent p,t_env *env, int fd)
 {
 	char		*cmd;
 	char		**cmds;
-	t_parent	child_p;
 
 	cmds = ft_split(env->av[3], ' ');
 	if (!cmds)
 		ft_perror(strerror(ENOMEM));
-	//ft_putstr_fd("Second cmd\n", 1);
+	// ft_putstr_fd("Second cmd\n", 1);
 	cmd = ft_get_cmdpath(cmds[0], env->paths);
-	ft_pipe(child_p.pipefd);
+	// ft_putstr_fd(cmd, 1);
 	ft_exec_forkcmdput(&p, fd, cmd, cmds, env->envp);
 	// ft_putstr_fd("Now, we put\n", 1);
-	close(child_p.pipefd[1]);
-	close(2);
 	ft_free_arr(cmds);
 	free(cmd);
 }
