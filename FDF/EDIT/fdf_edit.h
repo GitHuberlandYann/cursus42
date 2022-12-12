@@ -190,11 +190,14 @@ void			mlx_pxl_put(t_mlx *mlx, t_vertice pt, int max, int color_mode);
 void			mlx_map_img(t_fdf *fdf);
 void			mlx_fill_faces(t_fdf *fdf);
 void			mlx_draw_line(t_fdf *fdf, t_vertice a, t_vertice b);
+void			plane_to_sphere(t_map *map, t_vertice *spnt, t_vertice *pnt);
 
+double			set_len(t_vertice *delta, t_vertice *deltc);
 void			set_points(t_vertice *sa, t_vertice *sc, t_vertice a,
 					t_vertice c);
 void			set_delta(t_vertice *delta, t_vertice s, t_vertice e);
 void			set_cols(t_vertice *a, t_vertice *b, t_vertice *c, double len);
+t_vertice		set_vert(t_fdf *fdf, t_vertice *v, int sph);
 
 void			ft_create_edit(t_mlx *mlx, t_map *map);
 void			mlx_map_edit(t_fdf *fdf);

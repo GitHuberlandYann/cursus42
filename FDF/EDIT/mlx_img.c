@@ -33,19 +33,6 @@ static void	mlx_link_nodes(t_fdf *fdf, t_vertice *dne, t_vertice *end, int sph)
 	mlx_draw_line(fdf, s, e);
 }
 
-static void	plane_to_sphere(t_map *map, t_vertice *spnt, t_vertice *pnt)
-{
-	t_vertice	rlonlat;
-
-	rlonlat.z = 2 * M_PI * (double)pnt->x / (double)(map->width - 1);
-	rlonlat.y = M_PI * (double)pnt->y / (double)(map->height - 1);
-	rlonlat.x = map->max - pnt->z;
-	spnt->x = rlonlat.x * sin(rlonlat.y) * cos(rlonlat.z);
-	spnt->y = rlonlat.x * sin(rlonlat.y) * sin(rlonlat.z);
-	spnt->z = rlonlat.x * cos(rlonlat.y);
-	spnt->zcol = pnt->z;
-}
-
 static void	mlx_link_sphere(t_fdf *fdf, t_vertice *dne, t_vertice *end)
 {
 	t_vertice	s;
@@ -56,6 +43,19 @@ static void	mlx_link_sphere(t_fdf *fdf, t_vertice *dne, t_vertice *end)
 	plane_to_sphere(fdf->map, &s, dne);
 	plane_to_sphere(fdf->map, &e, end);
 	mlx_link_nodes(fdf, &s, &e, 1);
+}
+
+void	plane_to_sphere(t_map *map, t_vertice *spnt, t_vertice *pnt)
+{
+	t_vertice	rlonlat;
+
+	rlonlat.z = 2 * M_PI * (double)pnt->x / (double)(map->width - 1);
+	rlonlat.y = M_PI * (double)pnt->y / (double)(map->height - 1);
+	rlonlat.x = map->max - pnt->z;
+	spnt->x = rlonlat.x * sin(rlonlat.y) * cos(rlonlat.z);
+	spnt->y = rlonlat.x * sin(rlonlat.y) * sin(rlonlat.z);
+	spnt->z = rlonlat.x * cos(rlonlat.y);
+	spnt->zcol = pnt->z;
 }
 
 void	mlx_draw_line(t_fdf *fdf, t_vertice a, t_vertice b)

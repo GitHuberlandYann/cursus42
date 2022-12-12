@@ -6,30 +6,11 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:24:58 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/09 14:13:34 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:17:03 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_edit.h"
-
-static double	set_len(t_vertice *delta, t_vertice *deltc)
-{
-	double	lena;
-	double	lenc;
-	double	res;
-
-	lena = sqrt(delta->x * delta->x + delta->y * delta->y);
-	lenc = sqrt(deltc->x * deltc->x + deltc->y * deltc->y);
-	if (lena > lenc)
-		res = lena;
-	else
-		res = lenc;
-	delta->x /= res;
-	delta->y /= res;
-	deltc->x /= res;
-	deltc->y /= res;
-	return (res);
-}
 
 static void	move_point(t_vertice *pt, t_vertice delta, t_vertice o, double c)
 {
@@ -63,17 +44,7 @@ static void	mlx_fill_triangle(t_fdf *fdf, t_vertice a, t_vertice b, t_vertice c)
 	}
 }
 
-static t_vertice	mlx_set_vert(t_fdf *fdf, t_vertice *v)
-{
-	t_vertice	r;
-
-	r.x = ft_rotation_x(fdf->angles, v) * fdf->mlx->size + fdf->mlx->offset_x;
-	r.y = ft_rotation_y(fdf->angles, v) * fdf->mlx->size + fdf->mlx->offset_y;
-	r.zcol = v->z;
-	return (r);
-}
-
-void	mlx_fill_faces(t_fdf *fdf)
+static void	mlx_fill_sphere(t_fdf *fdf)
 {
 	t_face		*tmp;
 	t_vertice	a;
@@ -84,10 +55,37 @@ void	mlx_fill_faces(t_fdf *fdf)
 	tmp = fdf->map->faces;
 	while (tmp)
 	{
-		a = mlx_set_vert(fdf, tmp->face[0]);
-		b = mlx_set_vert(fdf, tmp->face[1]);
-		c = mlx_set_vert(fdf, tmp->face[2]);
-		d = mlx_set_vert(fdf, tmp->face[3]);
+		plane_to_sphere(fdf->map, &a, tmp->face[0]);
+		plane_to_sphere(fdf->map, &b, tmp->face[1]);
+		plane_to_sphere(fdf->map, &c, tmp->face[2]);
+		plane_to_sphere(fdf->map, &d, tmp->face[3]);
+		a = set_vert(fdf, &a, 1);
+		b = set_vert(fdf, &b, 1);
+		c = set_vert(fdf, &c, 1);
+		d = set_vert(fdf, &d, 1);
+		mlx_fill_triangle(fdf, a, b, c);
+		mlx_fill_triangle(fdf, a, d, c);
+		tmp = tmp->next;
+	}
+}
+
+void	mlx_fill_faces(t_fdf *fdf)
+{
+	t_face		*tmp;
+	t_vertice	a;
+	t_vertice	b;
+	t_vertice	c;
+	t_vertice	d;
+
+	if (fdf->mlx->sphere)
+		return (mlx_fill_sphere(fdf));
+	tmp = fdf->map->faces;
+	while (tmp)
+	{
+		a = set_vert(fdf, tmp->face[0], 0);
+		b = set_vert(fdf, tmp->face[1], 0);
+		c = set_vert(fdf, tmp->face[2], 0);
+		d = set_vert(fdf, tmp->face[3], 0);
 		mlx_fill_triangle(fdf, a, b, c);
 		mlx_fill_triangle(fdf, a, d, c);
 		tmp = tmp->next;
