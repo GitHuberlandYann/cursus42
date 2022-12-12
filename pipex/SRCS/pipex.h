@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:52:57 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/08 15:33:57 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:43:41 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,26 @@ typedef struct s_parent
 
 typedef struct s_env
 {
+	int		ret;
+	int		fd;
 	int		ac;
 	char	**av;
 	char	**envp;
 	char	**paths;
+	char	**cmds;
 }				t_env;
 
 char	**ft_get_paths(char **envp);
-char	*ft_get_cmdpath(char *cmd, char **paths);
+char	*ft_get_cmdpath(char *cmd, char **paths, int code);
 void	ft_free_arr(char **arr);
 
 void	ft_exec_main_child(t_parent p, t_env *env);
 void	ft_exec_first_command(char **av, char **envp, char **gnl);
-void	ft_exec_second_cmd(t_parent p, t_env *env, int fd);
+void	ft_exec_second_cmd(t_parent p, t_env *env);
 
 void	ft_pipe(int pipefd[2]);
 void	ft_fork(int	*child_pid);
-void	ft_wait_child(t_parent p);
+void	ft_wait_child(t_parent *p, int *ret);
 void	ft_perror(char *str);
-void	ft_perror_cmd(char *str);
+void	ft_perror_cmd(char *str, int code);
 #endif

@@ -28,23 +28,19 @@ void	ft_fork(int *child_pid)
 		ft_perror("fork");
 }
 
-void	ft_wait_child(t_parent p)
+void	ft_wait_child(t_parent *p, int *ret)
 {
-	p.c_wait = waitpid(p.c_pid, &p.w_status, WUNTRACED | WCONTINUED);
-	while (!WIFEXITED(p.c_wait) && !WIFSIGNALED(p.c_wait))
-	{
-		p.c_wait = waitpid(p.c_pid, &p.w_status, WUNTRACED | WCONTINUED);
-		if (p.c_wait == -1)
-			ft_perror("waitpid");
-		if (WIFEXITED(p.w_status))
-			printf("exited, status=%d\n", WEXITSTATUS(p.w_status));
-		else if (WIFSIGNALED(p.w_status))
-			printf("killed by signal %d\n", WTERMSIG(p.w_status));
-		else if (WIFSTOPPED(p.w_status))
-			printf("stopped by signal %d\n", WSTOPSIG(p.w_status));
-		else if (WIFCONTINUED(p.w_status))
-			printf("continued\n");
-	}
+	p->c_wait = waitpid(p->c_pid, &p->w_status, 0);
+	if (p->c_wait == -1)
+		return ;
+	// while (!WIFEXITED(p->c_wait) && !WIFSIGNALED(p->c_wait))
+	// {
+	// 	p->c_wait = waitpid(p->c_pid, &p->w_status, 0);
+	// 	if (p->c_wait == -1)
+	// 		return ;
+	// }
+	if (WIFEXITED(p->c_wait) && WEXITSTATUS(p->w_status) && !*ret)
+		*ret = WEXITSTATUS(p->w_status);
 }
 
 void	ft_perror(char *str)
@@ -53,8 +49,8 @@ void	ft_perror(char *str)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_perror_cmd(char *str)
+void	ft_perror_cmd(char *str, int code)
 {
 	write(2, str, ft_strlen(str));
-	exit(127);
+	exit(code);
 }

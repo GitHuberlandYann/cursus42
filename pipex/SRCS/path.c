@@ -40,7 +40,7 @@ char	**ft_get_paths(char **envp)
 	return (res);
 }
 
-char	*ft_get_cmdpath(char *cmd, char **paths)
+char	*ft_get_cmdpath(char *cmd, char **paths, int code)
 {
 	int		index;
 	char	*res;
@@ -48,10 +48,9 @@ char	*ft_get_cmdpath(char *cmd, char **paths)
 	char	*joins;
 
 	index = 0;
-	cmd = ft_strjoin("/", cmd);
 	while (paths[index])
 	{
-		res = ft_strjoin(paths[index], cmd);
+		res = ft_strjoins(3, paths[index], "/", cmd);
 		if (!access(res, X_OK))
 		{
 			free(cmd);
@@ -62,8 +61,9 @@ char	*ft_get_cmdpath(char *cmd, char **paths)
 	}
 	itoa_out = ft_itoa(__LINE__ - 8);
 	joins = ft_strjoins(8, __FILE__, ": ", __func__, ": line ", itoa_out, ": ",
-						&cmd[1], ": command not found\n");
+			cmd, ": command not found\n");
 	free(itoa_out);
-	ft_perror_cmd(joins);
+	ft_free_arr(paths);
+	ft_perror_cmd(joins, code);
 	return (0);
 }
