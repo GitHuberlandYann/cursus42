@@ -114,6 +114,10 @@ void	mlx_map_img(t_fdf *fdf)
 		{
 			mlx_link_nodes(fdf, tmp->face[1], tmp->face[0], 0);
 			mlx_link_nodes(fdf, tmp->face[3], tmp->face[0], 0);
+			if (tmp->face[2]->x == fdf->map->width - 1)
+				mlx_link_nodes(fdf, tmp->face[1], tmp->face[2], 0);
+			// if (tmp->face[2]->y == fdf->map->height - 1)
+			// 	mlx_link_nodes(fdf, tmp->face[3], tmp->face[2], 0);
 		}
 		else
 		{
