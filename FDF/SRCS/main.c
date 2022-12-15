@@ -6,63 +6,45 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:27:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/25 11:55:10 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/15 11:16:33 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	ft_free_return(t_angles *angles, t_fdf *fdf)
+static t_angles	*angles_init(void)
 {
-	free(angles);
-	free(fdf);
-	return (-1);
-}
+	t_angles	*res;
 
-static void	angles_init(t_angles *a, float alpha, float beta, float gamma)
-{
-	a->alpha = (alpha * M_PI) / 180;
-	a->beta = (beta * M_PI) / 180;
-	a->gamma = (gamma * M_PI) / 180;
-	a->sa = sin(a->alpha);
-	a->ca = cos(a->alpha);
-	a->sb = sin(a->beta);
-	a->cb = cos(a->beta);
-	a->sg = sin(a->gamma);
-	a->cg = cos(a->gamma);
+	res = malloc(sizeof(*res));
+	if (!res)
+		ft_perror(__func__);
+	res->alpha = (ISO_ALPHA * M_PI) / 180;
+	res->beta = (ISO_BETA * M_PI) / 180;
+	res->gamma = (ISO_GAMMA * M_PI) / 180;
+	res->sa = sin(res->alpha);
+	res->ca = cos(res->alpha);
+	res->sb = sin(res->beta);
+	res->cb = cos(res->beta);
+	res->sg = sin(res->gamma);
+	res->cg = cos(res->gamma);
+	return (res);
 }
 
 int	main(int ac, char **av)
 {
-	t_fdf	*fdf;
-	
-	fdf = malloc(sizeof(*fdf));
-	if (!fdf)
-		return (-1);
-	if (ac == 3)
-	{
-		fdf->map2 = get_map(av[2]); //need to free this when next mallocs fail -> TODO
-		if (!fdf->map2)
-			return (-1);
-		ac = 2;
-	}
-	else
-		fdf->map2 = 0;
+	t_map		*map;
+	t_angles	*a;
+
 	if (ac == 2)
 	{
-		fdf->angles = malloc(sizeof(*fdf->angles));
-		if (!fdf->angles)
-			exit(EXIT_FAILURE);
-		angles_init(fdf->angles, ISO_ALPHA, ISO_BETA, ISO_GAMMA);
-		fdf->map = get_map(av[1]);
-		if (!fdf->map)
-			return (ft_free_return(fdf->angles, fdf));
-		fdf->map->colors_enable = 1;
-		fdf->map->mirror = 0;
-		mlx_related_stuff(fdf, av[1]);
+		map = get_map(av[1]);
+		if (!map)
+			return (1);
+		a = angles_init();
+		mlx_related_stuff(map, a, av[1]);
 	}
 	else
-		ft_putstr("Program needs 1 argument of type <maps/*>\n");
-	free(fdf);
+		ft_putstr("Program needs 1 argument of type <maps/string.fdf>\n");
 	return (0);
 }

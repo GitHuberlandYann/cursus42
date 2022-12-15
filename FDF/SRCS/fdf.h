@@ -6,22 +6,23 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/28 12:22:15 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:59:51 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
+# include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
 # include "../Libft/libft.h"
-#include "../mlx/mlx.h"
+# include "../mlx/mlx.h"
 
-# define WIN_SIZE_X 2560
-# define WIN_SIZE_Y 1400
-# define OVERLAY_SIZE_X 300
-# define OVERLAY_SIZE_Y 300
+# define WIN_WIDTH 2560
+# define WIN_HEIGHT 1400
+# define OL_WIDTH 300
+# define OL_HEIGHT 300
 
 # define ISO_ALPHA 0
 # define ISO_BETA -35.264
@@ -94,18 +95,34 @@ enum {
 	KEY_MINUS_PAD = 78
 };
 
+typedef struct s_vertice
+{
+	double				x;
+	double				y;
+	double				z;
+	double				zcol;
+	struct s_vertice	*next;
+}				t_vertice;
+
+typedef struct s_face
+{
+	struct	s_vertice	*(face[4]);
+	struct s_face		*next;
+}				t_face;
+
 typedef struct s_map
 {
-	int		**map;
-	int		maplen;
-	int		rowlen;
-	int		max_value;
-	float	ratio;
-	int		colors_enable;
-	int		mirror;
+	t_vertice	*vert;
+	t_face		*faces;
+	t_vertice	*vert_last;
+	t_face		*faces_last;
+	int			width;
+	int			height;
+	double		max;
+	double		ratio;
 }				t_map;
 
-typedef struct	s_img {
+typedef struct s_img {
 	void	*img_ptr;
 	char	*addr;
 	int		bits_per_pixel;
@@ -130,13 +147,9 @@ typedef struct s_key {
 	int	rot_special;
 	int	color;
 	int	overlay;
-	int	mirror;
-	int	level0u;
-	int	level0d;
-	int	level1u;
-	int	level1d;
-	int	level2u;
-	int	level2d;
+	int	sphere;
+	int	fill;
+	int	clevels[6];
 }				t_key;
 
 typedef struct s_colors
@@ -154,74 +167,74 @@ typedef struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	*img;
+	t_img	*back;
 	t_img	*overlay;
 	t_img	*hex;
-	int		size_x;
-	int		size_y;
+	double	size;
 	int		offset_x;
 	int		offset_y;
-	char	*title;
+	int		color_mode;
 	t_key	*key;
 	t_col	*col;
+	int		sphere;
+	int		fill;
 }				t_mlx;
 
 typedef struct s_angles
 {
-	float	alpha;
-	float	beta;
-	float	gamma;
-	float	sa;
-	float	ca;
-	float	sb;
-	float	cb;
-	float	sg;
-	float	cg;
+	double	alpha;
+	double	beta;
+	double	gamma;
+	double	sa;
+	double	ca;
+	double	sb;
+	double	cb;
+	double	sg;
+	double	cg;
 }				t_angles;
 
 typedef struct s_fdf
 {
 	t_map		*map;
-	t_map		*map2;
 	t_mlx		*mlx;
 	t_angles	*angles;
 }				t_fdf;
 
-int			ft_rotation_x(t_angles *a, float row, float column, float value);
-int			ft_rotation_y(t_angles *a, float row, float column, float value);
-float		ft_get_xcase(float column, float len, float size_x);
-float		ft_get_ycase(float row, float len, float size_y);
-float		ft_get_vcase(t_map *map, float value, float size_y);
+t_map			*get_map(char	*path);
+void			ft_faces_init(t_map *map);
 
-int			***ft_mapdup(t_fdf *fdf);
-int			ft_get_color(float value, int white, float ratio, t_col *col);
-void		ft_create_hexa(t_mlx *mlx);
+void			ft_perror(const char *str);
+void			ft_free_arr(char **arr);
+unsigned int	get_color(double z, int max);
+
+int				mlx_related_stuff(t_map *map, t_angles *a, char *title);
+
+void			mlx_pxl_put(t_mlx *mlx, t_vertice pt, int max, int color_mode);
 unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y);
+void			mlx_map_img(t_fdf *fdf);
+void			mlx_fill_faces(t_fdf *fdf);
+void			mlx_draw_line(t_fdf *fdf, t_vertice a, t_vertice b);
+void			plane_to_sphere(t_map *map, t_vertice *spnt, t_vertice *pnt);
 
-int			mlx_related_stuff(t_fdf *fdf, char *title);
-void		ft_create_img(t_mlx *mlx);
-void		mlx_set_keys(t_mlx *mlx);
-void		ft_create_overlay(t_mlx *mlx);
-void		ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+double			set_len(t_vertice *delta, t_vertice *deltc);
+void			set_points(t_vertice *sa, t_vertice *sc, t_vertice a,
+					t_vertice c);
+void			set_delta(t_vertice *delta, t_vertice s, t_vertice e);
+void			set_cols(t_vertice *a, t_vertice *b, t_vertice *c, double len);
+t_vertice		set_vert(t_fdf *fdf, t_vertice *v, int sph);
 
-void		rotation_x(t_fdf * fdf, int rotation);
-void		rotation_y(t_fdf * fdf, int rotation);
-void		rotation_z(t_fdf * fdf, int rotation);
+double			ft_rotation_x(t_angles *a, t_vertice *node, t_map *map);
+double			ft_rotation_y(t_angles *a, t_vertice *node, t_map *map);
 
-int			mouse_button_pressed(int button, int x, int y, void *param);
-int			key_down(int keycode, void *param);
-int			key_pressed(int key_code, void *param);
-int			key_released(int keycode, void *param);
-int			mlx_draw(void *param);
+void			ft_create_hexa(t_mlx *mlx);
+void			ft_create_backimg(t_mlx *mlx);
+void			mlx_set_keys(t_mlx *mlx);
+void			ft_create_overlay(t_mlx *mlx);
 
-t_map		*get_map(char	*path);
-int			mlx_exit(void *param);
-
-void		mlx_link_node(t_fdf *fdf, int ***copy, int r, int c);
-void		mlx_map_img(t_fdf *fdf);
-void		mlx_map2_img(t_fdf *fdf);
-void		mlx_clear_img(t_img *img, int color);
-
-void		ft_display_map_content(t_map *res);
-void		ft_display_lst_content(t_list *lst);
+int				mlx_exit(void *param);
+int				mouse_button_pressed(int button, int x, int y, t_fdf *fdf);
+int				key_down(int keycode, t_fdf *fdf);
+int				key_released(int keycode, t_fdf *fdf);
+int				mlx_draw(t_fdf *fdf);
 
 #endif

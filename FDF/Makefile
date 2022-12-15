@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/12/09 14:42:32 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/12/15 10:27:39 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ NAMEB = fdf_bonus
 
 NAMEE = fdf_edit
 
-FILE = main gnl_manager angles_manager utils mlx_utils mlx_manager mlx_events \
-		animation_utils mlx_colors map2
+FILE = main angles_manager map_utils map mlx_colors mlx_draw mlx_events \
+		mlx_fill_utils mlx_fill mlx_img mlx_manager mlx_utils utils
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILE)))
 
