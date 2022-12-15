@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:15:53 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/15 14:04:32 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/15 16:21:32 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	mlx_set_keys(t_mlx *mlx)
 	keys->color = 0;
 	keys->ratio = 0;
 	keys->reset_ratio = 0;
-	keys->rot_special = 0;
+	keys->iso = 0;
 	keys->overlay = 0;
 	keys->sphere = 0;
 	keys->fill = 0;

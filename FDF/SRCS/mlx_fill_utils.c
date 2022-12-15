@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:10:25 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/15 14:02:42 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:04:59 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ t_vertice	set_vert(t_fdf *fdf, t_vertice *v, int sph)
 {
 	t_vertice	r;
 
-	r.x = ft_rotation_x(fdf->angles, v, fdf->map) * fdf->mlx->size
+	r.x = ft_rotation_x(fdf->angles, v, fdf->map, sph) * fdf->mlx->size
 		+ fdf->mlx->offset_x;
-	r.y = ft_rotation_y(fdf->angles, v, fdf->map) * fdf->mlx->size
+	r.y = ft_rotation_y(fdf->angles, v, fdf->map, sph) * fdf->mlx->size
 		+ fdf->mlx->offset_y;
 	r.zcol = v->z;
 	if (sph)

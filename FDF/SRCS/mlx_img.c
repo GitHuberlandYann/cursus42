@@ -12,6 +12,15 @@
 
 #include "fdf.h"
 
+static int	checkout(t_vertice *v, t_vertice *v2)
+{
+	if (v->x >= 0 && v->x <= WIN_WIDTH && v->y >= 0 && v->y <= WIN_HEIGHT)
+		return (0);
+	if (v2->x >= 0 && v2->x <= WIN_WIDTH && v2->y >= 0 && v2->y <= WIN_HEIGHT)
+		return (0);
+	return (1);
+}
+
 static void	mlx_link_nodes(t_fdf *fdf, t_vertice *dne, t_vertice *end, int sph)
 {
 	t_vertice	s;
@@ -19,14 +28,14 @@ static void	mlx_link_nodes(t_fdf *fdf, t_vertice *dne, t_vertice *end, int sph)
 
 	if (!fdf || !dne || !end)
 		return ;
-	s.x = ft_rotation_x(fdf->angles, dne, fdf->map) * fdf->mlx->size
+	s.x = ft_rotation_x(fdf->angles, dne, fdf->map, sph) * fdf->mlx->size
 		+ fdf->mlx->offset_x;
-	s.y = ft_rotation_y(fdf->angles, dne, fdf->map) * fdf->mlx->size
+	s.y = ft_rotation_y(fdf->angles, dne, fdf->map, sph) * fdf->mlx->size
 		+ fdf->mlx->offset_y;
 	s.zcol = dne->z;
-	e.x = ft_rotation_x(fdf->angles, end, fdf->map) * fdf->mlx->size
+	e.x = ft_rotation_x(fdf->angles, end, fdf->map, sph) * fdf->mlx->size
 		+ fdf->mlx->offset_x;
-	e.y = ft_rotation_y(fdf->angles, end, fdf->map) * fdf->mlx->size
+	e.y = ft_rotation_y(fdf->angles, end, fdf->map, sph) * fdf->mlx->size
 		+ fdf->mlx->offset_y;
 	e.z = end->z - dne->z;
 	if (sph)
@@ -34,7 +43,8 @@ static void	mlx_link_nodes(t_fdf *fdf, t_vertice *dne, t_vertice *end, int sph)
 		s.zcol = dne->zcol;
 		e.z = end->zcol - dne->zcol;
 	}
-	mlx_draw_line(fdf, s, e);
+	if (!checkout(&s, &e))
+		mlx_draw_line(fdf, s, e);
 }
 
 static void	mlx_link_sphere(t_fdf *fdf, t_vertice *dne, t_vertice *end)
@@ -55,7 +65,7 @@ void	plane_to_sphere(t_map *map, t_vertice *spnt, t_vertice *pnt)
 
 	rlonlat.z = 2 * M_PI * (double)pnt->x / (double)(map->width - 1);
 	rlonlat.y = M_PI * (double)pnt->y / (double)(map->height - 1);
-	rlonlat.x = 2 + pnt->z / map->max;
+	rlonlat.x = 2 - (pnt->z / map->max) * map->ratio;
 	spnt->x = rlonlat.x * sin(rlonlat.y) * cos(rlonlat.z);
 	spnt->y = rlonlat.x * sin(rlonlat.y) * sin(rlonlat.z);
 	spnt->z = rlonlat.x * cos(rlonlat.y);

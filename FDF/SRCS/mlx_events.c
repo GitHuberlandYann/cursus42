@@ -12,6 +12,18 @@
 
 #include "fdf.h"
 
+static int	key_down_extendeded(int kcode, t_fdf *fdf)
+{
+	if (kcode == KEY_I && ++fdf->mlx->key->iso == 1)
+	{
+		set_angles(fdf->angles, 0, 0, 0);
+		fdf->mlx->size = (double)WIN_WIDTH / (double)(2 * fdf->map->width);
+		fdf->mlx->offset_x = WIN_WIDTH / 4;
+		fdf->mlx->offset_y = WIN_HEIGHT / 4;
+	}
+	return (0);
+}
+
 static int	key_down_extended(int kcode, t_fdf *fdf)
 {
 	if (kcode == KEY_F && ++fdf->mlx->key->fill == 1)
@@ -21,8 +33,7 @@ static int	key_down_extended(int kcode, t_fdf *fdf)
 		if (fdf->map->ratio != fdf->map->max)
 			fdf->map->ratio = fdf->map->max;
 		else
-			fdf->map->ratio = (double)fdf->map->height / 10.0
-				+ (fdf->map->height < 10);
+			fdf->map->ratio = 0;
 	}
 	else if (kcode == KEY_8 && ++fdf->mlx->key->clevels[0] == 1)
 		fdf->mlx->col->level0 -= 0.01;
@@ -38,15 +49,13 @@ static int	key_down_extended(int kcode, t_fdf *fdf)
 		fdf->mlx->col->level2 += 0.01;
 	else if (kcode == KEY_P && ++ fdf->mlx->key->sphere == 1)
 		fdf->mlx->sphere = !fdf->mlx->sphere;
-	return (0);
+	return (key_down_extendeded(kcode, fdf));
 }
 
 static int	key_released_extended(int kcode, t_fdf *fdf)
 {
 	if (kcode == KEY_O)
 		fdf->mlx->key->reset_ratio = 0;
-	else if (kcode == KEY_1)
-		fdf->mlx->key->rot_special = 0;
 	else if (kcode == KEY_H)
 		fdf->mlx->key->overlay = 0;
 	else if (kcode == KEY_8)
@@ -61,6 +70,8 @@ static int	key_released_extended(int kcode, t_fdf *fdf)
 		fdf->mlx->key->clevels[4] = 0;
 	else if (kcode == KEY_3)
 		fdf->mlx->key->clevels[5] = 0;
+	else if (kcode == KEY_I)
+		fdf->mlx->key->iso = 0;
 	return (0);
 }
 
@@ -114,8 +125,6 @@ int	key_down(int kcode, t_fdf *fdf)
 	else if (kcode == KEY_C && ++fdf->mlx->key->color == 1)
 		fdf->mlx->color_mode = !fdf->mlx->color_mode
 			+ (2 * (fdf->mlx->color_mode == 1));
-	else if (kcode == KEY_1)
-		fdf->mlx->key->rot_special = kcode == KEY_1;
 	else if (kcode == KEY_H)
 		fdf->mlx->key->overlay = 1;
 	return (key_down_extended(kcode, fdf));

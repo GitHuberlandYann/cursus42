@@ -40,7 +40,9 @@ static void	exec_keys(t_key *keys, t_fdf *fdf)
 	}
 	fdf->mlx->offset_x += 100 * keys->horizontal;
 	fdf->mlx->offset_y += 100 * keys->vertical;
-	fdf->mlx->size += 5 * keys->zoom;
+	fdf->mlx->size += (double)WIN_WIDTH / (double)(8 * fdf->map->width) * keys->zoom;
+	if (fdf->mlx->size < 0)
+		fdf->mlx->size = 0;
 }
 
 static void	mlx_clear_img(t_mlx *mlx, int color)
@@ -108,7 +110,7 @@ int	mlx_draw(t_fdf *fdf)
 	if (!key->rot_x && !key->rot_y && !key->rot_z && !key->horizontal
 		&& !key->vertical && !key->zoom && key->color != 1 && !key->ratio
 		&& key->sphere != 1 && !key->reset_ratio && key->fill != 1
-		&& !key->rot_special && !key->overlay)
+		&& key->iso != 1 && !key->overlay)
 		return (1);
 	exec_keys(fdf->mlx->key, fdf);
 	mlx_clear_img(fdf->mlx, -!fdf->mlx->color_mode);

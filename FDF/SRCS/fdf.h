@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/15 13:59:51 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/15 16:28:00 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ typedef struct s_key {
 	int	zoom;
 	int	ratio;
 	int	reset_ratio;
-	int	rot_special;
+	int	iso;
 	int	color;
 	int	overlay;
 	int	sphere;
@@ -223,8 +223,9 @@ void			set_delta(t_vertice *delta, t_vertice s, t_vertice e);
 void			set_cols(t_vertice *a, t_vertice *b, t_vertice *c, double len);
 t_vertice		set_vert(t_fdf *fdf, t_vertice *v, int sph);
 
-double			ft_rotation_x(t_angles *a, t_vertice *node, t_map *map);
-double			ft_rotation_y(t_angles *a, t_vertice *node, t_map *map);
+void			set_angles(t_angles *a, double alpha, double beta, double gamma);
+double			ft_rotation_x(t_angles *a, t_vertice *node, t_map *map, int sph);
+double			ft_rotation_y(t_angles *a, t_vertice *node, t_map *map, int sph);
 
 void			ft_create_hexa(t_mlx *mlx);
 void			ft_create_backimg(t_mlx *mlx);
