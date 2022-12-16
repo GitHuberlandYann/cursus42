@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_events.c                                       :+:      :+:    :+:   */
+/*   mlx_keys.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 16:18:02 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/11/18 16:18:02 by yhuberla         ###   ########.fr       */
+/*   Created: 2022/12/16 15:01:27 by yhuberla          #+#    #+#             */
+/*   Updated: 2022/12/16 15:01:27 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ static int	key_down_extendeded(int kcode, t_fdf *fdf)
 		fdf->mlx->size = (double)WIN_WIDTH / (double)(2 * fdf->map->width);
 		fdf->mlx->offset_x = WIN_WIDTH / 4;
 		fdf->mlx->offset_y = WIN_HEIGHT / 4;
+		fdf->mlx->col->zero = 0x949494;
+		fdf->mlx->col->top = 0xff00ff;
+		fdf->mlx->col->bottom = 0x80;
 	}
 	return (0);
 }
@@ -35,20 +38,11 @@ static int	key_down_extended(int kcode, t_fdf *fdf)
 		else
 			fdf->map->ratio = 0;
 	}
-	else if (kcode == KEY_8 && ++fdf->mlx->key->clevels[0] == 1)
-		fdf->mlx->col->level0 -= 0.01;
-	else if (kcode == KEY_9 && ++fdf->mlx->key->clevels[1] == 1)
-		fdf->mlx->col->level0 += 0.01;
-	else if (kcode == KEY_5 && ++fdf->mlx->key->clevels[2] == 1)
-		fdf->mlx->col->level1 -= 0.01;
-	else if (kcode == KEY_6 && ++fdf->mlx->key->clevels[3] == 1)
-		fdf->mlx->col->level1 += 0.01;
-	else if (kcode == KEY_2 && ++fdf->mlx->key->clevels[4] == 1)
-		fdf->mlx->col->level2 -= 0.01;
-	else if (kcode == KEY_3 && ++fdf->mlx->key->clevels[5] == 1)
-		fdf->mlx->col->level2 += 0.01;
 	else if (kcode == KEY_P && ++ fdf->mlx->key->sphere == 1)
 		fdf->mlx->sphere = !fdf->mlx->sphere;
+	else if (kcode == KEY_V && ++fdf->mlx->key->color == 1)
+		fdf->mlx->color_mode = fdf->mlx->color_mode - 1
+			+ (4 * !fdf->mlx->color_mode);
 	return (key_down_extendeded(kcode, fdf));
 }
 
@@ -58,49 +52,10 @@ static int	key_released_extended(int kcode, t_fdf *fdf)
 		fdf->mlx->key->reset_ratio = 0;
 	else if (kcode == KEY_H)
 		fdf->mlx->key->overlay = 0;
-	else if (kcode == KEY_8)
-		fdf->mlx->key->clevels[0] = 0;
-	else if (kcode == KEY_9)
-		fdf->mlx->key->clevels[1] = 0;
-	else if (kcode == KEY_5)
-		fdf->mlx->key->clevels[2] = 0;
-	else if (kcode == KEY_6)
-		fdf->mlx->key->clevels[3] = 0;
-	else if (kcode == KEY_2)
-		fdf->mlx->key->clevels[4] = 0;
-	else if (kcode == KEY_3)
-		fdf->mlx->key->clevels[5] = 0;
 	else if (kcode == KEY_I)
 		fdf->mlx->key->iso = 0;
-	return (0);
-}
-
-int	mouse_button_pressed(int button, int x, int y, t_fdf *fdf)
-{
-	t_mlx			*mlx;
-	unsigned int	col;
-
-	mlx = fdf->mlx;
-	if (mlx->key->overlay)
-	{
-		if (x >= mlx->hex->x && x < mlx->hex->x + mlx->hex->width
-			&& y >= mlx->hex->y && y < mlx->hex->y + mlx->hex->height)
-		{
-			col = ft_mlx_pixel_get(mlx->hex, x - mlx->hex->x, y - mlx->hex->y)
-				% 0xff000000;
-			if (fdf->mlx->color_mode == 1)
-			{
-				if (button == 1)
-					mlx->col->top = col;
-				else
-					mlx->col->bottom = col;
-			}
-			else if (fdf->mlx->color_mode == 0)
-				mlx->col->zero = col;
-			else if (fdf->mlx->color_mode == 2)
-				mlx->col->zero = col;
-		}
-	}
+	else if (kcode == KEY_V)
+		fdf->mlx->key->color = 0;
 	return (0);
 }
 
@@ -123,10 +78,10 @@ int	key_down(int kcode, t_fdf *fdf)
 	else if (kcode == KEY_PLUS || kcode == KEY_MINUS)
 		fdf->mlx->key->zoom = (kcode == KEY_PLUS) - (kcode == KEY_MINUS);
 	else if (kcode == KEY_C && ++fdf->mlx->key->color == 1)
-		fdf->mlx->color_mode = !fdf->mlx->color_mode
-			+ (2 * (fdf->mlx->color_mode == 1));
-	else if (kcode == KEY_H)
-		fdf->mlx->key->overlay = 1;
+		fdf->mlx->color_mode = fdf->mlx->color_mode + 1
+			- (4 * (fdf->mlx->color_mode == 3));
+	else if (kcode == KEY_H && ++fdf->mlx->key->overlay == 1)
+		fdf->mlx->hexon = !fdf->mlx->hexon;
 	return (key_down_extended(kcode, fdf));
 }
 

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/16 14:46:20 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:57:39 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,17 +149,13 @@ typedef struct s_key {
 	int	overlay;
 	int	sphere;
 	int	fill;
-	int	clevels[6];
 }				t_key;
 
 typedef struct s_colors
 {
-	float	top;
-	float	zero;
-	float	bottom;
-	float	level0;
-	float	level1;
-	float	level2;
+	unsigned int	top;
+	unsigned int	zero;
+	unsigned int	bottom;
 }				t_col;
 
 typedef struct s_mlx
@@ -176,6 +172,7 @@ typedef struct s_mlx
 	int		color_mode;
 	t_key	*key;
 	t_col	*col;
+	int		hexon;
 	int		sphere;
 	int		fill;
 }				t_mlx;
@@ -205,7 +202,7 @@ void			ft_faces_init(t_map *map);
 
 void			ft_perror(const char *str);
 void			ft_free_arr(char **arr);
-unsigned int	get_color(double z, int max);
+unsigned int	get_color(double z, int max, int boo, t_col *c);
 
 int				mlx_related_stuff(t_map *map, t_angles *a, char *title);
 

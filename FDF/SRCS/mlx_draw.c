@@ -88,13 +88,13 @@ void	mlx_pxl_put(t_mlx *mlx, t_vertice pt, int max, int color_mode)
 	if (pt.y < 0 || pt.y >= WIN_HEIGHT || pt.x < 0 || pt.x >= WIN_WIDTH)
 		return ;
 	if (!color_mode)
-		color = 0x949494;
+		color = mlx->col->zero;
 	else if (color_mode == -1)
 		color = 0x0;
-	else if (color_mode == 1)
+	else if (color_mode == 2)
 		color = ft_mlx_pixel_get(mlx->back, pt.x, pt.y);
 	else
-		color = get_color(pt.z, max);
+		color = get_color(pt.z, max, color_mode == 1, mlx->col);
 	img = mlx->img;
 	x = pt.x;
 	y = pt.y;
@@ -110,14 +110,14 @@ int	mlx_draw(t_fdf *fdf)
 	if (!key->rot_x && !key->rot_y && !key->rot_z && !key->horizontal
 		&& !key->vertical && !key->zoom && key->color != 1 && !key->ratio
 		&& key->sphere != 1 && !key->reset_ratio && key->fill != 1
-		&& key->iso != 1 && !key->overlay)
+		&& key->iso != 1 && key->overlay != 1 && !fdf->mlx->hexon)
 		return (1);
-	exec_keys(fdf->mlx->key, fdf);
-	mlx_clear_img(fdf->mlx, -!fdf->mlx->color_mode);
+	exec_keys(key, fdf);
+	mlx_clear_img(fdf->mlx, -(fdf->mlx->color_mode < 2));
 	mlx_map_img(fdf);
 	mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr,
 		fdf->mlx->img->img_ptr, 0, 0);
-	if (fdf->mlx->key->overlay)
+	if (fdf->mlx->hexon && fdf->mlx->color_mode < 2)
 	{
 		mlx_put_image_to_window(fdf->mlx->mlx_ptr, fdf->mlx->win_ptr,
 			fdf->mlx->overlay->img_ptr, fdf->mlx->overlay->x,

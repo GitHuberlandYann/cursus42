@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:15:53 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/16 14:24:44 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:57:50 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,5 @@ void	mlx_set_keys(t_mlx *mlx)
 	keys->overlay = 0;
 	keys->sphere = 0;
 	keys->fill = 0;
-	keys->clevels[0] = 0;
-	keys->clevels[1] = 0;
-	keys->clevels[2] = 0;
-	keys->clevels[3] = 0;
-	keys->clevels[4] = 0;
-	keys->clevels[5] = 0;
 	mlx->key = keys;
 }

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:14:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/15 13:50:28 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:20:03 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,30 @@ static double	percent_col(double start, double end, double percent)
 	return ((percent - start) / (end - start));
 }
 
-unsigned int	get_color(double z, int max)
+unsigned int	get_color(double z, int max, int boo, t_col *c)
 {
-	double			perc;
+	double			prc;
 	unsigned int	res;
 
-	perc = -z / (double)max;
-	if (perc <= 0.0)
-		res = gradient_col(0xC1FF, 0x50, percent_col(0, -1.0, perc));
-	else if (perc <= 0.32)
-		res = gradient_col(0x26E07, 0xACFDB0, percent_col(0, 0.32, perc));
-	else if (perc <= 0.60)
-		res = gradient_col(0x785801, 0xdbba5e, percent_col(0.32, 0.60, perc));
+	prc = -z / (double)max;
+	if (!boo)
+	{
+		if (prc <= 0.0)
+			res = gradient_col(0xC1FF, 0x50, percent_col(0, -1.0, prc));
+		else if (prc <= 0.32)
+			res = gradient_col(0x26E07, 0xACFDB0, percent_col(0, 0.32, prc));
+		else if (prc <= 0.60)
+			res = gradient_col(0x785801, 0xdbba5e, percent_col(0.32, 0.60, prc));
+		else
+			res = 0xffffff;
+	}
 	else
-		res = 0xffffff;
+	{
+		if (prc <= 0.0)
+			res = gradient_col(c->zero, c->bottom, percent_col(0, -1.0, prc));
+		else
+			res = gradient_col(c->zero, c->top, percent_col(0, 1.0, prc));
+	}
 	return (res);
 }
 

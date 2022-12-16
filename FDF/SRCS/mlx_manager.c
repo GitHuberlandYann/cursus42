@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/15 14:03:40 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:58:07 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,9 @@ static t_col	*ft_col_init(void)
 	res = malloc(sizeof(*res));
 	if (!res)
 		ft_perror(__func__);
-	res->zero = 0xffffff;
+	res->zero = 0x949494;
 	res->top = 0xff00ff;
 	res->bottom = 0x80;
-	res->level0 = 0.02;
-	res->level1 = 0.18;
-	res->level2 = 0.35;
 	return (res);
 }
 
@@ -83,6 +80,7 @@ static void	ft_mlx_init(t_fdf *fdf, char *title)
 	mlx->offset_x = WIN_WIDTH / 4;
 	mlx->offset_y = WIN_HEIGHT / 2;
 	mlx->color_mode = 0;
+	mlx->hexon = 0;
 	mlx->sphere = 0;
 	mlx->fill = 0;
 	mlx->col = ft_col_init();
