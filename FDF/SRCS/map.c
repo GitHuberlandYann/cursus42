@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:50:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/15 13:49:56 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/16 16:13:55 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +84,19 @@ t_map	*get_map(char	*path)
 
 	res = ft_map_init();
 	fd = open(path, O_RDONLY);
-	if (fd)
+	if (fd == -1)
+		ft_perror(path);
+	line = get_next_line(fd);
+	while (line && line[0])
 	{
+		ft_add_line(res, line);
 		line = get_next_line(fd);
-		while (line && line[0])
-		{
-			ft_add_line(res, line);
-			line = get_next_line(fd);
-			++res->height;
-		}
-		close(fd);
+		++res->height;
 	}
+	close(fd);
 	res->ratio = (double)res->height / 10.0 + (res->height < 10);
 	ft_faces_init(res);
+	if (res->width < 2 || res->height < 2)
+		ft_perror("invalid map");
 	return (res);
 }

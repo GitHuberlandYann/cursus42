@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:49:06 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/05 08:43:01 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/16 16:20:38 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ t_map	*get_map(char	*path)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	if (!res->faces)
+		ft_perror("map may be empty");
 	return (res);
 }
