@@ -54,18 +54,18 @@ static void	mlx_link_sphere(t_fdf *fdf, t_vertice *dne, t_vertice *end)
 
 	if (!fdf || !dne || !end)
 		return ;
-	plane_to_sphere(fdf->map, &s, dne);
-	plane_to_sphere(fdf->map, &e, end);
+	plane_to_sphere(fdf->map, &s, dne, fdf->mlx->size);
+	plane_to_sphere(fdf->map, &e, end, fdf->mlx->size);
 	mlx_link_nodes(fdf, &s, &e, 1);
 }
 
-void	plane_to_sphere(t_map *map, t_vertice *spnt, t_vertice *pnt)
+void	plane_to_sphere(t_map *map, t_vertice *spnt, t_vertice *pnt, double size)
 {
 	t_vertice	rlonlat;
 
 	rlonlat.z = 2 * M_PI * (double)pnt->x / (double)(map->width - 1);
 	rlonlat.y = M_PI * (double)pnt->y / (double)(map->height - 1);
-	rlonlat.x = 2 - (pnt->z / map->max) * map->ratio;
+	rlonlat.x = (2 - (pnt->z / map->max) * map->ratio) * size * 4;
 	spnt->x = rlonlat.x * sin(rlonlat.y) * cos(rlonlat.z);
 	spnt->y = rlonlat.x * sin(rlonlat.y) * sin(rlonlat.z);
 	spnt->z = rlonlat.x * cos(rlonlat.y);
@@ -114,10 +114,10 @@ void	mlx_map_img(t_fdf *fdf)
 		{
 			mlx_link_nodes(fdf, tmp->face[1], tmp->face[0], 0);
 			mlx_link_nodes(fdf, tmp->face[3], tmp->face[0], 0);
-			if (tmp->face[2]->x == fdf->map->width - 1)
+			if ((int)tmp->face[2]->x == fdf->map->width - 1)
+				mlx_link_nodes(fdf, tmp->face[3], tmp->face[2], 0);
+			if (tmp->face[2]->y == fdf->map->height - 1)
 				mlx_link_nodes(fdf, tmp->face[1], tmp->face[2], 0);
-			// if (tmp->face[2]->y == fdf->map->height - 1)
-			// 	mlx_link_nodes(fdf, tmp->face[3], tmp->face[2], 0);
 		}
 		else
 		{

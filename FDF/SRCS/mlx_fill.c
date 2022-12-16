@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 13:24:58 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/15 10:38:03 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/16 14:46:00 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ static void	mlx_fill_sphere(t_fdf *fdf)
 	tmp = fdf->map->faces;
 	while (tmp)
 	{
-		plane_to_sphere(fdf->map, &a, tmp->face[0]);
-		plane_to_sphere(fdf->map, &b, tmp->face[1]);
-		plane_to_sphere(fdf->map, &c, tmp->face[2]);
-		plane_to_sphere(fdf->map, &d, tmp->face[3]);
+		plane_to_sphere(fdf->map, &a, tmp->face[0], fdf->mlx->size);
+		plane_to_sphere(fdf->map, &b, tmp->face[1], fdf->mlx->size);
+		plane_to_sphere(fdf->map, &c, tmp->face[2], fdf->mlx->size);
+		plane_to_sphere(fdf->map, &d, tmp->face[3], fdf->mlx->size);
 		a = set_vert(fdf, &a, 1);
 		b = set_vert(fdf, &b, 1);
 		c = set_vert(fdf, &c, 1);

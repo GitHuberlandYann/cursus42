@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:15:53 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/15 16:21:32 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/16 14:24:44 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ void	ft_create_backimg(t_mlx *mlx)
 
 void	ft_create_overlay(t_mlx *mlx)
 {
-	t_img	*overlay;
+	t_img	*ovrlay;
 
-	overlay = malloc(sizeof(*overlay));
-	if (!overlay)
+	ovrlay = malloc(sizeof(*ovrlay));
+	if (!ovrlay)
 		mlx_exit(mlx);
-	overlay->img_ptr = mlx_new_image(mlx->mlx_ptr, OL_WIDTH, OL_HEIGHT);
-	overlay->addr = mlx_get_data_addr(overlay->img_ptr, &overlay->bits_per_pixel,
-			&overlay->line_length, &overlay->endian);
-	overlay->type = 0;
-	overlay->x = WIN_WIDTH - OL_WIDTH - 50;
-	overlay->y = 50;
-	mlx->overlay = overlay;
+	ovrlay->img_ptr = mlx_new_image(mlx->mlx_ptr, OL_WIDTH, OL_HEIGHT);
+	ovrlay->addr = mlx_get_data_addr(ovrlay->img_ptr, &ovrlay->bits_per_pixel,
+			&ovrlay->line_length, &ovrlay->endian);
+	ovrlay->type = 0;
+	ovrlay->x = WIN_WIDTH - OL_WIDTH - 50;
+	ovrlay->y = 50;
+	mlx->overlay = ovrlay;
 }
 
 void	mlx_set_keys(t_mlx *mlx)

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:33:47 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/15 16:28:00 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/16 14:46:20 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y);
 void			mlx_map_img(t_fdf *fdf);
 void			mlx_fill_faces(t_fdf *fdf);
 void			mlx_draw_line(t_fdf *fdf, t_vertice a, t_vertice b);
-void			plane_to_sphere(t_map *map, t_vertice *spnt, t_vertice *pnt);
+void			plane_to_sphere(t_map *map, t_vertice *spnt, t_vertice *pnt, double size);
 
 double			set_len(t_vertice *delta, t_vertice *deltc);
 void			set_points(t_vertice *sa, t_vertice *sc, t_vertice a,
