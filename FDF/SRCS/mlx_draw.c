@@ -12,6 +12,21 @@
 
 #include "fdf.h"
 
+static void	exec_keys2(t_key *keys, t_fdf *fdf)
+{
+	if (keys->horizontal)
+		fdf->mlx->offset_x += 100 * keys->horizontal;
+	if (keys->vertical)
+		fdf->mlx->offset_y += 100 * keys->vertical;
+	if (keys->zoom)
+	{
+		fdf->mlx->size += (double)WIN_WIDTH / (double)(8 * fdf->map->width)
+			* keys->zoom;
+		if (fdf->mlx->size < 0)
+			fdf->mlx->size = 0;
+	}
+}
+
 static void	exec_keys(t_key *keys, t_fdf *fdf)
 {
 	if (keys->rot_x)
@@ -38,11 +53,7 @@ static void	exec_keys(t_key *keys, t_fdf *fdf)
 		if (fdf->map->ratio > -0.5 && fdf->map->ratio < 0.5)
 			fdf->map->ratio = 0;
 	}
-	fdf->mlx->offset_x += 100 * keys->horizontal;
-	fdf->mlx->offset_y += 100 * keys->vertical;
-	fdf->mlx->size += (double)WIN_WIDTH / (double)(8 * fdf->map->width) * keys->zoom;
-	if (fdf->mlx->size < 0)
-		fdf->mlx->size = 0;
+	exec_keys2(keys, fdf);
 }
 
 static void	mlx_clear_img(t_mlx *mlx, int color)
@@ -75,31 +86,6 @@ unsigned int	ft_mlx_pixel_get(t_img *img, int x, int y)
 		return (0);
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
-}
-
-void	mlx_pxl_put(t_mlx *mlx, t_vertice pt, int max, int color_mode)
-{
-	char	*dst;
-	int		color;
-	t_img	*img;
-	int		x;
-	int		y;
-
-	if (pt.y < 0 || pt.y >= WIN_HEIGHT || pt.x < 0 || pt.x >= WIN_WIDTH)
-		return ;
-	if (!color_mode)
-		color = mlx->col->zero;
-	else if (color_mode == -1)
-		color = 0x0;
-	else if (color_mode == 2)
-		color = ft_mlx_pixel_get(mlx->back, pt.x, pt.y);
-	else
-		color = get_color(pt.z, max, color_mode == 1, mlx->col);
-	img = mlx->img;
-	x = pt.x;
-	y = pt.y;
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *) dst = color;
 }
 
 int	mlx_draw(t_fdf *fdf)

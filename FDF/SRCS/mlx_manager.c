@@ -6,36 +6,11 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:45:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/16 15:58:07 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/27 12:15:19 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-// static void	ft_ol_pixel_put(t_img *img, int x, int y)
-// {
-// 	char	*dst;
-
-// 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-// 	*(unsigned int *) dst = 0xffffff;
-// }
-
-// static void	mlx_border_overlay(t_fdf *fdf)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	x = 0;
-// 	y = 0;
-// 	while (x < OL_WIDTH - 1)
-// 		ft_ol_pixel_put(fdf->mlx->overlay, x++, y);
-// 	while (y < OL_HEIGHT - 1)
-// 		ft_ol_pixel_put(fdf->mlx->overlay, x, y++);
-// 	while (x > 0)
-// 		ft_ol_pixel_put(fdf->mlx->overlay, x--, y);
-// 	while (y > 0)
-// 		ft_ol_pixel_put(fdf->mlx->overlay, x, y--);
-// }
 
 static void	ft_create_img(t_mlx *mlx)
 {

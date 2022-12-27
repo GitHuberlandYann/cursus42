@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:14:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/16 15:20:03 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/27 12:16:31 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ unsigned int	get_color(double z, int max, int boo, t_col *c)
 		else if (prc <= 0.32)
 			res = gradient_col(0x26E07, 0xACFDB0, percent_col(0, 0.32, prc));
 		else if (prc <= 0.60)
-			res = gradient_col(0x785801, 0xdbba5e, percent_col(0.32, 0.60, prc));
+			res = gradient_col(0x785801, 0xdbba5e,
+					percent_col(0.32, 0.60, prc));
 		else
 			res = 0xffffff;
 	}
@@ -75,4 +76,29 @@ void	ft_create_hexa(t_mlx *mlx)
 	mlx->hex->x = mlx->overlay->x + (OL_WIDTH - mlx->hex->width) / 2;
 	mlx->hex->y = mlx->overlay->y + (OL_HEIGHT - mlx->hex->height) / 2;
 	mlx->hex->type = 0;
+}
+
+void	mlx_pxl_put(t_mlx *mlx, t_vertice pt, int max, int color_mode)
+{
+	char	*dst;
+	int		color;
+	t_img	*img;
+	int		x;
+	int		y;
+
+	if (pt.y < 0 || pt.y >= WIN_HEIGHT || pt.x < 0 || pt.x >= WIN_WIDTH)
+		return ;
+	if (!color_mode)
+		color = mlx->col->zero;
+	else if (color_mode == -1)
+		color = 0x0;
+	else if (color_mode == 2)
+		color = ft_mlx_pixel_get(mlx->back, pt.x, pt.y);
+	else
+		color = get_color(pt.z, max, color_mode == 1, mlx->col);
+	img = mlx->img;
+	x = pt.x;
+	y = pt.y;
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int *) dst = color;
 }

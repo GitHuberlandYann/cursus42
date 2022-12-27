@@ -12,15 +12,6 @@
 
 #include "fdf.h"
 
-static int	checkout(t_vertice *v, t_vertice *v2)
-{
-	if (v->x >= 0 && v->x <= WIN_WIDTH && v->y >= 0 && v->y <= WIN_HEIGHT)
-		return (0);
-	if (v2->x >= 0 && v2->x <= WIN_WIDTH && v2->y >= 0 && v2->y <= WIN_HEIGHT)
-		return (0);
-	return (1);
-}
-
 static void	mlx_link_nodes(t_fdf *fdf, t_vertice *dne, t_vertice *end, int sph)
 {
 	t_vertice	s;
@@ -43,7 +34,8 @@ static void	mlx_link_nodes(t_fdf *fdf, t_vertice *dne, t_vertice *end, int sph)
 		s.zcol = dne->zcol;
 		e.z = end->zcol - dne->zcol;
 	}
-	if (!checkout(&s, &e))
+	if ((s.x >= 0 && s.x <= WIN_WIDTH && s.y >= 0 && s.y <= WIN_HEIGHT)
+		|| (e.x >= 0 && e.x <= WIN_WIDTH && e.y >= 0 && e.y <= WIN_HEIGHT))
 		mlx_draw_line(fdf, s, e);
 }
 
@@ -59,13 +51,13 @@ static void	mlx_link_sphere(t_fdf *fdf, t_vertice *dne, t_vertice *end)
 	mlx_link_nodes(fdf, &s, &e, 1);
 }
 
-void	plane_to_sphere(t_map *map, t_vertice *spnt, t_vertice *pnt, double size)
+void	plane_to_sphere(t_map *map, t_vertice *spnt, t_vertice *pnt, double siz)
 {
 	t_vertice	rlonlat;
 
 	rlonlat.z = 2 * M_PI * (double)pnt->x / (double)(map->width - 1);
 	rlonlat.y = M_PI * (double)pnt->y / (double)(map->height - 1);
-	rlonlat.x = (2 - (pnt->z / map->max) * map->ratio) * size * 4;
+	rlonlat.x = (2 - (pnt->z / map->max) * map->ratio) * siz * 4;
 	spnt->x = rlonlat.x * sin(rlonlat.y) * cos(rlonlat.z);
 	spnt->y = rlonlat.x * sin(rlonlat.y) * sin(rlonlat.z);
 	spnt->z = rlonlat.x * cos(rlonlat.y);
