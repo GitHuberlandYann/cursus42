@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/20 10:00:20 by yhuberla          #+#    #+#              #
-#    Updated: 2022/12/16 15:02:37 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/12/27 12:53:34 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,13 +40,13 @@ OBJS_EDIT = $(SRCS_EDIT:.c=.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -O3 -O2 -Os -Imlx -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -O3 -Imlx
 
 # ^^^^^^^^^^^^^ INCLUDING MINILIBX ^^^^^^^^^^^^^
 MLX_DIR = mlx
 MLX_PATH = ${MLX_DIR}/libmlx.a
 
-MLX = -framework OpenGl -framework AppKit $(MLX_PATH)
+MLX = -lmlx -Lmlx -framework OpenGl -framework AppKit $(MLX_PATH)
 
 # ^^^^^^^^^^^^^ INCLUDING Libft ^^^^^^^^^^^^^^^^
 LIBFT_DIR = Libft
@@ -61,20 +61,21 @@ MATH = -lm
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@make -C $(MLX_DIR)
-	@make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX) $(LIBFT) $(MATH)
+$(NAME): $(OBJS) libs
+	$(CC) $(OBJS) -o $(NAME) $(MLX) $(LIBFT) $(MATH)
 
-bonus: $(OBJS_BONUS)
-	@make -C $(MLX_DIR)
-	@make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(OBJS_BONUS) -o $(NAMEB) $(MLX) $(LIBFT) $(MATH)
+bonus: $(OBJS_BONUS) libs
+	$(CC) $(OBJS_BONUS) -o $(NAMEB) $(MLX) $(LIBFT) $(MATH)
 
-edit: $(OBJS_EDIT)
+edit: $(OBJS_EDIT) libs
+	$(CC) $(OBJS_EDIT) -o $(NAMEE) $(MLX) $(LIBFT) $(MATH)
+
+libs:
 	@make -C $(MLX_DIR)
 	@make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(OBJS_EDIT) -o $(NAMEE) $(MLX) $(LIBFT) $(MATH)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	make fclean -C $(LIBFT_DIR)
@@ -86,4 +87,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus edit NAME
+.PHONY: all clean fclean re bonus edit NAME libs
