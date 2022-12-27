@@ -12,35 +12,6 @@
 
 #include "fdf_edit.h"
 
-// static void	ft_display_vertice(t_vertice *vert)
-// {
-// 	ft_putstr("vertices :\n");
-// 	while (vert)
-// 	{
-// 		printf("v  %lf %lf %lf\n", vert->x, vert->y, vert->z);
-// 		vert = vert->next;
-// 	}
-// }
-
-// static void	ft_display_faces(t_face *face)
-// {
-// 	int	index;
-
-// 	ft_putstr("faces :\n");
-// 	while (face)
-// 	{
-// 		index = 0;
-// 		while (index < 4)
-// 		{
-// 			printf("\tv  %lf %lf %lf\n", face->face[index]->x, 
-					// face->face[index]->y, face->face[index]->z);
-// 			++index;
-// 		}
-// 		ft_putstr("\n");
-// 		face = face->next;
-// 	}
-// }
-
 static t_angles	*angles_init(void)
 {
 	t_angles	*res;
@@ -68,8 +39,6 @@ int	main(int ac, char **av)
 	if (ac == 3)
 	{
 		map = get_map(av[1], av[2]);
-		if (!map)
-			return (1);
 		a = angles_init();
 		mlx_related_stuff(map, a, "Edit mode.");
 	}

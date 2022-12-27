@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:46:57 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/05 08:43:43 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/27 12:43:20 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		map = get_map(av[1]);
-		if (!map)
-			return (1);
 		a = angles_init();
 		mlx_related_stuff(map, a, av[1]);
 	}
