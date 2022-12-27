@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:50:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/16 16:13:55 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/27 13:14:50 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_map	*get_map(char	*path)
 	if (fd == -1)
 		ft_perror(path);
 	line = get_next_line(fd);
-	while (line && line[0])
+	while (line && line[0] && line[0] != '\n')
 	{
 		ft_add_line(res, line);
 		line = get_next_line(fd);

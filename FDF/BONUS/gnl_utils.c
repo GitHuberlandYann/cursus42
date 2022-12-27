@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:04:04 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/03 16:01:47 by marvin           ###   ########.fr       */
+/*   Updated: 2022/12/27 13:28:46 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static t_vertice	*ft_vertnew(char **content)
 	res = malloc(sizeof(*res));
 	if (!res)
 		ft_perror(__func__);
+	if (ft_arraylen(content) != 4)
+		ft_perror("invalid map");
 	res->x = ft_atolf(content[1]);
 	res->y = ft_atolf(content[2]);
 	res->z = ft_atolf(content[3]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:02:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/03 16:11:48 by marvin           ###   ########.fr       */
+/*   Updated: 2022/12/27 13:28:23 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,12 @@ t_vertice	*ft_get_node(t_vertice *vert, int index)
 
 	res = vert;
 	count = 1;
-	while (count < index && res)
+	while (count < index && res->next)
 	{
 		res = res->next;
 		++count;
 	}
+	if (count < index)
+		ft_perror("invalid map");
 	return (res);
 }
