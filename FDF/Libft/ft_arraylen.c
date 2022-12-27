@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_arraylen(char **array)
+int	ft_arraylen(char **array)
 {
-    int res;
+	int	res;
 
-    res = 0;
-    if (!array)
-        return (0);
-    while (array[res])
-        ++res;
-    return (res);
+	res = 0;
+	if (!array)
+		return (0);
+	while (array[res])
+		++res;
+	return (res);
 }
