@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:50:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/27 13:14:50 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/28 14:51:24 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,7 @@ t_map	*get_map(char	*path)
 	ft_faces_init(res);
 	if (res->width < 2 || res->height < 2)
 		ft_perror("invalid map");
+	if (!res->max)
+		res->max = 1;
 	return (res);
 }
