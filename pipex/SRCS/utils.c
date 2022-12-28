@@ -28,29 +28,23 @@ void	ft_fork(int *child_pid)
 		ft_perror("fork");
 }
 
-void	ft_wait_child(t_parent *p, int *ret)
+void	ft_wait_child(t_wait *waiter, int *ret)
 {
-	p->c_wait = waitpid(p->c_pid, &p->w_status, 0);
-	if (p->c_wait == -1)
+	waiter->c_wait = waitpid(waiter->c_pid, &waiter->w_status, 0);
+	if (waiter->c_wait == -1)
 		return ;
-	// while (!WIFEXITED(p->c_wait) && !WIFSIGNALED(p->c_wait))
+	// while (!WIFEXITED(waiter->c_wait) && !WIFSIGNALED(waiter->c_wait))
 	// {
-	// 	p->c_wait = waitpid(p->c_pid, &p->w_status, 0);
-	// 	if (p->c_wait == -1)
+	// 	waiter->c_wait = waitpid(waiter->c_pid, &waiter->w_status, 0);
+	// 	if (waiter->c_wait == -1)
 	// 		return ;
 	// }
-	if (WIFEXITED(p->c_wait) && WEXITSTATUS(p->w_status) && !*ret)
-		*ret = WEXITSTATUS(p->w_status);
+	if (WIFEXITED(waiter->w_status) && WEXITSTATUS(waiter->w_status) && !*ret)
+		*ret = WEXITSTATUS(waiter->w_status);
 }
 
 void	ft_perror(char *str)
 {
 	perror(str);
 	exit(EXIT_FAILURE);
-}
-
-void	ft_perror_cmd(char *str, int code)
-{
-	write(2, str, ft_strlen(str));
-	exit(code);
 }

@@ -2,5 +2,8 @@
 */*.a
 pipex
 FILES/
+SRCS_new/
+SRCS_old/
 Objs/
 PIPEXaminator/
+.gitignore

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:52:13 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/12 10:43:38 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/28 16:57:11 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,6 @@ static void	ft_check_file(char *path, t_env *env)
 		perror(joins);
 		free(joins);
 		env->ret = 1;
-	}
-}
-
-static void	ft_exec(t_env *env)
-{
-	t_parent	p;
-
-	ft_pipe(p.pipefd);
-	ft_fork(&p.c_pid);
-	if (!p.c_pid) //CHILD
-		ft_exec_main_child(p, env);
-	else //PARENT, first wait for child to finish
-	{
-		env->fd = open(env->av[4], O_WRONLY | O_TRUNC | O_CREAT);
-		if (env->fd == -1)
-			ft_perror(env->av[4]);
-		ft_wait_child(&p, &env->ret);
-		ft_exec_second_cmd(p, env);
-		//ft_putstr_fd("Parent when fork == 1\n", 1);
 	}
 }
 
