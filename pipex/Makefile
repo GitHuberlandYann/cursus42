@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 14:05:55 by yhuberla          #+#    #+#              #
-#    Updated: 2022/12/28 13:55:08 by yhuberla         ###   ########.fr        #
+#    Updated: 2022/12/30 15:01:55 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,7 @@ SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 
-FILES_BONUS = main
-
-SRCS_BONUS = $(addprefix BONUS/, $(addsuffix .c, $(FILES_BONUS)))
+SRCS_BONUS = $(addprefix BONUS/, $(addsuffix .c, $(FILES)))
 
 OBJS_BONUS = $(addprefix $(OBJS_DIR)/, $(SRCS_BONUS:.c=.o))
 
