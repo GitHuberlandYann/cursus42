@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:52:57 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/28 18:33:35 by yhuberla         ###   ########.fr       */
+/*   Updated: 2022/12/30 12:30:12 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <sys/wait.h>
-
-typedef struct s_wait
-{
-	pid_t	c_pid;
-	pid_t	c_wait;
-	int		w_status;
-}				t_wait;
 
 typedef struct s_env
 {
@@ -46,7 +39,7 @@ void	ft_exec(t_env *env);
 
 void	ft_pipe(int pipefd[2]);
 void	ft_fork(int *child_pid);
-void	ft_wait_child(t_wait *waiter, int *ret);
+void	ft_wait_child(int pid, int *ret);
 void	ft_perror(char *str);
 
 #endif

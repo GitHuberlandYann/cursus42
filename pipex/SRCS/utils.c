@@ -28,19 +28,22 @@ void	ft_fork(int *child_pid)
 		ft_perror("fork");
 }
 
-void	ft_wait_child(t_wait *waiter, int *ret)
+void	ft_wait_child(int pid, int *ret)
 {
-	waiter->c_wait = waitpid(waiter->c_pid, &waiter->w_status, 0);
-	if (waiter->c_wait == -1)
+	int	wait;
+	int	status;
+
+	wait = waitpid(pid, &status, 0);
+	if (wait == -1)
 		return ;
-	// while (!WIFEXITED(waiter->c_wait) && !WIFSIGNALED(waiter->c_wait))
+	// while (!WIFEXITED(wait) && !WIFSIGNALED(wait))
 	// {
-	// 	waiter->c_wait = waitpid(waiter->c_pid, &waiter->w_status, 0);
-	// 	if (waiter->c_wait == -1)
+	// 	wait = waitpid(pid, &status, 0);
+	// 	if (wait == -1)
 	// 		return ;
 	// }
-	if (WIFEXITED(waiter->w_status) && WEXITSTATUS(waiter->w_status) && !*ret)
-		*ret = WEXITSTATUS(waiter->w_status);
+	if (WIFEXITED(status) && WEXITSTATUS(status) && !*ret)
+		*ret = WEXITSTATUS(status);
 }
 
 void	ft_perror(char *str)
