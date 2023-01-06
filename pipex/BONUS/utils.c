@@ -12,11 +12,11 @@
 
 #include "pipex_bonus.h"
 
-void	ft_pipe(int pipefd[2])
+void	ft_pipe(int (*pipefd)[2])
 {
 	int	pipe_ret;
 
-	pipe_ret = pipe(pipefd);
+	pipe_ret = pipe(*pipefd);
 	if (pipe_ret == -1)
 		ft_perror("pipe");
 }

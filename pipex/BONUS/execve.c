@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:48:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/30 16:48:11 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/06 13:04:09 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static void	ft_exec_forkcmd(int pipein[2], int pipeout[2], t_env *env, int w)
 {
 	int pid;
 
-	printf("%s\n", env->cmds[0]);
+	// printf("%s\n", env->cmds[0]);
+	// printf("pin0 %d, pin1 %d, pout0 %d, pout1 %d\n", pipein[0], pipein[1], pipeout[0], pipeout[1]);
 	ft_fork(&pid);
 	if (!pid) //child
 	{
@@ -31,6 +32,8 @@ static void	ft_exec_forkcmd(int pipein[2], int pipeout[2], t_env *env, int w)
 	}
 	else
 	{
+		close(pipein[0]);
+		close(pipein[1]);
 		if (w)
 			ft_wait_child(pid, &env->ret);
 	}
@@ -51,7 +54,7 @@ static void	ft_exec_middle_cmd(int index, int pipefd[2], t_env *env)
 {
 	int	pipefd2[2];
 
-	ft_pipe(pipefd2);
+	ft_pipe(&pipefd2);
 	env->cmds = ft_split(env->av[index], ' ');
 	if (!env->cmds)
 		ft_perror(strerror(ENOMEM));
@@ -84,16 +87,20 @@ void	ft_exec(t_env *env)
 	int		fdio[2];
 	int		index;
 
-	ft_pipe(pipefd);
-	fdio[0] = open(env->av[1], O_RDONLY);
+	ft_pipe(&pipefd);
+	fdio[0] = open(env->av[1], O_RDONLY,
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	fdio[1] = 100;
 	if (fdio[0] != -1)
 		ft_exec_first_cmd(fdio, pipefd, env);
+	close(fdio[0]);
 	index = 3;
+	// printf("file path : %s, fd : %d\n", env->av[1], fdio[0]);
 	while (index < env->ac - 2)
 	{
-		printf("debug\n");
+		// printf("debug\n");
 		ft_exec_middle_cmd(index, pipefd, env);
-		printf("debug bis\n");
+		// printf("debug bis\n");
 		++index;
 	}
 	fdio[1] = open(env->av[env->ac - 1], O_WRONLY | O_TRUNC | O_CREAT,
@@ -102,6 +109,5 @@ void	ft_exec(t_env *env)
 	if (fdio[1] == -1)
 		ft_perror(env->av[env->ac - 1]);
 	ft_exec_last_cmd(fdio, pipefd, env);
-	close(fdio[0]);
 	close(fdio[1]);
 }
