@@ -6,13 +6,14 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:42:55 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/06 14:47:17 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/06 15:30:42 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	newline(void)
+void	ft_perror(char *str)
 {
-	write(1, "$> ", 3);
+	perror(str);
+	exit(EXIT_FAILURE);
 }

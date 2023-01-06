@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 14:23:30 by yhuberla          #+#    #+#              #
-#    Updated: 2023/01/06 15:07:43 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/01/06 15:29:53 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 OBJS_DIR = Objs
 OBJS_DIR_SRCS = Objs/SRCS
 
-FILES = main utils
+FILES = main signal utils
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 
