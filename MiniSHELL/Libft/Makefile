@@ -1,0 +1,46 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/11/28 12:41:01 by yhuberla          #+#    #+#              #
+#    Updated: 2023/01/06 15:03:47 by yhuberla         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = libft.a
+
+FILES = ft_strncmp
+
+SRCS = $(addsuffix .c, $(FILES))
+
+OBJS = $(addprefix ../Objs/Libft/, $(SRCS:.c=.o))
+
+DIR_OBJ = ../Objs/Libft
+
+CFLAGS = -Wall -Wextra -Werror
+
+RM = rm -f
+
+CC = gcc
+
+all: $(DIR_OBJ) $(NAME)
+
+$(DIR_OBJ):
+	@mkdir -p $(DIR_OBJ)
+
+$(NAME): $(OBJS)
+	@ar -rcs $(NAME) $(OBJS)
+
+$(DIR_OBJ)/%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	@mv $(<:.c=.o) $(DIR_OBJ)
+
+fclean:
+	@$(RM) $(NAME)
+
+re: fclean all
+
+.PHONY: all fclean re
