@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:48:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/30 14:40:17 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/06 13:18:37 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	ft_exec(t_env *env)
 
 	ft_pipe(pipefd);
 	fdio[0] = open(env->av[1], O_RDONLY);
+	fdio[1] = 100;
 	if (fdio[0] != -1)
 		ft_exec_first_cmd(fdio, pipefd, env);
 	fdio[1] = open(env->av[4], O_WRONLY | O_TRUNC | O_CREAT,
