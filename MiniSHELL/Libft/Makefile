@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/28 12:41:01 by yhuberla          #+#    #+#              #
-#    Updated: 2023/01/06 15:03:47 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/01/07 22:07:18 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-FILES = ft_strncmp
+FILES = ft_arraylen ft_bzero ft_free_arr ft_putendl ft_split ft_strchr \
+		ft_strjoin ft_strlen ft_strncmp
 
 SRCS = $(addsuffix .c, $(FILES))
 

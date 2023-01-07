@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 14:23:30 by yhuberla          #+#    #+#              #
-#    Updated: 2023/01/06 15:29:53 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/01/07 17:41:25 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 OBJS_DIR = Objs
 OBJS_DIR_SRCS = Objs/SRCS
 
-FILES = main signal utils
+FILES = builtins colors lexer main signal test utils
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 
@@ -43,10 +43,10 @@ $(OBJS_DIR_SRCS):
 	@mkdir -p $(OBJS_DIR)/SRCS
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(READLINE) $(OBJS) -o $(NAME) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(READLINE) $(LIBFT)
 
 $(OBJS_DIR)/SRCS/%.o: SRCS/%.c
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) $(READLINE)
 	@mv $(<:.c=.o) $(OBJS_DIR)/SRCS
 
 $(LIBFT):

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:26:08 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/06 15:37:49 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/07 17:54:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ static void	setup(void)
 	act.sa_sigaction = &signal_handler;
 	if (sigaction(SIGINT, &act, NULL) == -1)
 		ft_perror("sigaction");
-	printf("\033[0;32m*\t\t\t---\t\t\t*\n");
+	set_col(GREEN);
+	greet_user();
+	set_col(WHITE);
 	printf("\n");
-	printf("|\t\t     minishell     \t\t|\n");
-	printf("\n");
-	printf("*\t\t\t---\t\t\t*\033[0m\n");
-
 }
 
 static void	loop(void)
@@ -36,9 +34,10 @@ static void	loop(void)
 	while (1)
 	{
 		rl = readline("$> ");
-		// add_history(rl);
-		if (rl && !ft_strncmp(rl, "exit", 4) && (!rl[4] || rl[4] == ' '))
-			exit(EXIT_SUCCESS);
+		if (!rl)	// == ctrl+D
+			close_program();
+		add_history(rl);
+		lexer(rl);
 		free(rl);
 	}
 }
@@ -48,7 +47,15 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	(void)envp;
-	setup();
-	loop();
+	if (ac == 1)
+	{
+		setup();
+		loop();
+	}
+	else
+	{
+		printf("I identify as a argument-less executable, please refer to me as such.\n");
+		return (1);
+	}
 	return (0);
 }
