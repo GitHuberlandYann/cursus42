@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 13:44:24 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/08 15:23:20 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/08 16:09:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_env
 
 char	**ft_get_paths(char **envp);
 char	*ft_get_cmdpath(char *cmd, char **paths);
-void	ft_free_arr(char **arr);
+void	ft_free_arr(char **arr, int index);
 
 void	ft_exec(t_env *env);
 

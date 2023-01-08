@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:48:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/08 13:49:45 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/08 16:06:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,31 @@ static void	ft_exec_forkcmd(int pipein[2], int pipeout[2], t_env *env)
 
 static void	ft_exec_first_cmd(int fdio[2], int pipefd[2], t_env *env)
 {
+	int	free_index;
+
 	env->cmds = ft_split(env->av[2], ' ');
 	if (!env->cmds)
 		ft_perror(strerror(ENOMEM));
 	env->cmds[0] = ft_get_cmdpath(env->cmds[0], env->paths);
-	if (env->cmds[0])
+	free_index = !env->cmds[0];
+	if (!free_index)
 		ft_exec_forkcmd(fdio, pipefd, env);
-	ft_free_arr(env->cmds);
+	ft_free_arr(env->cmds, free_index);
 }
 
 static void	ft_exec_second_cmd(int fdio[2], int pipefd[2], t_env *env)
 {
+	int	free_index;
 	env->cmds = ft_split(env->av[3], ' ');
 	if (!env->cmds)
 		ft_perror(strerror(ENOMEM));
 	env->cmds[0] = ft_get_cmdpath(env->cmds[0], env->paths);
-	if (env->cmds[0])
+	free_index = !env->cmds[0];
+	if (!free_index)
 		ft_exec_forkcmd(pipefd, fdio, env);
 	else
 		env->ret = 127;
-	ft_free_arr(env->cmds);
+	ft_free_arr(env->cmds, free_index);
 }
 
 void	ft_exec(t_env *env)

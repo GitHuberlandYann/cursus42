@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:52:57 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/30 12:30:12 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/08 16:06:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_env
 
 char	**ft_get_paths(char **envp);
 char	*ft_get_cmdpath(char *cmd, char **paths);
-void	ft_free_arr(char **arr);
+void	ft_free_arr(char **arr, int index);
 
 void	ft_exec(t_env *env);
 

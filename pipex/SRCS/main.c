@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:52:13 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/28 16:57:11 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/08 16:06:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,10 @@ static void	ft_check_file(char *path, t_env *env)
 	}
 }
 
-void	ft_free_arr(char **arr)
+void	ft_free_arr(char **arr, int index)
 {
-	int	index;
-
 	if (!arr)
 		return ;
-	index = 0;
 	while (arr[index])
 		free(arr[index++]);
 	free(arr);
@@ -54,7 +51,7 @@ int	main(int ac, char **av, char **envp)
 		env.envp = envp;
 		env.paths = ft_get_paths(envp);
 		ft_exec(&env);
-		ft_free_arr(env.paths);
+		ft_free_arr(env.paths, 0);
 	}
 	else
 	{
