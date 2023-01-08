@@ -66,5 +66,7 @@ char	*ft_get_cmdpath(char *cmd, char **paths)
 			cmd, ": command not found\n");
 	free(itoa_out);
 	write(2, joins, ft_strlen(joins));
+	free(joins);
+	free(cmd);
 	return (0);
 }

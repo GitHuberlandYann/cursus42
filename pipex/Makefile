@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 14:05:55 by yhuberla          #+#    #+#              #
-#    Updated: 2023/01/08 14:44:04 by marvin           ###   ########.fr        #
+#    Updated: 2023/01/08 15:34:38 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,9 @@ SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 
-FILES += here_doc
-
 SRCS_BONUS = $(addprefix BONUS/, $(addsuffix .c, $(FILES)))
+
+SRCS_BONUS += BONUS/here_doc.c
 
 OBJS_BONUS = $(addprefix $(OBJS_DIR)/, $(SRCS_BONUS:.c=.o))
 
