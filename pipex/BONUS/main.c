@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 13:43:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2022/12/30 14:57:18 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/08 14:24:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ int	main(int ac, char **av, char **envp)
 	env.ret = 0;
 	if (ac >= 5)
 	{
-		ft_check_file(av[1], &env);
 		env.ac = ac;
 		env.av = av;
+		if (!check_here_doc(&env))
+			ft_check_file(av[1], &env);
 		env.envp = envp;
 		env.paths = ft_get_paths(envp);
 		ft_exec(&env);

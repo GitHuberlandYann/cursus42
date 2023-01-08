@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 14:05:55 by yhuberla          #+#    #+#              #
-#    Updated: 2022/12/30 15:01:55 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/01/08 14:44:04 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ FILES = main execve path utils
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
+
+FILES += here_doc
 
 SRCS_BONUS = $(addprefix BONUS/, $(addsuffix .c, $(FILES)))
 
