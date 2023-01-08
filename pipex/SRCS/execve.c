@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:48:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/08 16:06:06 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/08 17:06:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,13 @@ static void	ft_exec_first_cmd(int fdio[2], int pipefd[2], t_env *env)
 {
 	int	free_index;
 
+	if (!env->av[2][0])
+		return ; //printf command '' not found -> todo
 	env->cmds = ft_split(env->av[2], ' ');
 	if (!env->cmds)
 		ft_perror(strerror(ENOMEM));
+	if (!env->cmds[0])
+		return (free(env->cmds)); //printf command %s not found, env->av[2]
 	env->cmds[0] = ft_get_cmdpath(env->cmds[0], env->paths);
 	free_index = !env->cmds[0];
 	if (!free_index)
@@ -54,9 +58,14 @@ static void	ft_exec_first_cmd(int fdio[2], int pipefd[2], t_env *env)
 static void	ft_exec_second_cmd(int fdio[2], int pipefd[2], t_env *env)
 {
 	int	free_index;
+
+	if (!env->av[3][0])
+		return ; //printf command '' not found -> todo
 	env->cmds = ft_split(env->av[3], ' ');
 	if (!env->cmds)
 		ft_perror(strerror(ENOMEM));
+	if (!env->cmds[0])
+		return (free(env->cmds)); //printf command %s not found, env->av[2]
 	env->cmds[0] = ft_get_cmdpath(env->cmds[0], env->paths);
 	free_index = !env->cmds[0];
 	if (!free_index)
