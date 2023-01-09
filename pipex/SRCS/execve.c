@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:48:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/09 12:17:31 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:27:15 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	ft_exec_forkcmd(int pipein[2], int pipeout[2], t_env *env)
 	ft_fork(&pid);
 	if (!pid) //child
 	{
-		dup2(pipein[0], 0);
+		ft_dup2(pipein, 0);
 		close(pipein[0]);
 		close(pipein[1]);
-		dup2(pipeout[1], 1);
+		ft_dup2(pipeout, 1);
 		close(pipeout[0]);
 		close(pipeout[1]);
 		execve(env->cmds[0], env->cmds, env->envp);

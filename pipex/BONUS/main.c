@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 13:43:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/09 12:06:48 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:28:07 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static void	ft_check_file(char *path)
 		perror(joins);
 		free(joins);
 	}
+}
+
+void	ft_perror(char *str)
+{
+	perror(str);
+	exit(EXIT_FAILURE);
 }
 
 void	ft_free_arr(char **arr, int index)
