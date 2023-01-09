@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:48:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/09 13:27:15 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:44:39 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,21 @@
 
 static void	ft_exec_forkcmd(int pipein[2], int pipeout[2], t_env *env)
 {
-	int pid;
+	int	pid;
 
-	// printf("%s\n", env->cmds[0]);
 	ft_fork(&pid);
-	if (!pid) //child
+	if (!pid)
 	{
 		ft_dup2(pipein, 0);
-		close(pipein[0]);
-		close(pipein[1]);
+		ft_close_pipe(pipein);
 		ft_dup2(pipeout, 1);
-		close(pipeout[0]);
-		close(pipeout[1]);
+		ft_close_pipe(pipeout);
 		execve(env->cmds[0], env->cmds, env->envp);
 		ft_perror(env->cmds[0]);
 	}
 	else
 	{
-		close(pipein[0]);
-		close(pipein[1]);
+		ft_close_pipe(pipein);
 		ft_wait_child(pid, &env->ret);
 	}
 }
@@ -99,11 +95,9 @@ void	ft_exec(t_env *env)
 	if (fdio[0] != -1)
 		ft_exec_first_cmd(fdio, pipefd, env);
 	fdio[1] = open(env->av[4], O_WRONLY | O_TRUNC | O_CREAT,
-					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	// printf("in : %d, out : %d\n", fdio[0], fdio[1]);
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fdio[1] == -1)
 		ft_perror(env->av[4]);
 	ft_exec_second_cmd(fdio, pipefd, env);
-	close(fdio[0]);
-	close(fdio[1]);
+	ft_close_pipe(fdio);
 }

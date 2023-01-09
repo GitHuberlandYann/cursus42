@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:52:13 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/09 13:26:56 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:42:39 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,23 @@ static void	ft_check_file(char *path)
 	{
 		itoa_out = ft_itoa(__LINE__ - 1);
 		joins = ft_strjoins(7, __FILE__, ": ", __func__, ": line ", itoa_out,
-							": ", path);
+				": ", path);
 		free(itoa_out);
 		perror(joins);
 		free(joins);
 	}
+}
+
+void	ft_wait_child(int pid, int *ret)
+{
+	int	wait;
+	int	status;
+
+	wait = waitpid(pid, &status, 0);
+	if (wait == -1)
+		return ;
+	if (WIFEXITED(status) && WEXITSTATUS(status) && !*ret)
+		*ret = WEXITSTATUS(status);
 }
 
 void	ft_perror(char *str)

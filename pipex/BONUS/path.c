@@ -44,13 +44,12 @@ char	*ft_get_cmdpath(char *cmd, char **paths)
 {
 	int		index;
 	char	*res;
-	char	*itoa_out;
 	char	*joins;
 
 	if (!access(cmd, X_OK))
 		return (cmd);
-	index = 0;
-	while (paths[index])
+	index = -1;
+	while (paths[++index])
 	{
 		res = ft_strjoins(3, paths[index], "/", cmd);
 		if (!access(res, X_OK))
@@ -59,13 +58,12 @@ char	*ft_get_cmdpath(char *cmd, char **paths)
 			return (res);
 		}
 		free(res);
-		++index;
 	}
-	itoa_out = ft_itoa(__LINE__ - 8);
-	joins = ft_strjoins(8, __FILE__, ": ", __func__, ": line ", itoa_out, ": ",
+	res = ft_itoa(__LINE__ - 8);
+	joins = ft_strjoins(8, __FILE__, ": ", __func__, ": line ", res, ": ",
 			cmd, ": command not found\n");
-	free(itoa_out);
 	write(2, joins, ft_strlen(joins));
+	free(res);
 	free(joins);
 	free(cmd);
 	return (0);

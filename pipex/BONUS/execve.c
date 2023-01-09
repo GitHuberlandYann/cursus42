@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:48:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/09 13:27:46 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:56:34 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,21 @@
 
 static void	ft_exec_forkcmd(int pipein[2], int pipeout[2], t_env *env)
 {
-	int pid;
+	int	pid;
 
-	// printf("%s\n", env->cmds[0]);
-	// printf("pin0 %d, pin1 %d, pout0 %d, pout1 %d\n", pipein[0], pipein[1], pipeout[0], pipeout[1]);
 	ft_fork(&pid);
-	if (!pid) //child
+	if (!pid)
 	{
 		ft_dup2(pipein, 0);
-		close(pipein[0]);
-		close(pipein[1]);
+		ft_close_pipe(pipein);
 		ft_dup2(pipeout, 1);
-		close(pipeout[0]);
-		close(pipeout[1]);
+		ft_close_pipe(pipeout);
 		execve(env->cmds[0], env->cmds, env->envp);
 		ft_perror(env->cmds[0]);
 	}
 	else
 	{
-		close(pipein[0]);
-		close(pipein[1]);
+		ft_close_pipe(pipein);
 		ft_wait_child(pid, &env->ret);
 	}
 }
@@ -63,14 +58,12 @@ static void	ft_exec_first_cmd(int fdio[2], int pipefd[2], t_env *env)
 
 static void	ft_exec_middle_cmd(int index, int pipefd[2], t_env *env)
 {
-	int	free_index;
 	int	pipefd2[2];
 
 	ft_pipe(&pipefd2);
 	if (!env->av[index][0])
 	{
-		close(pipefd2[0]);
-		close(pipefd2[1]);
+		ft_close_pipe(pipefd2);
 		return (ft_emptycmd(__LINE__ - 4, __FILE__, __func__));
 	}
 	env->cmds = ft_split(env->av[index], ' ');
@@ -84,12 +77,10 @@ static void	ft_exec_middle_cmd(int index, int pipefd[2], t_env *env)
 			ft_perror(strerror(ENOMEM));
 	}
 	env->cmds[0] = ft_get_cmdpath(env->cmds[0], env->paths);
-	free_index = !env->cmds[0];
-	if (!free_index)
+	if (env->cmds[0])
 		ft_exec_forkcmd(pipefd, pipefd2, env);
-	ft_free_arr(env->cmds, free_index);
-	close(pipefd[0]);
-	close(pipefd[1]);
+	ft_free_arr(env->cmds, !env->cmds[0]);
+	ft_close_pipe(pipefd);
 	pipefd[0] = pipefd2[0];
 	pipefd[1] = pipefd2[1];
 }

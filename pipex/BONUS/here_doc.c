@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/09 13:38:28 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/01/09 13:38:28 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex_bonus.h"
 
 static void	get_infile_loop(char *limiter, int fd)
@@ -25,7 +37,7 @@ int	get_infile(t_env *env)
 
 	if (!env->here_doc)
 		return (open(env->av[1], O_RDONLY,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH));
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH));
 	fd = open(".here_doc_tmp", O_WRONLY | O_TRUNC | O_CREAT,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)

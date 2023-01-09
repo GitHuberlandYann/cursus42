@@ -21,6 +21,12 @@ void	ft_pipe(int pipefd[2])
 		ft_perror("pipe");
 }
 
+void	ft_close_pipe(int pipefd[2])
+{
+	close(pipefd[0]);
+	close(pipefd[1]);
+}
+
 void	ft_dup2(int pipefd[2], int fd)
 {
 	int	dup_ret;
@@ -35,18 +41,6 @@ void	ft_fork(int *child_pid)
 	*child_pid = fork();
 	if (*child_pid == -1)
 		ft_perror("fork");
-}
-
-void	ft_wait_child(int pid, int *ret)
-{
-	int	wait;
-	int	status;
-
-	wait = waitpid(pid, &status, 0);
-	if (wait == -1)
-		return ;
-	if (WIFEXITED(status) && WEXITSTATUS(status) && !*ret)
-		*ret = WEXITSTATUS(status);
 }
 
 void	ft_emptycmd(int line, char *file, const char func[19])
