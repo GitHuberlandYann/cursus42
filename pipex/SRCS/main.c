@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:52:13 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/08 16:06:31 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/09 11:33:41 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	ft_check_file(char *path, t_env *env)
+static void	ft_check_file(char *path)
 {
 	char	*itoa_out;
 	char	*joins;
@@ -25,7 +25,6 @@ static void	ft_check_file(char *path, t_env *env)
 		free(itoa_out);
 		perror(joins);
 		free(joins);
-		env->ret = 1;
 	}
 }
 
@@ -45,7 +44,7 @@ int	main(int ac, char **av, char **envp)
 	env.ret = 0;
 	if (ac == 5)
 	{
-		ft_check_file(av[1], &env);
+		ft_check_file(av[1]);
 		env.ac = ac;
 		env.av = av;
 		env.envp = envp;

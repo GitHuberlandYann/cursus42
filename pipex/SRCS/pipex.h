@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:52:57 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/08 16:06:45 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/09 12:17:08 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void	ft_pipe(int pipefd[2]);
 void	ft_fork(int *child_pid);
 void	ft_wait_child(int pid, int *ret);
 void	ft_perror(char *str);
+void	ft_emptycmd(int line, char *file, const char func[19]);
 
 #endif

@@ -36,12 +36,6 @@ void	ft_wait_child(int pid, int *ret)
 	wait = waitpid(pid, &status, 0);
 	if (wait == -1)
 		return ;
-	// while (!WIFEXITED(wait) && !WIFSIGNALED(wait))
-	// {
-	// 	wait = waitpid(pid, &status, 0);
-	// 	if (wait == -1)
-	// 		return ;
-	// }
 	if (WIFEXITED(status) && WEXITSTATUS(status) && !*ret)
 		*ret = WEXITSTATUS(status);
 }
@@ -50,4 +44,18 @@ void	ft_perror(char *str)
 {
 	perror(str);
 	exit(EXIT_FAILURE);
+}
+
+void	ft_emptycmd(int line, char *file, const char func[19])
+{
+	char	*itoa_out;
+	char	*joins;
+
+	itoa_out = ft_itoa(line - 1);
+	joins = ft_strjoins(6, file, ": ", func, ": line ", itoa_out,
+			": ");
+	free(itoa_out);
+	errno = EACCES;
+	perror(joins);
+	free(joins);
 }

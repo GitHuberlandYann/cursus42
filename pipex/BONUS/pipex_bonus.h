@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 13:44:24 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/08 16:09:58 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/09 12:18:42 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_pipe(int (*pipefd)[2]);
 void	ft_fork(int *child_pid);
 void	ft_wait_child(int pid, int *ret);
 void	ft_perror(char *str);
+void	ft_emptycmd(int line, char *file, const char func[19]);
 
 int		check_here_doc(t_env *env);
 int		get_infile(t_env *env);
