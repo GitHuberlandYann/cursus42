@@ -45,8 +45,8 @@ int	check_quotes(char *str)
 	int		index;
 	int		quote;
 
-	index = -1;
-	while (str[++index])
+	index = 0;
+	while (str[index])
 	{
 		if (ft_strchr("'\"", str[index]))
 		{
@@ -57,6 +57,7 @@ int	check_quotes(char *str)
 			if (!str[index])
 				return (1);
 		}
+		++index;
 	}
 	return (0);
 }
