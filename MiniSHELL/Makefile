@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 14:23:30 by yhuberla          #+#    #+#              #
-#    Updated: 2023/01/07 17:41:25 by marvin           ###   ########.fr        #
+#    Updated: 2023/01/10 10:06:08 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 OBJS_DIR = Objs
 OBJS_DIR_SRCS = Objs/SRCS
 
-FILES = builtins colors lexer main signal test utils
+FILES = builtins builtins2 colors lexer main signal test utils
 
 SRCS = $(addprefix SRCS/, $(addsuffix .c, $(FILES)))
 
@@ -24,7 +24,7 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
-READLINE = -lreadline
+READLINE = -lreadline #-L /Users/$(USER)/.brew/Cellar/readline/lib -I /Users/$(USER)/.brew/Cellar/readline/include
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
 
@@ -46,7 +46,7 @@ $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(READLINE) $(LIBFT)
 
 $(OBJS_DIR)/SRCS/%.o: SRCS/%.c
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) $(READLINE)
+	$(CC) $(CFLAGS) -I /Users/$(USER)/.brew/Cellar/readline/include -c $< -o $(<:.c=.o)
 	@mv $(<:.c=.o) $(OBJS_DIR)/SRCS
 
 $(LIBFT):

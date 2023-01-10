@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:27:55 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/07 21:08:16 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/10 11:28:24 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,19 @@
 # define WHITE "\033[0m"
 # define YELLOW "\033[0;33m"
 
+typedef struct s_minishell {
+	char	prev_pwd[255];
+	char	**envp;
+}				t_ms;
+
 void	signal_handler(int signo, siginfo_t *info, void *context);
 
-void	lexer(char *rl);
+void	lexer(char *rl, t_ms *ms);
 int		check_quotes(char *str);
 void	exec_echo(char **lex, char *args);
-void	exec_cd(char **lex);
+void	exec_cd(char **lex, t_ms *ms);
 void	display_pwd(void);
+void	display_env(char **envp);
 
 void	set_col(char *col);
 void	greet_user(void);

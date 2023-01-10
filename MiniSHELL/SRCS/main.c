@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:26:08 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/07 17:54:33 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/10 11:29:01 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* SIGINT = CTRL+C, */
-static void	setup(void)
+static void	setup(t_ms *ms, char **envp)
 {
 	struct sigaction act;
 
@@ -21,13 +21,15 @@ static void	setup(void)
 	act.sa_sigaction = &signal_handler;
 	if (sigaction(SIGINT, &act, NULL) == -1)
 		ft_perror("sigaction");
+	ms->envp = envp;
+	ft_strcpy(ms->prev_pwd, getenv("OLDPWD"));
 	set_col(GREEN);
 	greet_user();
 	set_col(WHITE);
 	printf("\n");
 }
 
-static void	loop(void)
+static void	loop(t_ms *ms)
 {
 	char	*rl;
 
@@ -37,20 +39,21 @@ static void	loop(void)
 		if (!rl)	// == ctrl+D
 			close_program();
 		add_history(rl);
-		lexer(rl);
+		lexer(rl, ms);
 		free(rl);
 	}
 }
 
 int	main(int ac, char **av, char **envp)
 {
+	t_ms	ms;
+
 	(void)ac;
 	(void)av;
-	(void)envp;
 	if (ac == 1)
 	{
-		setup();
-		loop();
+		setup(&ms, envp);
+		loop(&ms);
 	}
 	else
 	{

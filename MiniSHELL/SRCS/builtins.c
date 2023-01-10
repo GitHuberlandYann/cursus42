@@ -1,34 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/10 09:47:43 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/01/10 09:47:43 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-// static void	print_echo(char **lex, int option) -> doesn't work for "echo 'one    two'"...
-// {
-// 	int		index;
-// 	int		sub_index;
-// 	char	quote;
-
-// 	quote = 0;
-// 	index = option;
-// 	while (lex[++index])
-// 	{
-// 		if (index > option + 1)
-// 			write(1, " ", 1);
-// 		sub_index = -1;
-// 		while (lex[index][++sub_index])
-// 		{
-// 			if (ft_strchr("'\"", lex[index][sub_index]))
-// 			{
-// 				if (!quote)
-// 					quote = lex[index][sub_index];
-// 				else if (lex[index][sub_index] == quote)
-// 					quote = 0;
-// 				else
-// 					write(1, &lex[index][sub_index], 1);
-// 			}
-// 			else
-// 				write(1, &lex[index][sub_index], 1);
-// 		}
-// 	}
-// }
 
 static void	print_echo(char *str)
 {
@@ -72,18 +54,40 @@ void	exec_echo(char **lex, char *args)
 		printf("\n");
 }
 
-void	exec_cd(char **lex)
+void	exec_cd(char **lex, t_ms *ms)
 {
 	char	*msg;
+	char	tmp_pwd[255];
+	char	new_pwd[255];
+	int		ret_cd;
 
+	ret_cd = 0;
+	printf("prev before : %s\n", ms->prev_pwd);
+	getcwd(tmp_pwd, sizeof(tmp_pwd));
 	if (ft_arraylen(lex) > 2)
 		printf("-bash: cd: too many arguments\n");
-	else if (chdir(lex[1]) == -1)
+	else if (!ft_strncmp(lex[1], "-", 2))
+	{
+		if (!ms->prev_pwd)
+			printf("there is no previous pwd\n");
+		else
+			ret_cd = chdir(ms->prev_pwd);
+	}
+	else 
+		ret_cd = chdir(lex[1]);
+	if (ret_cd == -1)
 	{
 		msg = ft_strjoin("-bash: cd: ", lex[1]);
 		perror(msg);
 		free(msg);
 	}
+	else
+	{
+		getcwd(new_pwd, sizeof(new_pwd));
+		printf("old : %s, new : %s\n", tmp_pwd, new_pwd);
+		ms->prev_pwd = tmp_pwd;
+	}
+	printf("prev after : %s\n", ms->prev_pwd);
 }
 
 void	display_pwd(void)
@@ -93,3 +97,34 @@ void	display_pwd(void)
 	if (getcwd(str, sizeof(str)))
 			printf("%s\n", str);
 }
+
+
+// static void	print_echo(char **lex, int option) -> doesn't work for "echo 'one    two'"...
+// {
+// 	int		index;
+// 	int		sub_index;
+// 	char	quote;
+
+// 	quote = 0;
+// 	index = option;
+// 	while (lex[++index])
+// 	{
+// 		if (index > option + 1)
+// 			write(1, " ", 1);
+// 		sub_index = -1;
+// 		while (lex[index][++sub_index])
+// 		{
+// 			if (ft_strchr("'\"", lex[index][sub_index]))
+// 			{
+// 				if (!quote)
+// 					quote = lex[index][sub_index];
+// 				else if (lex[index][sub_index] == quote)
+// 					quote = 0;
+// 				else
+// 					write(1, &lex[index][sub_index], 1);
+// 			}
+// 			else
+// 				write(1, &lex[index][sub_index], 1);
+// 		}
+// 	}
+// }

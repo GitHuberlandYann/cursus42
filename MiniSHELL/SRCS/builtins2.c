@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 14:37:37 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/10 09:48:57 by yhuberla         ###   ########.fr       */
+/*   Created: 2023/01/10 10:02:28 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/01/10 10:04:42 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	display_env(char **envp)
 {
-	size_t	index;
+	int	index;
 
-	if (!s1 || !s2)
-		return (-1);
 	index = 0;
-	if (n == 0)
-		return (0);
-	while (s1[index] && s2[index] && s1[index] == s2[index] && index < n - 1)
-		index ++;
-	return ((unsigned char) s1[index] - (unsigned char) s2[index]);
+	while (envp[index])
+		printf("%s\n", envp[index++]);
 }

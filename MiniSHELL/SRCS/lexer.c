@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/10 09:47:52 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/01/10 09:47:52 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void	lexer(char *rl)
+void	lexer(char *rl, t_ms *ms)
 {
 	char	**lex;
 
@@ -12,7 +24,7 @@ void	lexer(char *rl)
 	else if (!ft_strncmp(lex[0], "echo", 5))
 		exec_echo(lex, &rl[4]);
 	else if (!ft_strncmp(lex[0], "cd", 3))
-		exec_cd(lex);
+		exec_cd(lex, ms);
 	else if (!ft_strncmp(lex[0], "pwd", 4))
 		display_pwd();
 	else if (!ft_strncmp(lex[0], "export", 7))
@@ -20,7 +32,7 @@ void	lexer(char *rl)
 	else if (!ft_strncmp(lex[0], "unset", 6))
 		printf("unset : TODO\n");
 	else if (!ft_strncmp(lex[0], "env", 4))
-		printf("env : TODO\n");
+		display_env(ms->envp);
 	else if (!ft_strncmp(lex[0], "exit", 5))
 		close_program();
 		
