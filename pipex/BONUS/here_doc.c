@@ -69,7 +69,7 @@ int	get_outfile(t_env *env)
 
 int	check_here_doc(t_env *env)
 {
-	if (env->ac != 6)
+	if (env->ac < 6)
 		env->here_doc = 0;
 	else if (!ft_strncmp(env->av[1], "here_doc", 9))
 	{
