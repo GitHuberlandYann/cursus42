@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:26:08 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/10 11:29:01 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/10 13:15:45 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	setup(t_ms *ms, char **envp)
 	if (sigaction(SIGINT, &act, NULL) == -1)
 		ft_perror("sigaction");
 	ms->envp = envp;
-	ft_strcpy(ms->prev_pwd, getenv("OLDPWD"));
+	ms->prev_pwd = getenv("OLDPWD");//ft_strcpy(ms->prev_pwd, getenv("OLDPWD"));
 	set_col(GREEN);
 	greet_user();
 	set_col(WHITE);

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:27:55 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/10 11:28:24 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/10 13:16:09 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define YELLOW "\033[0;33m"
 
 typedef struct s_minishell {
-	char	prev_pwd[255];
+	char	*prev_pwd;//[255];
 	char	**envp;
 }				t_ms;
 

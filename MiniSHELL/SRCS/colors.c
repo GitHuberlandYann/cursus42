@@ -20,11 +20,17 @@ void	set_col(char *col)
 
 void	greet_user(void)
 {
-	printf("*\t\t\t---\t\t\t*\n");
-	printf("\n");
-	printf("|\t\t     minishell     \t\t|\n");
-	printf("\n");
-	printf("*\t\t\t---\t\t\t*");
+	printf("/* ************************************************************************** */\n");
+	printf("/*                                                                            */\n");
+	printf("/*                                                        :::      ::::::::   */\n");
+	printf("/*   minishell                                          :+:      :+:    :+:   */\n");
+	printf("/*                                                    +:+ +:+         +:+     */\n");
+	printf("/*   By: romvan-d && yhuberla                       +#+  +:+       +#+        */\n");
+	printf("/*                                                +#+#+#+#+#+   +#+           */\n");
+	printf("/*   Created: 2023/01/10 09:47:48 by authors           #+#    #+#             */\n");
+	printf("/*   Updated: 2023/01/10 09:47:48 by authors          ###   ########.fr       */\n");
+	printf("/*                                                                            */\n");
+	printf("/* ************************************************************************** */\n");
 }
 
 void	close_program(void)
