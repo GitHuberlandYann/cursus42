@@ -6,4 +6,6 @@ SRCS_new/
 SRCS_old/
 Objs/
 PIPEXaminator/
+fin
+fout
 .gitignore
