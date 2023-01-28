@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:16:48 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/28 14:23:01 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/28 14:52:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	*sleepeat(void *arg)
 		output_msg(philo, MSG_FORK);
 		if (philo->table->seats == 1)
 		{
-			usleep(philo->table->t_die * 2000);
+			usleep(philo->table->t_die * 1000 + 1);
 			return (NULL);
 		}
 		pthread_mutex_lock(philo->right_fork);
