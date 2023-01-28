@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 09:44:24 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/27 15:34:25 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/28 14:07:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,14 @@ time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]\n"
 # define MSG_THINK "is thinking"
 # define MSG_DIE   "died"
 
-typedef struct	s_table t_table;
+typedef struct s_table	t_table;
 
 typedef struct s_philo {
 	int				num;
-	struct timeval	t_last_meal;
-	struct timeval	t_start_sleep;
+	int				t_last_meal;
 	int				meal_count;
-	pthread_mutex_t	left_fork;
-	pthread_mutex_t	right_fork;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 	pthread_t		thread;
 	t_table			*table;
 }				t_philo;
@@ -48,6 +47,7 @@ struct	s_table {
 	int				t_eat;
 	int				t_sleep;
 	int				satiety;
+	int				t_start;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	mailbox;
@@ -57,11 +57,14 @@ int		parse_input(t_table *table, int ac, char **av);
 
 int		init_mutex(t_table *table);
 void	destroy_all_mutex(t_table *table, int limit);
-void	destroy_all_threads(t_table *table, int limit);
 
 int		init_threads(t_table *table);
+void	destroy_all_threads(t_table *table, int limit);
 
-void	output_msg(t_philo *philo, int ms, char *msg);
+void	output_msg(t_philo *philo, char *msg);
 int		output_error(char *msg);
+
+int		get_time(void);
+void	*death_cycle(void *arg);
 
 #endif

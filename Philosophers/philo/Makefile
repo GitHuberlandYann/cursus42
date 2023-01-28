@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/27 09:26:44 by yhuberla          #+#    #+#              #
-#    Updated: 2023/01/27 11:19:52 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/01/28 12:55:07 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 OBJS_DIR = Objs
 OBJS_DIR_SOURCES = Objs/Sources
 
-FILES = main mutex outputs parsing threads utils
+FILES = death main mutex outputs parsing threads
 
 Sources = $(addprefix Sources/, $(addsuffix .c, $(FILES)))
 

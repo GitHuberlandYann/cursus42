@@ -3,38 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   outputs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:23:02 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/27 15:40:14 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/28 13:20:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	ft_strcmp(char *str1, char *str2)
+void	output_msg(t_philo *philo, char *msg)
 {
-	int	index;
+	int	time;
 
-	if (!str1 || !str2)
-		return (1);
-	index = 0;
-	while (str1[index] && str2[index] && str1[index] == str2[index])
-		++index;
-	return (str1[index] - str2[index]);
-}
-
-void	output_msg(t_philo *philo, int ms, char *msg)
-{
+	time = get_time() - philo->table->t_start;
 	pthread_mutex_lock(&philo->table->mailbox);
 	if (philo->table->alive)
-	{
-		printf("%d %d %s\n", ms, philo->num, msg);
-		if (!ft_strcmp(msg, MSG_DIE))
-		{
-			philo->table->alive = 0;
-		}
-	}
+		printf("%d %d %s\n", time, philo->num, msg);
 	pthread_mutex_unlock(&philo->table->mailbox);
 }
 
