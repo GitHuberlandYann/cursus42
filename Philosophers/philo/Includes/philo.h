@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 09:44:24 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/28 14:07:41 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/28 15:41:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_philo {
 	int				num;
 	int				t_last_meal;
 	int				meal_count;
+	int				t_start;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_t		thread;
@@ -47,7 +48,6 @@ struct	s_table {
 	int				t_eat;
 	int				t_sleep;
 	int				satiety;
-	int				t_start;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	mailbox;

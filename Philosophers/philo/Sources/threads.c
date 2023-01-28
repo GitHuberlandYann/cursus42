@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:16:48 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/28 14:52:33 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/28 16:49:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	*sleepeat(void *arg)
 	t_philo	*philo;
 
 	philo = arg;
+	philo->t_start = get_time();
+	philo->t_last_meal = philo->t_start;
 	if (!(philo->num & 1))
 		usleep((philo->table->t_eat * 1000) / 2);
 	while (philo->table->alive)
@@ -24,10 +26,7 @@ static void	*sleepeat(void *arg)
 		pthread_mutex_lock(philo->left_fork);
 		output_msg(philo, MSG_FORK);
 		if (philo->table->seats == 1)
-		{
-			usleep(philo->table->t_die * 1000 + 1);
 			return (NULL);
-		}
 		pthread_mutex_lock(philo->right_fork);
 		output_msg(philo, MSG_FORK);
 		output_msg(philo, MSG_EAT);
@@ -46,7 +45,7 @@ static void	*sleepeat(void *arg)
 static void	setup_philo(t_table *table, t_philo *philo, int number)
 {
 	philo->num = number;
-	philo->t_last_meal = table->t_start;
+	philo->t_last_meal = 0;
 	philo->meal_count = 0;
 	philo->left_fork = &table->forks[number - 1];
 	if (number == table->seats)
@@ -81,7 +80,6 @@ int	init_threads(t_table *table)
 		return (output_error("malloc 'table->philos' failed\n"));
 	}
 	index = 0;
-	table->t_start = get_time();
 	while (index < table->seats)
 	{
 		setup_philo(table, &table->philos[index], index + 1);

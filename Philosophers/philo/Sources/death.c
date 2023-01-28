@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:17:00 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/28 14:06:14 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/28 16:46:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	d_eat_h_check(t_philo *philo)
 {
-	if (get_time() - philo->t_last_meal >= philo->table->t_die)
+	if (philo->t_last_meal
+		&& get_time() - philo->t_last_meal >= philo->table->t_die)
 	{
 		output_msg(philo, MSG_DIE);
 		philo->table->alive = 0;

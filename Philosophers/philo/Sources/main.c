@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 09:43:04 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/28 14:49:27 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/28 17:11:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int ac, char **av)
 	if (init_threads(&table))
 		return (output_error(NULL));
 	death_cycle(&table);
-	destroy_all_mutex(&table, table.seats);
 	destroy_all_threads(&table, table.seats);
+	destroy_all_mutex(&table, table.seats);
 	return (0);
 }

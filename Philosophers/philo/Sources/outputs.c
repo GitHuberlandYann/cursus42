@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:23:02 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/28 13:20:42 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/28 15:54:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	output_msg(t_philo *philo, char *msg)
 {
 	int	time;
 
-	time = get_time() - philo->table->t_start;
+	time = get_time() - philo->t_start;
 	pthread_mutex_lock(&philo->table->mailbox);
 	if (philo->table->alive)
 		printf("%d %d %s\n", time, philo->num, msg);
