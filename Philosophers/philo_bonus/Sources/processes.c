@@ -25,9 +25,7 @@ static void	sleepeat(t_philo *philo)
 		sem_wait(philo->table->forks);
 		output_msg(philo, MSG_FORK);
 		output_msg(philo, MSG_EAT);
-		sem_wait(philo->table->var_access);
 		philo->t_last_meal = get_time();
-		sem_post(philo->table->var_access);
 		usleep(philo->table->t_eat * 1000);
 		sem_post(philo->table->forks);
 		sem_post(philo->table->forks);

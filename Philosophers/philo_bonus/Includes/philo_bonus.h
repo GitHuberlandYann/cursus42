@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <semaphore.h>
+# include <stdatomic.h>
 
 # define MSG_ARGS  "Usage :\n./philo number_of_philosophers time_to_die \
 time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]\n"
@@ -37,7 +38,7 @@ typedef struct s_table	t_table;
 
 typedef struct s_philo {
 	int			num;
-	int			t_last_meal;
+	atomic_int	t_last_meal;
 	int			meal_count;
 	int			pid;
 	pthread_t	death;
@@ -55,7 +56,6 @@ struct	s_table {
 	t_philo	*philos;
 	sem_t	*forks;
 	sem_t	*mailbox;
-	sem_t	*var_access;
 };
 
 int		parse_input(t_table *table, int ac, char **av);

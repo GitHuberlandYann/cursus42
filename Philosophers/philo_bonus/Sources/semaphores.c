@@ -26,10 +26,6 @@ void	close_semaphores(t_table *table, int limit)
 		return ;
 	sem_close(table->mailbox);
 	sem_unlink("/mailbox");
-	if (limit && limit < 4)
-		return ;
-	sem_close(table->var_access);
-	sem_unlink("/var_access");
 }
 
 int	init_semaphores(t_table *table)
@@ -52,12 +48,6 @@ int	init_semaphores(t_table *table)
 	{
 		close_semaphores(table, 2);
 		return (output_error("sem_open '/mailbox' failed\n"));
-	}
-	table->var_access = sem_open("/var_access", O_CREAT, 0644, 1);
-	if (table->var_access == SEM_FAILED)
-	{
-		close_semaphores(table, 3);
-		return (output_error("sem_open '/var_access' failed\n"));
 	}
 	return (0);
 }
