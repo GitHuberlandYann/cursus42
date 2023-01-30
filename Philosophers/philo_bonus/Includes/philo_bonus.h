@@ -39,7 +39,6 @@ typedef struct s_philo {
 	int			num;
 	int			t_last_meal;
 	int			meal_count;
-	int			t_start;
 	int			pid;
 	pthread_t	death;
 	t_table		*table;
@@ -47,6 +46,7 @@ typedef struct s_philo {
 
 struct	s_table {
 	int		seats;
+	int		t_start;
 	int		t_die;
 	int		t_eat;
 	int		t_sleep;
@@ -55,12 +55,13 @@ struct	s_table {
 	t_philo	*philos;
 	sem_t	*forks;
 	sem_t	*mailbox;
+	sem_t	*var_access;
 };
 
 int		parse_input(t_table *table, int ac, char **av);
 
 int		init_semaphores(t_table *table);
-void	close_semaphores(t_table *table);
+void	close_semaphores(t_table *table, int limit);
 
 int		init_processes(t_table *table);
 void	kill_processes(t_table *table, int limit);

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:16:48 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/30 10:49:22 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:25:23 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ static void	resting_time(t_philo *philo)
 
 static void	*sleepeat(void *arg)
 {
+	int		loop;
 	t_philo	*philo;
 
 	philo = arg;
-	philo->t_start = get_time();
-	philo->t_last_meal = philo->t_start;
 	if (!(philo->num & 1))
 		usleep((philo->table->t_eat * 1000) / 2);
-	while (philo->table->alive)
+	pthread_mutex_lock(&philo->table->var_access);
+	loop = philo->table->alive;
+	pthread_mutex_unlock(&philo->table->var_access);
+	while (loop)
 	{
 		pthread_mutex_lock(philo->left_fork);
 		output_msg(philo, MSG_FORK);
@@ -37,12 +39,19 @@ static void	*sleepeat(void *arg)
 		pthread_mutex_lock(philo->right_fork);
 		output_msg(philo, MSG_FORK);
 		output_msg(philo, MSG_EAT);
+		pthread_mutex_lock(&philo->table->var_access);
 		philo->t_last_meal = get_time();
+		pthread_mutex_unlock(&philo->table->var_access);
 		usleep(philo->table->t_eat * 1000);
+		pthread_mutex_lock(&philo->table->var_access);
 		++philo->meal_count;
+		pthread_mutex_unlock(&philo->table->var_access);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 		resting_time(philo);
+		pthread_mutex_lock(&philo->table->var_access);
+		loop = philo->table->alive;
+		pthread_mutex_unlock(&philo->table->var_access);
 	}
 	return (NULL);
 }
@@ -50,7 +59,7 @@ static void	*sleepeat(void *arg)
 static void	setup_philo(t_table *table, t_philo *philo, int number)
 {
 	philo->num = number;
-	philo->t_last_meal = 0;
+	philo->t_last_meal = table->t_start;
 	philo->meal_count = 0;
 	philo->left_fork = &table->forks[number - 1];
 	if (number == table->seats)
@@ -84,6 +93,7 @@ int	init_threads(t_table *table)
 		destroy_all_mutex(table, table->seats);
 		return (output_error("malloc 'table->philos' failed\n"));
 	}
+	table->t_start = get_time();
 	index = 0;
 	while (index < table->seats)
 	{

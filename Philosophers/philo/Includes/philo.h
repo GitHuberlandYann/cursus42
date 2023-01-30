@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 09:44:24 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/30 10:08:26 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:11:07 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_philo {
 	int				num;
 	int				t_last_meal;
 	int				meal_count;
-	int				t_start;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_t		thread;
@@ -44,6 +43,7 @@ typedef struct s_philo {
 struct	s_table {
 	int				alive;
 	int				seats;
+	int				t_start;
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
@@ -51,6 +51,7 @@ struct	s_table {
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	mailbox;
+	pthread_mutex_t	var_access;
 };
 
 int		parse_input(t_table *table, int ac, char **av);

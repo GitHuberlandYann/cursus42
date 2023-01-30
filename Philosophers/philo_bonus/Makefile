@@ -1,4 +1,14 @@
-#add header here
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/01/30 10:56:11 by yhuberla          #+#    #+#              #
+#    Updated: 2023/01/30 10:56:11 by yhuberla         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME = philo_bonus
 OBJS_DIR = Objs
@@ -12,7 +22,7 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(Sources:.c=.o))
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
 THREAD_LIB = -lpthread
 INCLUDES = -I Includes
 
@@ -28,11 +38,7 @@ $(NAME): $(OBJS)
 	gcc $(CFLAGS) $(OBJS) -o $(NAME) $(THREAD_LIB)
 
 $(OBJS_DIR)/Sources/%.o: Sources/%.c
-	gcc $(CFLAGS) $(INCLUDES) -c $< -o $(<:.c=.o)
-	@mv $(<:.c=.o) $(OBJS_DIR)/Sources
-
-run: all
-	./philo
+	gcc $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	rm -rf $(OBJS_DIR)
@@ -42,4 +48,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all run clean fclean re Objs/Sources philo_bonus
+.PHONY: all clean fclean re Objs/Sources philo_bonus

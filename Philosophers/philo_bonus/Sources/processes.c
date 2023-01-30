@@ -14,8 +14,6 @@
 
 static void	sleepeat(t_philo *philo)
 {
-	philo->t_start = get_time();
-	philo->t_last_meal = philo->t_start;
 	if (!(philo->num & 1))
 		usleep((philo->table->t_eat * 1000) / 2);
 	while (1)
@@ -27,7 +25,9 @@ static void	sleepeat(t_philo *philo)
 		sem_wait(philo->table->forks);
 		output_msg(philo, MSG_FORK);
 		output_msg(philo, MSG_EAT);
+		sem_wait(philo->table->var_access);
 		philo->t_last_meal = get_time();
+		sem_post(philo->table->var_access);
 		usleep(philo->table->t_eat * 1000);
 		sem_post(philo->table->forks);
 		sem_post(philo->table->forks);
@@ -60,7 +60,7 @@ static void	launch_process(t_philo *philo)
 static void	setup_philo(t_table *table, t_philo *philo, int number)
 {
 	philo->num = number;
-	philo->t_last_meal = 0;
+	philo->t_last_meal = table->t_start;
 	philo->meal_count = 0;
 	philo->table = table;
 }
@@ -72,9 +72,10 @@ int	init_processes(t_table *table)
 	table->philos = malloc(sizeof(*table->philos) * table->seats);
 	if (!table->philos)
 	{
-		close_semaphores(table);
+		close_semaphores(table, 0);
 		return (output_error("malloc 'table->philos' failed\n"));
 	}
+	table->t_start = get_time();
 	index = 0;
 	while (index < table->seats)
 	{
@@ -83,7 +84,7 @@ int	init_processes(t_table *table)
 		if (table->philos[index].pid == -1)
 		{
 			kill_processes(table, index);
-			close_semaphores(table);
+			close_semaphores(table, 0);
 			return (output_error("fork failed\n"));
 		}
 		if (!table->philos[index].pid)

@@ -29,6 +29,6 @@ int	main(int ac, char **av)
 	while (++index < table.seats)
 		sem_wait(table.full_belly);
 	kill_processes(&table, table.seats);
-	close_semaphores(&table);
+	close_semaphores(&table, 0);
 	return (0);
 }

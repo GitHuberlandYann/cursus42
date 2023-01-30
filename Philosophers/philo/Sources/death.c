@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:17:00 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/30 10:08:18 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:29:56 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,39 @@
 
 static int	d_eat_h_check(t_philo *philo)
 {
-	if (philo->t_last_meal
-		&& get_time() - philo->t_last_meal >= philo->table->t_die)
+	int	t_last_meal;
+	int	res;
+
+	pthread_mutex_lock(&philo->table->var_access);
+	t_last_meal = philo->t_last_meal;
+	pthread_mutex_unlock(&philo->table->var_access);
+	if (t_last_meal && get_time() - t_last_meal >= philo->table->t_die)
 	{
 		output_msg(philo, MSG_DIE);
+		pthread_mutex_lock(&philo->table->var_access);
 		philo->table->alive = 0;
+		pthread_mutex_unlock(&philo->table->var_access);
 	}
 	if (philo->table->satiety == -1)
 		return (0);
-	return (philo->meal_count >= philo->table->satiety);
+	pthread_mutex_lock(&philo->table->var_access);
+	res = philo->meal_count >= philo->table->satiety;
+	pthread_mutex_unlock(&philo->table->var_access);
+	return (res);
 }
 
 void	death_cycle(void *arg)
 {
 	int		index;
 	int		satiety_count;
+	int		loop;
 	t_table	*table;
 
 	table = arg;
-	while (table->alive)
+	pthread_mutex_lock(&table->var_access);
+	loop = table->alive;
+	pthread_mutex_unlock(&table->var_access);
+	while (loop)
 	{
 		index = 0;
 		satiety_count = 0;
@@ -42,7 +56,14 @@ void	death_cycle(void *arg)
 			++index;
 		}
 		if (satiety_count == table->seats)
+		{
+			pthread_mutex_lock(&table->var_access);
 			table->alive = 0;
+			pthread_mutex_unlock(&table->var_access);
+		}
+		pthread_mutex_lock(&table->var_access);
+		loop = table->alive;
+		pthread_mutex_unlock(&table->var_access);
 	}
 }
 
