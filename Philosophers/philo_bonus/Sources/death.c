@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:08:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/30 15:21:17 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:20:39 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 void	*death_check(void *arg)
 {
-	int		t_last_meal;
 	int		index;
 	t_philo	*philo;
 
 	philo = arg;
 	while (1)
 	{
-		t_last_meal = philo->t_last_meal;
-		if (t_last_meal && get_time() - t_last_meal >= philo->table->t_die)
+		if (get_time() - philo->t_last_meal >= philo->table->t_die)
 		{
 			output_msg(philo, MSG_DIE);
 			sem_wait(philo->table->mailbox);
@@ -41,4 +39,13 @@ int	get_time(void)
 
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void	ft_usleep(int ms)
+{
+	int	start;
+
+	start = get_time();
+	while (get_time() - start < ms)
+		usleep(100);
 }

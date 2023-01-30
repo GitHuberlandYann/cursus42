@@ -15,7 +15,7 @@
 static void	sleepeat(t_philo *philo)
 {
 	if (!(philo->num & 1))
-		usleep((philo->table->t_eat * 1000) / 2);
+		ft_usleep(philo->table->t_eat / 2);
 	while (1)
 	{
 		sem_wait(philo->table->forks);
@@ -26,14 +26,14 @@ static void	sleepeat(t_philo *philo)
 		output_msg(philo, MSG_FORK);
 		output_msg(philo, MSG_EAT);
 		philo->t_last_meal = get_time();
-		usleep(philo->table->t_eat * 1000);
+		ft_usleep(philo->table->t_eat);
 		sem_post(philo->table->forks);
 		sem_post(philo->table->forks);
 		++philo->meal_count;
 		if (philo->meal_count == philo->table->satiety)
 			sem_post(philo->table->full_belly);
 		output_msg(philo, MSG_SLEEP);
-		usleep(philo->table->t_sleep * 1000);
+		ft_usleep(philo->table->t_sleep);
 		output_msg(philo, MSG_THINK);
 	}
 	return ;

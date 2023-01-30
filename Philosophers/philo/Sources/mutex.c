@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:16:35 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/30 13:11:22 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:27:43 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,14 @@ int	init_mutex(t_table *table)
 		destroy_all_mutex(table, 0);
 		return (output_error("malloc 'table->forks' failed\n"));
 	}
-	index = 0;
-	while (index < table->seats)
+	index = -1;
+	while (++index < table->seats)
 	{
 		if (pthread_mutex_init(&table->forks[index], NULL) != 0)
 		{
 			destroy_all_mutex(table, index);
 			return (output_error("mutex init 'table->forks[index]' failed\n"));
 		}
-		++index;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 09:44:24 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/30 13:11:07 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:18:37 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	output_msg(t_philo *philo, char *msg);
 int		output_error(char *msg);
 
 int		get_time(void);
+void	ft_usleep(int ms);
 void	death_cycle(void *arg);
 
 #endif

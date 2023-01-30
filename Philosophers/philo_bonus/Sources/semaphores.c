@@ -33,7 +33,6 @@ int	init_semaphores(t_table *table)
 	sem_unlink("/full_belly");
 	sem_unlink("/forks");
 	sem_unlink("/mailbox");
-	sem_unlink("/var_access");
 	table->full_belly = sem_open("/full_belly", O_CREAT, 0644, 0);
 	if (table->full_belly == SEM_FAILED)
 		return (output_error("sem_open '/full_belly' failed\n"));

@@ -22,7 +22,7 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(Sources:.c=.o))
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g
 THREAD_LIB = -lpthread
 INCLUDES = -I Includes
 

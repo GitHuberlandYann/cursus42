@@ -6,49 +6,51 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:16:48 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/30 13:25:23 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:19:38 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	resting_time(t_philo *philo)
+static int	sleepeat(t_philo *philo)
 {
+	pthread_mutex_lock(philo->left_fork);
+	output_msg(philo, MSG_FORK);
+	if (philo->table->seats == 1)
+		return (1);
+	pthread_mutex_lock(philo->right_fork);
+	output_msg(philo, MSG_FORK);
+	output_msg(philo, MSG_EAT);
+	pthread_mutex_lock(&philo->table->var_access);
+	philo->t_last_meal = get_time();
+	pthread_mutex_unlock(&philo->table->var_access);
+	ft_usleep(philo->table->t_eat);
+	pthread_mutex_lock(&philo->table->var_access);
+	++philo->meal_count;
+	pthread_mutex_unlock(&philo->table->var_access);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 	output_msg(philo, MSG_SLEEP);
-	usleep(philo->table->t_sleep * 1000);
+	ft_usleep(philo->table->t_sleep);
 	output_msg(philo, MSG_THINK);
+	return (0);
 }
 
-static void	*sleepeat(void *arg)
+static void	*normal_day(void *arg)
 {
 	int		loop;
 	t_philo	*philo;
 
 	philo = arg;
 	if (!(philo->num & 1))
-		usleep((philo->table->t_eat * 1000) / 2);
+		ft_usleep(philo->table->t_eat / 2);
 	pthread_mutex_lock(&philo->table->var_access);
 	loop = philo->table->alive;
 	pthread_mutex_unlock(&philo->table->var_access);
 	while (loop)
 	{
-		pthread_mutex_lock(philo->left_fork);
-		output_msg(philo, MSG_FORK);
-		if (philo->table->seats == 1)
+		if (sleepeat(philo))
 			return (NULL);
-		pthread_mutex_lock(philo->right_fork);
-		output_msg(philo, MSG_FORK);
-		output_msg(philo, MSG_EAT);
-		pthread_mutex_lock(&philo->table->var_access);
-		philo->t_last_meal = get_time();
-		pthread_mutex_unlock(&philo->table->var_access);
-		usleep(philo->table->t_eat * 1000);
-		pthread_mutex_lock(&philo->table->var_access);
-		++philo->meal_count;
-		pthread_mutex_unlock(&philo->table->var_access);
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
-		resting_time(philo);
 		pthread_mutex_lock(&philo->table->var_access);
 		loop = philo->table->alive;
 		pthread_mutex_unlock(&philo->table->var_access);
@@ -98,7 +100,7 @@ int	init_threads(t_table *table)
 	while (index < table->seats)
 	{
 		setup_philo(table, &table->philos[index], index + 1);
-		if (pthread_create(&table->philos[index].thread, NULL, &sleepeat,
+		if (pthread_create(&table->philos[index].thread, NULL, &normal_day,
 				&table->philos[index]))
 		{
 			destroy_all_mutex(table, table->seats);

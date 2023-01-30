@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/27 09:26:44 by yhuberla          #+#    #+#              #
-#    Updated: 2023/01/30 11:18:33 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/01/30 15:32:26 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(Sources:.c=.o))
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g
 THREAD_LIB = -lpthread
 INCLUDES = -I Includes
 

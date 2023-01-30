@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:17:00 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/30 13:29:56 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:20:11 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	d_eat_h_check(t_philo *philo)
 	pthread_mutex_lock(&philo->table->var_access);
 	t_last_meal = philo->t_last_meal;
 	pthread_mutex_unlock(&philo->table->var_access);
-	if (t_last_meal && get_time() - t_last_meal >= philo->table->t_die)
+	if (get_time() - t_last_meal >= philo->table->t_die)
 	{
 		output_msg(philo, MSG_DIE);
 		pthread_mutex_lock(&philo->table->var_access);
@@ -48,13 +48,10 @@ void	death_cycle(void *arg)
 	pthread_mutex_unlock(&table->var_access);
 	while (loop)
 	{
-		index = 0;
+		index = -1;
 		satiety_count = 0;
-		while (table->alive && index < table->seats)
-		{
+		while (table->alive && ++index < table->seats)
 			satiety_count += d_eat_h_check(&table->philos[index]);
-			++index;
-		}
 		if (satiety_count == table->seats)
 		{
 			pthread_mutex_lock(&table->var_access);
@@ -73,4 +70,13 @@ int	get_time(void)
 
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void	ft_usleep(int ms)
+{
+	int	start;
+
+	start = get_time();
+	while (get_time() - start < ms)
+		usleep(100);
 }

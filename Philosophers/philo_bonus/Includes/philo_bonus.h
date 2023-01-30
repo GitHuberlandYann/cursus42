@@ -70,6 +70,7 @@ void	output_msg(t_philo *philo, char *msg);
 int		output_error(char *msg);
 
 int		get_time(void);
+void	ft_usleep(int ms);
 void	*death_check(void *arg);
 
 #endif
