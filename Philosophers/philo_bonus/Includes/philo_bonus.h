@@ -1,4 +1,14 @@
-// add header here
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/30 10:10:17 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/01/30 10:10:17 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
@@ -44,7 +54,7 @@ struct	s_table {
 	sem_t	*full_belly;
 	t_philo	*philos;
 	sem_t	*forks;
-	sem_t 	*mailbox;
+	sem_t	*mailbox;
 };
 
 int		parse_input(t_table *table, int ac, char **av);

@@ -1,8 +1,18 @@
-//add header here
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   processes.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/30 10:09:39 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/01/30 10:09:39 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-static void	*sleepeat(t_philo *philo)
+static void	sleepeat(t_philo *philo)
 {
 	philo->t_start = get_time();
 	philo->t_last_meal = philo->t_start;
@@ -13,7 +23,7 @@ static void	*sleepeat(t_philo *philo)
 		sem_wait(philo->table->forks);
 		output_msg(philo, MSG_FORK);
 		if (philo->table->seats == 1)
-			return (NULL);
+			return ;
 		sem_wait(philo->table->forks);
 		output_msg(philo, MSG_FORK);
 		output_msg(philo, MSG_EAT);
@@ -28,13 +38,20 @@ static void	*sleepeat(t_philo *philo)
 		usleep(philo->table->t_sleep * 1000);
 		output_msg(philo, MSG_THINK);
 	}
-	return (NULL);
+	return ;
 }
 
 static void	launch_process(t_philo *philo)
 {
+	int	index;
+
 	if (pthread_create(&philo->death, NULL, &death_check, philo))
+	{
+		index = -1;
+		while (++index < philo->table->seats)
+			sem_post(philo->table->full_belly);
 		exit(output_error("thread create failed\n"));
+	}
 	sleepeat(philo);
 	pthread_join(philo->death, NULL);
 	exit(EXIT_SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:17:00 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/28 16:46:48 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:08:18 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	d_eat_h_check(t_philo *philo)
 	return (philo->meal_count >= philo->table->satiety);
 }
 
-void	*death_cycle(void *arg)
+void	death_cycle(void *arg)
 {
 	int		index;
 	int		satiety_count;
@@ -44,7 +44,6 @@ void	*death_cycle(void *arg)
 		if (satiety_count == table->seats)
 			table->alive = 0;
 	}
-	return (NULL);
 }
 
 int	get_time(void)

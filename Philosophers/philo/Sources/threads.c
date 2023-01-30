@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:16:48 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/28 16:49:00 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:49:22 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	resting_time(t_philo *philo)
+{
+	output_msg(philo, MSG_SLEEP);
+	usleep(philo->table->t_sleep * 1000);
+	output_msg(philo, MSG_THINK);
+}
 
 static void	*sleepeat(void *arg)
 {
@@ -35,9 +42,7 @@ static void	*sleepeat(void *arg)
 		++philo->meal_count;
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
-		output_msg(philo, MSG_SLEEP);
-		usleep(philo->table->t_sleep * 1000);
-		output_msg(philo, MSG_THINK);
+		resting_time(philo);
 	}
 	return (NULL);
 }
