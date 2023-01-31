@@ -6,11 +6,11 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:03:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/31 13:04:05 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:28:58 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3d.h"
 
 int	output_error(char *msg)
 {

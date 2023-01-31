@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:48:52 by yhuberla          #+#    #+#              #
-#    Updated: 2023/01/31 12:49:18 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/01/31 17:37:26 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ FILES = ft_arraylen ft_atoi ft_atoi_64bits ft_bzero ft_free_arr ft_itoa \
 		ft_malloc ft_perror ft_putendl ft_split ft_split_first \
 		ft_split_quotes ft_split_quotes_set ft_strchr ft_strchr_quotes \
 		ft_strcat ft_strcpy ft_strdup ft_strjoin ft_strjoins ft_strlen \
-		ft_strncmp
+		ft_strncmp get_next_line_utils get_next_line
 
 SRCS = $(addsuffix .c, $(FILES))
 

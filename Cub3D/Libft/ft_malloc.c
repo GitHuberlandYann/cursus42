@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/minishell.h"
+#include "libft.h"
 
 void	*ft_malloc(int size, char *msg)
 {

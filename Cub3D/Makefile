@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/01/31 13:10:15 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/01/31 18:42:02 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,11 @@ OBJS_DIR_SOURCES = Objs/Sources
 
 FILES = main
 
-FILES_OUTPUTS = error
+FILES_OUTPUTS = debug error
 
 FILES += $(addprefix Outputs/, $(FILES_OUTPUTS))
 
-FILES_PARSING = map
+FILES_PARSING = colors map
 
 FILES += $(addprefix Parsing/, $(FILES_PARSING))
 
@@ -33,7 +33,7 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(Sources:.c=.o))
 MLX_DIR = mlx
 MLX_PATH = ${MLX_DIR}/libmlx.a
 
-MLX = -lmlx -Lmlx -framework OpenGl -framework AppKit $(MLX_PATH)
+MLX = #-lmlx -Lmlx -framework OpenGl -framework AppKit $(MLX_PATH)
 
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
@@ -53,9 +53,9 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
 
-all: $(OBJS_DIR_Sources) $(NAME)
+all: $(OBJS_DIR) $(NAME)
 
-$(OBJS_DIR_Sources):
+$(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR_SOURCES)
 	@mkdir -p $(OBJS_DIR_SOURCES)/Outputs
@@ -74,7 +74,7 @@ $(OBJS_DIR_SOURCES)/%.o: Sources/%.c
 	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
 
 libs:
-	@make -C $(MLX_DIR)
+	#@make -C $(MLX_DIR)
 	@make -C $(LIBFT_DIR)
 
 clean:

@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romvan-d <romvan-d@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 12:41:11 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/24 17:14:44 by romvan-d         ###   ########.fr       */
+/*   Updated: 2023/01/31 19:29:46 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-// # ifndef BUFFER_SIZE
-// #  define BUFFER_SIZE 42
-// # endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
-// # include <unistd.h>
+# include <unistd.h>
 # include <stdlib.h>
-// # include <limits.h>
+# include <limits.h>
 # include <stdarg.h>
+# include <stdio.h>
 
 void	ft_perror(char *str);
 void	*ft_malloc(int size, char *msg);
@@ -40,11 +41,11 @@ char	*ft_strchr_quotes(char *str, char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_strcpy(char *dst, const char *src);
 void	ft_strcat(char *dst, const char *src);
-// char	*get_next_line(int fd);
-// char	*ft_strjoin_gnl(char *s1, char *s2);
-// char	*ft_strdup_gnl(char **str);
-// char	*ft_strcpy_from_nl(char **str);
-// char	*ft_strcpy_until_nl(char *str);
+char	*get_next_line(int fd);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*ft_strdup_gnl(char **str);
+char	*ft_strcpy_from_nl(char **str);
+char	*ft_strcpy_until_nl(char *str);
 
 size_t	ft_strlen(const char *str);
 // char	*ft_itoa(int n);
