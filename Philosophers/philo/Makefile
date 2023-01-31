@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/27 09:26:44 by yhuberla          #+#    #+#              #
-#    Updated: 2023/01/31 10:21:23 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/01/31 11:52:07 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,4 +48,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re Objs/Sources philo
+.PHONY: all clean fclean re

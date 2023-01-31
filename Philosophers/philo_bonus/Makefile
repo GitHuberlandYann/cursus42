@@ -48,4 +48,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re Objs/Sources philo_bonus
+.PHONY: all clean fclean re
