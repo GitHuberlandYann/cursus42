@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/31 18:44:46 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:27:02 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void		console_map_content(t_map *map);
 
 // Parsing
 int			load_map(t_map *map, char *file);
+int			read_first_lines(t_map *map, int fd);
 int			transform_color(t_map *map, t_ground ground);
+int			read_map(t_map *map, int fd);
 
 #endif

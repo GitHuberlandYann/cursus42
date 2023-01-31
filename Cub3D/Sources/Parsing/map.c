@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/31 19:01:49 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:21:07 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,48 +24,10 @@ static int	check_filename(char *file)
 	return (0);
 }
 
-static int	load_texture(t_map *map, t_side side)
-{
-	if (side == NO && map->textures[NO])
-		return (output_error("Two different lines start with 'NO'"));
-	else if (side == SO && map->textures[SO])
-		return (output_error("Two different lines start with 'SO'"));
-	else if (side == WE && map->textures[WE])
-		return (output_error("Two different lines start with 'WE'"));
-	else if (side == EA && map->textures[EA])
-		return (output_error("Two different lines start with 'EA'"));
-	map->textures[side] = ft_strdup(&map->line[3]);
-	return (0);
-}
-
-static int	read_first_lines(t_map *map, int fd)
-{
-	map->line = get_next_line(fd);
-	while (map->line)
-	{
-		printf("curr line : %s", map->line);
-		if (!ft_strncmp("NO ", map->line, 3) && load_texture(map, NO))
-			return (1);
-		if (!ft_strncmp("SO ", map->line, 3) && load_texture(map, SO))
-			return (1);
-		if (!ft_strncmp("WE ", map->line, 3) && load_texture(map, WE))
-			return (1);
-		if (!ft_strncmp("EA ", map->line, 3) && load_texture(map, EA))
-			return (1);
-		if (!ft_strncmp("F ", map->line, 2) && transform_color(map, FLOOR))
-			return (1);
-		if (!ft_strncmp("C ", map->line, 2) && transform_color(map, CEILLING))
-			return (1);
-		if (map->line[0] == '\n')
-			;
-		free(map->line);
-		map->line = get_next_line(fd);
-	}
-	return (0);
-}
-
 static int	free_textures(t_map *map, int res)
 {
+	free(map->line);
+	map->line = 0;
 	if (!res)
 	{
 		res = (map->fc_colors[FLOOR] == 0x1000000)
@@ -104,11 +66,9 @@ int	load_map(t_map *map, char *file)
 	map->fc_colors[CEILLING] = 0x1000000;
 	map->walls = 0;
 	res = read_first_lines(map, fd);
-	// if (!res)
-	// 	res = read_map(map, fd);
+	if (!res)
+		res = read_map(map, fd);
 	close(fd);
-	free(map->line);
-	map->line = 0;
 	res = free_textures(map, res);
 	return (res);
 }
