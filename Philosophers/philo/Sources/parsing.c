@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:19:58 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/27 14:45:55 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/31 10:31:23 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_atoi(char *str)
 	int	res;
 	int	save;
 
-	if (!str)
+	if (!str || str[0] == '0')
 		return (-1);
 	index = 0;
 	res = 0;

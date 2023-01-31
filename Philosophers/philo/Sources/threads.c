@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:16:48 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/30 16:19:38 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/31 10:41:49 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ int	init_threads(t_table *table)
 		if (pthread_create(&table->philos[index].thread, NULL, &normal_day,
 				&table->philos[index]))
 		{
-			destroy_all_mutex(table, table->seats);
 			destroy_all_threads(table, index);
+			destroy_all_mutex(table, table->seats);
 			return (output_error("thread create failed\n"));
 		}
 		++index;

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:08:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/30 16:20:39 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/31 11:15:27 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	*death_check(void *arg)
 	{
 		if (get_time() - philo->t_last_meal >= philo->table->t_die)
 		{
-			output_msg(philo, MSG_DIE);
-			sem_wait(philo->table->mailbox);
+			output_msg(philo, MSG_DIE, 0);
 			index = -1;
 			while (++index < philo->table->seats)
 				sem_post(philo->table->full_belly);

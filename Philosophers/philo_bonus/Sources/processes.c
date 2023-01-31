@@ -19,12 +19,12 @@ static void	sleepeat(t_philo *philo)
 	while (1)
 	{
 		sem_wait(philo->table->forks);
-		output_msg(philo, MSG_FORK);
+		output_msg(philo, MSG_FORK, 1);
 		if (philo->table->seats == 1)
 			return ;
 		sem_wait(philo->table->forks);
-		output_msg(philo, MSG_FORK);
-		output_msg(philo, MSG_EAT);
+		output_msg(philo, MSG_FORK, 1);
+		output_msg(philo, MSG_EAT, 1);
 		philo->t_last_meal = get_time();
 		ft_usleep(philo->table->t_eat);
 		sem_post(philo->table->forks);
@@ -32,9 +32,9 @@ static void	sleepeat(t_philo *philo)
 		++philo->meal_count;
 		if (philo->meal_count == philo->table->satiety)
 			sem_post(philo->table->full_belly);
-		output_msg(philo, MSG_SLEEP);
+		output_msg(philo, MSG_SLEEP, 1);
 		ft_usleep(philo->table->t_sleep);
-		output_msg(philo, MSG_THINK);
+		output_msg(philo, MSG_THINK, 1);
 	}
 	return ;
 }

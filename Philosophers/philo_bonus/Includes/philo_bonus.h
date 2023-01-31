@@ -21,7 +21,6 @@
 # include <sys/types.h>
 # include <signal.h>
 # include <fcntl.h>
-# include <sys/stat.h>
 # include <semaphore.h>
 # include <stdatomic.h>
 
@@ -66,7 +65,7 @@ void	close_semaphores(t_table *table, int limit);
 int		init_processes(t_table *table);
 void	kill_processes(t_table *table, int limit);
 
-void	output_msg(t_philo *philo, char *msg);
+void	output_msg(t_philo *philo, char *msg, int unlock);
 int		output_error(char *msg);
 
 int		get_time(void);

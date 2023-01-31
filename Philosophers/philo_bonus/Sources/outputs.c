@@ -6,20 +6,21 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:09:22 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/30 13:53:39 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/01/31 11:14:26 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	output_msg(t_philo *philo, char *msg)
+void	output_msg(t_philo *philo, char *msg, int unlock)
 {
 	int	time;
 
 	time = get_time() - philo->table->t_start;
 	sem_wait(philo->table->mailbox);
 	printf("%d %d %s\n", time, philo->num, msg);
-	sem_post(philo->table->mailbox);
+	if (unlock)
+		sem_post(philo->table->mailbox);
 }
 
 int	output_error(char *msg)
