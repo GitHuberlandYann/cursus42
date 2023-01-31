@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/01/31 12:47:11 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/01/31 13:10:15 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,14 @@ OBJS_DIR = Objs
 OBJS_DIR_SOURCES = Objs/Sources
 
 FILES = main
+
+FILES_OUTPUTS = error
+
+FILES += $(addprefix Outputs/, $(FILES_OUTPUTS))
+
+FILES_PARSING = map
+
+FILES += $(addprefix Parsing/, $(FILES_PARSING))
 
 Sources = $(addprefix Sources/, $(addsuffix .c, $(FILES)))
 
@@ -49,12 +57,20 @@ all: $(OBJS_DIR_Sources) $(NAME)
 
 $(OBJS_DIR_Sources):
 	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)/Sources
+	@mkdir -p $(OBJS_DIR_SOURCES)
+	@mkdir -p $(OBJS_DIR_SOURCES)/Outputs
+	@mkdir -p $(OBJS_DIR_SOURCES)/Parsing
 
 $(NAME): $(OBJS) libs
 	$(CC) $(SAN) $(OBJS) -o $(NAME) $(MLX) $(LIBFT) $(MATH)
 
-$(OBJS_DIR)/Sources/%.o: Sources/%.c
+$(OBJS_DIR_SOURCES)/Outputs/%.o: Sources/Outputs/%.c
+	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
+
+$(OBJS_DIR_SOURCES)/Parsing/%.o: Sources/Parsing/%.c
+	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
+
+$(OBJS_DIR_SOURCES)/%.o: Sources/%.c
 	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
 
 libs:
