@@ -1,4 +1,5 @@
 Objs
+mlx/*.o
 Libft/libft.a
 mlx/libmlx.a
 cub3D

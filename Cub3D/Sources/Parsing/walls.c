@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 14:03:10 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:57:09 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,29 @@ static t_wall	*new_wall(int x, int y)
 	return (res);
 }
 
-static int	add_wall(t_wall	**walls, int x, int y)
+static int	add_wall(t_map *map, int x, int y)
 {
-	if (!*walls)
+	if (!map->walls)
 	{
-		*walls = new_wall(x, y);
-		(*walls)->last = *walls;
+		map->walls = new_wall(x, y);
+		map->walls->last = map->walls;
+		map->o_left = x;
+		map->o_right = x;
+		map->o_up = y;
+		map->o_down = y;
 	}
 	else
 	{
-		(*walls)->last->next = new_wall(x, y);
-		(*walls)->last = (*walls)->last->next;
+		map->walls->last->next = new_wall(x, y);
+		map->walls->last = map->walls->last->next;
+		if (x < map->o_left)
+			map->o_left = x;
+		if (x > map->o_right)
+			map->o_right = x;
+		if (y < map->o_up)
+			map->o_up = y;
+		if (y > map->o_down)
+			map->o_down = y;
 	}
 	return (0);
 }
@@ -53,20 +65,24 @@ void	create_walls(t_map *map, t_parsing *lines)
 		while (tmp->line[index])
 		{
 			if (tmp->line[index] == '1')
-				add_wall(&map->walls, index, y);
+				add_wall(map, index, y);
 			++index;
 		}
 		++y;
 		tmp = tmp->next;
 	}
 	free_return_lines(lines);
+	map->width = map->o_right - map->o_left;
+	map->height = map->o_down - map->o_up;
+	map->wall_width = MINIMAP_WIDTH / map->width;
+	map->wall_height = MINIMAP_HEIGHT / map->height;
 }
 
 int	flood_fill(t_parsing *current, int index)
 {
 	int	res;
 
-	if (!index || !current || index >= current->size
+	if ((!index && current->line[index] != '1') || !current || index >= current->size
 		|| current->line[index] == ' ' || current->line[index] == '\n')
 		return (1);
 	if (current->line[index] == '1' || current->line[index] == 'X')

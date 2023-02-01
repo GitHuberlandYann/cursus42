@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_perror(char *str)
+void	ft_perror(const char *str)
 {
 	perror(str);
 	exit(EXIT_FAILURE);

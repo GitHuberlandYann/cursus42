@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 11:44:08 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:00:09 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,20 @@ static int	free_textures(t_map *map, int res)
 		free(map->textures[EA]);
 	}
 	return (res);
+}
+
+int	free_return_lines(t_parsing *lines)
+{
+	t_parsing	*tmp;
+
+	while (lines)
+	{
+		free(lines->line);
+		tmp = lines;
+		lines = lines->next;
+		free(tmp);
+	}
+	return (1);
 }
 
 int	load_map(t_map *map, char *file)

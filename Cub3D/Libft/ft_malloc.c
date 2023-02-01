@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	*ft_malloc(int size, char *msg)
+void	*ft_malloc(int size, const char *msg)
 {
 	void	*res;
 

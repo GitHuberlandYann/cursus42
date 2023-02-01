@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 13:59:06 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:16:59 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <math.h>
 
 # include "../Libft/libft.h"
+# include "../mlx/mlx.h"
 
 // Macros
 # define MSG_ARGS "Usage :  ./cub3D maps/<insert map name>.cub\n"
@@ -36,6 +37,12 @@
 # define MSG_UNCLOSED "Map isn't closed"
 # define MSG_TOOMANYPLAYERS "More than 1 player in map"
 
+# define WIN_WIDTH 2560
+# define WIN_HEIGHT 1400
+# define MINIMAP_WIDTH 1780
+# define MINIMAP_HEIGHT 700
+
+// Enums
 typedef enum e_side {
 	NO,
 	SO,
@@ -48,17 +55,64 @@ typedef enum e_ground {
 	CEILLING
 }			t_ground;
 
+enum {	//events supported on mac (only a fraction of what can be found on x11)
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12,
+	ON_DESTROY = 17
+};
+
+enum { //mouse buttons
+	MOUSE_LEFT = 1,
+	MOUSE_RIGHT = 2,
+	MOUSE_WHEEL_DOWN = 4,
+	MOUSE_WHEEL_UP = 5,
+	MOUSE_WHEEL_RIGHT = 6,
+	MOUSE_WHEEL_LEFT = 7
+};
+
+enum {
+	KEY_A = 0,
+	KEY_D = 2,
+	KEY_S = 1,
+	KEY_W = 13,
+	KEY_ESC = 53,
+	KEY_PLUS = 24,
+	KEY_MINUS = 27,
+	KEY_UP = 126,
+	KEY_RIGHT = 124,
+	KEY_DOWN = 125,
+	KEY_LEFT = 123,
+	KEY_0 = 82,
+	KEY_1 = 83,
+	KEY_2 = 84,
+	KEY_3 = 85,
+	KEY_PLUS_PAD = 69,
+	KEY_MINUS_PAD = 78
+};
+
 // Structures
+typedef struct s_vertice
+{
+	double				x;
+	double				y;
+	double				z;
+}				t_vertice;
+
 typedef struct s_player {
-	float	x;
-	float	y;
-	float	z;
-	float	direction;
+	double	x;
+	double	y;
+	double	z;
+	double	direction;
 }				t_player;
 
 typedef struct s_parsing {
 	int					player_count;
 	char				*line;
+	int					line_number;
 	int					size;
 	struct s_parsing	*prev;
 	struct s_parsing	*next;
@@ -80,11 +134,58 @@ typedef struct s_map {
 	char			*line;
 	char			*(textures[4]);
 	unsigned int	fc_colors[2];
+	int				o_left;
+	int				o_right;
+	int				o_up;
+	int				o_down;
+	double			width;
+	double			height;
+	double			wall_width;
+	double			wall_height;
 }				t_map;
 
+typedef struct s_img {
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}				t_img;
+
+typedef struct s_key {
+	int	vertical;
+	int	horizontal;
+}				t_key;
+
+typedef struct s_mlx
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+	t_img	*minimap;
+	t_img	*(textures[4]);
+	t_key	*keys;
+}				t_mlx;
+
 typedef struct s_settings {
-	int	FOV;
+	int	fov_width;
+	int	fov_dist;
+	int mini_follow;
 }				t_settings;
+
+typedef struct s_cub {
+	t_map		*map;
+	t_mlx		*mlx;
+	t_settings	*settings;
+}				t_cub;
+
+//Graphics
+void		launch_mlx(t_map *map, char	*title);
+void		fill_minimap(t_cub *cub);
+t_img		*ft_create_img(t_mlx *mlx, int width, int height);
+void		mlx_draw_line(t_img *img, t_vertice a, t_vertice b);
+void		mlx_pxl_put(t_img *img, t_vertice pt);
 
 // Outputs
 int			output_error(char *msg);

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 12:41:11 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 10:36:19 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:28:12 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-void	ft_perror(char *str);
-void	*ft_malloc(int size, char *msg);
+void	ft_perror(const char *str);
+void	*ft_malloc(int size, const char *msg);
 // int		ft_max(int a, int b);
 // int		ft_min(int a, int b);
 // int		ft_abs(int nb);

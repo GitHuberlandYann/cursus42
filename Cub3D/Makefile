@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/02/01 14:19:47 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/02/01 16:16:02 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ OBJS_DIR_SOURCES = Objs/Sources
 
 FILES = main
 
-FILES_GRAPHICS = mlx_manager
+FILES_GRAPHICS = image minimap mlx_manager
 
-FILES += $(addprefix Graphics/, $(FILES_OUTPUTS))
+FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
 
 FILES_OUTPUTS = debug error
 
@@ -37,7 +37,7 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(Sources:.c=.o))
 MLX_DIR = mlx
 MLX_PATH = ${MLX_DIR}/libmlx.a
 
-MLX = #-lmlx -Lmlx -framework OpenGl -framework AppKit $(MLX_PATH)
+MLX = -lmlx -Lmlx -framework OpenGl -framework AppKit $(MLX_PATH)
 
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
@@ -82,7 +82,7 @@ $(OBJS_DIR_SOURCES)/%.o: Sources/%.c
 	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
 
 libs:
-	#@make -C $(MLX_DIR)
+	@make -C $(MLX_DIR)
 	@make -C $(LIBFT_DIR)
 
 clean:
