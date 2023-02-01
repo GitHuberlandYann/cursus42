@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 20:25:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 17:33:07 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/01 18:56:28 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ static void	init_player(t_map *map, t_parsing *p_line)
 	while (p_line->line[index]
 		&& !ft_strchr("NSWE", p_line->line[index]))
 		++index;
-	map->player->x = index;
-	map->player->y = p_line->line_number;
-	map->player->z = 0;
+	map->player->pos.x = index;
+	map->player->pos.y = p_line->line_number;
+	map->player->pos.z = 0;
 	if (p_line->line[index] == 'E')
 		map->player->direction = 0;
 	else if (p_line->line[index] == 'N')

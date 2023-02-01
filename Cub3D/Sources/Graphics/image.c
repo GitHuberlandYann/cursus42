@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 16:36:41 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/01 18:11:24 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_img	*ft_create_img(t_mlx *mlx, int width, int height)
 	return (img);
 }
 
-void	mlx_pxl_put(t_img *img, t_vertice pt)
+void	mlx_pxl_put(t_img *img, t_vertice pt, unsigned int color)
 {
 	char	*dst;
 	int		x;
@@ -39,7 +39,7 @@ void	mlx_pxl_put(t_img *img, t_vertice pt)
 		return ;
 	// printf("width %d, height %d, x %d, y %d\n", img->width, img->height, x, y);
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *) dst = 0xffffff;
+	*(unsigned int *) dst = color;
 }
 
 void	mlx_draw_line(t_img *img, t_vertice a, t_vertice b)
@@ -58,7 +58,7 @@ void	mlx_draw_line(t_img *img, t_vertice a, t_vertice b)
 	pixel.y = a.y;
 	while (len > 0)
 	{
-		mlx_pxl_put(img, pixel);
+		mlx_pxl_put(img, pixel, 0xffffff);
 		pixel.x += delta.x;
 		if (delta.x)
 			pixel.y = delta.z * (pixel.x - a.x) + a.y;

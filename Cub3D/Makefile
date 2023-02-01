@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/02/01 16:16:02 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/02/01 19:37:55 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJS_DIR_SOURCES = Objs/Sources
 
 FILES = main
 
-FILES_GRAPHICS = image minimap mlx_manager
+FILES_GRAPHICS = exec_keys image keys math_utils minimap mlx_manager ray_casting
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
 

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 16:57:09 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:10:18 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,22 @@ static t_wall	*new_wall(int x, int y)
 	res = ft_malloc(sizeof(*res), "add_wall");
 	res->x = x;
 	res->y = y;
+	res->north.pt1.x = x - 0.5;
+	res->north.pt1.y = y - 0.5;
+	res->north.pt2.x = x + 0.5;
+	res->north.pt2.y = y - 0.5;
+	res->east.pt1.x = x + 0.5;
+	res->east.pt1.y = y - 0.5;
+	res->east.pt2.x = x + 0.5;
+	res->east.pt2.y = y + 0.5;
+	res->south.pt1.x = x + 0.5;
+	res->south.pt1.y = y + 0.5;
+	res->south.pt2.x = x - 0.5;
+	res->south.pt2.y = y + 0.5;
+	res->west.pt1.x = x - 0.5;
+	res->west.pt1.y = y + 0.5;
+	res->west.pt2.x = x - 0.5;
+	res->west.pt2.y = y - 0.5;
 	res->next = 0;
 	res->last = 0;
 	return (res);

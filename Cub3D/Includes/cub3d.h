@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 17:16:59 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:54:23 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,7 @@ typedef struct s_vertice
 }				t_vertice;
 
 typedef struct s_player {
-	double	x;
-	double	y;
-	double	z;
+	t_vertice	pos;
 	double	direction;
 }				t_player;
 
@@ -120,9 +118,18 @@ typedef struct s_parsing {
 	struct s_parsing	*player_line;
 }				t_parsing;
 
+typedef struct s_line {
+	t_vertice	pt1;
+	t_vertice	pt2;
+}				t_line;
+
 typedef struct s_wall {
 	int				x;
 	int				y;
+	t_line			north;
+	t_line			south;
+	t_line			west;
+	t_line			east;
 	struct s_wall	*next;
 	struct s_wall	*last;
 }				t_wall;
@@ -157,6 +164,8 @@ typedef struct s_img {
 typedef struct s_key {
 	int	vertical;
 	int	horizontal;
+	int	steering;
+	int	fov_width;
 }				t_key;
 
 typedef struct s_mlx
@@ -169,9 +178,9 @@ typedef struct s_mlx
 }				t_mlx;
 
 typedef struct s_settings {
-	int	fov_width;
-	int	fov_dist;
-	int mini_follow;
+	double	fov_width;
+	double	fov_dist;
+	int 	mini_follow;
 }				t_settings;
 
 typedef struct s_cub {
@@ -185,7 +194,15 @@ void		launch_mlx(t_map *map, char	*title);
 void		fill_minimap(t_cub *cub);
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
 void		mlx_draw_line(t_img *img, t_vertice a, t_vertice b);
-void		mlx_pxl_put(t_img *img, t_vertice pt);
+void		mlx_pxl_put(t_img *img, t_vertice pt, unsigned int color);
+
+int			key_down(int kcode, t_cub *cub);
+int			key_released(int kcode, t_cub *cub);
+int			redraw_all(t_cub *cub);
+int			mlx_exit(void *param);
+
+t_vertice	ray_walling(t_player *player, t_wall *walls, double angle);
+double		get_dist(t_vertice pt1, t_vertice pt2);
 
 // Outputs
 int			output_error(char *msg);
