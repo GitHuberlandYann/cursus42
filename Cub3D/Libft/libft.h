@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 12:41:11 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/31 19:29:46 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/01 10:36:19 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*ft_itoa(int n);
 // void	ft_arrayset(int *tab, int value, int size);
 // int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(const char *s, int c);
+int		ft_strchr_cntset(char *str, char *targets);
 char	*ft_strchr_quotes(char *str, char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_strcpy(char *dst, const char *src);

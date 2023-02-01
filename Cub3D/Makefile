@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/01/31 20:26:03 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/02/01 14:19:47 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,15 @@ OBJS_DIR_SOURCES = Objs/Sources
 
 FILES = main
 
+FILES_GRAPHICS = mlx_manager
+
+FILES += $(addprefix Graphics/, $(FILES_OUTPUTS))
+
 FILES_OUTPUTS = debug error
 
 FILES += $(addprefix Outputs/, $(FILES_OUTPUTS))
 
-FILES_PARSING = colors header map map_content
+FILES_PARSING = colors header map map_content walls
 
 FILES += $(addprefix Parsing/, $(FILES_PARSING))
 
@@ -58,11 +62,15 @@ all: $(OBJS_DIR) $(NAME)
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR_SOURCES)
+	@mkdir -p $(OBJS_DIR_SOURCES)/Graphics
 	@mkdir -p $(OBJS_DIR_SOURCES)/Outputs
 	@mkdir -p $(OBJS_DIR_SOURCES)/Parsing
 
 $(NAME): $(OBJS) libs
 	$(CC) $(SAN) $(OBJS) -o $(NAME) $(MLX) $(LIBFT) $(MATH)
+
+$(OBJS_DIR_SOURCES)/Graphics/%.o: Sources/Graphics/%.c
+	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR_SOURCES)/Outputs/%.o: Sources/Outputs/%.c
 	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@

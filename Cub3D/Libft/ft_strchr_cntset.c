@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr_cntset.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 12:53:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 14:17:34 by yhuberla         ###   ########.fr       */
+/*   Created: 2023/02/01 10:32:07 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/02/01 10:40:10 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-int	main(int ac, char **av)
+int	ft_strchr_cntset(char *str, char *targets)
 {
-	t_map	map;
+	int	res;
+	int	index;
+	int	sub_index;
 
-	if (ac != 2)
-		return (output_error(MSG_ARGS));
-	if (load_map(&map, av[1]))
-		return (output_error(MSG_MAP));
-	console_map_content(&map);
-	launch_mlx(&map);
-	return (0);
+	if (!str)
+		return (0);
+	res = 0;
+	index = 0;
+	while (str[index])
+	{
+		sub_index = 0;
+		while (targets[sub_index])
+		{
+			res += (str[index] == targets[sub_index]);
+			++sub_index;
+		}
+		++index;
+	}
+	return (res);
 }

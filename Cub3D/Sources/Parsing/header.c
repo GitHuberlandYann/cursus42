@@ -6,13 +6,27 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:54:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/31 20:19:21 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:19:38 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	line_from_map(char	*str)
+static int	load_texture(t_map *map, t_side side)
+{
+	if (side == NO && map->textures[NO])
+		return (output_error(MSG_TWONO));
+	else if (side == SO && map->textures[SO])
+		return (output_error(MSG_TWOSO));
+	else if (side == WE && map->textures[WE])
+		return (output_error(MSG_TWOWE));
+	else if (side == EA && map->textures[EA])
+		return (output_error(MSG_TWOEA));
+	map->textures[side] = ft_strdup(&map->line[3]);
+	return (0);
+}
+
+int	line_from_map(char *str, int empty_allowed)
 {
 	int	index;
 	int	res;
@@ -23,6 +37,8 @@ static int	line_from_map(char	*str)
 	{
 		if (!ft_strchr(" 01NSWE\n", str[index]))
 			return (0);
+		else if (empty_allowed)
+			res = 1;
 		else if (str[index] != '\n' && str[index] != ' ')
 			res = 1;
 		++index;
@@ -30,24 +46,10 @@ static int	line_from_map(char	*str)
 	return (res);
 }
 
-static int	load_texture(t_map *map, t_side side)
-{
-	if (side == NO && map->textures[NO])
-		return (output_error("Two different lines start with 'NO'"));
-	else if (side == SO && map->textures[SO])
-		return (output_error("Two different lines start with 'SO'"));
-	else if (side == WE && map->textures[WE])
-		return (output_error("Two different lines start with 'WE'"));
-	else if (side == EA && map->textures[EA])
-		return (output_error("Two different lines start with 'EA'"));
-	map->textures[side] = ft_strdup(&map->line[3]);
-	return (0);
-}
-
 int	read_first_lines(t_map *map, int fd)
 {
 	map->line = get_next_line(fd);
-	while (map->line && !line_from_map(map->line))
+	while (map->line && !line_from_map(map->line, 0))
 	{
 		printf("curr line : %s", map->line);
 		if (!ft_strncmp("NO ", map->line, 3) && load_texture(map, NO))

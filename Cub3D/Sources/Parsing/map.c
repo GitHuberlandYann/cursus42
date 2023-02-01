@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/31 20:21:07 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:44:08 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int	check_filename(char *file)
 
 static int	free_textures(t_map *map, int res)
 {
-	free(map->line);
 	map->line = 0;
 	if (!res)
 	{
