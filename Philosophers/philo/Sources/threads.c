@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:16:48 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/31 10:41:49 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:48:16 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ static int	sleepeat(t_philo *philo)
 	pthread_mutex_lock(philo->left_fork);
 	output_msg(philo, MSG_FORK);
 	if (philo->table->seats == 1)
+	{
+		pthread_mutex_unlock(philo->left_fork);
 		return (1);
+	}
 	pthread_mutex_lock(philo->right_fork);
 	output_msg(philo, MSG_FORK);
 	output_msg(philo, MSG_EAT);
@@ -76,6 +79,9 @@ void	destroy_all_threads(t_table *table, int limit)
 	int	index;
 
 	index = 0;
+	pthread_mutex_lock(&table->var_access);
+	table->alive = 0;
+	pthread_mutex_unlock(&table->var_access);
 	while (index < limit)
 	{
 		pthread_join(table->philos[index].thread, NULL);
