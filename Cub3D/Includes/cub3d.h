@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 10:17:20 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:16:07 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@
 
 # define WIN_WIDTH 2560
 # define WIN_HEIGHT 1400
-# define MINIMAP_WIDTH 1780
-# define MINIMAP_HEIGHT 700
+# define MINIMAP_WIDTH 1200
 
 // Enums
 typedef enum e_side {
@@ -145,10 +144,7 @@ typedef struct s_map {
 	int				o_right;
 	int				o_up;
 	int				o_down;
-	double			width;
-	double			height;
 	double			wall_width;
-	double			wall_height;
 }				t_map;
 
 typedef struct s_img {
@@ -195,7 +191,9 @@ typedef struct s_cub {
 //Graphics
 void		launch_mlx(t_map *map, char	*title);
 void		fill_minimap(t_cub *cub);
+
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
+void		mlx_clear_img(t_img *img);
 void		mlx_draw_line(t_img *img, t_vertice a, t_vertice b);
 void		mlx_pxl_put(t_img *img, t_vertice pt, unsigned int color);
 
@@ -207,6 +205,7 @@ int			mlx_exit(void *param);
 t_vertice	ray_walling(t_player *player, t_wall *walls, double angle, t_settings *settings);
 double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);
+double		get_min(double a, double b);
 
 // Outputs
 int			output_error(char *msg);

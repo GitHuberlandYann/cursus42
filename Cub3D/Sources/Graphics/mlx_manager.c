@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 10:17:30 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:17:04 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_mlx	*ft_mlx_init(char *title)
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, title);
 	if (!mlx->win_ptr)
 		ft_perror("mlx_new_window");
-	mlx->minimap = ft_create_img(mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	mlx->minimap = ft_create_img(mlx, MINIMAP_WIDTH, MINIMAP_WIDTH);
 	mlx->keys = ft_malloc(sizeof(*mlx->keys), "keys_init");
 	mlx->keys->vertical = 0;
 	mlx->keys->horizontal = 0;
@@ -55,7 +55,7 @@ void	launch_mlx(t_map *map, char	*title)
 	cub.settings = ft_settings_init();
 	fill_minimap(&cub);
 	mlx_put_image_to_window(cub.mlx->mlx_ptr, cub.mlx->win_ptr,
-		cub.mlx->minimap->img_ptr, 400, 350);
+		cub.mlx->minimap->img_ptr, (WIN_WIDTH - MINIMAP_WIDTH) / 4, (WIN_HEIGHT - MINIMAP_WIDTH) / 4);
 	mlx_hook(cub.mlx->win_ptr, ON_KEYDOWN, 0, key_down, &cub);
 	mlx_hook(cub.mlx->win_ptr, ON_KEYUP, 0, key_released, &cub);
 	mlx_hook(cub.mlx->win_ptr, ON_DESTROY, 0, mlx_exit, 0);

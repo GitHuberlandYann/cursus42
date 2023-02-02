@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:59:54 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 10:19:03 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:17:08 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,8 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 		cub->settings->fov_width -= M_PI / 180;
 	else if (keys->fov_width > 0 && cub->settings->fov_width < M_PI * 2)
 		cub->settings->fov_width += M_PI / 180;
-	cub->settings->fov_dist += keys->fov_dist * 0.1;
-}
-
-static void	mlx_clear_img(t_img *img)
-{
-	t_vertice	pt;
-
-	pt.x = 0;
-	pt.z = 0;
-	while (pt.x < img->width)
-	{
-		pt.y = 0;
-		while (pt.y < img->height)
-		{
-			mlx_pxl_put(img, pt, 0);
-			++pt.y;
-		}
-		++pt.x;
-	}
+	if ((cub->settings->fov_dist > 0.5 && keys->fov_dist < 0) || keys->fov_dist > 0)
+		cub->settings->fov_dist += keys->fov_dist * 0.1;
 }
 
 int	redraw_all(t_cub *cub)
@@ -66,6 +49,6 @@ int	redraw_all(t_cub *cub)
 	mlx_clear_img(cub->mlx->minimap);
 	fill_minimap(cub);
 	mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
-		cub->mlx->minimap->img_ptr, 400, 350);
+		cub->mlx->minimap->img_ptr, (WIN_WIDTH - MINIMAP_WIDTH) / 4, (WIN_HEIGHT - MINIMAP_WIDTH) / 4);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 09:47:30 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:12:00 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,8 @@ void	create_walls(t_map *map, t_parsing *lines)
 		tmp = tmp->next;
 	}
 	free_return_lines(lines);
-	map->width = map->o_right - map->o_left;
-	map->height = map->o_down - map->o_up;
-	map->wall_width = MINIMAP_WIDTH / map->width;
-	map->wall_height = MINIMAP_HEIGHT / map->height;
+	map->wall_width = get_min(MINIMAP_WIDTH / map->o_right - map->o_left,
+			MINIMAP_WIDTH / map->o_down - map->o_up);
 }
 
 int	flood_fill(t_parsing *current, int index)

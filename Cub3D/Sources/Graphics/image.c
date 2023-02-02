@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 18:11:24 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:15:49 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,24 @@ t_img	*ft_create_img(t_mlx *mlx, int width, int height)
 	img->width = width;
 	img->height = height;
 	return (img);
+}
+
+void	mlx_clear_img(t_img *img)
+{
+	t_vertice	pt;
+
+	pt.x = 0;
+	pt.z = 0;
+	while (pt.x < img->width)
+	{
+		pt.y = 0;
+		while (pt.y < img->height)
+		{
+			mlx_pxl_put(img, pt, 0);
+			++pt.y;
+		}
+		++pt.x;
+	}
 }
 
 void	mlx_pxl_put(t_img *img, t_vertice pt, unsigned int color)

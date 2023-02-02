@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:16:22 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 10:08:23 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:07:35 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,26 @@ static void	draw_walls(t_img *img, t_wall *wall, t_map *map)
 
 	if (wall->edges[NO].side != CUT)
 	{
-		set_point(&start, wall->edges[NO].pt1.x * map->wall_width, wall->edges[NO].pt1.y * map->wall_height, 0);
-		set_point(&finish, wall->edges[NO].pt2.x * map->wall_width, wall->edges[NO].pt2.y * map->wall_height, 0);
+		set_point(&start, wall->edges[NO].pt1.x * map->wall_width, wall->edges[NO].pt1.y * map->wall_width, 0);
+		set_point(&finish, wall->edges[NO].pt2.x * map->wall_width, wall->edges[NO].pt2.y * map->wall_width, 0);
 		mlx_draw_line(img, start, finish);
 	}
 	if (wall->edges[SO].side != CUT)
 	{
-		set_point(&start, wall->edges[SO].pt1.x * map->wall_width, wall->edges[SO].pt1.y * map->wall_height, 0);
-		set_point(&finish, wall->edges[SO].pt2.x * map->wall_width, wall->edges[SO].pt2.y * map->wall_height, 0);
+		set_point(&start, wall->edges[SO].pt1.x * map->wall_width, wall->edges[SO].pt1.y * map->wall_width, 0);
+		set_point(&finish, wall->edges[SO].pt2.x * map->wall_width, wall->edges[SO].pt2.y * map->wall_width, 0);
 		mlx_draw_line(img, start, finish);
 	}
 	if (wall->edges[WE].side != CUT)
 	{
-		set_point(&start, wall->edges[WE].pt1.x * map->wall_width, wall->edges[WE].pt1.y * map->wall_height, 0);
-		set_point(&finish, wall->edges[WE].pt2.x * map->wall_width, wall->edges[WE].pt2.y * map->wall_height, 0);
+		set_point(&start, wall->edges[WE].pt1.x * map->wall_width, wall->edges[WE].pt1.y * map->wall_width, 0);
+		set_point(&finish, wall->edges[WE].pt2.x * map->wall_width, wall->edges[WE].pt2.y * map->wall_width, 0);
 		mlx_draw_line(img, start, finish);
 	}
 	if (wall->edges[EA].side != CUT)
 	{
-		set_point(&start, wall->edges[EA].pt1.x * map->wall_width, wall->edges[EA].pt1.y * map->wall_height, 0);
-		set_point(&finish, wall->edges[EA].pt2.x * map->wall_width, wall->edges[EA].pt2.y * map->wall_height, 0);
+		set_point(&start, wall->edges[EA].pt1.x * map->wall_width, wall->edges[EA].pt1.y * map->wall_width, 0);
+		set_point(&finish, wall->edges[EA].pt2.x * map->wall_width, wall->edges[EA].pt2.y * map->wall_width, 0);
 		mlx_draw_line(img, start, finish);
 	}
 }
@@ -63,7 +63,7 @@ static void	draw_player(t_img *img, t_player *player, t_map *map)
 			if (get_dist(pos_translate, pt2) < size)
 			{
 				pt.x = pt2.x * map->wall_width;
-				pt.y = pt2.y * map->wall_height;
+				pt.y = pt2.y * map->wall_width;
 				mlx_pxl_put(img, pt, 0xff0000);
 			}
 			pt2.y += 0.01;
@@ -71,9 +71,9 @@ static void	draw_player(t_img *img, t_player *player, t_map *map)
 		pt2.x += 0.01;
 	}
 	// pt.x = player->pos.x * map->wall_width;
-	// pt.y = player->pos.y * map->wall_height;
+	// pt.y = player->pos.y * map->wall_width;
 	// pt2.x = (player->pos.x - cos(player->direction)) * map->wall_width;
-	// pt2.y = (player->pos.y + sin(player->direction)) * map->wall_height;
+	// pt2.y = (player->pos.y + sin(player->direction)) * map->wall_width;
 	// mlx_draw_line(img, pt, pt2);
 }
 
@@ -88,9 +88,9 @@ static void	draw_rays(t_img *img, t_player *player, t_map *map, t_settings *sett
 	{
 		intersection = ray_walling(player, map->walls, angle, settings);
 		intersection.x *= map->wall_width;
-		intersection.y *= map->wall_height;
+		intersection.y *= map->wall_width;
 		play.x = player->pos.x * map->wall_width;
-		play.y = player->pos.y * map->wall_height;
+		play.y = player->pos.y * map->wall_width;
 		mlx_draw_line(img, play, intersection);
 		angle += 0.001;
 	}
