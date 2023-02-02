@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:36:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 14:23:39 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:17:32 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	set_point(t_vertice *pt, double x, double y, double z)
 
 void	set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale)
 {
-	pt->x = cos(map->player->direction - M_PI / 2) * (pt2->x - map->player->offset.x)
-		- sin(map->player->direction - M_PI / 2) * (pt2->y - map->player->offset.y)
+	pt->x = cos(map->player->direction - M_PI / 2) * (pt2->x - map->player->pos.x)
+		- sin(map->player->direction - M_PI / 2) * (pt2->y - map->player->pos.y)
 		+ map->map_width / 2;
-	pt->y = sin(map->player->direction - M_PI / 2) * (pt2->x - map->player->offset.x)
-		+ cos(map->player->direction - M_PI / 2) * (pt2->y - map->player->offset.y)
+	pt->y = sin(map->player->direction - M_PI / 2) * (pt2->x - map->player->pos.x)
+		+ cos(map->player->direction - M_PI / 2) * (pt2->y - map->player->pos.y)
 		+ map->map_height - map->map_height / 10;
 	if (scale)
 	{

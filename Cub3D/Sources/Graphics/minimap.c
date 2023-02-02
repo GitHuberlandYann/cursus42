@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:16:22 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 11:58:04 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:19:27 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,25 @@ static void	draw_walls(t_img *img, t_wall *wall, t_map *map)
 	{
 		set_point(&start, wall->edges[NO].pt1.x * map->wall_width, wall->edges[NO].pt1.y * map->wall_width, 0);
 		set_point(&finish, wall->edges[NO].pt2.x * map->wall_width, wall->edges[NO].pt2.y * map->wall_width, 0);
-		mlx_draw_line(img, start, finish);
+		mlx_draw_line(img, start, finish, WHITE);
 	}
 	if (wall->edges[SO].side != CUT)
 	{
 		set_point(&start, wall->edges[SO].pt1.x * map->wall_width, wall->edges[SO].pt1.y * map->wall_width, 0);
 		set_point(&finish, wall->edges[SO].pt2.x * map->wall_width, wall->edges[SO].pt2.y * map->wall_width, 0);
-		mlx_draw_line(img, start, finish);
+		mlx_draw_line(img, start, finish, WHITE);
 	}
 	if (wall->edges[WE].side != CUT)
 	{
 		set_point(&start, wall->edges[WE].pt1.x * map->wall_width, wall->edges[WE].pt1.y * map->wall_width, 0);
 		set_point(&finish, wall->edges[WE].pt2.x * map->wall_width, wall->edges[WE].pt2.y * map->wall_width, 0);
-		mlx_draw_line(img, start, finish);
+		mlx_draw_line(img, start, finish, WHITE);
 	}
 	if (wall->edges[EA].side != CUT)
 	{
 		set_point(&start, wall->edges[EA].pt1.x * map->wall_width, wall->edges[EA].pt1.y * map->wall_width, 0);
 		set_point(&finish, wall->edges[EA].pt2.x * map->wall_width, wall->edges[EA].pt2.y * map->wall_width, 0);
-		mlx_draw_line(img, start, finish);
+		mlx_draw_line(img, start, finish, WHITE);
 	}
 }
 
@@ -49,22 +49,21 @@ static void	draw_player(t_img *img, t_player *player, t_map *map)
 	t_vertice	pt;
 	t_vertice	pt2;
 	t_vertice	pos_translate;
-	float		size;
 
-	size = 0.1;
-	pos_translate.x = player->pos.x - size * cos(player->direction);
-	pos_translate.y = player->pos.y + size * sin(player->direction);
-	pt2.x = pos_translate.x - size;
-	while (pt2.x < pos_translate.x + size)
+	player->size = 0.1;
+	pos_translate.x = player->pos.x - player->size * cos(player->direction);
+	pos_translate.y = player->pos.y + player->size * sin(player->direction);
+	pt2.x = pos_translate.x - player->size;
+	while (pt2.x < pos_translate.x + player->size)
 	{
-		pt2.y = pos_translate.y - size;
-		while (pt2.y < pos_translate.y + size)
+		pt2.y = pos_translate.y - player->size;
+		while (pt2.y < pos_translate.y + player->size)
 		{
-			if (get_dist(pos_translate, pt2) < size)
+			if (get_dist(pos_translate, pt2) <= player->size)
 			{
 				pt.x = pt2.x * map->wall_width;
 				pt.y = pt2.y * map->wall_width;
-				mlx_pxl_put(img, pt, 0xff0000);
+				mlx_pxl_put(img, pt, RED);
 			}
 			pt2.y += 0.01;
 		}
@@ -91,7 +90,7 @@ static void	draw_rays(t_img *img, t_player *player, t_map *map, t_settings *sett
 		intersection.y *= map->wall_width;
 		play.x = player->pos.x * map->wall_width;
 		play.y = player->pos.y * map->wall_width;
-		mlx_draw_line(img, play, intersection);
+		mlx_draw_line(img, play, intersection, LIGHT_WHITE);
 		angle += 0.001;
 	}
 }

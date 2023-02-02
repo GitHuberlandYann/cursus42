@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 11:15:49 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:10:31 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	mlx_clear_img(t_img *img)
 		pt.y = 0;
 		while (pt.y < img->height)
 		{
-			mlx_pxl_put(img, pt, 0);
+			mlx_pxl_put(img, pt, BLACK);
 			++pt.y;
 		}
 		++pt.x;
@@ -60,7 +60,7 @@ void	mlx_pxl_put(t_img *img, t_vertice pt, unsigned int color)
 	*(unsigned int *) dst = color;
 }
 
-void	mlx_draw_line(t_img *img, t_vertice a, t_vertice b)
+void	mlx_draw_line(t_img *img, t_vertice a, t_vertice b, unsigned int color)
 {
 	t_vertice	delta;
 	t_vertice	pixel;
@@ -76,7 +76,7 @@ void	mlx_draw_line(t_img *img, t_vertice a, t_vertice b)
 	pixel.y = a.y;
 	while (len > 0)
 	{
-		mlx_pxl_put(img, pixel, 0xffffff);
+		mlx_pxl_put(img, pixel, color);
 		pixel.x += delta.x;
 		if (delta.x)
 			pixel.y = delta.z * (pixel.x - a.x) + a.y;

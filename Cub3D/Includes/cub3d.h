@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 13:30:06 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:48:13 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@
 # define WIN_WIDTH 2560
 # define WIN_HEIGHT 1400
 # define MINIMAP_WIDTH 1200
+
+# define WHITE 0xffffff
+# define LIGHT_WHITE 0x949494
+# define BLACK 0x0
+# define RED 0xff0000
 
 // Enums
 typedef enum e_side {
@@ -106,7 +111,6 @@ typedef struct s_vertice
 
 typedef struct s_player {
 	t_vertice	pos;
-	t_vertice	offset;
 	double	direction;
 	double	size;
 }				t_player;
@@ -140,6 +144,7 @@ typedef struct s_map {
 	int				player_count;
 	t_player		*player;
 	t_wall			*walls;
+	t_line			portals[2];
 	char			*line;
 	char			*(textures[4]);
 	unsigned int	fc_colors[2];
@@ -201,7 +206,7 @@ void		fill_minimap_follow(t_cub *cub);
 
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
 void		mlx_clear_img(t_img *img);
-void		mlx_draw_line(t_img *img, t_vertice a, t_vertice b);
+void		mlx_draw_line(t_img *img, t_vertice a, t_vertice b, unsigned int color);
 void		mlx_pxl_put(t_img *img, t_vertice pt, unsigned int color);
 
 int			key_down(int kcode, t_cub *cub);
