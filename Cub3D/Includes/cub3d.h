@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 11:16:07 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:30:06 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ enum { //mouse buttons
 enum {
 	KEY_A = 0,
 	KEY_D = 2,
+	KEY_M = 46,
 	KEY_S = 1,
 	KEY_W = 13,
 	KEY_ESC = 53,
@@ -105,7 +106,9 @@ typedef struct s_vertice
 
 typedef struct s_player {
 	t_vertice	pos;
+	t_vertice	offset;
 	double	direction;
+	double	size;
 }				t_player;
 
 typedef struct s_parsing {
@@ -144,6 +147,8 @@ typedef struct s_map {
 	int				o_right;
 	int				o_up;
 	int				o_down;
+	int				map_width;
+	int				map_height;
 	double			wall_width;
 }				t_map;
 
@@ -164,6 +169,7 @@ typedef struct s_key {
 	int	fov_width;
 	int	fov_enable;
 	int	fov_dist;
+	int	mini_follow;
 }				t_key;
 
 typedef struct s_mlx
@@ -191,6 +197,7 @@ typedef struct s_cub {
 //Graphics
 void		launch_mlx(t_map *map, char	*title);
 void		fill_minimap(t_cub *cub);
+void		fill_minimap_follow(t_cub *cub);
 
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
 void		mlx_clear_img(t_img *img);
@@ -205,6 +212,7 @@ int			mlx_exit(void *param);
 t_vertice	ray_walling(t_player *player, t_wall *walls, double angle, t_settings *settings);
 double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);
+void		set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale);
 double		get_min(double a, double b);
 
 // Outputs

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 11:17:04 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:55:40 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static t_mlx	*ft_mlx_init(char *title)
 	mlx->keys->fov_width = 0;
 	mlx->keys->fov_enable = 0;
 	mlx->keys->fov_dist = 0;
+	mlx->keys->mini_follow = 0;
 	return (mlx);
 }
 

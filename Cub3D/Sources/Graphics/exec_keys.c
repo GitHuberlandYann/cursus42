@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:59:54 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 11:17:08 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:55:14 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	redraw_all(t_cub *cub)
 
 	key = cub->mlx->keys;
 	if (!key->horizontal && !key->vertical && !key->steering && !key->fov_width
-		&& key->fov_enable != 1 && !key->fov_dist)
+		&& key->fov_enable != 1 && !key->fov_dist && key->mini_follow != 1)
 		return (1);
 	exec_keys(key, cub);
 	mlx_clear_img(cub->mlx->minimap);

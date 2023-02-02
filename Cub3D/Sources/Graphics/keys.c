@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:51:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 10:17:48 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:25:39 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	key_down(int kcode, t_cub *cub)
 		cub->mlx->keys->fov_dist = (kcode == KEY_PLUS_PAD) - (kcode == KEY_MINUS_PAD);
 	else if (kcode == KEY_ASTERISK && ++cub->mlx->keys->fov_enable == 1)
 		cub->settings->fov_enable = !cub->settings->fov_enable;
+	else if (kcode == KEY_M && ++cub->mlx->keys->mini_follow == 1)
+		cub->settings->mini_follow = !cub->settings->mini_follow;
 	return (0);
 }
 
@@ -47,5 +49,7 @@ int	key_released(int kcode, t_cub *cub)
 		cub->mlx->keys->fov_dist = 0;
 	else if (kcode == KEY_ASTERISK)
 		cub->mlx->keys->fov_enable = 0;
+	else if (kcode == KEY_M)
+		cub->mlx->keys->mini_follow = 0;
 	return (0);
 }
