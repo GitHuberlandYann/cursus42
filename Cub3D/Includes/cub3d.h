@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 09:37:15 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:17:20 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ enum {
 	KEY_1 = 83,
 	KEY_2 = 84,
 	KEY_3 = 85,
+	KEY_ASTERISK = 67,
 	KEY_PLUS_PAD = 69,
 	KEY_MINUS_PAD = 78
 };
@@ -165,6 +166,8 @@ typedef struct s_key {
 	int	horizontal;
 	int	steering;
 	int	fov_width;
+	int	fov_enable;
+	int	fov_dist;
 }				t_key;
 
 typedef struct s_mlx
@@ -178,6 +181,7 @@ typedef struct s_mlx
 
 typedef struct s_settings {
 	double	fov_width;
+	int		fov_enable;
 	double	fov_dist;
 	int 	mini_follow;
 }				t_settings;
@@ -200,7 +204,7 @@ int			key_released(int kcode, t_cub *cub);
 int			redraw_all(t_cub *cub);
 int			mlx_exit(void *param);
 
-t_vertice	ray_walling(t_player *player, t_wall *walls, double angle);
+t_vertice	ray_walling(t_player *player, t_wall *walls, double angle, t_settings *settings);
 double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);
 

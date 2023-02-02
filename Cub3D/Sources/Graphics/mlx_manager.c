@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 20:01:34 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:17:30 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static t_settings	*ft_settings_init(void)
 
 	res = ft_malloc(sizeof(*res), __func__);
 	res->fov_width = 2 * M_PI / 3;
-	res->fov_dist = 0;
+	res->fov_enable = 0;
+	res->fov_dist = 5;
 	res->mini_follow = 0;
 	return (res);
 }
@@ -40,6 +41,8 @@ static t_mlx	*ft_mlx_init(char *title)
 	mlx->keys->horizontal = 0;
 	mlx->keys->steering = 0;
 	mlx->keys->fov_width = 0;
+	mlx->keys->fov_enable = 0;
+	mlx->keys->fov_dist = 0;
 	return (mlx);
 }
 

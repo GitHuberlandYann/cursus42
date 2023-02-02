@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:59:54 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 09:07:40 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:19:03 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 	if (keys->vertical)
 	{
 		wall_sensor = ray_walling(cub->map->player, cub->map->walls,
-				cub->map->player->direction + M_PI * (keys->vertical == -1));
+				cub->map->player->direction + M_PI * (keys->vertical == -1), cub->settings);
 		if (get_dist(cub->map->player->pos, wall_sensor) > 0.2)
 		{
 			cub->map->player->pos.x += cos(cub->map->player->direction) * 0.2 * keys->vertical;
@@ -33,6 +33,7 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 		cub->settings->fov_width -= M_PI / 180;
 	else if (keys->fov_width > 0 && cub->settings->fov_width < M_PI * 2)
 		cub->settings->fov_width += M_PI / 180;
+	cub->settings->fov_dist += keys->fov_dist * 0.1;
 }
 
 static void	mlx_clear_img(t_img *img)
@@ -58,7 +59,8 @@ int	redraw_all(t_cub *cub)
 	t_key	*key;
 
 	key = cub->mlx->keys;
-	if (!key->horizontal && !key->vertical && !key->steering && !key->fov_width)
+	if (!key->horizontal && !key->vertical && !key->steering && !key->fov_width
+		&& key->fov_enable != 1 && !key->fov_dist)
 		return (1);
 	exec_keys(key, cub);
 	mlx_clear_img(cub->mlx->minimap);

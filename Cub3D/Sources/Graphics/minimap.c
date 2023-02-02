@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:16:22 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 09:48:18 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:08:23 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	draw_rays(t_img *img, t_player *player, t_map *map, t_settings *sett
 	angle = player->direction - settings->fov_width / 2;
 	while (angle < player->direction + settings->fov_width / 2)
 	{
-		intersection = ray_walling(player, map->walls, angle);
+		intersection = ray_walling(player, map->walls, angle, settings);
 		intersection.x *= map->wall_width;
 		intersection.y *= map->wall_height;
 		play.x = player->pos.x * map->wall_width;
