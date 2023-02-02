@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 13:19:01 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:44:43 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,24 +118,4 @@ void	create_walls(t_map *map, t_parsing *lines)
 	map->map_height = map->o_down - map->o_up;
 	map->wall_width = get_min(MINIMAP_WIDTH / map->map_width,
 			MINIMAP_WIDTH / map->map_height);
-}
-
-int	flood_fill(t_parsing *current, int index)
-{
-	int	res;
-
-	if ((!index && current->line[index] != '1') || !current || index >= current->size
-		|| current->line[index] == ' ' || current->line[index] == '\n')
-		return (1);
-	if (current->line[index] == '1' || current->line[index] == 'X')
-		return (0);
-	current->line[index] = 'X';
-	res = flood_fill(current, index + 1);
-	if (!res)
-		res = flood_fill(current, index - 1);
-	if (!res)
-		res = flood_fill(current->prev, index);
-	if (!res)
-		res = flood_fill(current->next, index);
-	return (res);
 }

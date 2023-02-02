@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 15:48:13 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:22:32 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@
 # define MSG_TWOEA "Two different lines start with 'EA'"
 # define MSG_INVALIDCHAR "Invalid char found in map"
 # define MSG_NOPLAYER "No player found in map"
+# define MSG_ONEPORTAL "Only one portal in map"
+# define MSG_NOREACHPORTAL "Impossible to reach portals"
 # define MSG_UNCLOSED "Map isn't closed"
 # define MSG_TOOMANYPLAYERS "More than 1 player in map"
+# define MSG_TOOMANYPORTALS "More than 2 portals in map"
 
 # define WIN_WIDTH 2560
 # define WIN_HEIGHT 1400
@@ -117,6 +120,7 @@ typedef struct s_player {
 
 typedef struct s_parsing {
 	int					player_count;
+	int					portal_count;
 	char				*line;
 	int					line_number;
 	int					size;
@@ -124,6 +128,7 @@ typedef struct s_parsing {
 	struct s_parsing	*next;
 	struct s_parsing	*last;
 	struct s_parsing	*player_line;
+	struct s_parsing	*(portal_line[2]);
 }				t_parsing;
 
 typedef struct s_line {
@@ -144,6 +149,7 @@ typedef struct s_map {
 	int				player_count;
 	t_player		*player;
 	t_wall			*walls;
+	int				portal_count;
 	t_line			portals[2];
 	char			*line;
 	char			*(textures[4]);
@@ -230,7 +236,7 @@ int			line_from_map(char *str, int empty_allowed);
 int			read_first_lines(t_map *map, int fd);
 int			transform_color(t_map *map, t_ground ground);
 int			read_map(t_map *map, int fd);
-int			flood_fill(t_parsing *current, int index);
+int			flood_fill(t_parsing *current, int index, int *portals);
 int			free_return_lines(t_parsing *lines);
 void		create_walls(t_map *map, t_parsing *lines);
 

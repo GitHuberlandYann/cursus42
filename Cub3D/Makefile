@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/02/02 11:59:29 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/02/02 17:45:00 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ FILES_OUTPUTS = debug error
 
 FILES += $(addprefix Outputs/, $(FILES_OUTPUTS))
 
-FILES_PARSING = colors header map map_content walls
+FILES_PARSING = colors flood_fill header map map_content walls
 
 FILES += $(addprefix Parsing/, $(FILES_PARSING))
 
@@ -88,7 +88,7 @@ libs:
 
 clean:
 	make fclean -C $(LIBFT_DIR)
-	make clean -C $(MLX_DIR)
+	#make clean -C $(MLX_DIR)
 	rm -rf $(OBJS_DIR)
 
 fclean: clean

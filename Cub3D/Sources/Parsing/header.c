@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:54:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 09:54:34 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:47:06 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	line_from_map(char *str, int empty_allowed)
 	res = 0;
 	while (str[index])
 	{
-		if (!ft_strchr(" 01NSWE\n", str[index]))
+		if (!ft_strchr(" 01~_][NSWE\n", str[index]))
 			return (0);
 		else if (empty_allowed)
 			res = 1;
