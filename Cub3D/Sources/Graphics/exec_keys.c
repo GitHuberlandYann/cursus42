@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:59:54 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 20:02:36 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 09:07:40 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,17 @@
 
 static void	exec_keys(t_key *keys, t_cub *cub)
 {
+	t_vertice	wall_sensor;
+
 	if (keys->vertical)
 	{
-		cub->map->player->pos.x += cos(cub->map->player->direction) * 0.2 * keys->vertical;
-		cub->map->player->pos.y -= sin(cub->map->player->direction) * 0.2 * keys->vertical;
+		wall_sensor = ray_walling(cub->map->player, cub->map->walls,
+				cub->map->player->direction + M_PI * (keys->vertical == -1));
+		if (get_dist(cub->map->player->pos, wall_sensor) > 0.2)
+		{
+			cub->map->player->pos.x += cos(cub->map->player->direction) * 0.2 * keys->vertical;
+			cub->map->player->pos.y -= sin(cub->map->player->direction) * 0.2 * keys->vertical;
+		}
 	}
 	if (keys->horizontal)
 		;

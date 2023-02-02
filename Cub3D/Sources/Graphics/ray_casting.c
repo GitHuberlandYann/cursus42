@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 18:31:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 19:44:20 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 09:37:19 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_vertice	get_inter(t_vertice pt1, t_vertice pt2, t_vertice pt3, t_vertice pt4)
 
 t_vertice	ray_walling(t_player *player, t_wall *walls, double angle)
 {
+	int			index;
 	t_vertice	pt4;
 	t_vertice	intersection;
 	t_vertice	shortest;
@@ -47,29 +48,19 @@ t_vertice	ray_walling(t_player *player, t_wall *walls, double angle)
 	shortest.z = 10000;
 	while (walls)
 	{
-		intersection = get_inter(player->pos, pt4, walls->north.pt1, walls->north.pt2);
-		if (intersection.z && get_dist(player->pos, intersection) < shortest.z)
+		index = 0;
+		while (index < 4)
 		{
-			shortest = intersection;
-			shortest.z = get_dist(player->pos, intersection);
-		}
-		intersection = get_inter(player->pos, pt4, walls->south.pt1, walls->south.pt2);
-		if (intersection.z && get_dist(player->pos, intersection) < shortest.z)
-		{
-			shortest = intersection;
-			shortest.z = get_dist(player->pos, intersection);
-		}
-		intersection = get_inter(player->pos, pt4, walls->west.pt1, walls->west.pt2);
-		if (intersection.z && get_dist(player->pos, intersection) < shortest.z)
-		{
-			shortest = intersection;
-			shortest.z = get_dist(player->pos, intersection);
-		}
-		intersection = get_inter(player->pos, pt4, walls->east.pt1, walls->east.pt2);
-		if (intersection.z && get_dist(player->pos, intersection) < shortest.z)
-		{
-			shortest = intersection;
-			shortest.z = get_dist(player->pos, intersection);
+			if (walls->edges[index].side != CUT)
+			{
+				intersection = get_inter(player->pos, pt4, walls->edges[index].pt1, walls->edges[index].pt2);
+				if (intersection.z && get_dist(player->pos, intersection) < shortest.z)
+				{
+					shortest = intersection;
+					shortest.z = get_dist(player->pos, intersection);
+				}
+			}
+			++index;
 		}
 		walls = walls->next;
 	}

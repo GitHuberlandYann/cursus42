@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:54:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 11:19:38 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 09:54:34 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	read_first_lines(t_map *map, int fd)
 	map->line = get_next_line(fd);
 	while (map->line && !line_from_map(map->line, 0))
 	{
-		printf("curr line : %s", map->line);
+		// printf("curr line : %s", map->line);
 		if (!ft_strncmp("NO ", map->line, 3) && load_texture(map, NO))
 			return (1);
 		if (!ft_strncmp("SO ", map->line, 3) && load_texture(map, SO))

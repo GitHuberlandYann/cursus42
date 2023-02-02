@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 19:54:23 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 09:37:15 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ typedef enum e_side {
 	NO,
 	SO,
 	WE,
-	EA
+	EA,
+	CUT
 }			t_side;
 
 typedef enum e_ground {
@@ -121,15 +122,13 @@ typedef struct s_parsing {
 typedef struct s_line {
 	t_vertice	pt1;
 	t_vertice	pt2;
+	t_side		side;
 }				t_line;
 
 typedef struct s_wall {
 	int				x;
 	int				y;
-	t_line			north;
-	t_line			south;
-	t_line			west;
-	t_line			east;
+	t_line			edges[4];
 	struct s_wall	*next;
 	struct s_wall	*last;
 }				t_wall;
@@ -203,6 +202,7 @@ int			mlx_exit(void *param);
 
 t_vertice	ray_walling(t_player *player, t_wall *walls, double angle);
 double		get_dist(t_vertice pt1, t_vertice pt2);
+void		set_point(t_vertice *pt, double x, double y, double z);
 
 // Outputs
 int			output_error(char *msg);

@@ -6,11 +6,40 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 19:10:18 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 09:47:30 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static t_wall	*get_wallat(t_wall *walls, int x, int y)
+{
+	while (walls)
+	{
+		if (walls->x == x && walls->y == y)
+			return (walls);
+		walls = walls->next;
+	}
+	return (0);
+}
+
+static void	remove_invisible_walls(t_wall *walls)
+{
+	t_wall	*other;
+
+	other = get_wallat(walls, walls->last->x - 1, walls->last->y);
+	if (other)
+	{
+		other->edges[EA].side = CUT;
+		walls->last->edges[WE].side = CUT;
+	}
+	other = get_wallat(walls, walls->last->x, walls->last->y - 1);
+	if (other)
+	{
+		other->edges[SO].side = CUT;
+		walls->last->edges[NO].side = CUT;
+	}
+}
 
 static t_wall	*new_wall(int x, int y)
 {
@@ -19,22 +48,18 @@ static t_wall	*new_wall(int x, int y)
 	res = ft_malloc(sizeof(*res), "add_wall");
 	res->x = x;
 	res->y = y;
-	res->north.pt1.x = x - 0.5;
-	res->north.pt1.y = y - 0.5;
-	res->north.pt2.x = x + 0.5;
-	res->north.pt2.y = y - 0.5;
-	res->east.pt1.x = x + 0.5;
-	res->east.pt1.y = y - 0.5;
-	res->east.pt2.x = x + 0.5;
-	res->east.pt2.y = y + 0.5;
-	res->south.pt1.x = x + 0.5;
-	res->south.pt1.y = y + 0.5;
-	res->south.pt2.x = x - 0.5;
-	res->south.pt2.y = y + 0.5;
-	res->west.pt1.x = x - 0.5;
-	res->west.pt1.y = y + 0.5;
-	res->west.pt2.x = x - 0.5;
-	res->west.pt2.y = y - 0.5;
+	set_point(&res->edges[NO].pt1, x - 0.5, y - 0.5, 0);
+	set_point(&res->edges[NO].pt2, x + 0.5, y - 0.5, 0);
+	res->edges[NO].side = NO;
+	set_point(&res->edges[EA].pt1, x + 0.5, y - 0.5, 0);
+	set_point(&res->edges[EA].pt2, x + 0.5, y + 0.5, 0);
+	res->edges[EA].side = EA;
+	set_point(&res->edges[SO].pt1, x + 0.5, y + 0.5, 0);
+	set_point(&res->edges[SO].pt2, x - 0.5, y + 0.5, 0);
+	res->edges[SO].side = SO;
+	set_point(&res->edges[WE].pt1, x - 0.5, y + 0.5, 0);
+	set_point(&res->edges[WE].pt2, x - 0.5, y - 0.5, 0);
+	res->edges[WE].side = WE;
 	res->next = 0;
 	res->last = 0;
 	return (res);
@@ -64,6 +89,7 @@ static int	add_wall(t_map *map, int x, int y)
 		if (y > map->o_down)
 			map->o_down = y;
 	}
+	remove_invisible_walls(map->walls);
 	return (0);
 }
 

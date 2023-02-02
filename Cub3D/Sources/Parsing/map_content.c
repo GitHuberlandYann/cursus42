@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 20:25:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 18:56:28 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/02 09:54:08 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	read_map(t_map *map, int fd)
 	map->player_count = 0;
 	while (map->line && ++line_number)
 	{
-		printf("curr map line : %s", map->line);
+		// printf("curr map line : %s", map->line);
 		if (add_line(&lines, map->line, line_number - 1))
 			return (free_return_lines(lines));
 		map->player_count += lines->last->player_count;
