@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/02/02 17:45:00 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/02/03 13:58:47 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,18 +35,23 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(Sources:.c=.o))
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
 
-MLX_DIR = mlx
+ifeq ($(shell uname),Linux)
+MLX_DIR = mlx_linux
 MLX_PATH = ${MLX_DIR}/libmlx.a
-
+MLX = -lmlx_linux -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz $(MLX_PATH)
+INCLUDES = -I Includes -I mlx_linux
+else
+MLX-DIR = mlx
+MLX_PATH = ${MLX_DIR}/libmlx.a
 MLX = -lmlx -Lmlx -framework OpenGl -framework AppKit $(MLX_PATH)
-
+INCLUDES = -I Includes -I mlx
+endif
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -O3
 SAN = -fsanitize=address -g
-INCLUDES = -I Includes -I mlx
 MATH = -lm
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
