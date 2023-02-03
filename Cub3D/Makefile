@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/02/03 15:11:25 by marvin           ###   ########.fr        #
+#    Updated: 2023/02/03 17:07:10 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ FILES_OUTPUTS = debug error
 
 FILES += $(addprefix Outputs/, $(FILES_OUTPUTS))
 
-FILES_PARSING = colors flood_fill header map map_content walls
+FILES_PARSING = colors doors flood_fill header map map_content walls
 
 FILES += $(addprefix Parsing/, $(FILES_PARSING))
 

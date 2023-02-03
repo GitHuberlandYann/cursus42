@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:54:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 15:36:22 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 17:46:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	line_from_map(char *str, int empty_allowed)
 	res = 0;
 	while (str[index])
 	{
-		if (!ft_strchr(" 01~_][NSWE\n", str[index]))
+		if (!ft_strchr(" 01D~_][NSWE\n", str[index]))
 			return (0);
 		else if (empty_allowed)
 			res = 1;

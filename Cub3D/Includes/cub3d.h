@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 16:06:55 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 17:04:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define MSG_TWOEA "Two different lines start with 'EA'"
 # define MSG_INVALIDCHAR "Invalid char found in map"
 # define MSG_NOPLAYER "No player found in map"
+# define MSG_DOOR_BORDER "Doors can't be at border of map"
+# define MSG_CENTER_DOOR "Doors must be between two walls and be accessible from both sides"
 # define MSG_ONEPORTAL "Only one portal in map"
 # define MSG_NOREACHPORTAL "Impossible to reach portals"
 # define MSG_UNCLOSED "Map isn't closed"
@@ -61,6 +63,7 @@ typedef enum e_side {
 	SO,
 	WE,
 	EA,
+	DOOR,
 	CUT
 }			t_side;
 
@@ -178,10 +181,19 @@ typedef struct s_wall {
 	struct s_wall	*last;
 }				t_wall;
 
+typedef struct s_door {
+	int				x;
+	int				y;
+	t_line			edges[3];
+	struct s_door	*next;
+	struct s_door	*last;
+}				t_door;
+
 typedef struct s_map {
 	int				player_count;
 	t_player		*player;
 	t_wall			*walls;
+	t_door			*doors;
 	int				portal_count;
 	t_line			portals[2];
 	char			*line;
@@ -276,5 +288,6 @@ int			read_map(t_map *map, int fd);
 int			flood_fill(t_parsing *current, int index, int *portals);
 int			free_return_lines(t_parsing *lines, t_map *map, int free_player);
 void		create_walls(t_map *map, t_parsing *lines);
+int			add_door(t_map *map, t_parsing *line, int x, int y);
 
 #endif
