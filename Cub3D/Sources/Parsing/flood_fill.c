@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:44:28 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 15:48:50 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 18:26:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,12 @@ int	flood_fill(t_parsing *current, int index, int *portals)
 	if ((!index && current->line[index] != '1')
 		|| current->line[index] == ' ' || current->line[index] == '\n')
 		return (1);
-	if (current->line[index] == '1' || current->line[index] == 'X')
+	if (current->line[index] == '1' || current->line[index] == 'X' || current->line[index] == 'd')
 		return (0);
-	current->line[index] = 'X';
+	if (current->line[index] != 'D')
+		current->line[index] = 'X';
+	else
+		current->line[index] = 'd';
 	res = flood_fill(current, index + 1, portals);
 	if (!res)
 		res = flood_fill(current, index - 1, portals);

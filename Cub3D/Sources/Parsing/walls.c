@@ -6,22 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 17:08:53 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 18:34:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static t_wall	*get_wallat(t_wall *walls, int x, int y)
-{
-	while (walls)
-	{
-		if (walls->x == x && walls->y == y)
-			return (walls);
-		walls = walls->next;
-	}
-	return (0);
-}
 
 static int	isthere_doorat(t_door *doors, int x, int y)
 {
@@ -61,7 +50,7 @@ static void	remove_invisible_walls(t_wall *walls, t_door *doors)
 	{
 		remove_wall = isthere_doorat(doors, walls->last->x, walls->last->y - 1);
 		if (remove_wall)
-			walls->last->edges[WE].side = CUT;
+			walls->last->edges[NO].side = CUT;
 	}
 }
 
@@ -137,6 +126,17 @@ static void	free_return_all(t_parsing *lines, t_map *map)
 	free_return_lines(lines, map, 1);
 }
 
+t_wall	*get_wallat(t_wall *walls, int x, int y)
+{
+	while (walls)
+	{
+		if (walls->x == x && walls->y == y)
+			return (walls);
+		walls = walls->next;
+	}
+	return (0);
+}
+
 void	create_walls(t_map *map, t_parsing *lines)
 {
 	int			index;
@@ -152,7 +152,7 @@ void	create_walls(t_map *map, t_parsing *lines)
 		{
 			if (tmp->line[index] == '1')
 				add_wall(map, index, y);
-			else if (tmp->line[index] == 'D' && add_door(map, tmp, index, y))
+			else if (tmp->line[index] == 'd' && add_door(map, tmp, index, y))
 				return (free_return_all(lines, map));
 			++index;
 		}

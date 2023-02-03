@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/02/03 17:07:10 by marvin           ###   ########.fr        #
+#    Updated: 2023/02/03 19:08:58 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJS_DIR_SOURCES = Objs/Sources
 FILES = main
 
 FILES_GRAPHICS = exec_keys image keys math_utils minimap minimap_follow \
-				mlx_manager mouse ray_casting
+				mlx_manager mouse ray_casting ray_dooring
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
 

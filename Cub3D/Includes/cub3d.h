@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 17:04:08 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 19:45:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ enum {
 	KEY_DOWN = 65364,
 	KEY_LEFT = 65361,
 	KEY_SHIFT = 65505,
+	KEY_SPACE = 32,
 	KEY_0 = 65438,
 	KEY_1 = 65436,
 	KEY_2 = 65433,
@@ -129,6 +130,7 @@ enum {
 	KEY_DOWN = 125,
 	KEY_LEFT = 123,
 	KEY_SHIFT = 0,// TODO
+	KEY_SPACE = 0,//TODO
 	KEY_0 = 82,
 	KEY_1 = 83,
 	KEY_2 = 84,
@@ -228,6 +230,7 @@ typedef struct s_key {
 	int	fov_dist;
 	int	mini_follow;
 	int	mousedate;
+	int	door;
 }				t_key;
 
 typedef struct s_mlx
@@ -241,6 +244,7 @@ typedef struct s_mlx
 }				t_mlx;
 
 typedef struct s_settings {
+	double	ray_angle;
 	double	fov_width;
 	int		fov_enable;
 	double	fov_dist;
@@ -269,7 +273,11 @@ int			mouse_move(int x, int y, t_cub *cub);
 int			redraw_all(t_cub *cub);
 int			mlx_exit(void *param);
 
-t_vertice	ray_walling(t_player *player, t_wall *walls, double angle, t_settings *settings);
+t_vertice	ray_walling(t_player *player, t_wall *walls, t_settings *settings);
+t_vertice	ray_dooring(t_player *player, t_door *doors, t_vertice shortest, t_settings *settings);
+void		try_door(t_player *player, t_door *doors);
+t_vertice	get_inter(t_vertice pt1, t_vertice pt2, t_vertice pt3, t_vertice pt4);
+t_vertice	get_inter_fov(t_vertice pt1, t_vertice pt2, t_vertice pt3, t_vertice pt4);
 double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);
 void		set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale);
@@ -288,6 +296,7 @@ int			read_map(t_map *map, int fd);
 int			flood_fill(t_parsing *current, int index, int *portals);
 int			free_return_lines(t_parsing *lines, t_map *map, int free_player);
 void		create_walls(t_map *map, t_parsing *lines);
+t_wall		*get_wallat(t_wall *walls, int x, int y);
 int			add_door(t_map *map, t_parsing *line, int x, int y);
 
 #endif

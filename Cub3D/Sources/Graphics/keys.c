@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:51:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 14:55:48 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 19:44:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	key_down(int kcode, t_cub *cub)
 		cub->settings->fov_enable = !cub->settings->fov_enable;
 	else if (kcode == KEY_M && ++cub->mlx->keys->mini_follow == 1)
 		cub->settings->mini_follow = !cub->settings->mini_follow;
+	else if (kcode == KEY_SPACE && ++cub->mlx->keys->door == 1)
+		try_door(cub->map->player, cub->map->doors);
 	return (0);
 }
 
@@ -60,5 +62,7 @@ int	key_released(int kcode, t_cub *cub)
 		cub->mlx->keys->fov_enable = 0;
 	else if (kcode == KEY_M)
 		cub->mlx->keys->mini_follow = 0;
+	else if (kcode == KEY_SPACE)
+		cub->mlx->keys->door = 0;
 	return (0);
 }

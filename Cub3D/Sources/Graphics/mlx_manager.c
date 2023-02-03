@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 15:15:53 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 19:26:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static t_mlx	*ft_mlx_init(char *title)
 	mlx->keys->fov_dist = 0;
 	mlx->keys->mini_follow = 0;
 	mlx->keys->mousedate = 0;
+	mlx->keys->door = 0;
 	mlx->mouse_pos.z = 1;
 	return (mlx);
 }

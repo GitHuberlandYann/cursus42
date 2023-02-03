@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_follow.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:58:15 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 16:19:33 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:22:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,39 @@
 	// printf("[%lf;%lf] -> [%lf;%lf]\n", start.x, start.y, finish.x, finish.y);
 static void	draw_walls(t_img *img, t_wall *wall, t_map *map)
 {
+	int			index;
 	t_vertice	start;
 	t_vertice	finish;
 
-	if (wall->edges[NO].side != CUT)
+	index = 0;
+	while (index < 4)
 	{
-		set_point_follow(&start, &wall->edges[NO].pt1, map, 1);
-		set_point_follow(&finish, &wall->edges[NO].pt2, map, 1);
-		mlx_draw_line(img, start, finish, WHITE);
+		if (wall->edges[index].side != CUT)
+		{
+			set_point_follow(&start, &wall->edges[index].pt1, map, 1);
+			set_point_follow(&finish, &wall->edges[index].pt2, map, 1);
+			mlx_draw_line(img, start, finish, WHITE);
+		}
+		++index;
 	}
-	if (wall->edges[SO].side != CUT)
+}
+
+static void	draw_door(t_img *img, t_door *door, t_map *map)
+{
+	int			index;
+	t_vertice	start;
+	t_vertice	finish;
+
+	index = 0;
+	while (index < 3)
 	{
-		set_point_follow(&start, &wall->edges[SO].pt1, map, 1);
-		set_point_follow(&finish, &wall->edges[SO].pt2, map, 1);
-		mlx_draw_line(img, start, finish, WHITE);
-	}
-	if (wall->edges[WE].side != CUT)
-	{
-		set_point_follow(&start, &wall->edges[WE].pt1, map, 1);
-		set_point_follow(&finish, &wall->edges[WE].pt2, map, 1);
-		mlx_draw_line(img, start, finish, WHITE);
-	}
-	if (wall->edges[EA].side != CUT)
-	{
-		set_point_follow(&start, &wall->edges[EA].pt1, map, 1);
-		set_point_follow(&finish, &wall->edges[EA].pt2, map, 1);
-		mlx_draw_line(img, start, finish, WHITE);
+		if (door->edges[index].side != CUT)
+		{
+			set_point_follow(&start, &door->edges[index].pt1, map, 1);
+			set_point_follow(&finish, &door->edges[index].pt2, map, 1);
+			mlx_draw_line(img, start, finish, WHITE);
+		}
+		++index;
 	}
 }
 
@@ -78,31 +85,38 @@ static void	draw_player(t_img *img, t_player *player, t_map *map)
 
 static void	draw_rays(t_img *img, t_player *player, t_map *map, t_settings *settings)
 {
-	double		angle;
 	t_vertice	intersection;
 	t_vertice	start;
 	t_vertice	finish;
 
-	angle = player->direction - settings->fov_width / 2;
-	while (angle < player->direction + settings->fov_width / 2)
+	settings->ray_angle = player->direction - settings->fov_width / 2;
+	while (settings->ray_angle < player->direction + settings->fov_width / 2)
 	{
-		intersection = ray_walling(player, map->walls, angle, settings);
+		intersection = ray_walling(player, map->walls, settings);
+		intersection = ray_dooring(player, map->doors, intersection, settings);
 		set_point_follow(&start, &map->player->pos, map, 1);
 		set_point_follow(&finish, &intersection, map, 1);
 		mlx_draw_line(img, start, finish, LIGHT_WHITE);
-		angle += 0.001;
+		settings->ray_angle += 0.001;
 	}
 }
 
 void	fill_minimap_follow(t_cub *cub)
 {
 	t_wall	*wall;
+	t_door	*door;
 
 	wall = cub->map->walls;
 	while (wall)
 	{
 		draw_walls(cub->mlx->minimap, wall, cub->map);
 		wall = wall->next;
+	}
+	door = cub->map->doors;
+	while (door)
+	{
+		draw_door(cub->mlx->minimap, door, cub->map);
+		door = door->next;
 	}
 	draw_player(cub->mlx->minimap, cub->map->player, cub->map);
 	draw_rays(cub->mlx->minimap, cub->map->player, cub->map, cub->settings);

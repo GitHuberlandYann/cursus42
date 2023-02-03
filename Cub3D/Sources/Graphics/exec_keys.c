@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:59:54 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 15:16:15 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 19:43:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 
 	if (keys->vertical)
 	{
-		wall_sensor = ray_walling(cub->map->player, cub->map->walls,
-				cub->map->player->direction + M_PI * (keys->vertical == -1), cub->settings);
+		cub->settings->ray_angle = cub->map->player->direction + M_PI * (keys->vertical == -1);
+		wall_sensor = ray_walling(cub->map->player, cub->map->walls, cub->settings);
+		wall_sensor = ray_dooring(cub->map->player, cub->map->doors, wall_sensor, cub->settings);
 		if (get_dist(cub->map->player->pos, wall_sensor) > cub->map->player->speed * (1 + keys->sprint))
 		{
 			cub->map->player->pos.x += cos(cub->map->player->direction) * cub->map->player->speed * (1 + keys->sprint) * keys->vertical;
@@ -28,8 +29,9 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 	}
 	if (keys->horizontal)
 	{
-		wall_sensor = ray_walling(cub->map->player, cub->map->walls,
-				cub->map->player->direction + M_PI / 2 * keys->horizontal, cub->settings);
+		cub->settings->ray_angle = cub->map->player->direction + M_PI / 2 * keys->horizontal;
+		wall_sensor = ray_walling(cub->map->player, cub->map->walls, cub->settings);
+		wall_sensor = ray_dooring(cub->map->player, cub->map->doors, wall_sensor, cub->settings);
 		if (get_dist(cub->map->player->pos, wall_sensor) > cub->map->player->speed * (1 + keys->sprint))
 		{
 			cub->map->player->pos.x += cos(cub->map->player->direction + M_PI / 2) * cub->map->player->speed * (1 + keys->sprint) * keys->horizontal;
@@ -52,7 +54,7 @@ int	redraw_all(t_cub *cub)
 	key = cub->mlx->keys;
 	if (!key->horizontal && !key->vertical && !key->steering && !key->fov_width
 		&& key->fov_enable != 1 && !key->fov_dist && key->mini_follow != 1
-		&& !key->mousedate)
+		&& !key->mousedate && key->door != 1)
 		return (1);
 	if (key->mousedate)
 		key->mousedate = 0;
