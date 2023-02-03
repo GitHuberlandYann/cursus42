@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 15:33:26 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 16:06:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,9 @@ typedef struct s_vertice
 
 typedef struct s_player {
 	t_vertice	pos;
-	double	direction;
-	double	size;
-	double	speed;
+	double		direction;
+	double		size;
+	double		speed;
 }				t_player;
 
 typedef struct s_parsing {
@@ -274,7 +274,7 @@ int			read_first_lines(t_map *map, int fd);
 int			transform_color(t_map *map, t_ground ground);
 int			read_map(t_map *map, int fd);
 int			flood_fill(t_parsing *current, int index, int *portals);
-int			free_return_lines(t_parsing *lines, t_map *map);
+int			free_return_lines(t_parsing *lines, t_map *map, int free_player);
 void		create_walls(t_map *map, t_parsing *lines);
 
 #endif

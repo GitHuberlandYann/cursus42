@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 15:45:26 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 16:06:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ static void	free_textures(t_map *map, int res)
 	}
 }
 
-int	free_return_lines(t_parsing *lines, t_map *map)
+int	free_return_lines(t_parsing *lines, t_map *map, int free_player)
 {
 	t_parsing	*tmp;
 
-	if (map->player_count == 1)
+	if (free_player)
 		free(map->player);
 	while (lines)
 	{

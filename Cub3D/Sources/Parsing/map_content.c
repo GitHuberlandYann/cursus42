@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 20:25:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 15:33:07 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 16:07:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,12 @@ int	read_map(t_map *map, int fd)
 	{
 		// printf("curr map line : %s", map->line);
 		if (add_line(&lines, map->line, line_number - 1))
-			return (free_return_lines(lines, map));
+			return (free_return_lines(lines, map, map->player_count == 1));
 		map->player_count += lines->last->player_count;
 		map->portal_count += lines->last->portal_count;
 		if (map->player_count > 1 || map->portal_count > 2)
 		{
-			free_return_lines(lines, map);
+			free_return_lines(lines, map, map->player_count > 0);
 			if (map->player_count > 1)
 				return (output_error(MSG_TOOMANYPLAYERS));
 			return (output_error(MSG_TOOMANYPORTALS));
@@ -145,7 +145,7 @@ int	read_map(t_map *map, int fd)
 	if (map->player_count == 1)
 		init_player(map, lines->player_line);
 	if (error_check(map, lines))
-		return (free_return_lines(lines, map));
+		return (free_return_lines(lines, map, map->player_count == 1));
 	create_walls(map, lines);
 	return (!map->walls);
 }
