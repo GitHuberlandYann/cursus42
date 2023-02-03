@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 14:19:39 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 15:15:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define MSG_TOOMANYPORTALS "More than 2 portals in map"
 
 # if __linux__
-#  define WIN_WIDTH 1920
+#  define WIN_WIDTH 1800
 #  define WIN_HEIGHT 900
 #  define MINIMAP_WIDTH 800
 # else
@@ -90,11 +90,11 @@ enum { //mouse buttons
 
 # if __linux__
 enum {
-	KEY_A = 97,
+	KEY_A = 113,
 	KEY_D = 100,
 	KEY_M = 109,
 	KEY_S = 115,
-	KEY_W = 119,
+	KEY_W = 122,
 	KEY_ESC = 65307,
 	KEY_PLUS = 61,
 	KEY_MINUS = 45,
@@ -102,6 +102,7 @@ enum {
 	KEY_RIGHT = 65363,
 	KEY_DOWN = 65364,
 	KEY_LEFT = 65361,
+	KEY_SHIFT = 65505,
 	KEY_0 = 65438,
 	KEY_1 = 65436,
 	KEY_2 = 65433,
@@ -124,6 +125,7 @@ enum {
 	KEY_RIGHT = 124,
 	KEY_DOWN = 125,
 	KEY_LEFT = 123,
+	KEY_SHIFT = 0,// TODO
 	KEY_0 = 82,
 	KEY_1 = 83,
 	KEY_2 = 84,
@@ -146,6 +148,7 @@ typedef struct s_player {
 	t_vertice	pos;
 	double	direction;
 	double	size;
+	double	speed;
 }				t_player;
 
 typedef struct s_parsing {
@@ -206,20 +209,23 @@ typedef struct s_img {
 typedef struct s_key {
 	int	vertical;
 	int	horizontal;
+	int	sprint;
 	int	steering;
 	int	fov_width;
 	int	fov_enable;
 	int	fov_dist;
 	int	mini_follow;
+	int	mousedate;
 }				t_key;
 
 typedef struct s_mlx
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	*minimap;
-	t_img	*(textures[4]);
-	t_key	*keys;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_img		*minimap;
+	t_img		*(textures[4]);
+	t_key		*keys;
+	t_vertice	mouse_pos;
 }				t_mlx;
 
 typedef struct s_settings {
@@ -247,6 +253,7 @@ void		mlx_pxl_put(t_img *img, t_vertice pt, unsigned int color);
 
 int			key_down(int kcode, t_cub *cub);
 int			key_released(int kcode, t_cub *cub);
+int			mouse_move(int x, int y, t_cub *cub);
 int			redraw_all(t_cub *cub);
 int			mlx_exit(void *param);
 
