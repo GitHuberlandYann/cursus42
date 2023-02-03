@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:03:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/31 18:28:58 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/03 13:48:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ int	output_error(char *msg)
 	len = 0;
 	while (msg[len])
 		++len;
-	write(2, msg, len);
-	return (1);
+	return (write(2, msg, len));
 }

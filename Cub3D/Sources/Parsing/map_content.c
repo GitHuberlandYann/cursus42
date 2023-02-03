@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_content.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 20:25:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 18:15:43 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/03 13:52:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ static int	error_check(t_map *map, t_parsing *lines)
 	{
 		printf("debug : 1 portal reachable at first\n");
 		index = 0;
-		while (lines->portal_line->line[index]
-			&& !ft_strchr("~_][", lines->portal_line->line[index]))
+		while (lines->portal_line[0]->line[index]
+			&& !ft_strchr("~_][", lines->portal_line[0]->line[index]))
 			++index;
-		if (flood_fill(lines->portal_line, index, &map->portal_count))
+		if (flood_fill(lines->portal_line[0], index, &map->portal_count))
 			return (output_error(MSG_UNCLOSED));
 	}
 	return (0);

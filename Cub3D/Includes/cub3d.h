@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 17:22:32 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:19:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,15 @@
 # define MSG_TOOMANYPLAYERS "More than 1 player in map"
 # define MSG_TOOMANYPORTALS "More than 2 portals in map"
 
-# define WIN_WIDTH 2560
-# define WIN_HEIGHT 1400
-# define MINIMAP_WIDTH 1200
+# if __linux__
+#  define WIN_WIDTH 1920
+#  define WIN_HEIGHT 900
+#  define MINIMAP_WIDTH 800
+# else
+#  define WIN_WIDTH 2560
+#  define WIN_HEIGHT 1400
+#  define MINIMAP_WIDTH 1200
+# endif
 
 # define WHITE 0xffffff
 # define LIGHT_WHITE 0x949494
@@ -82,6 +88,29 @@ enum { //mouse buttons
 	MOUSE_WHEEL_LEFT = 7
 };
 
+# if __linux__
+enum {
+	KEY_A = 97,
+	KEY_D = 100,
+	KEY_M = 109,
+	KEY_S = 115,
+	KEY_W = 119,
+	KEY_ESC = 65307,
+	KEY_PLUS = 61,
+	KEY_MINUS = 45,
+	KEY_UP = 65362,
+	KEY_RIGHT = 65363,
+	KEY_DOWN = 65364,
+	KEY_LEFT = 65361,
+	KEY_0 = 65438,
+	KEY_1 = 65436,
+	KEY_2 = 65433,
+	KEY_3 = 65435,
+	KEY_ASTERISK = 65450,
+	KEY_PLUS_PAD = 65451,
+	KEY_MINUS_PAD = 65453
+};
+# else
 enum {
 	KEY_A = 0,
 	KEY_D = 2,
@@ -103,6 +132,7 @@ enum {
 	KEY_PLUS_PAD = 69,
 	KEY_MINUS_PAD = 78
 };
+# endif
 
 // Structures
 typedef struct s_vertice

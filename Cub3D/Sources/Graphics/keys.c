@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:51:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 13:25:39 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:17:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	key_down(int kcode, t_cub *cub)
 
 int	key_released(int kcode, t_cub *cub)
 {
+	printf("key %10d\n", kcode);
 	if (kcode == KEY_UP || kcode == KEY_DOWN)
 		cub->mlx->keys->vertical = 0;
 	else if (kcode == KEY_LEFT || kcode == KEY_RIGHT)

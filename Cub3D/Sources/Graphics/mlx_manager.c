@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 11:55:40 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:08:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	launch_mlx(t_map *map, char	*title)
 	fill_minimap(&cub);
 	mlx_put_image_to_window(cub.mlx->mlx_ptr, cub.mlx->win_ptr,
 		cub.mlx->minimap->img_ptr, (WIN_WIDTH - MINIMAP_WIDTH) / 4, (WIN_HEIGHT - MINIMAP_WIDTH) / 4);
-	mlx_hook(cub.mlx->win_ptr, ON_KEYDOWN, 0, key_down, &cub);
-	mlx_hook(cub.mlx->win_ptr, ON_KEYUP, 0, key_released, &cub);
+	mlx_hook(cub.mlx->win_ptr, ON_KEYDOWN, 1L<<0, key_down, &cub);
+	mlx_hook(cub.mlx->win_ptr, ON_KEYUP, 1L<<1, key_released, &cub);
 	mlx_hook(cub.mlx->win_ptr, ON_DESTROY, 0, mlx_exit, 0);
 	mlx_loop_hook(cub.mlx->mlx_ptr, redraw_all, &cub);
 	// mlx_mouse_hook(cub.mlx->win_ptr, mouse_button_pressed, &cub);

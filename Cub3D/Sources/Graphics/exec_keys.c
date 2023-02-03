@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_keys.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:59:54 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 11:55:14 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/03 13:46:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 			cub->map->player->pos.y -= sin(cub->map->player->direction) * 0.2 * keys->vertical;
 		}
 	}
-	if (keys->horizontal)
-		;
 	cub->map->player->direction += keys->steering * 0.1;
 	if (keys->fov_width < 0 && cub->settings->fov_width > M_PI / 10)
 		cub->settings->fov_width -= M_PI / 180;
