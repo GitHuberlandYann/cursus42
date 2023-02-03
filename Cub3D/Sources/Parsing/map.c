@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/01 17:00:09 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/03 15:45:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ static int	check_filename(char *file)
 	return (0);
 }
 
-static int	free_textures(t_map *map, int res)
+static int	check_header(t_map *map, int res)
 {
-	map->line = 0;
 	if (!res)
 	{
 		res = (map->fc_colors[FLOOR] == 0x1000000)
@@ -34,8 +33,15 @@ static int	free_textures(t_map *map, int res)
 				+ !map->textures[NO] + !map->textures[SO] + !map->textures[WE]
 				+!map->textures[EA];
 		if (res)
+		{
 			output_error("Missing line in header of map");
+			free(map->line);
+		}
 	}
+	return (res);
+}
+static void	free_textures(t_map *map, int res)
+{
 	if (res)
 	{
 		free(map->textures[NO]);
@@ -43,13 +49,14 @@ static int	free_textures(t_map *map, int res)
 		free(map->textures[WE]);
 		free(map->textures[EA]);
 	}
-	return (res);
 }
 
-int	free_return_lines(t_parsing *lines)
+int	free_return_lines(t_parsing *lines, t_map *map)
 {
 	t_parsing	*tmp;
 
+	if (map->player_count == 1)
+		free(map->player);
 	while (lines)
 	{
 		free(lines->line);
@@ -79,9 +86,10 @@ int	load_map(t_map *map, char *file)
 	map->fc_colors[CEILLING] = 0x1000000;
 	map->walls = 0;
 	res = read_first_lines(map, fd);
+	res = check_header(map, res);
 	if (!res)
 		res = read_map(map, fd);
 	close(fd);
-	res = free_textures(map, res);
+	free_textures(map, res);
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 15:15:39 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/03 15:33:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,7 @@ int			read_first_lines(t_map *map, int fd);
 int			transform_color(t_map *map, t_ground ground);
 int			read_map(t_map *map, int fd);
 int			flood_fill(t_parsing *current, int index, int *portals);
-int			free_return_lines(t_parsing *lines);
+int			free_return_lines(t_parsing *lines, t_map *map);
 void		create_walls(t_map *map, t_parsing *lines);
 
 #endif

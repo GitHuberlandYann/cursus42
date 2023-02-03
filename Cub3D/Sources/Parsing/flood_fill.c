@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:44:28 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 17:55:53 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/03 15:48:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ int	flood_fill(t_parsing *current, int index, int *portals)
 {
 	int	res;
 
+	if (!current || index >= current->size)
+		return (1);
 	if (ft_strchr("~_][", current->line[index]))
 		return (border_portal(current, index, portals));
-	if ((!index && current->line[index] != '1') || !current || index >= current->size
+	if ((!index && current->line[index] != '1')
 		|| current->line[index] == ' ' || current->line[index] == '\n')
 		return (1);
 	if (current->line[index] == '1' || current->line[index] == 'X')
