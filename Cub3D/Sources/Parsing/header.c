@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:54:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 17:46:18 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/04 15:18:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	line_from_map(char *str, int empty_allowed)
 	res = 0;
 	while (str[index])
 	{
-		if (!ft_strchr(" 01D~_][NSWE\n", str[index]))
+		if (!ft_strchr(" 01DPNSWE\n", str[index]))
 			return (0);
 		else if (empty_allowed)
 			res = 1;
@@ -69,6 +69,8 @@ int	read_first_lines(t_map *map, int fd)
 		if (!ft_strncmp("F ", map->line, 2) && transform_color(map, FLOOR))
 			return (free_return_line(map->line));
 		if (!ft_strncmp("C ", map->line, 2) && transform_color(map, CEILLING))
+			return (free_return_line(map->line));
+		if (!ft_strncmp("LINK ", map->line, 5) && link_portals(map))
 			return (free_return_line(map->line));
 		free(map->line);
 		map->line = get_next_line(fd);

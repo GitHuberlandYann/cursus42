@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 18:34:02 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/04 15:39:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,14 @@ static int	add_wall(t_map *map, int x, int y)
 
 static void	free_return_all(t_parsing *lines, t_map *map)
 {
-	t_wall	*tmp;
-	t_door	*tmp_door;
+	t_wall		*tmp_wall;
+	t_door		*tmp_door;
 
 	while (map->walls)
 	{
-		tmp = map->walls;
+		tmp_wall = map->walls;
 		map->walls = map->walls->next;
-		free(tmp);
+		free(tmp_wall);
 	}
 	while (map->doors)
 	{
@@ -145,6 +145,7 @@ void	create_walls(t_map *map, t_parsing *lines)
 	
 	tmp = lines;
 	y = 0;
+	map->portal_count = 0;
 	while (tmp)
 	{
 		index = 0;
@@ -152,13 +153,17 @@ void	create_walls(t_map *map, t_parsing *lines)
 		{
 			if (tmp->line[index] == '1')
 				add_wall(map, index, y);
-			else if (tmp->line[index] == 'd' && add_door(map, tmp, index, y))
+			else if (ft_strchr("dD", tmp->line[index]) && add_door(map, tmp, index, y))
+				return (free_return_all(lines, map));
+			else if (tmp->line[index] == 'P' && set_portal(map, tmp, index, y))
 				return (free_return_all(lines, map));
 			++index;
 		}
 		++y;
 		tmp = tmp->next;
 	}
+	if (link_empty(map))
+		return (free_return_all(lines, map));
 	free_return_lines(lines, map, 0);
 	map->map_width = map->o_right - map->o_left;
 	map->map_height = map->o_down - map->o_up;

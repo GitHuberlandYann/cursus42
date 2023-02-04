@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 18:18:40 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/04 14:35:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,20 @@ static int	check_header(t_map *map, int res)
 }
 static void	free_textures(t_map *map, int res)
 {
+	t_portal	*tmp;
+
 	if (res)
 	{
 		free(map->textures[NO]);
 		free(map->textures[SO]);
 		free(map->textures[WE]);
 		free(map->textures[EA]);
+		while (map->portals)
+		{
+			tmp = map->portals;
+			map->portals = map->portals->next;
+			free(tmp);
+		}
 	}
 }
 
@@ -85,6 +93,8 @@ int	load_map(t_map *map, char *file)
 	map->fc_colors[FLOOR] = 0x1000000;
 	map->fc_colors[CEILLING] = 0x1000000;
 	map->walls = 0;
+	map->doors = 0;
+	map->portals = 0;
 	res = read_first_lines(map, fd);
 	res = check_header(map, res);
 	if (!res)

@@ -6,48 +6,33 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:44:28 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 18:26:32 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/04 14:23:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	border_portal(t_parsing *current, int index, int *portals)
-{
-	--(*portals);
-	return ((ft_strchr("~_", current->line[index]) && (!index || index >= current->size
-		|| ft_strchr("0 []", current->line[index - 1])
-		|| ft_strchr("0 []", current->line[index + 1])))
-		|| (ft_strchr("[]", current->line[index]) && (!current->prev
-		|| index >= current->prev->size
-		|| ft_strchr("0 ~_", current->prev->line[index])
-		|| !current->next || index >= current->next->size
-		|| ft_strchr("0 ~_", current->next->line[index]))));
-}
-
-int	flood_fill(t_parsing *current, int index, int *portals)
+int	flood_fill(t_parsing *current, int index)
 {
 	int	res;
 
 	if (!current || index >= current->size)
 		return (1);
-	if (ft_strchr("~_][", current->line[index]))
-		return (border_portal(current, index, portals));
 	if ((!index && current->line[index] != '1')
 		|| current->line[index] == ' ' || current->line[index] == '\n')
 		return (1);
-	if (current->line[index] == '1' || current->line[index] == 'X' || current->line[index] == 'd')
+	if (ft_strchr("1XdP", current->line[index]))
 		return (0);
 	if (current->line[index] != 'D')
 		current->line[index] = 'X';
 	else
 		current->line[index] = 'd';
-	res = flood_fill(current, index + 1, portals);
+	res = flood_fill(current, index + 1);
 	if (!res)
-		res = flood_fill(current, index - 1, portals);
+		res = flood_fill(current, index - 1);
 	if (!res)
-		res = flood_fill(current->prev, index, portals);
+		res = flood_fill(current->prev, index);
 	if (!res)
-		res = flood_fill(current->next, index, portals);
+		res = flood_fill(current->next, index);
 	return (res);
 }

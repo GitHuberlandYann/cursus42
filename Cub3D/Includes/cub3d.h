@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 19:45:02 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/04 15:27:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,25 @@
 # define MSG_TWOSO "Two different lines start with 'SO'"
 # define MSG_TWOWE "Two different lines start with 'WE'"
 # define MSG_TWOEA "Two different lines start with 'EA'"
+# define MSG_RGBZEROPAD "RGB values can't be zero-padded"
+# define MSG_RGB255 "RGB values can't be greater than 255"
+# define MSG_RGBUNSET "Unset or incorrect RGB value"
+# define MSG_FCEND "F/C line has unwanted elements ending it"
+# define MSG_LINKZEROPAD "Portal index can't be zero-padded"
+# define MSG_LINK255 "Portal index can't go above 255"
+# define MSG_LINKUNSET "Unset or incorrect portal index"
+# define MSG_LINKEND "LINK line has unwanted elements ending it"
 # define MSG_INVALIDCHAR "Invalid char found in map"
 # define MSG_NOPLAYER "No player found in map"
 # define MSG_DOOR_BORDER "Doors can't be at border of map"
 # define MSG_CENTER_DOOR "Doors must be between two walls and be accessible from both sides"
-# define MSG_ONEPORTAL "Only one portal in map"
-# define MSG_NOREACHPORTAL "Impossible to reach portals"
+# define MSG_PORTAL_BORDER "Portals can't be at border of map"
+# define MSG_CENTER_PORTAL "Portals must be between exactly three walls"
 # define MSG_UNCLOSED "Map isn't closed"
+# define MSG_UNCLOSEDPORTAL "Portal leads to unclosed room"
 # define MSG_TOOMANYPLAYERS "More than 1 player in map"
-# define MSG_TOOMANYPORTALS "More than 2 portals in map"
+# define MSG_NOLINK "Link missing for one of the portals"
+# define MSG_UNUSEDLINK "No portal matching one of the links"
 
 # if __linux__
 #  define WIN_WIDTH 1800
@@ -158,7 +168,6 @@ typedef struct s_player {
 
 typedef struct s_parsing {
 	int					player_count;
-	int					portal_count;
 	char				*line;
 	int					line_number;
 	int					size;
@@ -166,7 +175,6 @@ typedef struct s_parsing {
 	struct s_parsing	*next;
 	struct s_parsing	*last;
 	struct s_parsing	*player_line;
-	struct s_parsing	*(portal_line[2]);
 }				t_parsing;
 
 typedef struct s_line {
@@ -191,13 +199,23 @@ typedef struct s_door {
 	struct s_door	*last;
 }				t_door;
 
+typedef struct s_portal {
+	int				x;
+	int				y;
+	t_line			pline;
+	int				num;
+	int				link;
+	struct s_portal	*next;
+	struct s_portal	*last;
+}				t_portal;
+
 typedef struct s_map {
 	int				player_count;
 	t_player		*player;
 	t_wall			*walls;
 	t_door			*doors;
 	int				portal_count;
-	t_line			portals[2];
+	t_portal		*portals;
 	char			*line;
 	char			*(textures[4]);
 	unsigned int	fc_colors[2];
@@ -292,11 +310,15 @@ int			load_map(t_map *map, char *file);
 int			line_from_map(char *str, int empty_allowed);
 int			read_first_lines(t_map *map, int fd);
 int			transform_color(t_map *map, t_ground ground);
+int			only_spaces(t_map *map, int index);
+int			link_portals(t_map *map);
 int			read_map(t_map *map, int fd);
-int			flood_fill(t_parsing *current, int index, int *portals);
+int			flood_fill(t_parsing *current, int index);
 int			free_return_lines(t_parsing *lines, t_map *map, int free_player);
 void		create_walls(t_map *map, t_parsing *lines);
 t_wall		*get_wallat(t_wall *walls, int x, int y);
 int			add_door(t_map *map, t_parsing *line, int x, int y);
+int			set_portal(t_map *map, t_parsing *line, int x, int y);
+int			link_empty(t_map *map);
 
 #endif

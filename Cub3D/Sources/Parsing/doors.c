@@ -61,9 +61,9 @@ int	add_door(t_map *map, t_parsing *line, int x, int y)
 
 	if (!x || !y || !line->next || x >= line->prev->size || x >= line->next->size)
 		return (output_error(MSG_DOOR_BORDER));
-	if (line->line[x - 1] == '1' && line->line[x + 1] == '1' && ft_strchr("Xd", line->prev->line[x]) && ft_strchr("Xd", line->next->line[x]))
+	if (line->line[x - 1] == '1' && line->line[x + 1] == '1' && line->prev->line[x] != '1' && line->next->line[x] != '1')
 		orientation = NO;
-	else if (line->prev->line[x] == '1' && line->next->line[x] == '1' && ft_strchr("Xd", line->line[x - 1]) && ft_strchr("Xd", line->line[x + 1]))
+	else if (line->prev->line[x] == '1' && line->next->line[x] == '1' && line->line[x - 1] != '1' && line->line[x + 1] != '1')
 		orientation = WE;
 	else
 		return (output_error(MSG_CENTER_DOOR));
