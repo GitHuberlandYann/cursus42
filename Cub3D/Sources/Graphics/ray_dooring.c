@@ -1,14 +1,15 @@
 //header
 #include "cub3d.h"
 
-static t_vertice	ray_dooring_fov(t_player *player, t_door *doors, t_vertice shortest, t_settings *settings)
+static void	ray_dooring_fov(t_player *player, t_door *doors, t_ray *ray, t_settings *settings)
 {
 	int			index;
 	t_vertice	pt4;
 	t_vertice	intersection;
+	double		dist;
 
-	pt4.x = player->pos.x + cos(settings->ray_angle) * settings->fov_dist;
-	pt4.y = player->pos.y - sin(settings->ray_angle) * settings->fov_dist;
+	pt4.x = player->pos.x + cos(ray->angle) * settings->fov_dist;
+	pt4.y = player->pos.y - sin(ray->angle) * settings->fov_dist;
 	while (doors)
 	{
 		index = 0;
@@ -16,35 +17,38 @@ static t_vertice	ray_dooring_fov(t_player *player, t_door *doors, t_vertice shor
 		{
 			if (doors->edges[index].side != CUT)
 			{
-				intersection = get_inter_fov(player->pos, pt4, doors->edges[index].pt1, doors->edges[index].pt2);
-				if (intersection.z && get_dist(player->pos, intersection) < shortest.z)
+				intersection = get_inter_fov(ray, pt4, doors->edges[index].pt1, doors->edges[index].pt2);
+				dist = get_dist(player->pos, intersection);
+				if (intersection.z && dist < ray->dist)
 				{
-					shortest = intersection;
-					shortest.z = get_dist(player->pos, intersection);
+					ray->ray.pt2 = intersection;
+					ray->dist = dist;
+					ray->hit = doors->edges[index].side;
 				}
-				else if (!intersection.z && settings->fov_dist < shortest.z)
+				else if (!intersection.z && settings->fov_dist < ray->dist)
 				{
-					shortest = pt4;
-					shortest.z = settings->fov_dist;
+					ray->ray.pt2 = pt4;
+					ray->dist = settings->fov_dist;
+					ray->hit = CUT;
 				}
 			}
 			++index;
 		}
 		doors = doors->next;
 	}
-	return (shortest);
 }
 
-t_vertice	ray_dooring(t_player *player, t_door *doors, t_vertice shortest, t_settings *settings)
+void	ray_dooring(t_player *player, t_door *doors, t_ray *ray, t_settings *settings)
 {
 	int			index;
 	t_vertice	pt4;
 	t_vertice	intersection;
+	double		dist;
 
 	if (settings->fov_enable)
-		return (ray_dooring_fov(player, doors, shortest, settings));
-	pt4.x = player->pos.x + cos(settings->ray_angle);
-	pt4.y = player->pos.y - sin(settings->ray_angle);
+		return (ray_dooring_fov(player, doors, ray, settings));
+	pt4.x = player->pos.x + cos(ray->angle);
+	pt4.y = player->pos.y - sin(ray->angle);
 	while (doors)
 	{
 		index = 0;
@@ -52,18 +56,19 @@ t_vertice	ray_dooring(t_player *player, t_door *doors, t_vertice shortest, t_set
 		{
 			if (doors->edges[index].side != CUT)
 			{
-				intersection = get_inter(player->pos, pt4, doors->edges[index].pt1, doors->edges[index].pt2);
-				if (intersection.z && get_dist(player->pos, intersection) < shortest.z)
+				intersection = get_inter(ray, pt4, doors->edges[index].pt1, doors->edges[index].pt2);
+				dist = get_dist(player->pos, intersection);
+				if (intersection.z && dist < ray->dist)
 				{
-					shortest = intersection;
-					shortest.z = get_dist(player->pos, intersection);
+					ray->ray.pt2 = intersection;
+					ray->dist = dist;
+					ray->hit = doors->edges[index].side;
 				}
 			}
 			++index;
 		}
 		doors = doors->next;
 	}
-	return (shortest);
 }
 
 void	try_door(t_player *player, t_door *doors)
@@ -71,10 +76,11 @@ void	try_door(t_player *player, t_door *doors)
 	int			index;
 	t_vertice	pt4;
 	t_vertice	intersection;
-	t_vertice	shortest;
+	t_ray		ray;
 	t_line		*target;
 
-	shortest.z = 10000;
+	ray.dist = 10000;
+	set_point(&ray.ray.pt1, player->pos.x, player->pos.y, 0);
 	target = 0;
 	pt4.x = player->pos.x + cos(player->direction);
 	pt4.y = player->pos.y - sin(player->direction);
@@ -85,11 +91,11 @@ void	try_door(t_player *player, t_door *doors)
 		{
 			if (doors->edges[index].side == DOOR || doors->edges[index].side == CUT)
 			{
-				intersection = get_inter(player->pos, pt4, doors->edges[index].pt1, doors->edges[index].pt2);
-				if (intersection.z && get_dist(player->pos, intersection) < shortest.z)
+				intersection = get_inter(&ray, pt4, doors->edges[index].pt1, doors->edges[index].pt2);
+				pt4.z = get_dist(player->pos, intersection);
+				if (intersection.z && pt4.z < ray.dist)
 				{
-					shortest = intersection;
-					shortest.z = get_dist(player->pos, intersection);
+					ray.dist = pt4.z;
 					target = &doors->edges[index];
 				}
 			}
@@ -97,7 +103,7 @@ void	try_door(t_player *player, t_door *doors)
 		}
 		doors = doors->next;
 	}
-	if (shortest.z == 10000 || shortest.z > 0.6)
+	if (ray.dist == 10000 || ray.dist > 0.6)
 		return ;
 	if (target->side == CUT)
 		target->side = DOOR;

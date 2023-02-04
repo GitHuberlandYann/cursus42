@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/04 15:27:32 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/04 17:38:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@
 # define LIGHT_WHITE 0x949494
 # define BLACK 0x0
 # define RED 0xff0000
+# define BROWNISH 0x6e4316
+# define BLUEISH 0xC1FF
+# define GREENISH 0x26E07
 
 // Enums
 typedef enum e_side {
@@ -183,6 +186,16 @@ typedef struct s_line {
 	t_side		side;
 }				t_line;
 
+typedef struct s_ray
+{
+	t_line	ray;
+	t_line	portal;
+	t_side	hit;
+	double	u;
+	double	dist;
+	double	angle;
+}				t_ray;
+
 typedef struct s_wall {
 	int				x;
 	int				y;
@@ -262,7 +275,6 @@ typedef struct s_mlx
 }				t_mlx;
 
 typedef struct s_settings {
-	double	ray_angle;
 	double	fov_width;
 	int		fov_enable;
 	double	fov_dist;
@@ -291,11 +303,11 @@ int			mouse_move(int x, int y, t_cub *cub);
 int			redraw_all(t_cub *cub);
 int			mlx_exit(void *param);
 
-t_vertice	ray_walling(t_player *player, t_wall *walls, t_settings *settings);
-t_vertice	ray_dooring(t_player *player, t_door *doors, t_vertice shortest, t_settings *settings);
+void		ray_walling(t_player *player, t_wall *walls, t_ray *ray, t_settings *settings);
+void		ray_dooring(t_player *player, t_door *doors, t_ray *ray, t_settings *settings);
 void		try_door(t_player *player, t_door *doors);
-t_vertice	get_inter(t_vertice pt1, t_vertice pt2, t_vertice pt3, t_vertice pt4);
-t_vertice	get_inter_fov(t_vertice pt1, t_vertice pt2, t_vertice pt3, t_vertice pt4);
+t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
+t_vertice	get_inter_fov(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
 double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);
 void		set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale);

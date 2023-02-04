@@ -6,22 +6,23 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 18:31:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 19:06:46 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/04 17:40:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_vertice	ray_walling_fov(t_player *player, t_wall *walls, t_settings *settings)
+static void	ray_walling_fov(t_player *player, t_wall *walls, t_ray *ray, t_settings *settings)
 {
 	int			index;
 	t_vertice	pt4;
 	t_vertice	intersection;
-	t_vertice	shortest;
+	double		dist;
 
-	pt4.x = player->pos.x + cos(settings->ray_angle) * settings->fov_dist;
-	pt4.y = player->pos.y - sin(settings->ray_angle) * settings->fov_dist;
-	shortest.z = 10000;
+	pt4.x = player->pos.x + cos(ray->angle) * settings->fov_dist;
+	pt4.y = player->pos.y - sin(ray->angle) * settings->fov_dist;
+	ray->dist = 10000;
+	set_point(&ray->ray.pt1, player->pos.x, player->pos.y, 0);
 	while (walls)
 	{
 		index = 0;
@@ -29,32 +30,36 @@ static t_vertice	ray_walling_fov(t_player *player, t_wall *walls, t_settings *se
 		{
 			if (walls->edges[index].side != CUT)
 			{
-				intersection = get_inter_fov(player->pos, pt4, walls->edges[index].pt1, walls->edges[index].pt2);
-				if (intersection.z && get_dist(player->pos, intersection) < shortest.z)
+				intersection = get_inter_fov(ray, pt4, walls->edges[index].pt1, walls->edges[index].pt2);
+				dist = get_dist(player->pos, intersection);
+				if (intersection.z && dist < ray->dist)
 				{
-					shortest = intersection;
-					shortest.z = get_dist(player->pos, intersection);
+					ray->ray.pt2 = intersection;
+					ray->dist = dist;
+					ray->hit = walls->edges[index].side;
 				}
-				else if (!intersection.z && settings->fov_dist < shortest.z)
+				else if (!intersection.z && settings->fov_dist < ray->dist)
 				{
-					shortest = pt4;
-					shortest.z = settings->fov_dist;
+					ray->ray.pt2 = pt4;
+					ray->dist = settings->fov_dist;
+					ray->hit = CUT;
 				}
 			}
 			++index;
 		}
 		walls = walls->next;
 	}
-	return (shortest);
 }
 
-t_vertice	get_inter(t_vertice pt1, t_vertice pt2, t_vertice pt3, t_vertice pt4)
+t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4)
 {
 	double		denominator;
 	double		t;
 	double		u;
+	t_vertice	pt1;
 	t_vertice	res;
 
+	pt1 = ray->ray.pt1;
 	res.z = 0;
 	denominator = (pt1.x - pt2.x) * (pt3.y - pt4.y) - (pt1.y - pt2.y) * (pt3.x - pt4.x);
 	if (!denominator)
@@ -68,17 +73,20 @@ t_vertice	get_inter(t_vertice pt1, t_vertice pt2, t_vertice pt3, t_vertice pt4)
 		res.z = 1;
 		res.x = pt1.x + t * (pt2.x - pt1.x);
 		res.y = pt1.y + t * (pt2.y - pt1.y);
+		ray->u = u;
 	}
 	return (res);
 }
 
-t_vertice	get_inter_fov(t_vertice pt1, t_vertice pt2, t_vertice pt3, t_vertice pt4)
+t_vertice	get_inter_fov(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4)
 {
 	double		denominator;
 	double		t;
 	double		u;
+	t_vertice	pt1;
 	t_vertice	res;
 
+	pt1 = ray->ray.pt1;
 	res.z = 0;
 	denominator = (pt1.x - pt2.x) * (pt3.y - pt4.y) - (pt1.y - pt2.y) * (pt3.x - pt4.x);
 	if (!denominator)
@@ -92,22 +100,24 @@ t_vertice	get_inter_fov(t_vertice pt1, t_vertice pt2, t_vertice pt3, t_vertice p
 		res.z = 1;
 		res.x = pt1.x + t * (pt2.x - pt1.x);
 		res.y = pt1.y + t * (pt2.y - pt1.y);
+		ray->u = u;
 	}
 	return (res);
 }
 
-t_vertice	ray_walling(t_player *player, t_wall *walls, t_settings *settings)
+void	ray_walling(t_player *player, t_wall *walls, t_ray *ray, t_settings *settings)
 {
 	int			index;
 	t_vertice	pt4;
 	t_vertice	intersection;
-	t_vertice	shortest;
+	double		dist;
 
 	if (settings->fov_enable)
-		return (ray_walling_fov(player, walls, settings));
-	pt4.x = player->pos.x + cos(settings->ray_angle);
-	pt4.y = player->pos.y - sin(settings->ray_angle);
-	shortest.z = 10000;
+		return (ray_walling_fov(player, walls, ray, settings));
+	pt4.x = player->pos.x + cos(ray->angle);
+	pt4.y = player->pos.y - sin(ray->angle);
+	ray->dist = 10000;
+	set_point(&ray->ray.pt1, player->pos.x, player->pos.y, 0);
 	while (walls)
 	{
 		index = 0;
@@ -115,16 +125,17 @@ t_vertice	ray_walling(t_player *player, t_wall *walls, t_settings *settings)
 		{
 			if (walls->edges[index].side != CUT)
 			{
-				intersection = get_inter(player->pos, pt4, walls->edges[index].pt1, walls->edges[index].pt2);
-				if (intersection.z && get_dist(player->pos, intersection) < shortest.z)
+				intersection = get_inter(ray, pt4, walls->edges[index].pt1, walls->edges[index].pt2);
+				dist = get_dist(player->pos, intersection);
+				if (intersection.z && dist < ray->dist)
 				{
-					shortest = intersection;
-					shortest.z = get_dist(player->pos, intersection);
+					ray->ray.pt2 = intersection;
+					ray->dist = dist;
+					ray->hit = walls->edges[index].side;
 				}
 			}
 			++index;
 		}
 		walls = walls->next;
 	}
-	return (shortest);
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:58:15 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 19:22:03 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/04 17:35:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,25 @@ static void	draw_door(t_img *img, t_door *door, t_map *map)
 		{
 			set_point_follow(&start, &door->edges[index].pt1, map, 1);
 			set_point_follow(&finish, &door->edges[index].pt2, map, 1);
-			mlx_draw_line(img, start, finish, WHITE);
+			mlx_draw_line(img, start, finish, BROWNISH);
 		}
 		++index;
+	}
+}
+
+static void	draw_portals(t_img *img, t_map *map)
+{
+	t_portal	*portal;
+	t_vertice	start;
+	t_vertice	finish;
+
+	portal = map->portals;
+	while (portal)
+	{
+		set_point_follow(&start, &portal->pline.pt1, map, 1);
+		set_point_follow(&finish, &portal->pline.pt2, map, 1);
+		mlx_draw_line(img, start, finish, BLUEISH);
+		portal = portal->next;
 	}
 }
 
@@ -85,19 +101,24 @@ static void	draw_player(t_img *img, t_player *player, t_map *map)
 
 static void	draw_rays(t_img *img, t_player *player, t_map *map, t_settings *settings)
 {
-	t_vertice	intersection;
+	t_ray		ray;
 	t_vertice	start;
 	t_vertice	finish;
 
-	settings->ray_angle = player->direction - settings->fov_width / 2;
-	while (settings->ray_angle < player->direction + settings->fov_width / 2)
+	ray.angle = player->direction - settings->fov_width / 2;
+	while (ray.angle < player->direction + settings->fov_width / 2)
 	{
-		intersection = ray_walling(player, map->walls, settings);
-		intersection = ray_dooring(player, map->doors, intersection, settings);
+		ray_walling(player, map->walls, &ray, settings);
+		ray_dooring(player, map->doors, &ray, settings);
 		set_point_follow(&start, &map->player->pos, map, 1);
-		set_point_follow(&finish, &intersection, map, 1);
-		mlx_draw_line(img, start, finish, LIGHT_WHITE);
-		settings->ray_angle += 0.001;
+		set_point_follow(&finish, &ray.ray.pt2, map, 1);
+		if (ray.hit == DOOR)
+			mlx_draw_line(img, start, finish, BROWNISH);
+		else if (ray.hit == CUT)
+			mlx_draw_line(img, start, finish, GREENISH);
+		else
+			mlx_draw_line(img, start, finish, LIGHT_WHITE);
+		ray.angle += 0.001;
 	}
 }
 
@@ -118,6 +139,7 @@ void	fill_minimap_follow(t_cub *cub)
 		draw_door(cub->mlx->minimap, door, cub->map);
 		door = door->next;
 	}
+	draw_portals(cub->mlx->minimap, cub->map);
 	draw_player(cub->mlx->minimap, cub->map->player, cub->map);
 	draw_rays(cub->mlx->minimap, cub->map->player, cub->map, cub->settings);
 }
