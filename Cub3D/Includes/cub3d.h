@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 13:20:17 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/05 15:45:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ enum {
 	KEY_RIGHT = 124,
 	KEY_DOWN = 125,
 	KEY_LEFT = 123,
-	KEY_SHIFT = 0,// TODO
-	KEY_SPACE = 0,//TODO
+	KEY_SHIFT = 56,
+	KEY_SPACE = 49,
 	KEY_0 = 82,
 	KEY_1 = 83,
 	KEY_2 = 84,
@@ -187,16 +187,6 @@ typedef struct s_line {
 	t_side		side;
 }				t_line;
 
-typedef struct s_ray
-{
-	t_line	ray;
-	t_line	pray;
-	t_side	hit;
-	double	u;
-	double	dist;
-	double	angle;
-}				t_ray;
-
 typedef struct s_wall {
 	int				x;
 	int				y;
@@ -222,6 +212,20 @@ typedef struct s_portal {
 	struct s_portal	*next;
 	struct s_portal	*last;
 }				t_portal;
+
+typedef struct s_ray
+{
+	t_line		ray;
+	t_line		pray;
+	t_side		hit;
+	double		u;
+	double		dist;
+	double		pdist;
+	double		angle;
+	double		out_angle;
+	t_portal	*in;
+	t_portal	*out;
+}				t_ray;
 
 typedef struct s_map {
 	int				player_count;

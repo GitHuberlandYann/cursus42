@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:58:15 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/04 23:50:42 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/05 14:50:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,24 +99,24 @@ static void	draw_player(t_img *img, t_player *player, t_map *map)
 	// mlx_draw_line(img, pt, pt2);
 }
 
-static void	draw_rays(t_img *img, t_player *player, t_map *map, t_settings *settings)
+static void	draw_rays(t_img *img, t_player *player, t_map *map, t_cub *cub)
 {
 	t_ray		ray;
 	t_vertice	start;
 	t_vertice	finish;
 
 	set_point(&ray.ray.pt1, player->pos.x, player->pos.y, 0);
-	ray.angle = player->direction - settings->fov_width / 2;
-	while (ray.angle < player->direction + settings->fov_width / 2)
+	ray.angle = player->direction - cub->settings->fov_width / 2;
+	while (ray.angle < player->direction + cub->settings->fov_width / 2)
 	{
 		ray.dist = 10000;
-		set_point(&ray.ray.pt2, player->pos.x + cos(ray.angle) * settings->fov_dist, player->pos.y - sin(ray.angle) * settings->fov_dist, 0);
-		if (settings->fov_enable)
-			ray.dist = settings->fov_dist;
+		set_point(&ray.ray.pt2, player->pos.x + cos(ray.angle) * cub->settings->fov_dist, player->pos.y - sin(ray.angle) * cub->settings->fov_dist, 0);
+		if (cub->settings->fov_enable)
+			ray.dist = cub->settings->fov_dist;
 		ray.hit = CUT;
 		ray_walling(player, map->walls, &ray);
 		ray_dooring(player, map->doors, &ray);
-		ray_portaling(player, map->portals, &ray, 0);
+		ray_portaling(player, map->portals, &ray, cub);
 		set_point_follow(&start, &map->player->pos, map, 1);
 		set_point_follow(&finish, &ray.ray.pt2, map, 1);
 		if (ray.hit == DOOR)
@@ -124,7 +124,12 @@ static void	draw_rays(t_img *img, t_player *player, t_map *map, t_settings *sett
 		else if (ray.hit == CUT)
 			mlx_draw_line(img, start, finish, GREENISH);
 		else if (ray.hit == PORTAL)
+		{
 			mlx_draw_line(img, start, finish, BLUEISH);
+			set_point_follow(&start, &ray.pray.pt1, map, 1);
+			set_point_follow(&finish, &ray.pray.pt2, map, 1);
+			mlx_draw_line(img, start, finish, BLUEISH);
+		}
 		else
 			mlx_draw_line(img, start, finish, LIGHT_WHITE);
 		ray.angle += 0.001;
@@ -150,5 +155,5 @@ void	fill_minimap_follow(t_cub *cub)
 	}
 	draw_portals(cub->mlx->minimap, cub->map);
 	draw_player(cub->mlx->minimap, cub->map->player, cub->map);
-	draw_rays(cub->mlx->minimap, cub->map->player, cub->map, cub->settings);
+	draw_rays(cub->mlx->minimap, cub->map->player, cub->map, cub);
 }
