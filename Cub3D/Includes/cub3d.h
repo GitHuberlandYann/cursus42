@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 15:45:07 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/05 17:08:38 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ enum {
 	KEY_RIGHT = 124,
 	KEY_DOWN = 125,
 	KEY_LEFT = 123,
-	KEY_SHIFT = 56,
+	KEY_SHIFT = 257,
 	KEY_SPACE = 49,
 	KEY_0 = 82,
 	KEY_1 = 83,

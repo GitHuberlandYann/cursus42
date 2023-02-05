@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/02/04 22:47:11 by marvin           ###   ########.fr        #
+#    Updated: 2023/02/05 17:06:10 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,13 +35,13 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(Sources:.c=.o))
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
 
-ifeq ($(shell uname),Linux)
+ifeq ($(shell uname), Linux)
 MLX_DIR = mlx_linux
 MLX_PATH = ${MLX_DIR}/libmlx.a
 MLX = -lmlx_linux -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz $(MLX_PATH)
 INCLUDES = -I Includes -I mlx_linux
 else
-MLX-DIR = mlx
+MLX_DIR = mlx
 MLX_PATH = ${MLX_DIR}/libmlx.a
 MLX = -lmlx -Lmlx -framework OpenGl -framework AppKit $(MLX_PATH)
 INCLUDES = -I Includes -I mlx
