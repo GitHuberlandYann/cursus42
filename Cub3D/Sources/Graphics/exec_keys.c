@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_keys.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:59:54 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 15:41:00 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/05 18:22:09 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,21 @@ int	redraw_all(t_cub *cub)
 	key = cub->mlx->keys;
 	if (!key->horizontal && !key->vertical && !key->steering && !key->fov_width
 		&& key->fov_enable != 1 && !key->fov_dist && key->mini_follow != 1
-		&& !key->mousedate && key->door != 1)
+		&& !key->mousedate && key->door != 1 && key->mini_enable != 1)
 		return (1);
 	if (key->mousedate)
 		key->mousedate = 0;
 	exec_keys(key, cub);
-	mlx_clear_img(cub->mlx->minimap);
-	fill_minimap(cub);
+	clear_render(cub->mlx->render3d, cub->map->fc_colors);
+	render_map(cub->mlx->render3d, cub->map->player, cub->map, cub);
 	mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
-		cub->mlx->minimap->img_ptr, (WIN_WIDTH - MINIMAP_WIDTH) / 4, (WIN_HEIGHT - MINIMAP_WIDTH) / 4);
+		cub->mlx->render3d->img_ptr, 0, 0);
+	if (cub->settings->mini_enable)
+	{
+		mlx_clear_img(cub->mlx->minimap);
+		fill_minimap(cub);
+		mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
+			cub->mlx->minimap->img_ptr, (WIN_WIDTH - MINIMAP_WIDTH) / 4, (WIN_HEIGHT - MINIMAP_WIDTH) / 4);
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:51:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 17:08:43 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/05 17:44:19 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	key_down(int kcode, t_cub *cub)
 		cub->settings->mini_follow = !cub->settings->mini_follow;
 	else if (kcode == KEY_SPACE && ++cub->mlx->keys->door == 1)
 		try_door(cub->map->player, cub->map->doors);
+	else if (kcode == KEY_0 && ++cub->mlx->keys->mini_enable == 1)
+		cub->settings->mini_enable = !cub->settings->mini_enable;
 	return (0);
 }
 
@@ -64,5 +66,7 @@ int	key_released(int kcode, t_cub *cub)
 		cub->mlx->keys->mini_follow = 0;
 	else if (kcode == KEY_SPACE)
 		cub->mlx->keys->door = 0;
+	else if (kcode == KEY_0)
+		cub->mlx->keys->mini_enable = 0;
 	return (0);
 }

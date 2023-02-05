@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   walls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 13:07:33 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/05 18:34:36 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ void	create_walls(t_map *map, t_parsing *lines)
 	free_return_lines(lines, map, 0);
 	map->map_width = map->o_right - map->o_left;
 	map->map_height = map->o_down - map->o_up;
-	map->wall_width = get_min(MINIMAP_WIDTH / map->map_width,
+	map->wall_width = fmin(MINIMAP_WIDTH / map->map_width,
 			MINIMAP_WIDTH / map->map_height);
+	// printf("width %d, height %d, minimap %d, walls %lf\n", map->map_width, map->map_height, MINIMAP_WIDTH, map->wall_width);
 }

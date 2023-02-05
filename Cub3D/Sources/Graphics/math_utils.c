@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:36:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/02 16:17:32 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/05 18:29:55 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,4 @@ void	set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale)
 		pt->x *= map->wall_width;
 		pt->y *= map->wall_width;
 	}
-}
-
-double	get_min(double a, double b)
-{
-	if (a < b)
-		return (a);
-	return (b);
 }

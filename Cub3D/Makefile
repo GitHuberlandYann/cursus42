@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/02/05 17:06:10 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/02/05 17:48:50 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ OBJS_DIR_SOURCES = Objs/Sources
 FILES = main
 
 FILES_GRAPHICS = exec_keys image keys math_utils minimap minimap_follow \
-				mlx_manager mouse ray_casting ray_dooring ray_portaling
+				mlx_manager mouse ray_casting ray_dooring ray_portaling \
+				rendering
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
 

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 17:08:38 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/05 18:29:48 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 # else
 #  define WIN_WIDTH 2560
 #  define WIN_HEIGHT 1400
-#  define MINIMAP_WIDTH 1200
+#  define MINIMAP_WIDTH 400
 # endif
 
 # define WHITE 0xffffff
@@ -265,6 +265,7 @@ typedef struct s_key {
 	int	fov_enable;
 	int	fov_dist;
 	int	mini_follow;
+	int	mini_enable;
 	int	mousedate;
 	int	door;
 }				t_key;
@@ -273,6 +274,7 @@ typedef struct s_mlx
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
+	t_img		*render3d;
 	t_img		*minimap;
 	t_img		*(textures[4]);
 	t_key		*keys;
@@ -284,6 +286,7 @@ typedef struct s_settings {
 	int		fov_enable;
 	double	fov_dist;
 	int 	mini_follow;
+	int		mini_enable;
 }				t_settings;
 
 typedef struct s_cub {
@@ -296,6 +299,10 @@ typedef struct s_cub {
 void		launch_mlx(t_map *map, char	*title);
 void		fill_minimap(t_cub *cub);
 void		fill_minimap_follow(t_cub *cub);
+
+
+void		clear_render(t_img *canva, unsigned int cols[2]);
+void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
 
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
 void		mlx_clear_img(t_img *img);
@@ -317,7 +324,6 @@ t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
 double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);
 void		set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale);
-double		get_min(double a, double b);
 
 // Outputs
 int			output_error(char *msg);
