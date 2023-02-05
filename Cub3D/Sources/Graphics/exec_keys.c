@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:59:54 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/04 17:37:49 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/04 23:21:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 {
 	t_ray	wall_sensor;
 
+	wall_sensor.dist = 10000;
 	if (keys->vertical)
 	{
+		set_point(&wall_sensor.ray.pt1, cub->map->player->pos.x, cub->map->player->pos.y, 0);
 		wall_sensor.angle = cub->map->player->direction + M_PI * (keys->vertical == -1);
-		ray_walling(cub->map->player, cub->map->walls, &wall_sensor, cub->settings);
-		ray_dooring(cub->map->player, cub->map->doors, &wall_sensor, cub->settings);
+		ray_walling(cub->map->player, cub->map->walls, &wall_sensor);
+		ray_dooring(cub->map->player, cub->map->doors, &wall_sensor);
 		if (wall_sensor.dist > cub->map->player->speed * (1 + keys->sprint))
 		{
 			cub->map->player->pos.x += cos(cub->map->player->direction) * cub->map->player->speed * (1 + keys->sprint) * keys->vertical;
@@ -29,9 +31,10 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 	}
 	if (keys->horizontal)
 	{
+		set_point(&wall_sensor.ray.pt1, cub->map->player->pos.x, cub->map->player->pos.y, 0);
 		wall_sensor.angle = cub->map->player->direction + M_PI / 2 * keys->horizontal;
-		ray_walling(cub->map->player, cub->map->walls, &wall_sensor, cub->settings);
-		ray_dooring(cub->map->player, cub->map->doors, &wall_sensor, cub->settings);
+		ray_walling(cub->map->player, cub->map->walls, &wall_sensor);
+		ray_dooring(cub->map->player, cub->map->doors, &wall_sensor);
 		if (wall_sensor.dist > cub->map->player->speed * (1 + keys->sprint))
 		{
 			cub->map->player->pos.x += cos(cub->map->player->direction + M_PI / 2) * cub->map->player->speed * (1 + keys->sprint) * keys->horizontal;

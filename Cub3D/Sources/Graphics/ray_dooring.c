@@ -1,54 +1,16 @@
 //header
 #include "cub3d.h"
 
-static void	ray_dooring_fov(t_player *player, t_door *doors, t_ray *ray, t_settings *settings)
+void	ray_dooring(t_player *player, t_door *doors, t_ray *ray)
 {
 	int			index;
 	t_vertice	pt4;
 	t_vertice	intersection;
 	double		dist;
 
-	pt4.x = player->pos.x + cos(ray->angle) * settings->fov_dist;
-	pt4.y = player->pos.y - sin(ray->angle) * settings->fov_dist;
-	while (doors)
-	{
-		index = 0;
-		while (index < 3)
-		{
-			if (doors->edges[index].side != CUT)
-			{
-				intersection = get_inter_fov(ray, pt4, doors->edges[index].pt1, doors->edges[index].pt2);
-				dist = get_dist(player->pos, intersection);
-				if (intersection.z && dist < ray->dist)
-				{
-					ray->ray.pt2 = intersection;
-					ray->dist = dist;
-					ray->hit = doors->edges[index].side;
-				}
-				else if (!intersection.z && settings->fov_dist < ray->dist)
-				{
-					ray->ray.pt2 = pt4;
-					ray->dist = settings->fov_dist;
-					ray->hit = CUT;
-				}
-			}
-			++index;
-		}
-		doors = doors->next;
-	}
-}
-
-void	ray_dooring(t_player *player, t_door *doors, t_ray *ray, t_settings *settings)
-{
-	int			index;
-	t_vertice	pt4;
-	t_vertice	intersection;
-	double		dist;
-
-	if (settings->fov_enable)
-		return (ray_dooring_fov(player, doors, ray, settings));
-	pt4.x = player->pos.x + cos(ray->angle);
-	pt4.y = player->pos.y - sin(ray->angle);
+	(void)player;//never used
+	pt4.x = ray->ray.pt1.x + cos(ray->angle);
+	pt4.y = ray->ray.pt1.y - sin(ray->angle);
 	while (doors)
 	{
 		index = 0;
@@ -57,7 +19,7 @@ void	ray_dooring(t_player *player, t_door *doors, t_ray *ray, t_settings *settin
 			if (doors->edges[index].side != CUT)
 			{
 				intersection = get_inter(ray, pt4, doors->edges[index].pt1, doors->edges[index].pt2);
-				dist = get_dist(player->pos, intersection);
+				dist = get_dist(ray->ray.pt1, intersection);
 				if (intersection.z && dist < ray->dist)
 				{
 					ray->ray.pt2 = intersection;

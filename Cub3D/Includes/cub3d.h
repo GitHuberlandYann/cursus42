@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/04 17:38:43 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/05 13:20:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,12 @@
 
 // Enums
 typedef enum e_side {
-	NO,
-	SO,
 	WE,
+	SO,
 	EA,
+	NO,
 	DOOR,
+	PORTAL,
 	CUT
 }			t_side;
 
@@ -189,7 +190,7 @@ typedef struct s_line {
 typedef struct s_ray
 {
 	t_line	ray;
-	t_line	portal;
+	t_line	pray;
 	t_side	hit;
 	double	u;
 	double	dist;
@@ -303,11 +304,12 @@ int			mouse_move(int x, int y, t_cub *cub);
 int			redraw_all(t_cub *cub);
 int			mlx_exit(void *param);
 
-void		ray_walling(t_player *player, t_wall *walls, t_ray *ray, t_settings *settings);
-void		ray_dooring(t_player *player, t_door *doors, t_ray *ray, t_settings *settings);
+void		ray_walling(t_player *player, t_wall *walls, t_ray *ray);
+void		ray_dooring(t_player *player, t_door *doors, t_ray *ray);
+void		ray_portaling(t_player *player, t_portal *portals, t_ray *ray, t_cub *cub);
 void		try_door(t_player *player, t_door *doors);
 t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
-t_vertice	get_inter_fov(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
+// t_vertice	get_inter_fov(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
 double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);
 void		set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale);

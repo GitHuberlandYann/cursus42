@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/04 15:39:23 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/05 13:07:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,17 @@ static t_wall	*new_wall(int x, int y)
 	res = ft_malloc(sizeof(*res), "add_wall");
 	res->x = x;
 	res->y = y;
-	set_point(&res->edges[NO].pt1, x - 0.5, y - 0.5, 0);
-	set_point(&res->edges[NO].pt2, x + 0.5, y - 0.5, 0);
+	set_point(&res->edges[NO].pt1, x + 0.5, y - 0.5, 0);
+	set_point(&res->edges[NO].pt2, x - 0.5, y - 0.5, 0);
 	res->edges[NO].side = NO;
-	set_point(&res->edges[EA].pt1, x + 0.5, y - 0.5, 0);
-	set_point(&res->edges[EA].pt2, x + 0.5, y + 0.5, 0);
+	set_point(&res->edges[EA].pt1, x + 0.5, y + 0.5, 0);
+	set_point(&res->edges[EA].pt2, x + 0.5, y - 0.5, 0);
 	res->edges[EA].side = EA;
-	set_point(&res->edges[SO].pt1, x + 0.5, y + 0.5, 0);
-	set_point(&res->edges[SO].pt2, x - 0.5, y + 0.5, 0);
+	set_point(&res->edges[SO].pt1, x - 0.5, y + 0.5, 0);
+	set_point(&res->edges[SO].pt2, x + 0.5, y + 0.5, 0);
 	res->edges[SO].side = SO;
-	set_point(&res->edges[WE].pt1, x - 0.5, y + 0.5, 0);
-	set_point(&res->edges[WE].pt2, x - 0.5, y - 0.5, 0);
+	set_point(&res->edges[WE].pt1, x - 0.5, y - 0.5, 0);
+	set_point(&res->edges[WE].pt2, x - 0.5, y + 0.5, 0);
 	res->edges[WE].side = WE;
 	res->next = 0;
 	res->last = 0;

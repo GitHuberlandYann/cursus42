@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:16:22 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/04 17:34:20 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/05 14:25:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,30 +92,39 @@ static void	draw_player(t_img *img, t_player *player, t_map *map)
 		}
 		pt2.x += 0.01;
 	}
-	// pt.x = player->pos.x * map->wall_width;
-	// pt.y = player->pos.y * map->wall_width;
-	// pt2.x = (player->pos.x - cos(player->direction)) * map->wall_width;
-	// pt2.y = (player->pos.y + sin(player->direction)) * map->wall_width;
-	// mlx_draw_line(img, pt, pt2);
 }
 
-static void	draw_rays(t_img *img, t_player *player, t_map *map, t_settings *settings)
+static void	draw_rays(t_img *img, t_player *player, t_map *map, t_cub *cub)
 {
 	t_ray		ray;
 	t_vertice	start;
 
-	ray.angle = player->direction - settings->fov_width / 2;
-	while (ray.angle < player->direction + settings->fov_width / 2)
+	set_point(&ray.ray.pt1, player->pos.x, player->pos.y, 0);
+	ray.angle = player->direction - cub->settings->fov_width / 2;
+	while (ray.angle < player->direction + cub->settings->fov_width / 2)
 	{
-		ray_walling(player, map->walls, &ray, settings);
-		ray_dooring(player, map->doors, &ray, settings);
-		ray.ray.pt2.x *= map->wall_width;
-		ray.ray.pt2.y *= map->wall_width;
-		set_point(&start, player->pos.x * map->wall_width, player->pos.y * map->wall_width, 0);
+		ray.dist = 10000;
+		set_point(&ray.ray.pt2, player->pos.x + cos(ray.angle) * cub->settings->fov_dist, player->pos.y - sin(ray.angle) * cub->settings->fov_dist, 0);
+		if (cub->settings->fov_enable)
+			ray.dist = cub->settings->fov_dist;
+		ray.hit = CUT;
+		ray_walling(player, map->walls, &ray);
+		ray_dooring(player, map->doors, &ray);
+		ray_portaling(player, map->portals, &ray, cub);
+		set_point(&start, ray.ray.pt1.x * map->wall_width, ray.ray.pt1.y * map->wall_width, 0);
+		set_point(&ray.ray.pt2, ray.ray.pt2.x * map->wall_width, ray.ray.pt2.y * map->wall_width, 0);
+		// printf("[%lf,%lf]-[%lf,%lf]\n", ray.ray.pt1.x, ray.ray.pt1.y, ray.ray.pt2.x, ray.ray.pt2.y);
 		if (ray.hit == DOOR)
 			mlx_draw_line(img, start, ray.ray.pt2, BROWNISH);
 		else if (ray.hit == CUT)
 			mlx_draw_line(img, start, ray.ray.pt2, GREENISH);
+		else if (ray.hit == PORTAL)
+		{
+			mlx_draw_line(img, start, ray.ray.pt2, BLUEISH);
+			set_point(&ray.pray.pt1, ray.pray.pt1.x * map->wall_width, ray.pray.pt1.y * map->wall_width, 0);
+			set_point(&ray.pray.pt2, ray.pray.pt2.x * map->wall_width, ray.pray.pt2.y * map->wall_width, 0);
+			mlx_draw_line(img, ray.pray.pt1, ray.pray.pt2, BLUEISH);
+		}
 		else
 			mlx_draw_line(img, start, ray.ray.pt2, LIGHT_WHITE);
 		ray.angle += 0.001;
@@ -143,5 +152,5 @@ void	fill_minimap(t_cub *cub)
 	}
 	draw_portals(cub->mlx->minimap, cub->map);
 	draw_player(cub->mlx->minimap, cub->map->player, cub->map);
-	draw_rays(cub->mlx->minimap, cub->map->player, cub->map, cub->settings);
+	draw_rays(cub->mlx->minimap, cub->map->player, cub->map, cub);
 }
