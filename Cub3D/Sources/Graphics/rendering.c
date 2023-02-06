@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 17:47:24 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/06 15:06:54 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:24:52 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub)
 	double		wall_height;
 
 	ray->dist *= cos(cub->map->player->direction - ray->angle);
-	wall_height = 1 / (1 + ray->dist);
+	wall_height = 1 / ray->dist;
 	set_point(&start, ((cub->map->player->direction + cub->settings->fov_width / 2) - ray->angle) / cub->settings->fov_width * (double)WIN_WIDTH, WIN_HEIGHT / 2 - wall_height * WIN_HEIGHT / 2, 0);
 	set_point(&finish, ((cub->map->player->direction + cub->settings->fov_width / 2) - ray->angle) / cub->settings->fov_width * (double)WIN_WIDTH, WIN_HEIGHT / 2 + wall_height * WIN_HEIGHT / 2, 0);
 	if (ray->hit == DOOR)
