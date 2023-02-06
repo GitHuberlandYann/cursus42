@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 18:29:48 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/05 18:35:12 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 # else
 #  define WIN_WIDTH 2560
 #  define WIN_HEIGHT 1400
-#  define MINIMAP_WIDTH 400
+#  define MINIMAP_WIDTH 1200
 # endif
 
 # define WHITE 0xffffff

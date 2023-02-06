@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 17:47:24 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 18:27:43 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:06:54 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,26 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub)
 {
 	t_vertice	start;
 	t_vertice	finish;
+	double		wall_height;
 
-	set_point(&start, ((cub->map->player->direction + cub->settings->fov_width / 2) - ray->angle) / cub->settings->fov_width * WIN_WIDTH, ray->dist * 20, 0);
-	set_point(&finish, ((cub->map->player->direction + cub->settings->fov_width / 2) - ray->angle) / cub->settings->fov_width * WIN_WIDTH, WIN_HEIGHT - ray->dist * 20, 0);
-		if (ray->hit == DOOR)
-			mlx_draw_line(img, start, finish, BROWNISH);
-		else if (ray->hit == CUT)
-			mlx_draw_line(img, start, finish, GREENISH);
-		else
-			mlx_draw_line(img, start, finish, LIGHT_WHITE);
-
+	ray->dist *= cos(cub->map->player->direction - ray->angle);
+	wall_height = 1 / (1 + ray->dist);
+	set_point(&start, ((cub->map->player->direction + cub->settings->fov_width / 2) - ray->angle) / cub->settings->fov_width * (double)WIN_WIDTH, WIN_HEIGHT / 2 - wall_height * WIN_HEIGHT / 2, 0);
+	set_point(&finish, ((cub->map->player->direction + cub->settings->fov_width / 2) - ray->angle) / cub->settings->fov_width * (double)WIN_WIDTH, WIN_HEIGHT / 2 + wall_height * WIN_HEIGHT / 2, 0);
+	if (ray->hit == DOOR)
+		mlx_draw_line(img, start, finish, BROWNISH);
+	else if (ray->hit == CUT)
+		mlx_draw_line(img, start, finish, GREENISH);
+	else if (ray->hit == NO)
+		mlx_draw_line(img, start, finish, 0x60);
+	else if (ray->hit == SO)
+		mlx_draw_line(img, start, finish, 0xa0);
+	else if (ray->hit == WE)
+		mlx_draw_line(img, start, finish, 0x6000);
+	else if (ray->hit == EA)
+		mlx_draw_line(img, start, finish, 0xa000);
+	else
+		mlx_draw_line(img, start, finish, BLUEISH);
 }
 
 void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
@@ -45,7 +55,7 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		ray_portaling(player, map->portals, &ray, cub);
 		// printf("[%lf,%lf]-[%lf,%lf]\n", ray.ray.pt1.x, ray.ray.pt1.y, ray.ray.pt2.x, ray.ray.pt2.y);
 		draw_hit(img, &ray, cub);
-		ray.angle += 0.001;
+		ray.angle += cub->settings->fov_width / WIN_WIDTH;
 	}
 }
 
