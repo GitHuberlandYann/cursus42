@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 18:35:12 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:33:30 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,7 @@ void		clear_render(t_img *canva, unsigned int cols[2]);
 void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
 
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
+void		ft_create_xpmimg(t_mlx *mlx, char *(textures[4]), t_side side);
 void		mlx_clear_img(t_img *img);
 void		mlx_draw_line(t_img *img, t_vertice a, t_vertice b, unsigned int color);
 void		mlx_pxl_put(t_img *img, t_vertice pt, unsigned int color);

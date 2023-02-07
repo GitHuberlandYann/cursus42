@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:54:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/04 15:18:19 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/07 10:38:00 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	load_texture(t_map *map, t_side side)
 	else if (side == EA && map->textures[EA])
 		return (output_error(MSG_TWOEA));
 	map->textures[side] = ft_strdup(&map->line[3]);
+	map->textures[side][ft_strlen(map->textures[side]) - 1] = '\0';
 	return (0);
 }
 

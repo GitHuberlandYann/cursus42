@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 18:22:29 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/07 10:34:22 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,17 @@ static t_settings	*ft_settings_init(void)
 	return (res);
 }
 
-static t_mlx	*ft_mlx_init(char *title)
+static void	ft_img_init(t_mlx *mlx, char *(textures[4]))
+{
+	mlx->minimap = ft_create_img(mlx, MINIMAP_WIDTH, MINIMAP_WIDTH);
+	mlx->render3d = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT);
+	ft_create_xpmimg(mlx, textures, NO);
+	ft_create_xpmimg(mlx, textures, SO);
+	ft_create_xpmimg(mlx, textures, WE);
+	ft_create_xpmimg(mlx, textures, EA);
+}
+
+static t_mlx	*ft_mlx_init(char *title, char *(textures[4]))
 {
 	t_mlx	*mlx;
 
@@ -36,8 +46,7 @@ static t_mlx	*ft_mlx_init(char *title)
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, title);
 	if (!mlx->win_ptr)
 		ft_perror("mlx_new_window");
-	mlx->minimap = ft_create_img(mlx, MINIMAP_WIDTH, MINIMAP_WIDTH);
-	mlx->render3d = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT);
+	ft_img_init(mlx, textures);
 	mlx->keys = ft_malloc(sizeof(*mlx->keys), "keys_init");
 	mlx->keys->vertical = 0;
 	mlx->keys->horizontal = 0;
@@ -59,7 +68,7 @@ void	launch_mlx(t_map *map, char	*title)
 	t_cub	cub;
 
 	cub.map = map;
-	cub.mlx = ft_mlx_init(title);
+	cub.mlx = ft_mlx_init(title, map->textures);
 	cub.settings = ft_settings_init();
 	clear_render(cub.mlx->render3d, cub.map->fc_colors);
 	mlx_put_image_to_window(cub.mlx->mlx_ptr, cub.mlx->win_ptr,
