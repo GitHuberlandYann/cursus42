@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 17:47:24 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/07 11:12:10 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:40:02 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub)
 	else if (ray->hit == NO)
 		draw_wall_vert(img, &start, cub->mlx->textures[NO], ray->u); //mlx_draw_line(img, start, finish, 0x60);
 	else if (ray->hit == SO)
-		mlx_draw_line(img, start, finish, 0xa0);
+		draw_wall_vert(img, &start, cub->mlx->textures[SO], ray->u); //mlx_draw_line(img, start, finish, 0xa0);
 	else if (ray->hit == WE)
-		mlx_draw_line(img, start, finish, 0x6000);
+		draw_wall_vert(img, &start, cub->mlx->textures[WE], ray->u); //mlx_draw_line(img, start, finish, 0x6000);
 	else if (ray->hit == EA)
-		mlx_draw_line(img, start, finish, 0xa000);
+		draw_wall_vert(img, &start, cub->mlx->textures[EA], ray->u); //mlx_draw_line(img, start, finish, 0xa000);
 	else
 		mlx_draw_line(img, start, finish, BLUEISH);
 }
