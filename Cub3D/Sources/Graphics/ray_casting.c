@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 18:31:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/07 11:23:23 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:04:23 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,13 @@ t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4)
 	return (res);
 }
 
-void	ray_walling(t_player *player, t_wall *walls, t_ray *ray)
+void	ray_walling(t_wall *walls, t_ray *ray)
 {
 	int			index;
 	t_vertice	pt4;
 	t_vertice	intersection;
 	double		dist;
 
-	(void)player;//never used
 	pt4.x = ray->ray.pt1.x + cos(ray->angle); //not opti to do it here and in ray_dooring and ray_portaling
 	pt4.y = ray->ray.pt1.y - sin(ray->angle);
 	while (walls)

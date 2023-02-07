@@ -12,14 +12,13 @@
 
 #include "cub3d.h"
 
-void	ray_dooring(t_player *player, t_door *doors, t_ray *ray)
+void	ray_dooring(t_door *doors, t_ray *ray)
 {
 	int			index;
 	t_vertice	pt4;
 	t_vertice	intersection;
 	double		dist;
 
-	(void)player;//never used
 	pt4.x = ray->ray.pt1.x + cos(ray->angle);
 	pt4.y = ray->ray.pt1.y - sin(ray->angle);
 	while (doors)

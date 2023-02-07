@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:59:54 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 18:22:09 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:40:39 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 		set_point(&wall_sensor.ray.pt1, cub->map->player->pos.x, cub->map->player->pos.y, 0);
 		wall_sensor.angle = cub->map->player->direction + M_PI * (keys->vertical == -1);
 		wall_sensor.out_angle = wall_sensor.angle;
-		ray_walling(cub->map->player, cub->map->walls, &wall_sensor);
-		ray_dooring(cub->map->player, cub->map->doors, &wall_sensor);
-		ray_portaling(cub->map->player, cub->map->portals, &wall_sensor, cub);
+		ray_walling(cub->map->walls, &wall_sensor);
+		ray_dooring(cub->map->doors, &wall_sensor);
+		ray_portaling(cub->map->portals, &wall_sensor, cub);
 		if (wall_sensor.hit == PORTAL && wall_sensor.pdist < cub->map->player->speed * (1 + keys->sprint) && wall_sensor.dist > cub->map->player->speed * (1 + keys->sprint))
 		{
 			cub->map->player->pos.x = wall_sensor.pray.pt1.x + cos(wall_sensor.out_angle) * (cub->map->player->speed * (1 + keys->sprint));// - wall_sensor.dist);
@@ -43,9 +43,9 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 		set_point(&wall_sensor.ray.pt1, cub->map->player->pos.x, cub->map->player->pos.y, 0);
 		wall_sensor.angle = cub->map->player->direction + M_PI / 2 * keys->horizontal;
 		wall_sensor.out_angle = wall_sensor.angle;
-		ray_walling(cub->map->player, cub->map->walls, &wall_sensor);
-		ray_dooring(cub->map->player, cub->map->doors, &wall_sensor);
-		ray_portaling(cub->map->player, cub->map->portals, &wall_sensor, cub);
+		ray_walling(cub->map->walls, &wall_sensor);
+		ray_dooring(cub->map->doors, &wall_sensor);
+		ray_portaling(cub->map->portals, &wall_sensor, cub);
 		if (wall_sensor.hit == PORTAL && wall_sensor.pdist < cub->map->player->speed * (1 + keys->sprint) && wall_sensor.dist > cub->map->player->speed * (1 + keys->sprint))
 		{
 			cub->map->player->pos.x = wall_sensor.pray.pt1.x + cos(wall_sensor.out_angle) * (cub->map->player->speed * (1 + keys->sprint));// - wall_sensor.dist);
@@ -58,13 +58,14 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 			cub->map->player->pos.y -= sin(cub->map->player->direction + M_PI / 2) * cub->map->player->speed * (1 + keys->sprint) * keys->horizontal;
 		}
 	}
-	cub->map->player->direction += keys->steering * 0.1;
+	cub->map->player->direction += keys->steering * 5 * M_PI / 180;
 	if (keys->fov_width < 0 && cub->settings->fov_width > M_PI / 10)
 		cub->settings->fov_width -= M_PI / 180;
 	else if (keys->fov_width > 0 && cub->settings->fov_width < M_PI * 2)
 		cub->settings->fov_width += M_PI / 180;
 	if ((cub->settings->fov_dist > 0.5 && keys->fov_dist < 0) || keys->fov_dist > 0)
 		cub->settings->fov_dist += keys->fov_dist * 0.1;
+	cub->settings->dist_feel += keys->dist_feel * 0.01;
 }
 
 int	redraw_all(t_cub *cub)
@@ -74,10 +75,10 @@ int	redraw_all(t_cub *cub)
 	key = cub->mlx->keys;
 	if (!key->horizontal && !key->vertical && !key->steering && !key->fov_width
 		&& key->fov_enable != 1 && !key->fov_dist && key->mini_follow != 1
-		&& !key->mousedate && key->door != 1 && key->mini_enable != 1)
+		&& !key->mousedate && key->door != 1 && key->mini_enable != 1
+		&& !key->dist_feel)
 		return (1);
-	if (key->mousedate)
-		key->mousedate = 0;
+	key->mousedate = 0;
 	exec_keys(key, cub);
 	clear_render(cub->mlx->render3d, cub->map->fc_colors);
 	render_map(cub->mlx->render3d, cub->map->player, cub->map, cub);

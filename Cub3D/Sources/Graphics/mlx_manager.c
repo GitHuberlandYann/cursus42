@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/07 10:34:22 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:37:35 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static t_settings	*ft_settings_init(void)
 	res->fov_width = M_PI / 3;
 	res->fov_enable = 0;
 	res->fov_dist = 5;
+	res->dist_feel = 0;
 	res->mini_follow = 0;
 	res->mini_enable = 0;
 	return (res);
@@ -55,8 +56,9 @@ static t_mlx	*ft_mlx_init(char *title, char *(textures[4]))
 	mlx->keys->fov_width = 0;
 	mlx->keys->fov_enable = 0;
 	mlx->keys->fov_dist = 0;
+	mlx->keys->dist_feel = 0;
 	mlx->keys->mini_follow = 0;
-	mlx->keys->mini_enable = 1;
+	mlx->keys->mini_enable = 0;
 	mlx->keys->mousedate = 0;
 	mlx->keys->door = 0;
 	mlx->mouse_pos.z = 1;
@@ -71,6 +73,7 @@ void	launch_mlx(t_map *map, char	*title)
 	cub.mlx = ft_mlx_init(title, map->textures);
 	cub.settings = ft_settings_init();
 	clear_render(cub.mlx->render3d, cub.map->fc_colors);
+	render_map(cub.mlx->render3d, cub.map->player, cub.map, &cub);
 	mlx_put_image_to_window(cub.mlx->mlx_ptr, cub.mlx->win_ptr,
 		cub.mlx->render3d->img_ptr, 0, 0);
 	if (cub.settings->mini_enable)

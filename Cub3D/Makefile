@@ -6,7 +6,7 @@
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/02/05 17:48:50 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/02/07 14:56:43 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ endif
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -O3
-SAN = -fsanitize=address -g
+SAN = #-fsanitize=address -g
 MATH = -lm
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---

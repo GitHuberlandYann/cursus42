@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/07 10:33:30 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:37:46 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@
 #  define WIN_HEIGHT 900
 #  define MINIMAP_WIDTH 800
 # else
-#  define WIN_WIDTH 2560
-#  define WIN_HEIGHT 1400
+#  define WIN_WIDTH 2560//1500
+#  define WIN_HEIGHT 1400//600
 #  define MINIMAP_WIDTH 1200
 # endif
 
@@ -264,6 +264,7 @@ typedef struct s_key {
 	int	fov_width;
 	int	fov_enable;
 	int	fov_dist;
+	int	dist_feel;
 	int	mini_follow;
 	int	mini_enable;
 	int	mousedate;
@@ -285,6 +286,7 @@ typedef struct s_settings {
 	double	fov_width;
 	int		fov_enable;
 	double	fov_dist;
+	double	dist_feel;
 	int 	mini_follow;
 	int		mini_enable;
 }				t_settings;
@@ -316,9 +318,9 @@ int			mouse_move(int x, int y, t_cub *cub);
 int			redraw_all(t_cub *cub);
 int			mlx_exit(void *param);
 
-void		ray_walling(t_player *player, t_wall *walls, t_ray *ray);
-void		ray_dooring(t_player *player, t_door *doors, t_ray *ray);
-void		ray_portaling(t_player *player, t_portal *portals, t_ray *ray, t_cub *cub);
+void		ray_walling(t_wall *walls, t_ray *ray);
+void		ray_dooring(t_door *doors, t_ray *ray);
+void		ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub);
 void		try_door(t_player *player, t_door *doors);
 t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
 // t_vertice	get_inter_fov(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_follow.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:58:15 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 14:50:08 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/07 19:08:21 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,9 @@ static void	draw_rays(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		if (cub->settings->fov_enable)
 			ray.dist = cub->settings->fov_dist;
 		ray.hit = CUT;
-		ray_walling(player, map->walls, &ray);
-		ray_dooring(player, map->doors, &ray);
-		ray_portaling(player, map->portals, &ray, cub);
+		ray_walling(map->walls, &ray);
+		ray_dooring(map->doors, &ray);
+		ray_portaling(map->portals, &ray, cub);
 		set_point_follow(&start, &map->player->pos, map, 1);
 		set_point_follow(&finish, &ray.ray.pt2, map, 1);
 		if (ray.hit == DOOR)

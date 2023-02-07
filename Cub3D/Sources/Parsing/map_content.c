@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_content.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 20:25:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/04 15:19:38 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/07 19:32:25 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	init_player(t_map *map, t_parsing *p_line)
 		map->player->direction = M_PI;
 	else if (p_line->line[index] == 'S')
 		map->player->direction = -M_PI / 2;
-	map->player->speed = 0.05;
+	map->player->speed = 0.1;
 }
 
 int	read_map(t_map *map, int fd)

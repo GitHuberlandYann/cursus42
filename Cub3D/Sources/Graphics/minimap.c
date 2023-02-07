@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:16:22 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 14:25:09 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/07 19:08:11 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ static void	draw_rays(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		if (cub->settings->fov_enable)
 			ray.dist = cub->settings->fov_dist;
 		ray.hit = CUT;
-		ray_walling(player, map->walls, &ray);
-		ray_dooring(player, map->doors, &ray);
-		ray_portaling(player, map->portals, &ray, cub);
+		ray_walling(map->walls, &ray);
+		ray_dooring(map->doors, &ray);
+		ray_portaling(map->portals, &ray, cub);
 		set_point(&start, ray.ray.pt1.x * map->wall_width, ray.ray.pt1.y * map->wall_width, 0);
 		set_point(&ray.ray.pt2, ray.ray.pt2.x * map->wall_width, ray.ray.pt2.y * map->wall_width, 0);
 		// printf("[%lf,%lf]-[%lf,%lf]\n", ray.ray.pt1.x, ray.ray.pt1.y, ray.ray.pt2.x, ray.ray.pt2.y);
