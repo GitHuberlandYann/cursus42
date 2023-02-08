@@ -27,7 +27,7 @@ static t_portal	*get_linked(t_portal *portals, t_ray *ray, t_ray *pray)
 		}
 		portals = portals->next;
 	}
-	output_error("no link ????\n");
+	exit(output_error("no link ????\n"));
 	return (0);
 }
 
@@ -39,16 +39,21 @@ static void	extend_ray(t_ray *ray, t_cub *cub)
 	pray.dist = 10000;
 	if (cub->settings->fov_enable)
 		pray.dist = cub->settings->fov_dist - ray->dist;
+	pray.hit = CUT;
+	pray.recurse_level = ray->recurse_level + 1;
 	set_point(&pray.ray.pt2, pray.ray.pt1.x + cos(pray.angle) * pray.dist, pray.ray.pt1.y - sin(pray.angle) * pray.dist, 0);
 	// printf("in %d out %d\n", in->num, out->num);
 	// printf("angle of in %d out %d\n", in->pline.side, out->pline.side);
 	// printf("angle in %lf out %lf\n", fmod(ray->angle / M_PI * 180, 360), fmod(pray.angle / M_PI * 180, 360));
 	ray_walling(cub->map->walls, &pray);
 	ray_dooring(cub->map->doors, &pray);
-	ray->pdist = ray->dist;
+	// if (pray.recurse_level < cub->settings->recurse_level)
+	// 	ray_portaling(cub->map->portals, &pray, cub);
 	ray->dist += pray.dist;
 	ray->pray = pray.ray;
 	ray->out_angle = pray.angle;
+	ray->hit = pray.hit;
+	ray->fhit = PORTAL;
 }
 
 void	ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub)
@@ -70,6 +75,7 @@ void	ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub)
 			{
 				ray->ray.pt2 = intersection;
 				ray->dist = dist;
+				ray->pdist = dist;
 				ray->hit = PORTAL;
 				ray->in = portals;
 				ray->u = intersection.z - 1;
@@ -77,7 +83,6 @@ void	ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub)
 		}
 		portals = portals->next;
 	}
-	// (void)cub;
 	if (ray->hit == PORTAL && ray->in)
 		extend_ray(ray, cub);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/07 19:37:35 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:27:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_settings	*ft_settings_init(void)
 	res->dist_feel = 0;
 	res->mini_follow = 0;
 	res->mini_enable = 0;
+	res->recurse_level = 7;
 	return (res);
 }
 

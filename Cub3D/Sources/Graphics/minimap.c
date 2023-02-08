@@ -110,23 +110,25 @@ static void	draw_rays(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		if (cub->settings->fov_enable)
 			ray.dist = cub->settings->fov_dist;
 		ray.hit = CUT;
+		ray.fhit = CUT;
+		ray.recurse_level = 0;
 		ray_walling(map->walls, &ray);
 		ray_dooring(map->doors, &ray);
 		ray_portaling(map->portals, &ray, cub);
 		set_point(&start, ray.ray.pt1.x * map->wall_width, ray.ray.pt1.y * map->wall_width, 0);
 		set_point(&ray.ray.pt2, ray.ray.pt2.x * map->wall_width, ray.ray.pt2.y * map->wall_width, 0);
 		// printf("[%lf,%lf]-[%lf,%lf]\n", ray.ray.pt1.x, ray.ray.pt1.y, ray.ray.pt2.x, ray.ray.pt2.y);
-		if (ray.hit == DOOR)
-			mlx_draw_line(img, start, ray.ray.pt2, BROWNISH);
-		else if (ray.hit == CUT)
-			mlx_draw_line(img, start, ray.ray.pt2, GREENISH);
-		else if (ray.hit == PORTAL)
+		if (ray.fhit == PORTAL)
 		{
 			mlx_draw_line(img, start, ray.ray.pt2, BLUEISH);
 			set_point(&ray.pray.pt1, ray.pray.pt1.x * map->wall_width, ray.pray.pt1.y * map->wall_width, 0);
 			set_point(&ray.pray.pt2, ray.pray.pt2.x * map->wall_width, ray.pray.pt2.y * map->wall_width, 0);
 			mlx_draw_line(img, ray.pray.pt1, ray.pray.pt2, BLUEISH);
 		}
+		else if (ray.hit == DOOR)
+			mlx_draw_line(img, start, ray.ray.pt2, BROWNISH);
+		else if (ray.hit == CUT)
+			mlx_draw_line(img, start, ray.ray.pt2, GREENISH);
 		else
 			mlx_draw_line(img, start, ray.ray.pt2, LIGHT_WHITE);
 		ray.angle += cub->settings->fov_width / WIN_WIDTH;

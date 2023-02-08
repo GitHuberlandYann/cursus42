@@ -103,6 +103,7 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		if (cub->settings->fov_enable)
 			ray.dist = cub->settings->fov_dist;
 		ray.hit = CUT;
+		ray.recurse_level = 0;
 		ray_walling(map->walls, &ray);
 		ray_dooring(map->doors, &ray);
 		ray_portaling(map->portals, &ray, cub);

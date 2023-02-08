@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/08 16:53:03 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/08 18:11:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,8 @@ typedef struct s_ray
 	t_line		ray;
 	t_line		pray;
 	t_side		hit;
+	t_side		fhit;
+	int			recurse_level;
 	double		u;
 	double		dist;
 	double		pdist;
@@ -289,6 +291,7 @@ typedef struct s_settings {
 	double	dist_feel;
 	int 	mini_follow;
 	int		mini_enable;
+	int		recurse_level;
 }				t_settings;
 
 typedef struct s_cub {

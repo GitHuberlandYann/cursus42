@@ -18,6 +18,7 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 
 	wall_sensor.dist = 10000;
 	wall_sensor.pdist = 10000;
+	wall_sensor.fhit = CUT;
 	if (keys->vertical)
 	{
 		set_point(&wall_sensor.ray.pt1, cub->map->player->pos.x, cub->map->player->pos.y, 0);
@@ -26,7 +27,7 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 		ray_walling(cub->map->walls, &wall_sensor);
 		ray_dooring(cub->map->doors, &wall_sensor);
 		ray_portaling(cub->map->portals, &wall_sensor, cub);
-		if (wall_sensor.hit == PORTAL && wall_sensor.pdist < cub->map->player->speed * (1 + keys->sprint) && wall_sensor.dist > cub->map->player->speed * (1 + keys->sprint))
+		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < cub->map->player->speed * (1 + keys->sprint) && wall_sensor.dist > cub->map->player->speed * (1 + keys->sprint))
 		{
 			cub->map->player->pos.x = wall_sensor.pray.pt1.x + cos(wall_sensor.out_angle) * (cub->map->player->speed * (1 + keys->sprint));// - wall_sensor.dist);
 			cub->map->player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (cub->map->player->speed * (1 + keys->sprint));// - wall_sensor.dist);
@@ -46,7 +47,7 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 		ray_walling(cub->map->walls, &wall_sensor);
 		ray_dooring(cub->map->doors, &wall_sensor);
 		ray_portaling(cub->map->portals, &wall_sensor, cub);
-		if (wall_sensor.hit == PORTAL && wall_sensor.pdist < cub->map->player->speed * (1 + keys->sprint) && wall_sensor.dist > cub->map->player->speed * (1 + keys->sprint))
+		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < cub->map->player->speed * (1 + keys->sprint) && wall_sensor.dist > cub->map->player->speed * (1 + keys->sprint))
 		{
 			cub->map->player->pos.x = wall_sensor.pray.pt1.x + cos(wall_sensor.out_angle) * (cub->map->player->speed * (1 + keys->sprint));// - wall_sensor.dist);
 			cub->map->player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (cub->map->player->speed * (1 + keys->sprint));// - wall_sensor.dist);

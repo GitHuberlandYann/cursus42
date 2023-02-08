@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_follow.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:58:15 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/07 19:08:21 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:15:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,16 +104,19 @@ static void	draw_rays(t_img *img, t_player *player, t_map *map, t_cub *cub)
 	t_ray		ray;
 	t_vertice	start;
 	t_vertice	finish;
+	int			index;
 
+	index = -1;
 	set_point(&ray.ray.pt1, player->pos.x, player->pos.y, 0);
 	ray.angle = player->direction - cub->settings->fov_width / 2;
-	while (ray.angle < player->direction + cub->settings->fov_width / 2)
+	while (++index < WIN_WIDTH)
 	{
 		ray.dist = 10000;
 		set_point(&ray.ray.pt2, player->pos.x + cos(ray.angle) * cub->settings->fov_dist, player->pos.y - sin(ray.angle) * cub->settings->fov_dist, 0);
 		if (cub->settings->fov_enable)
 			ray.dist = cub->settings->fov_dist;
 		ray.hit = CUT;
+		ray.recurse_level = 0;
 		ray_walling(map->walls, &ray);
 		ray_dooring(map->doors, &ray);
 		ray_portaling(map->portals, &ray, cub);
@@ -132,7 +135,7 @@ static void	draw_rays(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		}
 		else
 			mlx_draw_line(img, start, finish, LIGHT_WHITE);
-		ray.angle += 0.001;
+		ray.angle += cub->settings->fov_width / WIN_WIDTH;
 	}
 }
 

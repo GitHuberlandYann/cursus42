@@ -118,25 +118,25 @@ int	set_portal(t_map *map, t_parsing *line, int x, int y)
 
 	if (!x || !y || !line->next || x >= line->prev->size || x >= line->next->size)
 		return (output_error(MSG_PORTAL_BORDER));
-	if (line->line[x - 1] == '1' && line->line[x + 1] == '1' && line->prev->line[x] != '1' && line->next->line[x] == '1')
+	if (line->line[x - 1] == '1' && line->line[x + 1] == '1' && line->prev->line[x] != '1' && (line->next->line[x] == '1' || line->next->line[x] == 'P'))
 	{
 		orientation = NO;
 		if (flood_fill(line->prev, x))
 			return (output_error(MSG_UNCLOSEDPORTAL));
 	}
-	else if (line->line[x - 1] == '1' && line->line[x + 1] == '1' && line->prev->line[x] == '1' && line->next->line[x] != '1')
+	else if (line->line[x - 1] == '1' && line->line[x + 1] == '1' && (line->prev->line[x] == '1' || line->prev->line[x] == 'P') && line->next->line[x] != '1')
 	{
 		orientation = SO;
 		if (flood_fill(line->next, x))
 			return (output_error(MSG_UNCLOSEDPORTAL));
 	}
-	else if (line->line[x - 1] != '1' && line->line[x + 1] == '1' && line->prev->line[x] == '1' && line->next->line[x] == '1')
+	else if (line->line[x - 1] != '1' && (line->line[x + 1] == '1' || line->line[x + 1] == 'P') && line->prev->line[x] == '1' && line->next->line[x] == '1')
 	{
 		orientation = WE;
 		if (flood_fill(line, x - 1))
 			return (output_error(MSG_UNCLOSEDPORTAL));
 	}
-	else if (line->line[x - 1] == '1' && line->line[x + 1] != '1' && line->prev->line[x] == '1' && line->next->line[x] == '1')
+	else if ((line->line[x - 1] == '1' || line->line[x - 1] == 'P') && line->line[x + 1] != '1' && line->prev->line[x] == '1' && line->next->line[x] == '1')
 	{
 		orientation = EA;
 		if (flood_fill(line, x + 1))
