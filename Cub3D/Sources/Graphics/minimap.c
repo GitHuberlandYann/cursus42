@@ -98,10 +98,12 @@ static void	draw_rays(t_img *img, t_player *player, t_map *map, t_cub *cub)
 {
 	t_ray		ray;
 	t_vertice	start;
+	int			index;
 
+	index = -1;
 	set_point(&ray.ray.pt1, player->pos.x, player->pos.y, 0);
 	ray.angle = player->direction - cub->settings->fov_width / 2;
-	while (ray.angle < player->direction + cub->settings->fov_width / 2)
+	while (++index < WIN_WIDTH)
 	{
 		ray.dist = 10000;
 		set_point(&ray.ray.pt2, player->pos.x + cos(ray.angle) * cub->settings->fov_dist, player->pos.y - sin(ray.angle) * cub->settings->fov_dist, 0);
@@ -127,7 +129,7 @@ static void	draw_rays(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		}
 		else
 			mlx_draw_line(img, start, ray.ray.pt2, LIGHT_WHITE);
-		ray.angle += 0.001;
+		ray.angle += cub->settings->fov_width / WIN_WIDTH;
 	}
 }
 

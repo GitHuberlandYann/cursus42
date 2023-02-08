@@ -29,12 +29,16 @@ void	ray_dooring(t_door *doors, t_ray *ray)
 			if (doors->edges[index].side != CUT)
 			{
 				intersection = get_inter(ray, pt4, doors->edges[index].pt1, doors->edges[index].pt2);
-				dist = get_dist(ray->ray.pt1, intersection);
-				if (intersection.z && dist < ray->dist)
+				if (intersection.z)
 				{
-					ray->ray.pt2 = intersection;
-					ray->dist = dist;
-					ray->hit = doors->edges[index].side;
+					dist = get_dist(ray->ray.pt1, intersection);
+					if (dist < ray->dist)
+					{
+						ray->ray.pt2 = intersection;
+						ray->dist = dist;
+						ray->hit = doors->edges[index].side;
+						ray->u = intersection.z - 1;
+					}
 				}
 			}
 			++index;

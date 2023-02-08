@@ -67,12 +67,22 @@ static int	charge_portal(t_map *map, int x, int y, t_side orientation)
 			target->x = x;
 			target->y = y;
 			target->pline.side = orientation;
-			if (orientation == NO || orientation == SO)
+			if (orientation == NO)
+			{
+				set_point(&target->pline.pt1, x + 0.5, y, 0);
+				set_point(&target->pline.pt2, x - 0.5, y, 0);
+			}
+			else if (orientation == SO)
 			{
 				set_point(&target->pline.pt1, x - 0.5, y, 0);
 				set_point(&target->pline.pt2, x + 0.5, y, 0);
 			}
-			else if (orientation == EA || orientation == WE)
+			else if (orientation == EA)
+			{
+				set_point(&target->pline.pt1, x, y + 0.5, 0);
+				set_point(&target->pline.pt2, x, y - 0.5, 0);
+			}
+			else if (orientation == WE)
 			{
 				set_point(&target->pline.pt1, x, y - 0.5, 0);
 				set_point(&target->pline.pt2, x, y + 0.5, 0);

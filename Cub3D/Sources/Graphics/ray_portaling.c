@@ -20,10 +20,8 @@ static t_portal	*get_linked(t_portal *portals, t_ray *ray, t_ray *pray)
 	{
 		if (portals->num == ray->in->link)
 		{
-			pray->angle = ray->angle - (ray->in->pline.side - 2) * M_PI / 2 + portals->pline.side * M_PI / 2;
-			u = ray->u;
-			if (ray->in->pline.side == EA && portals->pline.side == EA)
-				u = 1 - u;
+			pray->angle = ray->angle - (ray->in->pline.side - 2) * M_PI_2 + portals->pline.side * M_PI_2;
+			u = 1 - ray->u;
 			set_point(&pray->ray.pt1, portals->pline.pt1.x + u * (portals->pline.pt2.x - portals->pline.pt1.x),  portals->pline.pt1.y + u * (portals->pline.pt2.y - portals->pline.pt1.y), 0);
 			return (portals);
 		}
@@ -65,13 +63,17 @@ void	ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub)
 	while (portals)
 	{
 		intersection = get_inter(ray, pt4, portals->pline.pt1, portals->pline.pt2);
-		dist = get_dist(ray->ray.pt1, intersection);
-		if (intersection.z && dist < ray->dist)
+		if (intersection.z)
 		{
-			ray->ray.pt2 = intersection;
-			ray->dist = dist;
-			ray->hit = PORTAL;
-			ray->in = portals;
+			dist = get_dist(ray->ray.pt1, intersection);
+			if (dist < ray->dist)
+			{
+				ray->ray.pt2 = intersection;
+				ray->dist = dist;
+				ray->hit = PORTAL;
+				ray->in = portals;
+				ray->u = intersection.z - 1;
+			}
 		}
 		portals = portals->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 18:31:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/07 19:04:23 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:31:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,16 @@ void	ray_walling(t_wall *walls, t_ray *ray)
 			if (walls->edges[index].side != CUT)
 			{
 				intersection = get_inter(ray, pt4, walls->edges[index].pt1, walls->edges[index].pt2);
-				dist = get_dist(ray->ray.pt1, intersection);
-				if (intersection.z && dist < ray->dist)
+				if (intersection.z)
 				{
-					ray->ray.pt2 = intersection;
-					ray->dist = dist;
-					ray->hit = walls->edges[index].side;
-					ray->u = intersection.z - 1;
+					dist = get_dist(ray->ray.pt1, intersection);
+					if (dist < ray->dist)
+					{
+						ray->ray.pt2 = intersection;
+						ray->dist = dist;
+						ray->hit = walls->edges[index].side;
+						ray->u = intersection.z - 1;
+					}
 				}
 			}
 			++index;
