@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:36:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 18:29:55 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/09 13:44:14 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,13 @@ void	set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale)
 		pt->x *= map->wall_width;
 		pt->y *= map->wall_width;
 	}
+}
+
+int	in_circle(t_vertice *pt, double x, double y, double radius)
+{
+	t_vertice	center;
+
+	center.x = x;
+	center.y = y;
+	return (get_dist(*pt, center) <= radius);
 }

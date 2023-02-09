@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/09 10:52:57 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:46:34 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@
 # if __linux__
 #  define WIN_WIDTH 1800
 #  define WIN_HEIGHT 900
+#  define MAP_RADIUS 66
 #  define MINIMAP_WIDTH 800
 # else
 #  define WIN_WIDTH 2560//1500
 #  define WIN_HEIGHT 1400//600
+#  define MAP_RADIUS 150
 #  define MINIMAP_WIDTH 1200
 # endif
 
@@ -292,6 +294,8 @@ typedef struct s_settings {
 	int 	mini_follow;
 	int		old_mini_enable;
 	int		recurse_level;
+	int		offset_x;
+	int		offset_y;
 }				t_settings;
 
 typedef struct s_cub {
@@ -306,9 +310,9 @@ void		fill_minimap(t_cub *cub);
 void		fill_old_minimap(t_cub *cub);
 void		fill_old_minimap_follow(t_cub *cub);
 
-
 void		clear_render(t_img *canva, unsigned int cols[2]);
 void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
+void		setup_rendermap(t_img *canva, t_settings *settings);
 
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
 void		ft_create_xpmimg(t_mlx *mlx, char *(textures[4]), t_side side);
@@ -327,9 +331,11 @@ void		ray_dooring(t_door *doors, t_ray *ray);
 void		ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub);
 void		try_door(t_player *player, t_door *doors);
 t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
+
 double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);
 void		set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale);
+int			in_circle(t_vertice *pt, double x, double y, double radius);
 
 // Outputs
 int			output_error(char *msg);

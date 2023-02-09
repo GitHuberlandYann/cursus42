@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/09 10:46:45 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:40:40 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static t_settings	*ft_settings_init(void)
 	res->mini_follow = 0;
 	res->old_mini_enable = 0;
 	res->recurse_level = 7;
+	res->offset_x = WIN_WIDTH - 2 * MAP_RADIUS - 20;
+	res->offset_y = 20;
 	return (res);
 }
 
@@ -75,6 +77,7 @@ void	launch_mlx(t_map *map, char	*title)
 	cub.settings = ft_settings_init();
 	clear_render(cub.mlx->render3d, cub.map->fc_colors);
 	render_map(cub.mlx->render3d, cub.map->player, cub.map, &cub);
+	setup_rendermap(cub.mlx->render3d, cub.settings);
 	mlx_put_image_to_window(cub.mlx->mlx_ptr, cub.mlx->win_ptr,
 		cub.mlx->render3d->img_ptr, 0, 0);
 	if (cub.settings->old_mini_enable)

@@ -83,6 +83,7 @@ int	redraw_all(t_cub *cub)
 	exec_keys(key, cub);
 	clear_render(cub->mlx->render3d, cub->map->fc_colors);
 	render_map(cub->mlx->render3d, cub->map->player, cub->map, cub);
+	setup_rendermap(cub->mlx->render3d, cub->settings);
 	mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
 		cub->mlx->render3d->img_ptr, 0, 0);
 	if (cub->settings->old_mini_enable)
