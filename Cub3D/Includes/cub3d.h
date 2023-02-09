@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/08 18:11:23 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/09 10:52:57 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,7 +268,7 @@ typedef struct s_key {
 	int	fov_dist;
 	int	dist_feel;
 	int	mini_follow;
-	int	mini_enable;
+	int	old_mini_enable;
 	int	mousedate;
 	int	door;
 }				t_key;
@@ -278,7 +278,7 @@ typedef struct s_mlx
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		*render3d;
-	t_img		*minimap;
+	t_img		*old_minimap;
 	t_img		*(textures[4]);
 	t_key		*keys;
 	t_vertice	mouse_pos;
@@ -290,7 +290,7 @@ typedef struct s_settings {
 	double	fov_dist;
 	double	dist_feel;
 	int 	mini_follow;
-	int		mini_enable;
+	int		old_mini_enable;
 	int		recurse_level;
 }				t_settings;
 
@@ -303,7 +303,8 @@ typedef struct s_cub {
 //Graphics
 void		launch_mlx(t_map *map, char	*title);
 void		fill_minimap(t_cub *cub);
-void		fill_minimap_follow(t_cub *cub);
+void		fill_old_minimap(t_cub *cub);
+void		fill_old_minimap_follow(t_cub *cub);
 
 
 void		clear_render(t_img *canva, unsigned int cols[2]);
@@ -326,7 +327,6 @@ void		ray_dooring(t_door *doors, t_ray *ray);
 void		ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub);
 void		try_door(t_player *player, t_door *doors);
 t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
-// t_vertice	get_inter_fov(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
 double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);
 void		set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/08 18:27:58 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/09 10:46:45 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static t_settings	*ft_settings_init(void)
 	res->fov_dist = 5;
 	res->dist_feel = 0;
 	res->mini_follow = 0;
-	res->mini_enable = 0;
+	res->old_mini_enable = 0;
 	res->recurse_level = 7;
 	return (res);
 }
 
 static void	ft_img_init(t_mlx *mlx, char *(textures[4]))
 {
-	mlx->minimap = ft_create_img(mlx, MINIMAP_WIDTH, MINIMAP_WIDTH);
+	mlx->old_minimap = ft_create_img(mlx, MINIMAP_WIDTH, MINIMAP_WIDTH);
 	mlx->render3d = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT);
 	ft_create_xpmimg(mlx, textures, NO);
 	ft_create_xpmimg(mlx, textures, SO);
@@ -59,7 +59,7 @@ static t_mlx	*ft_mlx_init(char *title, char *(textures[4]))
 	mlx->keys->fov_dist = 0;
 	mlx->keys->dist_feel = 0;
 	mlx->keys->mini_follow = 0;
-	mlx->keys->mini_enable = 0;
+	mlx->keys->old_mini_enable = 0;
 	mlx->keys->mousedate = 0;
 	mlx->keys->door = 0;
 	mlx->mouse_pos.z = 1;
@@ -77,11 +77,11 @@ void	launch_mlx(t_map *map, char	*title)
 	render_map(cub.mlx->render3d, cub.map->player, cub.map, &cub);
 	mlx_put_image_to_window(cub.mlx->mlx_ptr, cub.mlx->win_ptr,
 		cub.mlx->render3d->img_ptr, 0, 0);
-	if (cub.settings->mini_enable)
+	if (cub.settings->old_mini_enable)
 	{
-		fill_minimap(&cub);
+		fill_old_minimap(&cub);
 		mlx_put_image_to_window(cub.mlx->mlx_ptr, cub.mlx->win_ptr,
-			cub.mlx->minimap->img_ptr, (WIN_WIDTH - MINIMAP_WIDTH) / 4, (WIN_HEIGHT - MINIMAP_WIDTH) / 4);
+			cub.mlx->old_minimap->img_ptr, (WIN_WIDTH - MINIMAP_WIDTH) / 4, (WIN_HEIGHT - MINIMAP_WIDTH) / 4);
 	}
 	mlx_hook(cub.mlx->win_ptr, ON_KEYDOWN, 1L<<0, key_down, &cub);
 	mlx_hook(cub.mlx->win_ptr, ON_KEYUP, 1L<<1, key_released, &cub);

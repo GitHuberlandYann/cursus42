@@ -76,7 +76,7 @@ int	redraw_all(t_cub *cub)
 	key = cub->mlx->keys;
 	if (!key->horizontal && !key->vertical && !key->steering && !key->fov_width
 		&& key->fov_enable != 1 && !key->fov_dist && key->mini_follow != 1
-		&& !key->mousedate && key->door != 1 && key->mini_enable != 1
+		&& !key->mousedate && key->door != 1 && key->old_mini_enable != 1
 		&& !key->dist_feel)
 		return (1);
 	key->mousedate = 0;
@@ -85,12 +85,12 @@ int	redraw_all(t_cub *cub)
 	render_map(cub->mlx->render3d, cub->map->player, cub->map, cub);
 	mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
 		cub->mlx->render3d->img_ptr, 0, 0);
-	if (cub->settings->mini_enable)
+	if (cub->settings->old_mini_enable)
 	{
-		mlx_clear_img(cub->mlx->minimap);
-		fill_minimap(cub);
+		mlx_clear_img(cub->mlx->old_minimap);
+		fill_old_minimap(cub);
 		mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
-			cub->mlx->minimap->img_ptr, (WIN_WIDTH - MINIMAP_WIDTH) / 4, (WIN_HEIGHT - MINIMAP_WIDTH) / 4);
+			cub->mlx->old_minimap->img_ptr, (WIN_WIDTH - MINIMAP_WIDTH) / 4, (WIN_HEIGHT - MINIMAP_WIDTH) / 4);
 	}
 	return (0);
 }
