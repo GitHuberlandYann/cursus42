@@ -163,3 +163,13 @@ int	link_empty(t_map *map)
 	}
 	return (0);
 }
+
+/* We don't handle floor/ceilling textures with portals */
+int	conflict_pt(t_map *map)
+{
+	if (map->portals && map->fc_textures[FLOOR])
+		return (output_error(MSG_PORTAL_FLOOR));
+	else if (map->portals && map->fc_textures[CEILLING])
+		return (output_error(MSG_PORTAL_CEILLING));
+	return (0);
+}

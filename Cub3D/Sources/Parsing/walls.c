@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   walls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/05 18:34:36 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:13:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void	create_walls(t_map *map, t_parsing *lines)
 		++y;
 		tmp = tmp->next;
 	}
-	if (link_empty(map))
+	if (link_empty(map) || conflict_pt(map))
 		return (free_return_all(lines, map));
 	free_return_lines(lines, map, 0);
 	map->map_width = map->o_right - map->o_left;

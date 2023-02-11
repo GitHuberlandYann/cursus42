@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:54:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/07 10:38:00 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:59:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,17 @@ static int	load_texture(t_map *map, t_side side)
 		return (output_error(MSG_TWOEA));
 	map->textures[side] = ft_strdup(&map->line[3]);
 	map->textures[side][ft_strlen(map->textures[side]) - 1] = '\0';
+	return (0);
+}
+
+static int	load_texture_fc(t_map *map, t_ground side)
+{
+	if (side == FLOOR && map->fc_textures[FLOOR])
+		return (output_error(MSG_TWOFT));
+	if (side == CEILLING && map->fc_textures[CEILLING])
+		return (output_error(MSG_TWOCT));
+	map->fc_textures[side] = ft_strdup(&map->line[4]);
+	map->fc_textures[side][ft_strlen(map->fc_textures[side]) - 1] = '\0';
 	return (0);
 }
 
@@ -72,6 +83,10 @@ int	read_first_lines(t_map *map, int fd)
 		if (!ft_strncmp("C ", map->line, 2) && transform_color(map, CEILLING))
 			return (free_return_line(map->line));
 		if (!ft_strncmp("LINK ", map->line, 5) && link_portals(map))
+			return (free_return_line(map->line));
+		if (!ft_strncmp("FT ", map->line, 3) && load_texture_fc(map, FLOOR))
+			return (free_return_line(map->line));
+		if (!ft_strncmp("CT ", map->line, 3) && load_texture_fc(map, CEILLING))
 			return (free_return_line(map->line));
 		free(map->line);
 		map->line = get_next_line(fd);

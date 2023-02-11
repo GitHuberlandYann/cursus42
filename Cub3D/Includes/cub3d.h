@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/09 14:46:34 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:04:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define MSG_TWOSO "Two different lines start with 'SO'"
 # define MSG_TWOWE "Two different lines start with 'WE'"
 # define MSG_TWOEA "Two different lines start with 'EA'"
+# define MSG_TWOFT "Two different lines start with 'FT'"
+# define MSG_TWOCT "Two different lines start with 'CT'"
 # define MSG_RGBZEROPAD "RGB values can't be zero-padded"
 # define MSG_RGB255 "RGB values can't be greater than 255"
 # define MSG_RGBUNSET "Unset or incorrect RGB value"
@@ -51,11 +53,13 @@
 # define MSG_TOOMANYPLAYERS "More than 1 player in map"
 # define MSG_NOLINK "Link missing for one of the portals"
 # define MSG_UNUSEDLINK "No portal matching one of the links"
+# define MSG_PORTAL_FLOOR "Map can't have portals and floor textures"
+# define MSG_PORTAL_CEILLING "Map can't have portals and ceilling textures"
 
 # if __linux__
 #  define WIN_WIDTH 1800
 #  define WIN_HEIGHT 900
-#  define MAP_RADIUS 66
+#  define MAP_RADIUS 150
 #  define MINIMAP_WIDTH 800
 # else
 #  define WIN_WIDTH 2560//1500
@@ -241,6 +245,7 @@ typedef struct s_map {
 	char			*line;
 	char			*(textures[4]);
 	unsigned int	fc_colors[2];
+	char			*(fc_textures[2]);
 	int				o_left;
 	int				o_right;
 	int				o_up;
@@ -282,6 +287,7 @@ typedef struct s_mlx
 	t_img		*render3d;
 	t_img		*old_minimap;
 	t_img		*(textures[4]);
+	t_img		*(fc_textures[2]);
 	t_key		*keys;
 	t_vertice	mouse_pos;
 }				t_mlx;
@@ -310,12 +316,12 @@ void		fill_minimap(t_cub *cub);
 void		fill_old_minimap(t_cub *cub);
 void		fill_old_minimap_follow(t_cub *cub);
 
-void		clear_render(t_img *canva, unsigned int cols[2]);
+void		clear_render(t_img *canva, unsigned int cols[2], t_cub *cub);
 void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
 void		setup_rendermap(t_img *canva, t_settings *settings);
 
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
-void		ft_create_xpmimg(t_mlx *mlx, char *(textures[4]), t_side side);
+t_img		*ft_create_xpmimg(t_mlx *mlx, char *textures, t_side side);
 void		mlx_clear_img(t_img *img);
 void		mlx_draw_line(t_img *img, t_vertice a, t_vertice b, unsigned int color);
 void		mlx_pxl_put(t_img *img, t_vertice pt, unsigned int color);
@@ -356,5 +362,6 @@ t_wall		*get_wallat(t_wall *walls, int x, int y);
 int			add_door(t_map *map, t_parsing *line, int x, int y);
 int			set_portal(t_map *map, t_parsing *line, int x, int y);
 int			link_empty(t_map *map);
+int			conflict_pt(t_map *map);
 
 #endif

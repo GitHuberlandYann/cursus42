@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/04 14:35:49 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/11 15:43:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static int	check_header(t_map *map, int res)
 {
 	if (!res)
 	{
-		res = (map->fc_colors[FLOOR] == 0x1000000)
-				+ (map->fc_colors[CEILLING] == 0x1000000)
-				+ !map->textures[NO] + !map->textures[SO] + !map->textures[WE]
-				+!map->textures[EA];
+		res = ((map->fc_colors[FLOOR] == 0x1000000) && !map->fc_textures[FLOOR])
+			+ ((map->fc_colors[CEILLING] == 0x1000000) && !map->fc_textures[CEILLING])
+			+ !map->textures[NO] + !map->textures[SO] + !map->textures[WE]
+			+!map->textures[EA];
 		if (res)
 		{
 			output_error("Missing line in header of map");
@@ -50,6 +50,8 @@ static void	free_textures(t_map *map, int res)
 		free(map->textures[SO]);
 		free(map->textures[WE]);
 		free(map->textures[EA]);
+		free(map->fc_textures[FLOOR]);
+		free(map->fc_textures[CEILLING]);
 		while (map->portals)
 		{
 			tmp = map->portals;
@@ -92,6 +94,8 @@ int	load_map(t_map *map, char *file)
 	map->textures[EA] = 0;
 	map->fc_colors[FLOOR] = 0x1000000;
 	map->fc_colors[CEILLING] = 0x1000000;
+	map->fc_textures[FLOOR] = 0;
+	map->fc_textures[CEILLING] = 0;
 	map->walls = 0;
 	map->doors = 0;
 	map->portals = 0;

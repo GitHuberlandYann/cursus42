@@ -33,7 +33,7 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 			cub->map->player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (cub->map->player->speed * (1 + keys->sprint));// - wall_sensor.dist);
 			cub->map->player->direction = wall_sensor.out_angle + M_PI * (keys->vertical == -1);
 		}
-		else if (wall_sensor.dist > cub->map->player->speed * (1 + keys->sprint))
+		else if (wall_sensor.dist > 2 * cub->map->player->speed * (1 + keys->sprint))
 		{
 			cub->map->player->pos.x += cos(cub->map->player->direction) * cub->map->player->speed * (1 + keys->sprint) * keys->vertical;
 			cub->map->player->pos.y -= sin(cub->map->player->direction) * cub->map->player->speed * (1 + keys->sprint) * keys->vertical;
@@ -53,20 +53,22 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 			cub->map->player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (cub->map->player->speed * (1 + keys->sprint));// - wall_sensor.dist);
 			cub->map->player->direction = wall_sensor.out_angle + M_PI / 2 + M_PI * (keys->horizontal == 1);
 		}
-		if (wall_sensor.dist > cub->map->player->speed * (1 + keys->sprint))
+		if (wall_sensor.dist > 2 * cub->map->player->speed * (1 + keys->sprint))
 		{
 			cub->map->player->pos.x += cos(cub->map->player->direction + M_PI / 2) * cub->map->player->speed * (1 + keys->sprint) * keys->horizontal;
 			cub->map->player->pos.y -= sin(cub->map->player->direction + M_PI / 2) * cub->map->player->speed * (1 + keys->sprint) * keys->horizontal;
 		}
 	}
 	cub->map->player->direction += keys->steering * 5 * M_PI / 180;
-	if (keys->fov_width < 0 && cub->settings->fov_width > M_PI / 10)
-		cub->settings->fov_width -= M_PI / 180;
-	else if (keys->fov_width > 0 && cub->settings->fov_width < M_PI * 2)
-		cub->settings->fov_width += M_PI / 180;
+	if (keys->fov_width < 0 && cub->settings->fov_width > WIN_WIDTH / 10)
+		cub->settings->fov_width -= 10;
+	else if (keys->fov_width > 0 && cub->settings->fov_width < WIN_WIDTH * 2)
+		cub->settings->fov_width += 10;
 	if ((cub->settings->fov_dist > 0.5 && keys->fov_dist < 0) || keys->fov_dist > 0)
 		cub->settings->fov_dist += keys->fov_dist * 0.1;
 	cub->settings->dist_feel += keys->dist_feel * 0.01;
+	if (cub->settings->dist_feel < 0.5 || cub->settings->dist_feel > 2)
+		cub->settings->dist_feel -= keys->dist_feel * 0.01;
 }
 
 int	redraw_all(t_cub *cub)
@@ -81,7 +83,7 @@ int	redraw_all(t_cub *cub)
 		return (1);
 	key->mousedate = 0;
 	exec_keys(key, cub);
-	clear_render(cub->mlx->render3d, cub->map->fc_colors);
+	clear_render(cub->mlx->render3d, cub->map->fc_colors, cub);
 	render_map(cub->mlx->render3d, cub->map->player, cub->map, cub);
 	setup_rendermap(cub->mlx->render3d, cub->settings);
 	mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,

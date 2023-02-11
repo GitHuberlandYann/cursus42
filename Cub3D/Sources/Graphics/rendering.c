@@ -63,16 +63,17 @@ static void	draw_wall_vert(t_img *img, t_vertice *pt, t_img *texture, double u)
 	}
 }
 
-static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub)
+static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 {
 	t_vertice	start;
 	t_vertice	finish;
 	double		wall_height;
 
-	ray->dist *= (cub->settings->dist_feel + cos(cub->map->player->direction - ray->angle));
+	ray->dist *= cos(cub->map->player->direction - ray->angle);
+	ray->dist *= cub->settings->dist_feel;
 	wall_height = 1 / ray->dist;
-	set_point(&start, ((cub->map->player->direction + cub->settings->fov_width / 2) - ray->angle) / cub->settings->fov_width * (double)WIN_WIDTH, WIN_HEIGHT / 2 - wall_height * WIN_HEIGHT / 2,  WIN_HEIGHT / 2 + wall_height * WIN_HEIGHT / 2);
-	set_point(&finish, ((cub->map->player->direction + cub->settings->fov_width / 2) - ray->angle) / cub->settings->fov_width * (double)WIN_WIDTH, WIN_HEIGHT / 2 + wall_height * WIN_HEIGHT / 2, 0);
+	set_point(&start, pixel_x, (1 - wall_height) * WIN_HEIGHT / 2,  WIN_HEIGHT / 2 + wall_height * WIN_HEIGHT / 2);
+	set_point(&finish, pixel_x, (1 + wall_height) * WIN_HEIGHT / 2, 0);
 	if (ray->hit == DOOR)
 		mlx_draw_line(img, start, finish, BROWNISH);
 	else if (ray->hit == CUT)
@@ -96,9 +97,10 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 
 	index = -1;
 	set_point(&ray.ray.pt1, player->pos.x, player->pos.y, 0);
-	ray.angle = player->direction - cub->settings->fov_width / 2;
+	// ray.angle = player->direction - cub->settings->fov_width / 2;
 	while (++index < WIN_WIDTH)//ray.angle < player->direction + cub->settings->fov_width / 2)
 	{
+		ray.angle = player->direction + atan((index - WIN_WIDTH / 2) / cub->settings->fov_width);
 		ray.dist = 10000;
 		if (cub->settings->fov_enable)
 			ray.dist = cub->settings->fov_dist;
@@ -108,25 +110,33 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		ray_dooring(map->doors, &ray);
 		ray_portaling(map->portals, &ray, cub);
 		// printf("[%lf,%lf]-[%lf,%lf]\n", ray.ray.pt1.x, ray.ray.pt1.y, ray.ray.pt2.x, ray.ray.pt2.y);
-		draw_hit(img, &ray, cub);
-		ray.angle += cub->settings->fov_width / WIN_WIDTH;
+		draw_hit(img, &ray, cub, WIN_WIDTH - index);
 	}
 }
 
-void	clear_render(t_img *canva, unsigned int cols[2])
+void	clear_render(t_img *canva, unsigned int cols[2], t_cub *cub)
 {
 	t_vertice	pt;
+	double		limiter;
 
 	pt.z = 0;
 	pt.y = 0;
-	while (pt.y < canva->height)
+	limiter = canva->height;
+	if (cub->mlx->fc_textures[CEILLING])
 	{
-		pt.x = 0;
-		while (pt.x < canva->width)
-		{
+		pt.y = canva->height / 2;
+		;//add ceilling
+	}
+	if (cub->mlx->fc_textures[FLOOR])
+	{
+		limiter = canva->height / 2;
+		;//add floor
+	}
+	while (pt.y < limiter)
+	{
+		pt.x = -1;
+		while (++pt.x < canva->width)
 			mlx_pxl_put(canva, pt, cols[pt.y < canva->height / 2]);
-			++pt.x;
-		}
 		++pt.y;
 	}
 }

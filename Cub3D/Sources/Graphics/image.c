@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/07 10:39:12 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:57:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,21 @@ t_img	*ft_create_img(t_mlx *mlx, int width, int height)
 	return (img);
 }
 
-void	ft_create_xpmimg(t_mlx *mlx, char *(textures[4]), t_side side)
+t_img	*ft_create_xpmimg(t_mlx *mlx, char *texture, t_side side)
 {
 	t_img	*img;
 
+	if (!texture)
+		return (0);
 	img = ft_malloc(sizeof(*img), __func__);
 	img->img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr,
-			textures[side], &img->width, &img->height);
+			texture, &img->width, &img->height);
 	if (!img->img_ptr)
-		printf("failed to load img |%s| on side %d\n", textures[side], side); //exit(printf..);
+		printf("failed to load img |%s| on side %d\n", texture, side); //exit(printf..);
 	else
 		img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
-	mlx->textures[side] = img;
+	return (img);
 }
 
 void	mlx_clear_img(t_img *img)
