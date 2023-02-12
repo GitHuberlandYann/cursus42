@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:36:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 15:25:38 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/12 18:02:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,15 @@ int	in_circle(t_vertice *pt, double x, double y, double radius)
 	center.x = x;
 	center.y = y;
 	return (get_dist(*pt, center) <= radius);
+}
+
+void	set_angles(t_cub *cub)
+{
+	int	index;
+
+	index = -1;
+	while (++index < WIN_WIDTH)
+	{
+		cub->angles[index] = atan((WIN_WIDTH / 2 - index) / cub->settings->fov_width);
+	}
 }

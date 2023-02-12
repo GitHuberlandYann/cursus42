@@ -60,14 +60,16 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 		}
 	}
 	cub->map->player->direction += keys->steering * 5 * M_PI / 180;
-	if (keys->fov_width < 0 && cub->settings->fov_width > WIN_WIDTH / 10)
-		cub->settings->fov_width -= 10;
-	else if (keys->fov_width > 0 && cub->settings->fov_width < WIN_WIDTH * 2)
-		cub->settings->fov_width += 10;
+	if ((keys->fov_width < 0 && cub->settings->fov_width > WIN_WIDTH / 10)
+		|| (keys->fov_width > 0 && cub->settings->fov_width < WIN_WIDTH * 2))
+	{
+		cub->settings->fov_width += 10 * keys->fov_width;
+		set_angles(cub);
+	}
 	if ((cub->settings->fov_dist > 0.5 && keys->fov_dist < 0) || keys->fov_dist > 0)
 		cub->settings->fov_dist += keys->fov_dist * 0.1;
 	cub->settings->dist_feel += keys->dist_feel * 0.01;
-	if (cub->settings->dist_feel < 0.5 || cub->settings->dist_feel > 2)
+	if (cub->settings->dist_feel < 0.5 || cub->settings->dist_feel > 1.5)
 		cub->settings->dist_feel -= keys->dist_feel * 0.01;
 }
 

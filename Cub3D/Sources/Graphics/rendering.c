@@ -90,7 +90,7 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 	// ray.angle = player->direction - cub->settings->fov_width / 2;
 	while (++index < WIN_WIDTH)//ray.angle < player->direction + cub->settings->fov_width / 2)
 	{
-		ray.angle = player->direction + atan((WIN_WIDTH / 2 - index) / cub->settings->fov_width);
+		ray.angle = cub->map->player->direction + cub->angles[index];
 		ray.dist = 10000;
 		if (cub->settings->fov_enable)
 			ray.dist = cub->settings->fov_dist;

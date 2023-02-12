@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 16:12:27 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/12 17:59:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,6 +318,7 @@ typedef struct s_cub {
 	t_map		*map;
 	t_mlx		*mlx;
 	t_settings	*settings;
+	double		angles[WIN_WIDTH];
 }				t_cub;
 
 //Graphics
@@ -356,6 +357,7 @@ double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);
 void		set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale);
 int			in_circle(t_vertice *pt, double x, double y, double radius);
+void		set_angles(t_cub *cub);
 
 // Outputs
 int			output_error(char *msg);

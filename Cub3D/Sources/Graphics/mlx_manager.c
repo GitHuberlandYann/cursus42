@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 14:17:13 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/12 17:59:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	launch_mlx(t_map *map, char	*title)
 	cub.map = map;
 	cub.mlx = ft_mlx_init(title, map->textures, map->fc_textures, map->ds_textures);
 	cub.settings = ft_settings_init();
+	set_angles(&cub);
 	clear_render(cub.mlx->render3d, cub.map->fc_colors, &cub);
 	render_map(cub.mlx->render3d, cub.map->player, cub.map, &cub);
 	setup_rendermap(cub.mlx->render3d, cub.settings);
