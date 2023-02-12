@@ -12,16 +12,6 @@
 
 #include "cub3d.h"
 
-static unsigned int	mlx_pxl_get(t_img *img, int x, int y)
-{
-	char	*dst;
-
-	if (y < 0 || y >= img->height || x < 0 || x >= img->width)
-		return (0);
-	dst = img->addr + (y * img->line_length + x * img->bytes_per_pixel);
-	return (*(unsigned int *)dst);
-}
-
 static void	draw_wall_vert(t_img *img, t_vertice *pt, t_img *texture, double u)
 {
 	t_vertice		pt2;
@@ -86,6 +76,8 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 		draw_wall_vert(img, &start, cub->mlx->textures[EA], ray->u); //mlx_draw_line(img, start, finish, 0xa000);
 	else
 		mlx_draw_line(img, start, finish, BLUEISH);
+	if (cub->mlx->fc_textures[FLOOR] || cub->mlx->fc_textures[CEILLING])
+		render_ground(img, cub, &finish, ray->angle);
 }
 
 void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)

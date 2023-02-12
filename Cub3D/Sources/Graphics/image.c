@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 15:25:38 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/12 16:18:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,16 @@ void	mlx_clear_img(t_img *img)
 		}
 		++pt.x;
 	}
+}
+
+unsigned int	mlx_pxl_get(t_img *img, int x, int y)
+{
+	char	*dst;
+
+	if (y < 0 || y >= img->height || x < 0 || x >= img->width)
+		return (0);
+	dst = img->addr + (y * img->line_length + x * img->bytes_per_pixel);
+	return (*(unsigned int *)dst);
 }
 
 void	mlx_pxl_put(t_img *img, int x, int y, unsigned int color)

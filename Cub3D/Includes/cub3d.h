@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 15:25:38 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/12 16:12:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,6 +329,7 @@ void		fill_old_minimap_follow(t_cub *cub);
 void		clear_render(t_img *canva, unsigned int cols[2], t_cub *cub);
 void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
 void		setup_rendermap(t_img *canva, t_settings *settings);
+void		render_ground(t_img *img, t_cub *cub, t_vertice *pxl, double alpha);
 
 void		add_fps(t_mlx *mlx, t_settings *settings);
 
@@ -337,6 +338,7 @@ t_img		*ft_create_xpmimg(t_mlx *mlx, char *textures, t_side side);
 void		mlx_clear_img(t_img *img);
 void		mlx_draw_line(t_img *img, t_vertice a, t_vertice b, unsigned int color);
 void		mlx_pxl_put(t_img *img, int x, int y, unsigned int color);
+unsigned int	mlx_pxl_get(t_img *img, int x, int y);
 
 int			key_down(int kcode, t_cub *cub);
 int			key_released(int kcode, t_cub *cub);
