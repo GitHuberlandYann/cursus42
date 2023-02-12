@@ -95,5 +95,6 @@ int	redraw_all(t_cub *cub)
 		mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
 			cub->mlx->old_minimap->img_ptr, (WIN_WIDTH - MINIMAP_WIDTH) / 4, (WIN_HEIGHT - MINIMAP_WIDTH) / 4);
 	}
+	add_fps(cub->mlx, cub->settings);
 	return (0);
 }

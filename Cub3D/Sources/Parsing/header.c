@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:54:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/11 15:59:51 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/12 14:10:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,19 @@ static int	load_texture_fc(t_map *map, t_ground side)
 		return (output_error(MSG_TWOFT));
 	if (side == CEILLING && map->fc_textures[CEILLING])
 		return (output_error(MSG_TWOCT));
-	map->fc_textures[side] = ft_strdup(&map->line[4]);
+	map->fc_textures[side] = ft_strdup(&map->line[3]);
 	map->fc_textures[side][ft_strlen(map->fc_textures[side]) - 1] = '\0';
+	return (0);
+}
+
+static int	load_texture_ds(t_map *map, int side)
+{
+	if (side == 0 && map->ds_textures[side])
+		return (output_error(MSG_TWODOORS));
+	if (side == 1 && map->fc_textures[side])
+		return (output_error(MSG_TWODOORSIDES));
+	map->ds_textures[side] = ft_strdup(&map->line[2 + side]);
+	map->ds_textures[side][ft_strlen(map->ds_textures[side]) - 1] = '\0';
 	return (0);
 }
 
@@ -87,6 +98,10 @@ int	read_first_lines(t_map *map, int fd)
 		if (!ft_strncmp("FT ", map->line, 3) && load_texture_fc(map, FLOOR))
 			return (free_return_line(map->line));
 		if (!ft_strncmp("CT ", map->line, 3) && load_texture_fc(map, CEILLING))
+			return (free_return_line(map->line));
+		if (!ft_strncmp("D ", map->line, 2) && load_texture_ds(map, 0))
+			return (free_return_line(map->line));
+		if (!ft_strncmp("DS ", map->line, 3) && load_texture_ds(map, 1))
 			return (free_return_line(map->line));
 		free(map->line);
 		map->line = get_next_line(fd);

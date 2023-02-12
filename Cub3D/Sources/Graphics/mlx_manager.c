@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/11 20:05:10 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/12 14:17:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ static t_settings	*ft_settings_init(void)
 	res->recurse_level = 7;
 	res->offset_x = WIN_WIDTH - 2 * MAP_RADIUS - 20;
 	res->offset_y = 20;
+	res->timepoint = 0;
 	return (res);
 }
 
-static void	ft_img_init(t_mlx *mlx, char *(textures[4]), char *(fc_textures[2]))
+static void	ft_img_init(t_mlx *mlx, char *(textures[4]), char *(fc_textures[2]), char *(ds_textures[2]))
 {
 	mlx->old_minimap = ft_create_img(mlx, MINIMAP_WIDTH, MINIMAP_WIDTH);
 	mlx->render3d = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT);
@@ -39,9 +40,11 @@ static void	ft_img_init(t_mlx *mlx, char *(textures[4]), char *(fc_textures[2]))
 	mlx->textures[EA] = ft_create_xpmimg(mlx, textures[EA], EA);
 	mlx->fc_textures[FLOOR] = ft_create_xpmimg(mlx, fc_textures[FLOOR], FLOOR);
 	mlx->fc_textures[CEILLING] = ft_create_xpmimg(mlx, fc_textures[CEILLING], CEILLING);
+	mlx->ds_textures[0] = ft_create_xpmimg(mlx, ds_textures[0], 0);
+	mlx->ds_textures[1] = ft_create_xpmimg(mlx, ds_textures[1], 1);
 }
 
-static t_mlx	*ft_mlx_init(char *title, char *(textures[4]), char *(fc_textures[2]))
+static t_mlx	*ft_mlx_init(char *title, char *(textures[4]), char *(fc_textures[2]), char *(ds_textures[2]))
 {
 	t_mlx	*mlx;
 
@@ -52,7 +55,7 @@ static t_mlx	*ft_mlx_init(char *title, char *(textures[4]), char *(fc_textures[2
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, title);
 	if (!mlx->win_ptr)
 		ft_perror("mlx_new_window");
-	ft_img_init(mlx, textures, fc_textures);
+	ft_img_init(mlx, textures, fc_textures, ds_textures);
 	mlx->keys = ft_malloc(sizeof(*mlx->keys), "keys_init");
 	mlx->keys->vertical = 0;
 	mlx->keys->horizontal = 0;
@@ -75,7 +78,7 @@ void	launch_mlx(t_map *map, char	*title)
 	t_cub	cub;
 
 	cub.map = map;
-	cub.mlx = ft_mlx_init(title, map->textures, map->fc_textures);
+	cub.mlx = ft_mlx_init(title, map->textures, map->fc_textures, map->ds_textures);
 	cub.settings = ft_settings_init();
 	clear_render(cub.mlx->render3d, cub.map->fc_colors, &cub);
 	render_map(cub.mlx->render3d, cub.map->player, cub.map, &cub);

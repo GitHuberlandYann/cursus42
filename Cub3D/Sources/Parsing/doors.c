@@ -16,26 +16,26 @@ static void	set_horizontal_door(t_door *door, int x, int y)
 {
 	set_point(&door->edges[0].pt1, x - 0.5, y - 0.5, 0);
 	set_point(&door->edges[0].pt2, x - 0.5, y + 0.5, 0);
-	door->edges[0].side = EA;
+	door->edges[0].side = DOORSIDE;
 	set_point(&door->edges[1].pt1, x - 0.5, y, 0);
 	set_point(&door->edges[1].pt2, x + 0.5, y, 0);
 	door->edges[1].side = DOOR;
 	set_point(&door->edges[2].pt1, x + 0.5, y - 0.5, 0);
 	set_point(&door->edges[2].pt2, x + 0.5, y + 0.5, 0);
-	door->edges[2].side = WE;
+	door->edges[2].side = DOORSIDE;
 }
 
 static void	set_vertical_door(t_door *door, int x, int y)
 {
 	set_point(&door->edges[0].pt1, x - 0.5, y - 0.5, 0);
 	set_point(&door->edges[0].pt2, x + 0.5, y - 0.5, 0);
-	door->edges[0].side = NO;
+	door->edges[0].side = DOORSIDE;
 	set_point(&door->edges[1].pt1, x, y - 0.5, 0);
 	set_point(&door->edges[1].pt2, x, y + 0.5, 0);
 	door->edges[1].side = DOOR;
 	set_point(&door->edges[2].pt1, x - 0.5, y + 0.5, 0);
 	set_point(&door->edges[2].pt2, x + 0.5, y + 0.5, 0);
-	door->edges[2].side = SO;
+	door->edges[2].side = DOORSIDE;
 }
 
 static t_door	*new_door(int x, int y, t_side orientation)
@@ -70,6 +70,9 @@ int	add_door(t_map *map, t_parsing *line, int x, int y)
 {
 	t_side	orientation;
 
+	if (!map->hasdoor && (!map->ds_textures[0] || !map->ds_textures[1]))
+		return (output_error(MSG_DOORTEXTURE));
+	map->hasdoor = 1;
 	if (!x || !y || !line->next || x >= line->prev->size || x >= line->next->size)
 		return (output_error(MSG_DOOR_BORDER));
 	if (line->line[x - 1] == '1' && line->line[x + 1] == '1' && line->prev->line[x] != '1' && line->next->line[x] != '1')

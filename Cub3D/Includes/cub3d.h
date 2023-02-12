@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/11 18:04:34 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/12 14:09:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
+# include <sys/time.h>
 
 # include "../Libft/libft.h"
 # include "../mlx/mlx.h"
@@ -34,6 +35,8 @@
 # define MSG_TWOEA "Two different lines start with 'EA'"
 # define MSG_TWOFT "Two different lines start with 'FT'"
 # define MSG_TWOCT "Two different lines start with 'CT'"
+# define MSG_TWODOORS "Two different lines start with 'D'"
+# define MSG_TWODOORSIDES "Two different lines start with 'DS'"
 # define MSG_RGBZEROPAD "RGB values can't be zero-padded"
 # define MSG_RGB255 "RGB values can't be greater than 255"
 # define MSG_RGBUNSET "Unset or incorrect RGB value"
@@ -55,6 +58,7 @@
 # define MSG_UNUSEDLINK "No portal matching one of the links"
 # define MSG_PORTAL_FLOOR "Map can't have portals and floor textures"
 # define MSG_PORTAL_CEILLING "Map can't have portals and ceilling textures"
+# define MSG_DOORTEXTURE "Missing D/DS line, no texture for doors"
 
 # if __linux__
 #  define WIN_WIDTH 1800
@@ -83,6 +87,7 @@ typedef enum e_side {
 	WE,
 	SO,
 	DOOR,
+	DOORSIDE,
 	PORTAL,
 	CUT
 }			t_side;
@@ -239,6 +244,7 @@ typedef struct s_map {
 	int				player_count;
 	t_player		*player;
 	t_wall			*walls;
+	int				hasdoor;
 	t_door			*doors;
 	int				portal_count;
 	t_portal		*portals;
@@ -246,6 +252,7 @@ typedef struct s_map {
 	char			*(textures[4]);
 	unsigned int	fc_colors[2];
 	char			*(fc_textures[2]);
+	char			*(ds_textures[2]);
 	int				o_left;
 	int				o_right;
 	int				o_up;
@@ -288,6 +295,7 @@ typedef struct s_mlx
 	t_img		*old_minimap;
 	t_img		*(textures[4]);
 	t_img		*(fc_textures[2]);
+	t_img		*(ds_textures[2]);
 	t_key		*keys;
 	t_vertice	mouse_pos;
 }				t_mlx;
@@ -302,6 +310,7 @@ typedef struct s_settings {
 	int		recurse_level;
 	int		offset_x;
 	int		offset_y;
+	int		timepoint;
 }				t_settings;
 
 typedef struct s_cub {
@@ -319,6 +328,8 @@ void		fill_old_minimap_follow(t_cub *cub);
 void		clear_render(t_img *canva, unsigned int cols[2], t_cub *cub);
 void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
 void		setup_rendermap(t_img *canva, t_settings *settings);
+
+void		add_fps(t_mlx *mlx, t_settings *settings);
 
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
 t_img		*ft_create_xpmimg(t_mlx *mlx, char *textures, t_side side);

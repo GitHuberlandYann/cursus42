@@ -52,6 +52,7 @@ static void	extend_ray(t_ray *ray, t_cub *cub)
 	ray->dist += pray.dist;
 	ray->pray = pray.ray;
 	ray->out_angle = pray.angle;
+	ray->u = pray.u;
 	ray->hit = pray.hit;
 	ray->fhit = PORTAL;
 }

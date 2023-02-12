@@ -75,7 +75,9 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 	set_point(&start, pixel_x, (1 - wall_height) * WIN_HEIGHT / 2,  WIN_HEIGHT / 2 + wall_height * WIN_HEIGHT / 2);
 	set_point(&finish, pixel_x, (1 + wall_height) * WIN_HEIGHT / 2, 0);
 	if (ray->hit == DOOR)
-		mlx_draw_line(img, start, finish, BROWNISH);
+		draw_wall_vert(img, &start, cub->mlx->ds_textures[0], ray->u);
+	else if (ray->hit == DOORSIDE)
+		draw_wall_vert(img, &start, cub->mlx->ds_textures[1], ray->u);
 	else if (ray->hit == CUT)
 		mlx_draw_line(img, start, finish, GREENISH);
 	else if (ray->hit == NO)

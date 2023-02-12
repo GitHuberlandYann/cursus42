@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/11 17:13:26 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/12 14:05:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void	create_walls(t_map *map, t_parsing *lines)
 	tmp = lines;
 	y = 0;
 	map->portal_count = 0;
+	map->hasdoor = 0;
 	while (tmp)
 	{
 		index = 0;
