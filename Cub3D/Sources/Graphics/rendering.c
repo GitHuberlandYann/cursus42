@@ -15,14 +15,10 @@
 static unsigned int	mlx_pxl_get(t_img *img, int x, int y)
 {
 	char	*dst;
-	int		limit_x;
-	int		limit_y;
 
-	limit_x = img->width;
-	limit_y = img->height;
-	if (y < 0 || y >= limit_y || x < 0 || x >= limit_x)
+	if (y < 0 || y >= img->height || x < 0 || x >= img->width)
 		return (0);
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	dst = img->addr + (y * img->line_length + x * img->bytes_per_pixel);
 	return (*(unsigned int *)dst);
 }
 
@@ -50,7 +46,7 @@ static void	draw_wall_vert(t_img *img, t_vertice *pt, t_img *texture, double u)
 		while (delta.z > 0 && pt->y <= img->height)
 		{
 			color = mlx_pxl_get(texture, pt_text.x, pt_text.y);
-			mlx_pxl_put(img, *pt, color);
+			mlx_pxl_put(img, pt->x, pt->y, color);
 			pt_text.y += delta.y;
 			++pt->y;
 			--delta.z;
@@ -102,7 +98,7 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 	// ray.angle = player->direction - cub->settings->fov_width / 2;
 	while (++index < WIN_WIDTH)//ray.angle < player->direction + cub->settings->fov_width / 2)
 	{
-		ray.angle = player->direction + atan((index - WIN_WIDTH / 2) / cub->settings->fov_width);
+		ray.angle = player->direction + atan((WIN_WIDTH / 2 - index) / cub->settings->fov_width);
 		ray.dist = 10000;
 		if (cub->settings->fov_enable)
 			ray.dist = cub->settings->fov_dist;
@@ -112,7 +108,7 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		ray_dooring(map->doors, &ray);
 		ray_portaling(map->portals, &ray, cub);
 		// printf("[%lf,%lf]-[%lf,%lf]\n", ray.ray.pt1.x, ray.ray.pt1.y, ray.ray.pt2.x, ray.ray.pt2.y);
-		draw_hit(img, &ray, cub, WIN_WIDTH - index);
+		draw_hit(img, &ray, cub, index);
 	}
 }
 
@@ -138,7 +134,7 @@ void	clear_render(t_img *canva, unsigned int cols[2], t_cub *cub)
 	{
 		pt.x = -1;
 		while (++pt.x < canva->width)
-			mlx_pxl_put(canva, pt, cols[pt.y < canva->height / 2]);
+			mlx_pxl_put(canva, pt.x, pt.y, cols[pt.y < canva->height / 2]);
 		++pt.y;
 	}
 }

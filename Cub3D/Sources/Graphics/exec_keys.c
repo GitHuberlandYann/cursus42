@@ -53,7 +53,7 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 			cub->map->player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (cub->map->player->speed * (1 + keys->sprint));// - wall_sensor.dist);
 			cub->map->player->direction = wall_sensor.out_angle + M_PI / 2 + M_PI * (keys->horizontal == 1);
 		}
-		if (wall_sensor.dist > 2 * cub->map->player->speed * (1 + keys->sprint))
+		else if (wall_sensor.dist > 2 * cub->map->player->speed * (1 + keys->sprint))
 		{
 			cub->map->player->pos.x += cos(cub->map->player->direction + M_PI / 2) * cub->map->player->speed * (1 + keys->sprint) * keys->horizontal;
 			cub->map->player->pos.y -= sin(cub->map->player->direction + M_PI / 2) * cub->map->player->speed * (1 + keys->sprint) * keys->horizontal;

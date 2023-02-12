@@ -86,7 +86,7 @@ static void	draw_player(t_img *img, t_player *player, t_map *map)
 			{
 				pt.x = pt2.x * map->wall_width;
 				pt.y = pt2.y * map->wall_width;
-				mlx_pxl_put(img, pt, RED);
+				mlx_pxl_put(img, pt.x, pt.y, RED);
 			}
 			pt2.y += 0.01;
 		}

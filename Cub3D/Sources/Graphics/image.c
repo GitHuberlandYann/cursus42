@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/11 15:57:03 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/12 15:25:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_img	*ft_create_img(t_mlx *mlx, int width, int height)
 		ft_perror("mlx_new_image");
 	img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
+	img->bytes_per_pixel = img->bits_per_pixel / 8;
 	img->width = width;
 	img->height = height;
 	return (img);
@@ -41,6 +42,7 @@ t_img	*ft_create_xpmimg(t_mlx *mlx, char *texture, t_side side)
 	else
 		img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
+	img->bytes_per_pixel = img->bits_per_pixel / 8;
 	return (img);
 }
 
@@ -55,25 +57,21 @@ void	mlx_clear_img(t_img *img)
 		pt.y = 0;
 		while (pt.y < img->height)
 		{
-			mlx_pxl_put(img, pt, BLACK);
+			mlx_pxl_put(img, pt.x, pt.y, BLACK);
 			++pt.y;
 		}
 		++pt.x;
 	}
 }
 
-void	mlx_pxl_put(t_img *img, t_vertice pt, unsigned int color)
+void	mlx_pxl_put(t_img *img, int x, int y, unsigned int color)
 {
 	char	*dst;
-	int		x;
-	int		y;
 
-	x = pt.x;
-	y = pt.y;
 	if (y < 0 || y >= img->height || x < 0 || x >= img->width)
 		return ;
 	// printf("width %d, height %d, x %d, y %d\n", img->width, img->height, x, y);
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	dst = img->addr + (y * img->line_length + x * img->bytes_per_pixel);
 	*(unsigned int *) dst = color;
 }
 
@@ -93,7 +91,7 @@ void	mlx_draw_line(t_img *img, t_vertice a, t_vertice b, unsigned int color)
 	pixel.y = a.y;
 	while (len > 0)
 	{
-		mlx_pxl_put(img, pixel, color);
+		mlx_pxl_put(img, pixel.x, pixel.y, color);
 		pixel.x += delta.x;
 		if (delta.x)
 			pixel.y = delta.z * (pixel.x - a.x) + a.y;

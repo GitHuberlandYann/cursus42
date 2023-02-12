@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 14:09:55 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/12 15:25:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,7 @@ typedef struct s_img {
 	void	*img_ptr;
 	char	*addr;
 	int		bits_per_pixel;
+	int		bytes_per_pixel;
 	int		line_length;
 	int		endian;
 	int		width;
@@ -335,7 +336,7 @@ t_img		*ft_create_img(t_mlx *mlx, int width, int height);
 t_img		*ft_create_xpmimg(t_mlx *mlx, char *textures, t_side side);
 void		mlx_clear_img(t_img *img);
 void		mlx_draw_line(t_img *img, t_vertice a, t_vertice b, unsigned int color);
-void		mlx_pxl_put(t_img *img, t_vertice pt, unsigned int color);
+void		mlx_pxl_put(t_img *img, int x, int y, unsigned int color);
 
 int			key_down(int kcode, t_cub *cub);
 int			key_released(int kcode, t_cub *cub);
