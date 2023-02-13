@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 17:59:22 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/13 10:37:52 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static t_settings	*ft_settings_init(void)
 	res->mini_follow = 0;
 	res->old_mini_enable = 0;
 	res->recurse_level = 7;
-	res->offset_x = WIN_WIDTH - 2 * MAP_RADIUS - 20;
-	res->offset_y = 20;
+	res->offset.x = WIN_WIDTH - 2 * MAP_RADIUS - 20;
+	res->offset.y = 20;
 	res->timepoint = 0;
 	return (res);
 }
@@ -38,8 +38,8 @@ static void	ft_img_init(t_mlx *mlx, char *(textures[4]), char *(fc_textures[2]),
 	mlx->textures[SO] = ft_create_xpmimg(mlx, textures[SO], SO);
 	mlx->textures[WE] = ft_create_xpmimg(mlx, textures[WE], WE);
 	mlx->textures[EA] = ft_create_xpmimg(mlx, textures[EA], EA);
-	mlx->fc_textures[FLOOR] = ft_create_xpmimg(mlx, fc_textures[FLOOR], FLOOR);
-	mlx->fc_textures[CEILLING] = ft_create_xpmimg(mlx, fc_textures[CEILLING], CEILLING);
+	mlx->fc_textures[FLOOR] = ft_create_xpmimg(mlx, fc_textures[FLOOR], 0);
+	mlx->fc_textures[CEILLING] = ft_create_xpmimg(mlx, fc_textures[CEILLING], 1);
 	mlx->ds_textures[0] = ft_create_xpmimg(mlx, ds_textures[0], 0);
 	mlx->ds_textures[1] = ft_create_xpmimg(mlx, ds_textures[1], 1);
 }

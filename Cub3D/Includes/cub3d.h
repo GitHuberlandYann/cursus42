@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 17:59:11 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/13 11:30:42 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@
 #  define MAP_RADIUS 150
 #  define MINIMAP_WIDTH 800
 # else
-#  define WIN_WIDTH 2560//1500
-#  define WIN_HEIGHT 1400//600
+#  define WIN_WIDTH 1800//2560//1500
+#  define WIN_HEIGHT 900//1400//600
 #  define MAP_RADIUS 150
-#  define MINIMAP_WIDTH 1200
+#  define MINIMAP_WIDTH 800//1200
 # endif
 
 # define WHITE 0xffffff
@@ -79,6 +79,9 @@
 # define BROWNISH 0x6e4316
 # define BLUEISH 0xC1FF
 # define GREENISH 0x26E07
+
+# define PSIZE 5
+# define PMSIZE 0.1
 
 // Enums
 typedef enum e_side {
@@ -177,7 +180,6 @@ typedef struct s_vertice
 typedef struct s_player {
 	t_vertice	pos;
 	double		direction;
-	double		size;
 	double		speed;
 }				t_player;
 
@@ -302,16 +304,15 @@ typedef struct s_mlx
 }				t_mlx;
 
 typedef struct s_settings {
-	double	fov_width;
-	int		fov_enable;
-	double	fov_dist;
-	double	dist_feel;
-	int 	mini_follow;
-	int		old_mini_enable;
-	int		recurse_level;
-	int		offset_x;
-	int		offset_y;
-	int		timepoint;
+	double		fov_width;
+	int			fov_enable;
+	double		fov_dist;
+	double		dist_feel;
+	int 		mini_follow;
+	int			old_mini_enable;
+	int			recurse_level;
+	t_vertice	offset;
+	int			timepoint;
 }				t_settings;
 
 typedef struct s_cub {
@@ -325,7 +326,6 @@ typedef struct s_cub {
 void		launch_mlx(t_map *map, char	*title);
 void		fill_minimap(t_cub *cub);
 void		fill_old_minimap(t_cub *cub);
-void		fill_old_minimap_follow(t_cub *cub);
 
 void		clear_render(t_img *canva, unsigned int cols[2], t_cub *cub);
 void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
@@ -355,7 +355,7 @@ t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
 
 double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);
-void		set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale);
+void		set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, t_settings *settings);
 int			in_circle(t_vertice *pt, double x, double y, double radius);
 void		set_angles(t_cub *cub);
 

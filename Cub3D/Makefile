@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/02/12 14:11:28 by marvin           ###   ########.fr        #
+#    Updated: 2023/02/13 11:21:17 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJS_DIR_SOURCES = Objs/Sources
 FILES = main
 
 FILES_GRAPHICS = exec_keys image floor_casting keys math_utils minimap \
-				mlx_manager mouse old_minimap old_minimap_follow ray_casting \
+				mlx_manager mouse old_minimap ray_casting \
 				ray_dooring ray_portaling rendering timer
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))

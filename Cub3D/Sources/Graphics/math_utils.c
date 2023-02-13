@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:36:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 18:02:38 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/13 10:39:25 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,24 @@ void	set_point(t_vertice *pt, double x, double y, double z)
 	pt->z = z;
 }
 
-void	set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, int scale)
+void	set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, t_settings *settings)
 {
-	pt->x = cos(map->player->direction - M_PI / 2) * (pt2->x - map->player->pos.x)
-		- sin(map->player->direction - M_PI / 2) * (pt2->y - map->player->pos.y)
-		+ map->map_width / 2;
-	pt->y = sin(map->player->direction - M_PI / 2) * (pt2->x - map->player->pos.x)
-		+ cos(map->player->direction - M_PI / 2) * (pt2->y - map->player->pos.y)
-		+ map->map_height - map->map_height / 10;
-	if (scale)
+	if (settings->mini_follow)
 	{
-		pt->x *= map->wall_width;
-		pt->y *= map->wall_width;
+		pt->x = cos(map->player->direction - M_PI / 2) * (pt2->x - map->player->pos.x)
+			- sin(map->player->direction - M_PI / 2) * (pt2->y - map->player->pos.y);
+		pt->y = sin(map->player->direction - M_PI / 2) * (pt2->x - map->player->pos.x)
+			+ cos(map->player->direction - M_PI / 2) * (pt2->y - map->player->pos.y);
 	}
+	else
+	{
+		pt->x = pt2->x - map->player->pos.x;
+		pt->y = pt2->y - map->player->pos.y;
+	}
+	pt->x *= map->wall_width;
+	pt->y *= map->wall_width;
+	pt->x += settings->offset.x + MAP_RADIUS;
+	pt->y += settings->offset.y + MAP_RADIUS;
 }
 
 int	in_circle(t_vertice *pt, double x, double y, double radius)

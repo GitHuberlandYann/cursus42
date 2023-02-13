@@ -73,16 +73,15 @@ static void	draw_player(t_img *img, t_player *player, t_map *map)
 	t_vertice	pt2;
 	t_vertice	pos_translate;
 
-	player->size = 0.1;
-	pos_translate.x = player->pos.x - player->size * cos(player->direction);
-	pos_translate.y = player->pos.y + player->size * sin(player->direction);
-	pt2.x = pos_translate.x - player->size;
-	while (pt2.x < pos_translate.x + player->size)
+	pos_translate.x = player->pos.x - PMSIZE * cos(player->direction);
+	pos_translate.y = player->pos.y + PMSIZE * sin(player->direction);
+	pt2.x = pos_translate.x - PMSIZE;
+	while (pt2.x < pos_translate.x + PMSIZE)
 	{
-		pt2.y = pos_translate.y - player->size;
-		while (pt2.y < pos_translate.y + player->size)
+		pt2.y = pos_translate.y - PMSIZE;
+		while (pt2.y < pos_translate.y + PMSIZE)
 		{
-			if (get_dist(pos_translate, pt2) <= player->size)
+			if (get_dist(pos_translate, pt2) <= PMSIZE)
 			{
 				pt.x = pt2.x * map->wall_width;
 				pt.y = pt2.y * map->wall_width;
@@ -139,8 +138,6 @@ void	fill_old_minimap(t_cub *cub)
 	t_wall	*wall;
 	t_door	*door;
 
-	if (cub->settings->mini_follow)
-		return (fill_old_minimap_follow(cub));
 	wall = cub->map->walls;
 	while (wall)
 	{
