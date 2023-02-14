@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:36:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/13 10:39:25 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:49:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ void	set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, t_settings *set
 {
 	if (settings->mini_follow)
 	{
-		pt->x = cos(map->player->direction - M_PI / 2) * (pt2->x - map->player->pos.x)
-			- sin(map->player->direction - M_PI / 2) * (pt2->y - map->player->pos.y);
-		pt->y = sin(map->player->direction - M_PI / 2) * (pt2->x - map->player->pos.x)
-			+ cos(map->player->direction - M_PI / 2) * (pt2->y - map->player->pos.y);
+		pt->x = cos(map->player->direction - M_PI_2) * (pt2->x - map->player->pos.x)
+			- sin(map->player->direction - M_PI_2) * (pt2->y - map->player->pos.y);
+		pt->y = sin(map->player->direction - M_PI_2) * (pt2->x - map->player->pos.x)
+			+ cos(map->player->direction - M_PI_2) * (pt2->y - map->player->pos.y);
 	}
 	else
 	{
 		pt->x = pt2->x - map->player->pos.x;
 		pt->y = pt2->y - map->player->pos.y;
 	}
-	pt->x *= map->wall_width;
-	pt->y *= map->wall_width;
+	pt->x *= settings->wall_width;
+	pt->y *= settings->wall_width;
 	pt->x += settings->offset.x + MAP_RADIUS;
 	pt->y += settings->offset.y + MAP_RADIUS;
 }
@@ -53,13 +53,13 @@ int	in_circle(t_vertice *pt, double x, double y, double radius)
 	return (get_dist(*pt, center) <= radius);
 }
 
-void	set_angles(t_cub *cub)
+void	set_ray_angles(t_cub *cub)
 {
 	int	index;
 
 	index = -1;
 	while (++index < WIN_WIDTH)
 	{
-		cub->angles[index] = atan((WIN_WIDTH / 2 - index) / cub->settings->fov_width);
+		cub->angles[index] = atan((WIN_WIDTH_2 - index) / cub->settings->fov_width);
 	}
 }

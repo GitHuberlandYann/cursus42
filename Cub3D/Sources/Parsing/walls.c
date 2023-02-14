@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 14:05:49 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/14 13:21:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,23 +84,11 @@ static int	add_wall(t_map *map, int x, int y)
 	{
 		map->walls = new_wall(x, y);
 		map->walls->last = map->walls;
-		map->o_left = x;
-		map->o_right = x;
-		map->o_up = y;
-		map->o_down = y;
 	}
 	else
 	{
 		map->walls->last->next = new_wall(x, y);
 		map->walls->last = map->walls->last->next;
-		if (x < map->o_left)
-			map->o_left = x;
-		if (x > map->o_right)
-			map->o_right = x;
-		if (y < map->o_up)
-			map->o_up = y;
-		if (y > map->o_down)
-			map->o_down = y;
 	}
 	remove_invisible_walls(map->walls, map->doors);
 	return (0);
@@ -166,9 +154,4 @@ void	create_walls(t_map *map, t_parsing *lines)
 	if (link_empty(map) || conflict_pt(map))
 		return (free_return_all(lines, map));
 	free_return_lines(lines, map, 0);
-	map->map_width = map->o_right - map->o_left;
-	map->map_height = map->o_down - map->o_up;
-	map->wall_width = fmin(MINIMAP_WIDTH / map->map_width,
-			MINIMAP_WIDTH / map->map_height);
-	// printf("width %d, height %d, minimap %d, walls %lf\n", map->map_width, map->map_height, MINIMAP_WIDTH, map->wall_width);
 }

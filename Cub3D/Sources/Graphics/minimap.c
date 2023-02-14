@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 10:52:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/13 11:59:55 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:47:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	draw_walls(t_img *img, t_wall *wall, t_map *map, t_settings *setting
 	{
 		if (wall->edges[index].side != CUT)
 		{
-			if (in_circle(&wall->edges[index].pt1, map->player->pos.x, map->player->pos.y, MAP_RADIUS / map->wall_width)
-				&& in_circle(&wall->edges[index].pt2, map->player->pos.x, map->player->pos.y, MAP_RADIUS / map->wall_width))
+			if (in_circle(&wall->edges[index].pt1, map->player->pos.x, map->player->pos.y, MAP_RADIUS / settings->wall_width)
+				&& in_circle(&wall->edges[index].pt2, map->player->pos.x, map->player->pos.y, MAP_RADIUS / settings->wall_width))
 			{
 				set_point_follow(&start, &wall->edges[index].pt1, map, settings);
 				set_point_follow(&finish, &wall->edges[index].pt2, map, settings);
@@ -46,8 +46,8 @@ static void	draw_door(t_img *img, t_door *door, t_map *map, t_settings *settings
 	{
 		if (door->edges[index].side != CUT)
 		{
-			if (in_circle(&door->edges[index].pt1, map->player->pos.x, map->player->pos.y, MAP_RADIUS / map->wall_width)
-				&& in_circle(&door->edges[index].pt2, map->player->pos.x, map->player->pos.y, MAP_RADIUS / map->wall_width))
+			if (in_circle(&door->edges[index].pt1, map->player->pos.x, map->player->pos.y, MAP_RADIUS / settings->wall_width)
+				&& in_circle(&door->edges[index].pt2, map->player->pos.x, map->player->pos.y, MAP_RADIUS / settings->wall_width))
 			{
 				set_point_follow(&start, &door->edges[index].pt1, map, settings);
 				set_point_follow(&finish, &door->edges[index].pt2, map, settings);
@@ -67,8 +67,8 @@ static void	draw_portals(t_img *img, t_map *map, t_settings *settings)
 	portal = map->portals;
 	while (portal)
 	{
-		if (in_circle(&portal->pline.pt1, map->player->pos.x, map->player->pos.y, MAP_RADIUS / map->wall_width)
-			&& in_circle(&portal->pline.pt2, map->player->pos.x, map->player->pos.y, MAP_RADIUS / map->wall_width))
+		if (in_circle(&portal->pline.pt1, map->player->pos.x, map->player->pos.y, MAP_RADIUS / settings->wall_width)
+			&& in_circle(&portal->pline.pt2, map->player->pos.x, map->player->pos.y, MAP_RADIUS / settings->wall_width))
 		{
 			set_point_follow(&start, &portal->pline.pt1, map, settings);
 			set_point_follow(&finish, &portal->pline.pt2, map, settings);
@@ -78,30 +78,47 @@ static void	draw_portals(t_img *img, t_map *map, t_settings *settings)
 	}
 }
 
-static void	draw_player(t_img *img, t_settings *settings)
+static void	draw_circle(t_img *img, t_vertice *center, int radius, unsigned color)
 {
 	t_vertice	pt;
 	t_vertice	pt2;
-	t_vertice	pos_translate;
 
-	set_point(&pos_translate, settings->offset.x + MAP_RADIUS,
-		settings->offset.y + MAP_RADIUS, 0);
-	pt2.x = pos_translate.x - PSIZE;
-	while (pt2.x < pos_translate.x + PSIZE)
+	pt2.x = center->x - radius;
+	while (pt2.x < center->x + radius)
 	{
-		pt2.y = pos_translate.y - PSIZE;
-		while (pt2.y < pos_translate.y + PSIZE)
+		pt2.y = center->y - radius;
+		while (pt2.y < center->y + radius)
 		{
-			if (get_dist(pos_translate, pt2) <= PSIZE)
+			if (get_dist(*center, pt2) <= radius)
 			{
 				pt.x = pt2.x;
 				pt.y = pt2.y;
-				mlx_pxl_put(img, pt.x, pt.y, RED);
+				mlx_pxl_put(img, pt.x, pt.y, color);
 			}
 			++pt2.y;
 		}
 		++pt2.x;
 	}
+}
+
+static void	draw_player(t_img *img, t_settings *settings)
+{
+	t_vertice	pos_translate;
+
+	set_point(&pos_translate, settings->offset.x + MAP_RADIUS,
+		settings->offset.y + MAP_RADIUS, 0);
+	draw_circle(img, &pos_translate, PSIZE, RED);
+}
+
+static void	add_north(t_img *canva, double angle, t_settings *settings)
+{
+	t_vertice	npos;
+
+	if (!settings->mini_follow)
+		set_point(&npos, settings->offset.x + MAP_RADIUS, settings->offset.y + 7.5, 0);
+	else
+		set_point(&npos, settings->offset.x + MAP_RADIUS + cos(angle) * (MAP_RADIUS - 7.5), settings->offset.y + MAP_RADIUS - sin(angle) * (MAP_RADIUS - 7.5), 0);
+	draw_circle(canva, &npos, PSIZE * 2, RED);
 }
 
 void	setup_rendermap(t_img *canva, t_settings *settings)
@@ -110,10 +127,10 @@ void	setup_rendermap(t_img *canva, t_settings *settings)
 
 	pt.z = 0;
 	pt.y = settings->offset.y;
-	while (pt.y < settings->offset.y + MAP_RADIUS * 2)
+	while (pt.y < settings->offset.y + MAP_DIAMETER)
 	{
 		pt.x = settings->offset.x;
-		while (pt.x < settings->offset.x + MAP_RADIUS * 2)
+		while (pt.x < settings->offset.x + MAP_DIAMETER)
 		{
 			if (in_circle(&pt, MAP_RADIUS + settings->offset.x,
 				MAP_RADIUS + settings->offset.y, MAP_RADIUS - 5))
@@ -150,4 +167,5 @@ void	fill_minimap(t_cub *cub)
 	draw_portals(cub->mlx->render3d, cub->map, cub->settings);
 	// draw_stored_rays(cub->mlx->render3d, cub->mlx->tmp_rays, cub->settings);
 	draw_player(cub->mlx->render3d, cub->settings);
+	add_north(cub->mlx->render3d, M_PI - cub->map->player->direction, cub->settings);
 }

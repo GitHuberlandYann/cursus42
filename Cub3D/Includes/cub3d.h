@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/13 11:30:42 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:48:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,18 @@
 
 # if __linux__
 #  define WIN_WIDTH 1800
+#  define WIN_WIDTH_2 900
 #  define WIN_HEIGHT 900
+#  define WIN_HEIGHT_2 450
 #  define MAP_RADIUS 150
-#  define MINIMAP_WIDTH 800
+#  define MAP_DIAMETER 300
 # else
-#  define WIN_WIDTH 1800//2560//1500
-#  define WIN_HEIGHT 900//1400//600
+#  define WIN_WIDTH 1800//2560
+#  define WIN_WIDTH_2 900//1280
+#  define WIN_HEIGHT 900//1400
+#  define WIN_HEIGHT_2 450//700
 #  define MAP_RADIUS 150
-#  define MINIMAP_WIDTH 800//1200
+#  define MAP_DIAMETER 300
 # endif
 
 # define WHITE 0xffffff
@@ -139,6 +143,8 @@ enum {
 	KEY_1 = 65436,
 	KEY_2 = 65433,
 	KEY_3 = 65435,
+	KEY_4 = 65430,
+	KEY_5 = 65437,
 	KEY_ASTERISK = 65450,
 	KEY_PLUS_PAD = 65451,
 	KEY_MINUS_PAD = 65453
@@ -163,6 +169,8 @@ enum {
 	KEY_1 = 83,
 	KEY_2 = 84,
 	KEY_3 = 85,
+	KEY_4 = 86,
+	KEY_5 = 87,
 	KEY_ASTERISK = 67,
 	KEY_PLUS_PAD = 69,
 	KEY_MINUS_PAD = 78
@@ -255,13 +263,6 @@ typedef struct s_map {
 	unsigned int	fc_colors[2];
 	char			*(fc_textures[2]);
 	char			*(ds_textures[2]);
-	int				o_left;
-	int				o_right;
-	int				o_up;
-	int				o_down;
-	int				map_width;
-	int				map_height;
-	double			wall_width;
 }				t_map;
 
 typedef struct s_img {
@@ -284,8 +285,9 @@ typedef struct s_key {
 	int	fov_enable;
 	int	fov_dist;
 	int	dist_feel;
+	int	wall_width;
 	int	mini_follow;
-	int	old_mini_enable;
+	int	mini_enable;
 	int	mousedate;
 	int	door;
 }				t_key;
@@ -295,12 +297,12 @@ typedef struct s_mlx
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		*render3d;
-	t_img		*old_minimap;
 	t_img		*(textures[4]);
 	t_img		*(fc_textures[2]);
 	t_img		*(ds_textures[2]);
 	t_key		*keys;
 	t_vertice	mouse_pos;
+	char		fpstr[15];
 }				t_mlx;
 
 typedef struct s_settings {
@@ -309,7 +311,8 @@ typedef struct s_settings {
 	double		fov_dist;
 	double		dist_feel;
 	int 		mini_follow;
-	int			old_mini_enable;
+	int			mini_enable;
+	double		wall_width;
 	int			recurse_level;
 	t_vertice	offset;
 	int			timepoint;
@@ -357,7 +360,7 @@ double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);
 void		set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, t_settings *settings);
 int			in_circle(t_vertice *pt, double x, double y, double radius);
-void		set_angles(t_cub *cub);
+void		set_ray_angles(t_cub *cub);
 
 // Outputs
 int			output_error(char *msg);

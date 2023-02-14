@@ -1,5 +1,25 @@
 #include "cub3d.h"
 
+static int	ft_nblen(int nb)
+{
+	int	res;
+
+	res = 0;
+	while (nb > 9)
+	{
+		nb /= 10;
+		++res;
+	}
+	return (res);
+}
+
+static void ft_catitoa(char str[15], int nb, int index)
+{
+	if (nb > 9)
+		ft_catitoa(str, nb / 10, index - 1);
+	str[index] = nb % 10 + '0';
+}
+
 static int	get_time(void)
 {
 	struct timeval	time;
@@ -12,7 +32,7 @@ void	add_fps(t_mlx *mlx, t_settings *settings)
 {
 	int		current_time;
 	double	fps;
-	char	*fpstr;
+	int		fps_size;
 
 	if (!settings->timepoint)
 	{
@@ -21,8 +41,9 @@ void	add_fps(t_mlx *mlx, t_settings *settings)
 	}
 	current_time = get_time();
 	fps = 1000.0 / (current_time - settings->timepoint);
-	fpstr = ft_itoa(fps);
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 20, 20, WHITE, fpstr);
-	free(fpstr);
+	fps_size = ft_nblen(fps);
+	ft_catitoa(mlx->fpstr, fps, 6 + fps_size);
+	mlx->fpstr[7 + fps_size] = '\0';
+	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 20, 20, WHITE, mlx->fpstr);
 	settings->timepoint = current_time;
 }
