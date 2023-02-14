@@ -1,9 +1,11 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO maps/xpm/colorstone.xpm
+SO maps/xpm/colorstone.xpm
+WE maps/xpm/colorstone.xpm
+EA maps/xpm/colorstone.xpm
 
 F 220,100,0
+FT maps/xpm/greystone.xpm
+CT maps/xpm/wood.xpm
 C 225,30,0
 
         1111111111111111111111111
