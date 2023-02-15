@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/14 16:12:25 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/15 14:04:52 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_img	*ft_create_xpmimg(t_mlx *mlx, char *texture, t_side side)
 	img->img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			texture, &img->width, &img->height);
 	if (!img->img_ptr)
-		printf("failed to load img |%s| on side %d\n", texture, side); //exit(printf..);
+		exit(printf("failed to load img |%s| on side %d\n", texture, side)); //exit(printf..);
 	else
 		img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
@@ -64,14 +64,14 @@ void	mlx_clear_img(t_img *img)
 	}
 }
 
-unsigned int	mlx_pxl_get(t_img *img, int x, int y)
+unsigned	mlx_pxl_get(t_img *img, int x, int y)
 {
 	char	*dst;
 
 	if (y < 0 || y >= img->height || x < 0 || x >= img->width)
 		return (0);
 	dst = img->addr + (y * img->line_length + x * img->bytes_per_pixel);
-	return (*(unsigned int *)dst);
+	return (*(unsigned *)dst);
 }
 
 void	mlx_pxl_put(t_img *img, int x, int y, unsigned int color)
@@ -82,7 +82,7 @@ void	mlx_pxl_put(t_img *img, int x, int y, unsigned int color)
 		return ;
 	// printf("width %d, height %d, x %d, y %d\n", img->width, img->height, x, y);
 	dst = img->addr + (y * img->line_length + x * img->bytes_per_pixel);
-	*(unsigned int *) dst = color;
+	*(unsigned *) dst = color;
 }
 
 void	mlx_draw_line(t_img *img, t_vertice a, t_vertice b, unsigned int color)

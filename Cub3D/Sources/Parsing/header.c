@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:54:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 14:10:30 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/15 15:49:36 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	line_from_map(char *str, int empty_allowed)
 
 int	read_first_lines(t_map *map, int fd)
 {
+	map->hasbarrel = 0;
+	map->haspillar = 0;
 	map->line = get_next_line(fd);
 	while (map->line && !line_from_map(map->line, 0))
 	{
@@ -103,8 +105,21 @@ int	read_first_lines(t_map *map, int fd)
 			return (free_return_line(map->line));
 		if (!ft_strncmp("DS ", map->line, 3) && load_texture_ds(map, 1))
 			return (free_return_line(map->line));
+		if (!ft_strncmp("B ", map->line, 2) && ++map->hasbarrel && add_obj(map, BARREL))
+			return (free_return_line(map->line));
+		if (!ft_strncmp("BT ", map->line, 3) && load_texture_obj(map, BARREL))
+			return (free_return_line(map->line));
+		if (!ft_strncmp("P ", map->line, 2) && ++map->haspillar && add_obj(map, PILLAR))
+			return (free_return_line(map->line));
+		if (!ft_strncmp("PT ", map->line, 3) && load_texture_obj(map, PILLAR))
+			return (free_return_line(map->line));
 		free(map->line);
 		map->line = get_next_line(fd);
+	}
+	if ((map->hasbarrel && !map->obj_textures[BARREL]) || (map->haspillar && !map->obj_textures[PILLAR]))
+	{
+		output_error(MSG_OBJTEXTURE);
+		return (free_return_line(map->line));
 	}
 	return (0);
 }

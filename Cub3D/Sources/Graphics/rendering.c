@@ -36,7 +36,8 @@ static void	draw_wall_vert(t_img *img, t_vertice *pt, t_img *texture, double u)
 		while (delta.z > 0 && pt->y < WIN_HEIGHT)
 		{
 			color = mlx_pxl_get(texture, pt_text.x, pt_text.y);
-			mlx_pxl_put(img, pt->x, pt->y, color);
+			if (color != 0xff000000)
+				mlx_pxl_put(img, pt->x, pt->y, color);
 			pt_text.y += delta.y;
 			++pt->y;
 			--delta.z;
@@ -80,27 +81,49 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 		render_ground(img, cub, &finish, ray->angle);
 }
 
+static void	draw_hit_obj(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
+{
+	t_vertice	start;
+	double		wall_height;
+	t_obj		*obj;
+
+	obj = ray->objs;
+	while (obj)
+	{
+		obj->dist *= cos(cub->map->player->direction - ray->angle);
+		obj->dist *= cub->settings->dist_feel;
+		wall_height = 1 / obj->dist;
+		set_point(&start, pixel_x, (1 - wall_height) * WIN_HEIGHT_2,  (1 + wall_height) * WIN_HEIGHT_2);
+		if (obj->type == BARREL)
+			draw_wall_vert(img, &start, cub->mlx->obj_textures[BARREL], obj->u);
+		else if (obj->type == PILLAR)
+			draw_wall_vert(img, &start, cub->mlx->obj_textures[PILLAR], obj->u);
+		obj = obj->next_ray;
+	}
+}
+
 void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 {
-	t_ray		ray;
 	int			index;
 
 	index = -1;
-	set_point(&ray.ray.pt1, player->pos.x, player->pos.y, 0);
 	// ray.angle = player->direction - cub->settings->fov_width / 2;
 	while (++index < WIN_WIDTH)//ray.angle < player->direction + cub->settings->fov_width / 2)
 	{
-		ray.angle = cub->map->player->direction + cub->angles[index];
-		ray.dist = 10000;
+		set_point(&cub->rays[index].ray.pt1, player->pos.x, player->pos.y, 0);
+		cub->rays[index].angle = cub->map->player->direction + cub->rays[index].preangle;
+		cub->rays[index].dist = 10000;
 		if (cub->settings->fov_enable)
-			ray.dist = cub->settings->fov_dist;
-		ray.hit = CUT;
-		ray.recurse_level = 0;
-		ray_walling(map->walls, &ray);
-		ray_dooring(map->doors, &ray);
-		ray_portaling(map->portals, &ray, cub);
+			cub->rays[index].dist = cub->settings->fov_dist;
+		cub->rays[index].hit = CUT;
+		cub->rays[index].recurse_level = 0;
+		ray_walling(map->walls, &cub->rays[index]);
+		ray_dooring(map->doors, &cub->rays[index]);
+		ray_portaling(map->portals, &cub->rays[index], cub);
+		ray_objing(map->objs, &cub->rays[index], player->direction);
 		// printf("[%lf,%lf]-[%lf,%lf]\n", ray.ray.pt1.x, ray.ray.pt1.y, ray.ray.pt2.x, ray.ray.pt2.y);
-		draw_hit(img, &ray, cub, index);
+		draw_hit(img, &cub->rays[index], cub, index);
+		draw_hit_obj(img, &cub->rays[index], cub, index);
 	}
 }
 

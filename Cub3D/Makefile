@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 12:34:39 by yhuberla          #+#    #+#              #
-#    Updated: 2023/02/14 13:20:47 by marvin           ###   ########.fr        #
+#    Updated: 2023/02/15 17:12:11 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FILES = main
 
 FILES_GRAPHICS = exec_keys image floor_casting keys math_utils minimap \
 				mlx_manager mouse ray_casting \
-				ray_dooring ray_portaling rendering timer
+				ray_dooring ray_objing ray_portaling rendering timer
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
 
@@ -26,7 +26,8 @@ FILES_OUTPUTS = debug error
 
 FILES += $(addprefix Outputs/, $(FILES_OUTPUTS))
 
-FILES_PARSING = colors doors flood_fill header map map_content portals walls
+FILES_PARSING = colors doors flood_fill header map map_content objects \
+				portals walls
 
 FILES += $(addprefix Parsing/, $(FILES_PARSING))
 

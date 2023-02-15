@@ -12,30 +12,29 @@
 
 #include "cub3d.h"
 
-static t_portal	*get_linked(t_portal *portals, t_ray *ray, t_ray *pray)
+static void	get_linked(t_portal *portals, t_ray *ray, t_ray *pray, t_portal *in)
 {
 	double	u;
 
 	while (portals)
 	{
-		if (portals->num == ray->in->link)
+		if (portals->num == in->link)
 		{
-			pray->angle = ray->angle - (ray->in->pline.side - 2) * M_PI_2 + portals->pline.side * M_PI_2;
+			pray->angle = ray->angle - (in->pline.side - 2) * M_PI_2 + portals->pline.side * M_PI_2;
 			u = 1 - ray->u;
 			set_point(&pray->ray.pt1, portals->pline.pt1.x + u * (portals->pline.pt2.x - portals->pline.pt1.x),  portals->pline.pt1.y + u * (portals->pline.pt2.y - portals->pline.pt1.y), 0);
-			return (portals);
+			return ;
 		}
 		portals = portals->next;
 	}
 	exit(output_error("no link ????\n"));
-	return (0);
 }
 
-static void	extend_ray(t_ray *ray, t_cub *cub)
+static void	extend_ray(t_ray *ray, t_cub *cub, t_portal *in)
 {
 	t_ray		pray;
 
-	ray->out = get_linked(cub->map->portals, ray, &pray);
+	get_linked(cub->map->portals, ray, &pray, in);
 	pray.dist = 10000;
 	if (cub->settings->fov_enable)
 		pray.dist = cub->settings->fov_dist - ray->dist;
@@ -62,10 +61,11 @@ void	ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub)
 	t_vertice	pt4;
 	t_vertice	intersection;
 	double		dist;
+	t_portal	*in;
 
 	pt4.x = ray->ray.pt1.x + cos(ray->angle);
 	pt4.y = ray->ray.pt1.y - sin(ray->angle);
-	ray->in = 0;
+	in = 0;
 	while (portals)
 	{
 		intersection = get_inter(ray, pt4, portals->pline.pt1, portals->pline.pt2);
@@ -78,12 +78,12 @@ void	ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub)
 				ray->dist = dist;
 				ray->pdist = dist;
 				ray->hit = PORTAL;
-				ray->in = portals;
+				in = portals;
 				ray->u = intersection.z - 1;
 			}
 		}
 		portals = portals->next;
 	}
-	if (ray->hit == PORTAL && ray->in)
-		extend_ray(ray, cub);
+	if (ray->hit == PORTAL && in)
+		extend_ray(ray, cub, in);
 }

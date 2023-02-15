@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:36:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/14 16:49:06 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/15 13:21:33 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ void	set_ray_angles(t_cub *cub)
 	index = -1;
 	while (++index < WIN_WIDTH)
 	{
-		cub->angles[index] = atan((WIN_WIDTH_2 - index) / cub->settings->fov_width);
+		cub->rays[index].preangle = atan((WIN_WIDTH_2 - index) / cub->settings->fov_width);
 	}
 }

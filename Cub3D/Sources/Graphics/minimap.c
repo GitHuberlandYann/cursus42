@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 10:52:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/14 14:47:32 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/15 12:34:31 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	draw_walls(t_img *img, t_wall *wall, t_map *map, t_settings *setting
 	{
 		if (wall->edges[index].side != CUT)
 		{
-			if (in_circle(&wall->edges[index].pt1, map->player->pos.x, map->player->pos.y, MAP_RADIUS / settings->wall_width)
-				&& in_circle(&wall->edges[index].pt2, map->player->pos.x, map->player->pos.y, MAP_RADIUS / settings->wall_width))
+			if (in_circle(&wall->edges[index].pt1, map->player->pos.x, map->player->pos.y, settings->radius_divww)
+				&& in_circle(&wall->edges[index].pt2, map->player->pos.x, map->player->pos.y, settings->radius_divww))
 			{
 				set_point_follow(&start, &wall->edges[index].pt1, map, settings);
 				set_point_follow(&finish, &wall->edges[index].pt2, map, settings);
@@ -46,8 +46,8 @@ static void	draw_door(t_img *img, t_door *door, t_map *map, t_settings *settings
 	{
 		if (door->edges[index].side != CUT)
 		{
-			if (in_circle(&door->edges[index].pt1, map->player->pos.x, map->player->pos.y, MAP_RADIUS / settings->wall_width)
-				&& in_circle(&door->edges[index].pt2, map->player->pos.x, map->player->pos.y, MAP_RADIUS / settings->wall_width))
+			if (in_circle(&door->edges[index].pt1, map->player->pos.x, map->player->pos.y, settings->radius_divww)
+				&& in_circle(&door->edges[index].pt2, map->player->pos.x, map->player->pos.y, settings->radius_divww))
 			{
 				set_point_follow(&start, &door->edges[index].pt1, map, settings);
 				set_point_follow(&finish, &door->edges[index].pt2, map, settings);
@@ -67,8 +67,8 @@ static void	draw_portals(t_img *img, t_map *map, t_settings *settings)
 	portal = map->portals;
 	while (portal)
 	{
-		if (in_circle(&portal->pline.pt1, map->player->pos.x, map->player->pos.y, MAP_RADIUS / settings->wall_width)
-			&& in_circle(&portal->pline.pt2, map->player->pos.x, map->player->pos.y, MAP_RADIUS / settings->wall_width))
+		if (in_circle(&portal->pline.pt1, map->player->pos.x, map->player->pos.y, settings->radius_divww)
+			&& in_circle(&portal->pline.pt2, map->player->pos.x, map->player->pos.y, settings->radius_divww))
 		{
 			set_point_follow(&start, &portal->pline.pt1, map, settings);
 			set_point_follow(&finish, &portal->pline.pt2, map, settings);
@@ -115,9 +115,9 @@ static void	add_north(t_img *canva, double angle, t_settings *settings)
 	t_vertice	npos;
 
 	if (!settings->mini_follow)
-		set_point(&npos, settings->offset.x + MAP_RADIUS, settings->offset.y + 7.5, 0);
+		set_point(&npos, settings->offset.x + MAP_RADIUS, settings->offset.y + 2.5, 0);
 	else
-		set_point(&npos, settings->offset.x + MAP_RADIUS + cos(angle) * (MAP_RADIUS - 7.5), settings->offset.y + MAP_RADIUS - sin(angle) * (MAP_RADIUS - 7.5), 0);
+		set_point(&npos, settings->offset.x + MAP_RADIUS + cos(angle) * (MAP_RADIUS - 2.5), settings->offset.y + MAP_RADIUS - sin(angle) * (MAP_RADIUS - 2.5), 0);
 	draw_circle(canva, &npos, PSIZE * 2, RED);
 }
 
@@ -125,18 +125,16 @@ void	setup_rendermap(t_img *canva, t_settings *settings)
 {
 	t_vertice	pt;
 
-	pt.z = 0;
 	pt.y = settings->offset.y;
 	while (pt.y < settings->offset.y + MAP_DIAMETER)
 	{
 		pt.x = settings->offset.x;
 		while (pt.x < settings->offset.x + MAP_DIAMETER)
 		{
-			if (in_circle(&pt, MAP_RADIUS + settings->offset.x,
-				MAP_RADIUS + settings->offset.y, MAP_RADIUS - 5))
+			pt.z = sqrt(pow(pt.x - (MAP_RADIUS + settings->offset.x), 2) + pow(pt.y - (MAP_RADIUS + settings->offset.y), 2));
+			if (pt.z <= MAP_RADIUS)
 			{
-				if (in_circle(&pt, MAP_RADIUS + settings->offset.x,
-					MAP_RADIUS + settings->offset.y, MAP_RADIUS - 10))
+				if (pt.z <= MAP_RADIUS - 5)
 					mlx_pxl_put(canva, pt.x, pt.y, BLACK);
 				else
 					mlx_pxl_put(canva, pt.x, pt.y, WHITE);

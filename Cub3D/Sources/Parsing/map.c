@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 14:01:43 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/15 15:11:25 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static int	check_header(t_map *map, int res)
 static void	free_textures(t_map *map, int res)
 {
 	t_portal	*tmp;
+	t_obj		*tmp_obj;
 
 	if (res)
 	{
@@ -54,11 +55,19 @@ static void	free_textures(t_map *map, int res)
 		free(map->fc_textures[CEILLING]);
 		free(map->ds_textures[0]);
 		free(map->ds_textures[1]);
+		free(map->obj_textures[BARREL]);
+		free(map->obj_textures[PILLAR]);
 		while (map->portals)
 		{
 			tmp = map->portals;
 			map->portals = map->portals->next;
 			free(tmp);
+		}
+		while (map->objs)
+		{
+			tmp_obj = map->objs;
+			map->objs = map->objs->next;
+			free(tmp_obj);
 		}
 	}
 }
@@ -100,6 +109,8 @@ int	load_map(t_map *map, char *file)
 	map->fc_textures[CEILLING] = 0;
 	map->ds_textures[0] = 0;
 	map->ds_textures[1] = 0;
+	map->obj_textures[BARREL] = 0;
+	map->obj_textures[PILLAR] = 0;
 	map->walls = 0;
 	map->doors = 0;
 	map->portals = 0;

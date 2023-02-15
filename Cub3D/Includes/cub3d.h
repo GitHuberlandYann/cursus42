@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/14 16:48:49 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/15 17:08:03 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define MSG_TWOCT "Two different lines start with 'CT'"
 # define MSG_TWODOORS "Two different lines start with 'D'"
 # define MSG_TWODOORSIDES "Two different lines start with 'DS'"
+# define MSG_TWOBARRELS "Two different lines start with 'BT'"
+# define MSG_TWOPILLARS "Two different lines start with 'PT'"
 # define MSG_RGBZEROPAD "RGB values can't be zero-padded"
 # define MSG_RGB255 "RGB values can't be greater than 255"
 # define MSG_RGBUNSET "Unset or incorrect RGB value"
@@ -45,6 +47,11 @@
 # define MSG_LINK255 "Portal index can't go above 255"
 # define MSG_LINKUNSET "Unset or incorrect portal index"
 # define MSG_LINKEND "LINK line has unwanted elements ending it"
+# define MSG_OBJZEROPAD "Object position can't be zero-padded"
+# define MSG_OBJ255 "Object position can't be greater than 255"
+# define MSG_OBJUNSET "Unset or incorrect Object position"
+# define MSG_OBJZERO "Object position can't be set at zero"
+# define MSG_OBJEND "Object line has unwanted elements ending it"
 # define MSG_INVALIDCHAR "Invalid char found in map"
 # define MSG_NOPLAYER "No player found in map"
 # define MSG_DOOR_BORDER "Doors can't be at border of map"
@@ -59,6 +66,7 @@
 # define MSG_PORTAL_FLOOR "Map can't have portals and floor textures"
 # define MSG_PORTAL_CEILLING "Map can't have portals and ceilling textures"
 # define MSG_DOORTEXTURE "Missing D/DS line, no texture for doors"
+# define MSG_OBJTEXTURE "Missing BT/PT line, no texture for objs"
 
 # if __linux__
 #  define WIN_WIDTH 1800
@@ -85,7 +93,6 @@
 # define GREENISH 0x26E07
 
 # define PSIZE 5
-# define PMSIZE 0.1
 
 // Enums
 typedef enum e_side {
@@ -103,6 +110,11 @@ typedef enum e_ground {
 	FLOOR,
 	CEILLING
 }			t_ground;
+
+typedef enum e_objtype {
+	BARREL,
+	PILLAR
+}				t_objtype;
 
 enum {	//events supported on mac (only a fraction of what can be found on x11)
 	ON_KEYDOWN = 2,
@@ -234,6 +246,17 @@ typedef struct s_portal {
 	struct s_portal	*last;
 }				t_portal;
 
+typedef struct s_obj {
+	t_objtype		type;
+	t_vertice		pos;
+	double			u;
+	double			dist;
+	struct s_obj	*next;
+	struct s_obj	*last;
+	struct s_obj	*next_ray;
+	struct s_obj	*last_ray;
+}				t_obj;
+
 typedef struct s_ray
 {
 	t_line		ray;
@@ -244,10 +267,10 @@ typedef struct s_ray
 	double		u;
 	double		dist;
 	double		pdist;
+	double		preangle;
 	double		angle;
 	double		out_angle;
-	t_portal	*in;
-	t_portal	*out;
+	t_obj		*objs;
 }				t_ray;
 
 typedef struct s_map {
@@ -258,11 +281,15 @@ typedef struct s_map {
 	t_door			*doors;
 	int				portal_count;
 	t_portal		*portals;
+	int				hasbarrel;
+	int				haspillar;
+	t_obj			*objs;
 	char			*line;
 	char			*(textures[4]);
 	unsigned int	fc_colors[2];
 	char			*(fc_textures[2]);
 	char			*(ds_textures[2]);
+	char			*(obj_textures[2]);
 }				t_map;
 
 typedef struct s_img {
@@ -300,6 +327,7 @@ typedef struct s_mlx
 	t_img		*(textures[4]);
 	t_img		*(fc_textures[2]);
 	t_img		*(ds_textures[2]);
+	t_img		*(obj_textures[2]);
 	t_key		*keys;
 	t_vertice	mouse_pos;
 	char		fpstr[15];
@@ -313,6 +341,7 @@ typedef struct s_settings {
 	int 		mini_follow;
 	int			mini_enable;
 	double		wall_width;
+	double		radius_divww;
 	int			recurse_level;
 	t_vertice	offset;
 	int			timepoint;
@@ -322,7 +351,7 @@ typedef struct s_cub {
 	t_map		*map;
 	t_mlx		*mlx;
 	t_settings	*settings;
-	double		angles[WIN_WIDTH];
+	t_ray		rays[WIN_WIDTH];
 }				t_cub;
 
 //Graphics
@@ -342,7 +371,7 @@ t_img		*ft_create_xpmimg(t_mlx *mlx, char *textures, t_side side);
 void		mlx_clear_img(t_img *img);
 void		mlx_draw_line(t_img *img, t_vertice a, t_vertice b, unsigned int color);
 void		mlx_pxl_put(t_img *img, int x, int y, unsigned int color);
-unsigned int	mlx_pxl_get(t_img *img, int x, int y);
+unsigned	mlx_pxl_get(t_img *img, int x, int y);
 
 int			key_down(int kcode, t_cub *cub);
 int			key_released(int kcode, t_cub *cub);
@@ -353,6 +382,7 @@ int			mlx_exit(void *param);
 void		ray_walling(t_wall *walls, t_ray *ray);
 void		ray_dooring(t_door *doors, t_ray *ray);
 void		ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub);
+void		ray_objing(t_obj *objs, t_ray *ray, double angle);
 void		try_door(t_player *player, t_door *doors);
 t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
 
@@ -367,19 +397,25 @@ int			output_error(char *msg);
 void		console_map_content(t_map *map);
 
 // Parsing
+int			read_map(t_map *map, int fd);
 int			load_map(t_map *map, char *file);
 int			line_from_map(char *str, int empty_allowed);
 int			read_first_lines(t_map *map, int fd);
-int			transform_color(t_map *map, t_ground ground);
-int			only_spaces(t_map *map, int index);
-int			link_portals(t_map *map);
-int			read_map(t_map *map, int fd);
 int			flood_fill(t_parsing *current, int index);
+
+int			load_texture_obj(t_map *map, t_objtype type);
+int			transform_color(t_map *map, t_ground ground);
+int			add_obj(t_map *map, t_objtype type);
+
+int			only_spaces(t_map *map, int index);
 int			free_return_lines(t_parsing *lines, t_map *map, int free_player);
+
 void		create_walls(t_map *map, t_parsing *lines);
 t_wall		*get_wallat(t_wall *walls, int x, int y);
 int			add_door(t_map *map, t_parsing *line, int x, int y);
+
 int			set_portal(t_map *map, t_parsing *line, int x, int y);
+int			link_portals(t_map *map);
 int			link_empty(t_map *map);
 int			conflict_pt(t_map *map);
 
