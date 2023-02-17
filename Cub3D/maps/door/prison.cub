@@ -1,0 +1,23 @@
+NO maps/xpm/colorstone.xpm
+SO maps/xpm/colorstone.xpm
+WE maps/xpm/colorstone.xpm
+EA maps/xpm/colorstone.xpm
+
+F 128,128,128
+C 96,96,96
+FT maps/xpm/greystone.xpm
+CT maps/xpm/wood.xpm
+D maps/xpm/door.xpm
+DS maps/xpm/doorside.xpm
+
+
+    11111
+    10S01
+    10001
+    10001   111111
+111111D11111100001
+1000000000001000011
+100000000000D000001
+1000000000001000011
+111111111111100001
+             1111

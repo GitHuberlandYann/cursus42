@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/15 17:08:03 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/17 13:22:07 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,13 @@ typedef enum e_objtype {
 	BARREL,
 	PILLAR
 }				t_objtype;
+
+typedef enum e_doorstate {
+	CLOSED,
+	OPEN,
+	CLOSING,
+	OPENING
+}				t_doorstate;
 
 enum {	//events supported on mac (only a fraction of what can be found on x11)
 	ON_KEYDOWN = 2,
@@ -231,7 +238,11 @@ typedef struct s_wall {
 typedef struct s_door {
 	int				x;
 	int				y;
+	int				side;
+	int				state;
+	int				timer;
 	t_line			edges[3];
+	t_line			door;
 	struct s_door	*next;
 	struct s_door	*last;
 }				t_door;
@@ -330,6 +341,7 @@ typedef struct s_mlx
 	t_img		*(obj_textures[2]);
 	t_key		*keys;
 	t_vertice	mouse_pos;
+	int			fps;
 	char		fpstr[15];
 }				t_mlx;
 
@@ -383,8 +395,10 @@ void		ray_walling(t_wall *walls, t_ray *ray);
 void		ray_dooring(t_door *doors, t_ray *ray);
 void		ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub);
 void		ray_objing(t_obj *objs, t_ray *ray, double angle);
-void		try_door(t_player *player, t_door *doors);
 t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
+
+void		try_door(t_player *player, t_door *doors);
+void		uptdate_doors(t_door *doors, t_key *key);
 
 double		get_dist(t_vertice pt1, t_vertice pt2);
 void		set_point(t_vertice *pt, double x, double y, double z);

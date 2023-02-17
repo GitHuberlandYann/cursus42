@@ -19,6 +19,8 @@ static void	set_horizontal_door(t_door *door, int x, int y)
 	door->edges[0].side = DOORSIDE;
 	set_point(&door->edges[1].pt1, x - 0.5, y, 0);
 	set_point(&door->edges[1].pt2, x + 0.5, y, 0);
+	set_point(&door->door.pt1, x - 0.5, y, 0);
+	set_point(&door->door.pt2, x + 0.5, y, 0);
 	door->edges[1].side = DOOR;
 	set_point(&door->edges[2].pt1, x + 0.5, y - 0.5, 0);
 	set_point(&door->edges[2].pt2, x + 0.5, y + 0.5, 0);
@@ -32,6 +34,8 @@ static void	set_vertical_door(t_door *door, int x, int y)
 	door->edges[0].side = DOORSIDE;
 	set_point(&door->edges[1].pt1, x, y - 0.5, 0);
 	set_point(&door->edges[1].pt2, x, y + 0.5, 0);
+	set_point(&door->door.pt1, x, y - 0.5, 0);
+	set_point(&door->door.pt2, x, y + 0.5, 0);
 	door->edges[1].side = DOOR;
 	set_point(&door->edges[2].pt1, x - 0.5, y + 0.5, 0);
 	set_point(&door->edges[2].pt2, x + 0.5, y + 0.5, 0);
@@ -45,10 +49,12 @@ static t_door	*new_door(int x, int y, t_side orientation)
 	res = ft_malloc(sizeof(*res), "add_door");
 	res->x = x;
 	res->y = y;
+	res->side = orientation;
 	if (orientation == NO)
 		set_horizontal_door(res, x, y);
 	else
 		set_vertical_door(res, x, y);
+	res->state = CLOSED;
 	res->next = 0;
 	res->last = 0;
 	return (res);

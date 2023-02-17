@@ -49,11 +49,10 @@ void	ray_dooring(t_door *doors, t_ray *ray)
 
 void	try_door(t_player *player, t_door *doors)
 {
-	int			index;
 	t_vertice	pt4;
 	t_vertice	intersection;
 	t_ray		ray;
-	t_line		*target;
+	t_door		*target;
 
 	ray.dist = 10000;
 	set_point(&ray.ray.pt1, player->pos.x, player->pos.y, 0);
@@ -62,27 +61,79 @@ void	try_door(t_player *player, t_door *doors)
 	pt4.y = player->pos.y - sin(player->direction);
 	while (doors)
 	{
-		index = 0;
-		while (index < 3)
+		intersection = get_inter(&ray, pt4, doors->door.pt1, doors->door.pt2);
+		pt4.z = get_dist(player->pos, intersection);
+		if (intersection.z && pt4.z < ray.dist)
 		{
-			if (doors->edges[index].side == DOOR || doors->edges[index].side == CUT)
-			{
-				intersection = get_inter(&ray, pt4, doors->edges[index].pt1, doors->edges[index].pt2);
-				pt4.z = get_dist(player->pos, intersection);
-				if (intersection.z && pt4.z < ray.dist)
-				{
-					ray.dist = pt4.z;
-					target = &doors->edges[index];
-				}
-			}
-			++index;
+			ray.dist = pt4.z;
+			target = doors;
 		}
 		doors = doors->next;
 	}
 	if (ray.dist == 10000 || ray.dist > 0.6)
 		return ;
-	if (target->side == CUT)
-		target->side = DOOR;
-	else
-		target->side = CUT;
+	// if (target->edges[1].side == CUT)
+	// 	target->edges[1].side = DOOR;
+	// else
+	// 	target->edges[1].side = CUT;
+	if (target->state == OPEN)
+		target->state = CLOSING;
+	else if (target->state == CLOSED)
+	{
+		target->state = OPENING;
+		target->timer = 0;
+	}
+	else if (target->state == OPENING)
+		target->state = CLOSING;
+	else if (target->state == CLOSING)
+	{
+		target->state = OPENING;
+		target->timer = 0;
+	}
+}
+
+void	uptdate_doors(t_door *doors, t_key *key)
+{
+	while (doors)
+	{
+		if (doors->state == OPENING)
+		{
+			key->mousedate = 1;
+			if (doors->side == WE || doors->side == EA)
+			{
+				doors->edges[1].pt1.y += 0.01;
+				doors->edges[1].pt2.y += 0.01;
+			}
+			else if (doors->side == NO || doors->side == SO)
+			{
+				doors->edges[1].pt1.x += 0.01;
+				doors->edges[1].pt2.x += 0.01;
+			}
+			if (doors->edges[1].pt1.x > doors->x + 0.5 || doors->edges[1].pt1.y > doors->y + 0.5)
+			{
+				doors->state = OPEN;
+				doors->edges[1].side = CUT;
+			}
+		}
+		else if (doors->state == CLOSING)
+		{
+			key->mousedate = 1;
+			doors->edges[1].side = DOOR;
+			if (doors->side == WE || doors->side == EA)
+			{
+				doors->edges[1].pt1.y -= 0.01;
+				doors->edges[1].pt2.y -= 0.01;
+			}
+			else if (doors->side == NO || doors->side == SO)
+			{
+				doors->edges[1].pt1.x -= 0.01;
+				doors->edges[1].pt2.x -= 0.01;
+			}
+			if (doors->edges[1].pt1.y < doors->y - 0.5 || doors->edges[1].pt1.x < doors->x - 0.5)
+				doors->state = CLOSED;
+		}
+		if (doors->state == OPEN && ++doors->timer == 12000)
+			doors->state = CLOSING;
+		doors = doors->next;
+	}
 }

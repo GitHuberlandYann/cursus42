@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:54:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/15 15:49:36 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:59:47 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	load_texture_ds(t_map *map, int side)
 {
 	if (side == 0 && map->ds_textures[side])
 		return (output_error(MSG_TWODOORS));
-	if (side == 1 && map->fc_textures[side])
+	if (side == 1 && map->ds_textures[side])
 		return (output_error(MSG_TWODOORSIDES));
 	map->ds_textures[side] = ft_strdup(&map->line[2 + side]);
 	map->ds_textures[side][ft_strlen(map->ds_textures[side]) - 1] = '\0';

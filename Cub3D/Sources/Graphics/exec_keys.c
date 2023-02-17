@@ -94,6 +94,7 @@ int	redraw_all(t_cub *cub)
 	t_key	*key;
 
 	key = cub->mlx->keys;
+	uptdate_doors(cub->map->doors, key);
 	if (!key->horizontal && !key->vertical && !key->steering && !key->fov_width
 		&& key->fov_enable != 1 && !key->fov_dist && key->mini_follow != 1
 		&& !key->mousedate && key->door != 1 && key->mini_enable != 1

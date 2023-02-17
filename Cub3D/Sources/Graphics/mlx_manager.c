@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/15 15:55:00 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:46:52 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static t_mlx	*ft_mlx_init(char *title, t_map *map)
 	mlx->keys->mousedate = 1;
 	mlx->keys->door = 0;
 	mlx->mouse_pos.z = 1;
+	mlx->fps = 30;
 	ft_strcpy(mlx->fpstr, "fps : ");
 	return (mlx);
 }

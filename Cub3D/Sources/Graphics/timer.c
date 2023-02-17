@@ -31,7 +31,6 @@ static int	get_time(void)
 void	add_fps(t_mlx *mlx, t_settings *settings)
 {
 	int		current_time;
-	double	fps;
 	int		fps_size;
 
 	if (!settings->timepoint)
@@ -40,9 +39,9 @@ void	add_fps(t_mlx *mlx, t_settings *settings)
 		return ;
 	}
 	current_time = get_time();
-	fps = 1000.0 / (current_time - settings->timepoint);
-	fps_size = ft_nblen(fps);
-	ft_catitoa(mlx->fpstr, fps, 6 + fps_size);
+	mlx->fps = 1000.0 / (current_time - settings->timepoint);
+	fps_size = ft_nblen(mlx->fps);
+	ft_catitoa(mlx->fpstr, mlx->fps, 6 + fps_size);
 	mlx->fpstr[7 + fps_size] = '\0';
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 20, 20, WHITE, mlx->fpstr);
 	settings->timepoint = current_time;
