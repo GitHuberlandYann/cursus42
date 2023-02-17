@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/17 13:22:07 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:31:02 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,10 +202,10 @@ typedef struct s_vertice
 	double				x;
 	double				y;
 	double				z;
-}				t_vertice;
+}				t_vert;
 
 typedef struct s_player {
-	t_vertice	pos;
+	t_vert	pos;
 	double		direction;
 	double		speed;
 }				t_player;
@@ -222,8 +222,8 @@ typedef struct s_parsing {
 }				t_parsing;
 
 typedef struct s_line {
-	t_vertice	pt1;
-	t_vertice	pt2;
+	t_vert	pt1;
+	t_vert	pt2;
 	t_side		side;
 }				t_line;
 
@@ -259,7 +259,7 @@ typedef struct s_portal {
 
 typedef struct s_obj {
 	t_objtype		type;
-	t_vertice		pos;
+	t_vert		pos;
 	double			u;
 	double			dist;
 	struct s_obj	*next;
@@ -340,13 +340,13 @@ typedef struct s_mlx
 	t_img		*(ds_textures[2]);
 	t_img		*(obj_textures[2]);
 	t_key		*keys;
-	t_vertice	mouse_pos;
+	t_vert	mouse_pos;
 	int			fps;
 	char		fpstr[15];
 }				t_mlx;
 
 typedef struct s_settings {
-	double		fov_width;
+	int			fov_width;
 	int			fov_enable;
 	double		fov_dist;
 	double		dist_feel;
@@ -355,14 +355,14 @@ typedef struct s_settings {
 	double		wall_width;
 	double		radius_divww;
 	int			recurse_level;
-	t_vertice	offset;
+	t_vert	offset;
 	int			timepoint;
-}				t_settings;
+}				t_set;
 
 typedef struct s_cub {
 	t_map		*map;
 	t_mlx		*mlx;
-	t_settings	*settings;
+	t_set	*settings;
 	t_ray		rays[WIN_WIDTH];
 }				t_cub;
 
@@ -373,15 +373,15 @@ void		fill_old_minimap(t_cub *cub);
 
 void		clear_render(t_img *canva, unsigned int cols[2], t_cub *cub);
 void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
-void		setup_rendermap(t_img *canva, t_settings *settings);
-void		render_ground(t_img *img, t_cub *cub, t_vertice *pxl, double alpha);
+void		setup_rendermap(t_img *canva, t_set *settings);
+void		render_ground(t_img *img, t_cub *cub, t_vert *pxl, double alpha);
 
-void		add_fps(t_mlx *mlx, t_settings *settings);
+void		add_fps(t_mlx *mlx, t_set *settings);
 
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
 t_img		*ft_create_xpmimg(t_mlx *mlx, char *textures, t_side side);
 void		mlx_clear_img(t_img *img);
-void		mlx_draw_line(t_img *img, t_vertice a, t_vertice b, unsigned int color);
+void		mlx_draw_line(t_img *img, t_vert a, t_vert b, unsigned int color);
 void		mlx_pxl_put(t_img *img, int x, int y, unsigned int color);
 unsigned	mlx_pxl_get(t_img *img, int x, int y);
 
@@ -395,15 +395,15 @@ void		ray_walling(t_wall *walls, t_ray *ray);
 void		ray_dooring(t_door *doors, t_ray *ray);
 void		ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub);
 void		ray_objing(t_obj *objs, t_ray *ray, double angle);
-t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4);
+t_vert	get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4);
 
 void		try_door(t_player *player, t_door *doors);
 void		uptdate_doors(t_door *doors, t_key *key);
 
-double		get_dist(t_vertice pt1, t_vertice pt2);
-void		set_point(t_vertice *pt, double x, double y, double z);
-void		set_point_follow(t_vertice *pt, t_vertice *pt2, t_map *map, t_settings *settings);
-int			in_circle(t_vertice *pt, double x, double y, double radius);
+double		get_dist(t_vert pt1, t_vert pt2);
+void		set_point(t_vert *pt, double x, double y, double z);
+void		set_point_follow(t_vert *pt, t_vert *pt2, t_map *map, t_set *settings);
+int			in_circle(t_vert *pt, double x, double y, double radius);
 void		set_ray_angles(t_cub *cub);
 
 // Outputs

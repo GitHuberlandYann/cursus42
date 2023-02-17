@@ -58,8 +58,8 @@ static void	extend_ray(t_ray *ray, t_cub *cub, t_portal *in)
 
 void	ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub)
 {
-	t_vertice	pt4;
-	t_vertice	intersection;
+	t_vert	pt4;
+	t_vert	intersection;
 	double		dist;
 	t_portal	*in;
 

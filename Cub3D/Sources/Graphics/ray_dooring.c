@@ -15,8 +15,8 @@
 void	ray_dooring(t_door *doors, t_ray *ray)
 {
 	int			index;
-	t_vertice	pt4;
-	t_vertice	intersection;
+	t_vert	pt4;
+	t_vert	intersection;
 	double		dist;
 
 	pt4.x = ray->ray.pt1.x + cos(ray->angle);
@@ -49,8 +49,8 @@ void	ray_dooring(t_door *doors, t_ray *ray)
 
 void	try_door(t_player *player, t_door *doors)
 {
-	t_vertice	pt4;
-	t_vertice	intersection;
+	t_vert	pt4;
+	t_vert	intersection;
 	t_ray		ray;
 	t_door		*target;
 

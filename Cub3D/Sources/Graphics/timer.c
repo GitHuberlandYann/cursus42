@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   timer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/17 14:55:58 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/02/17 14:55:58 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static int	ft_nblen(int nb)
@@ -13,7 +25,7 @@ static int	ft_nblen(int nb)
 	return (res);
 }
 
-static void ft_catitoa(char str[15], int nb, int index)
+static void	ft_catitoa(char str[15], int nb, int index)
 {
 	if (nb > 9)
 		ft_catitoa(str, nb / 10, index - 1);
@@ -28,7 +40,7 @@ static int	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	add_fps(t_mlx *mlx, t_settings *settings)
+void	add_fps(t_mlx *mlx, t_set *settings)
 {
 	int		current_time;
 	int		fps_size;

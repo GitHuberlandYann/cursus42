@@ -88,6 +88,7 @@ static void	init_player(t_map *map, t_parsing *p_line)
 	map->player->speed = 0.1;
 }
 
+		// printf("curr map line : %s", map->line);
 int	read_map(t_map *map, int fd)
 {
 	t_parsing	*lines;
@@ -98,7 +99,6 @@ int	read_map(t_map *map, int fd)
 	map->player_count = 0;
 	while (map->line && ++line_number)
 	{
-		// printf("curr map line : %s", map->line);
 		if (add_line(&lines, map->line, line_number - 1))
 			return (free_return_lines(lines, map, 0));
 		map->player_count += lines->last->player_count;

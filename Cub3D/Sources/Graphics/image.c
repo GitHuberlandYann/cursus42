@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/15 14:04:52 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:31:02 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_img	*ft_create_xpmimg(t_mlx *mlx, char *texture, t_side side)
 
 void	mlx_clear_img(t_img *img)
 {
-	t_vertice	pt;
+	t_vert	pt;
 
 	pt.x = 0;
 	pt.z = 0;
@@ -85,10 +85,10 @@ void	mlx_pxl_put(t_img *img, int x, int y, unsigned int color)
 	*(unsigned *) dst = color;
 }
 
-void	mlx_draw_line(t_img *img, t_vertice a, t_vertice b, unsigned int color)
+void	mlx_draw_line(t_img *img, t_vert a, t_vert b, unsigned int color)
 {
-	t_vertice	delta;
-	t_vertice	pixel;
+	t_vert	delta;
+	t_vert	pixel;
 	double		len;
 
 	delta.x = b.x - a.x;

@@ -12,11 +12,11 @@
 
 #include "cub3d.h"
 
-static void	draw_wall_vert(t_img *img, t_vertice *pt, t_img *texture, double u)
+static void	draw_wall_vert(t_img *img, t_vert *pt, t_img *texture, double u)
 {
-	t_vertice		pt2;
-	t_vertice		delta;
-	t_vertice		pt_text;
+	t_vert		pt2;
+	t_vert		delta;
+	t_vert		pt_text;
 	unsigned int	color;
 
 	if (texture->img_ptr)
@@ -52,8 +52,8 @@ static void	draw_wall_vert(t_img *img, t_vertice *pt, t_img *texture, double u)
 
 static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 {
-	t_vertice	start;
-	t_vertice	finish;
+	t_vert	start;
+	t_vert	finish;
 	double		wall_height;
 
 	ray->dist *= cos(cub->map->player->direction - ray->angle);
@@ -83,7 +83,7 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 
 static void	draw_hit_obj(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 {
-	t_vertice	start;
+	t_vert	start;
 	double		wall_height;
 	t_obj		*obj;
 
@@ -129,22 +129,16 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 
 void	clear_render(t_img *canva, unsigned int cols[2], t_cub *cub)
 {
-	t_vertice	pt;
+	t_vert	pt;
 	double		limiter;
 
 	pt.z = 0;
 	pt.y = 0;
 	limiter = canva->height;
 	if (cub->mlx->fc_textures[CEILLING])
-	{
 		pt.y = canva->height / 2;
-		;//add ceilling
-	}
 	if (cub->mlx->fc_textures[FLOOR])
-	{
 		limiter = canva->height / 2;
-		;//add floor
-	}
 	while (pt.y < limiter)
 	{
 		pt.x = -1;

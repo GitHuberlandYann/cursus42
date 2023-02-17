@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   walls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:03:46 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/14 13:21:34 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/17 14:51:46 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int	isthere_doorat(t_door *doors, int x, int y)
 static void	remove_invisible_walls(t_wall *walls, t_door *doors)
 {
 	t_wall	*other;
-	int		remove_wall;
 
 	other = get_wallat(walls, walls->last->x - 1, walls->last->y);
 	if (other)
@@ -34,24 +33,16 @@ static void	remove_invisible_walls(t_wall *walls, t_door *doors)
 		other->edges[EA].side = CUT;
 		walls->last->edges[WE].side = CUT;
 	}
-	else
-	{
-		remove_wall = isthere_doorat(doors, walls->last->x - 1, walls->last->y);
-		if (remove_wall)
+	else if (isthere_doorat(doors, walls->last->x - 1, walls->last->y))
 			walls->last->edges[WE].side = CUT;
-	}
 	other = get_wallat(walls, walls->last->x, walls->last->y - 1);
 	if (other)
 	{
 		other->edges[SO].side = CUT;
 		walls->last->edges[NO].side = CUT;
 	}
-	else
-	{
-		remove_wall = isthere_doorat(doors, walls->last->x, walls->last->y - 1);
-		if (remove_wall)
+	else if (isthere_doorat(doors, walls->last->x, walls->last->y - 1))
 			walls->last->edges[NO].side = CUT;
-	}
 }
 
 static t_wall	*new_wall(int x, int y)
@@ -130,7 +121,7 @@ void	create_walls(t_map *map, t_parsing *lines)
 	int			index;
 	int			y;
 	t_parsing	*tmp;
-	
+
 	tmp = lines;
 	y = 0;
 	map->portal_count = 0;

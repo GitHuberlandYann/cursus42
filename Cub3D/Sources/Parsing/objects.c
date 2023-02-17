@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:54:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/15 15:52:25 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:48:52 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	ft_atoi_obj(t_map *map, int *index, int sindex)
 	}
 	if (sindex == *index)
 		return (output_error(MSG_OBJUNSET) - 1);
-	if (map->line[*index] == ',' && map->line[*index + 1] >= '0' && map->line[*index + 1] <= '9')
+	if (map->line[*index] == ',' && map->line[*index + 1] >= '0'
+		&& map->line[*index + 1] <= '9')
 		++(*index);
 	if (!number)
 		return (output_error(MSG_OBJZERO) - 1);

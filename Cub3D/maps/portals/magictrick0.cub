@@ -1,7 +1,7 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO maps/xpm/colorstone.xpm
+SO maps/xpm/colorstone.xpm
+WE maps/xpm/colorstone.xpm
+EA maps/xpm/colorstone.xpm
 
 F 220,100,0
 C 225,30,0
@@ -9,13 +9,14 @@ LINK 0:1
 LINK 1:0
 LINK 2:3
 LINK 3:2
+D path_to_the_east_texture
+DS Do
 
-
-   111111111
-  10000000001       1
+   11111D111
+  10000010001       1
   10000000001      1P1
   10000000001      101
-  1001P100W01      101
+  D101P100W01      101
   1001P100001      101
   10000000001      101
   10000000001      101

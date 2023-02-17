@@ -6,17 +6,17 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 10:52:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/15 12:34:31 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:31:02 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	draw_walls(t_img *img, t_wall *wall, t_map *map, t_settings *settings)
+static void	draw_walls(t_img *img, t_wall *wall, t_map *map, t_set *settings)
 {
 	int			index;
-	t_vertice	start;
-	t_vertice	finish;
+	t_vert	start;
+	t_vert	finish;
 
 	index = 0;
 	while (index < 4)
@@ -35,11 +35,11 @@ static void	draw_walls(t_img *img, t_wall *wall, t_map *map, t_settings *setting
 	}
 }
 
-static void	draw_door(t_img *img, t_door *door, t_map *map, t_settings *settings)
+static void	draw_door(t_img *img, t_door *door, t_map *map, t_set *settings)
 {
 	int			index;
-	t_vertice	start;
-	t_vertice	finish;
+	t_vert	start;
+	t_vert	finish;
 
 	index = 0;
 	while (index < 3)
@@ -58,11 +58,11 @@ static void	draw_door(t_img *img, t_door *door, t_map *map, t_settings *settings
 	}
 }
 
-static void	draw_portals(t_img *img, t_map *map, t_settings *settings)
+static void	draw_portals(t_img *img, t_map *map, t_set *settings)
 {
 	t_portal	*portal;
-	t_vertice	start;
-	t_vertice	finish;
+	t_vert	start;
+	t_vert	finish;
 
 	portal = map->portals;
 	while (portal)
@@ -78,10 +78,10 @@ static void	draw_portals(t_img *img, t_map *map, t_settings *settings)
 	}
 }
 
-static void	draw_circle(t_img *img, t_vertice *center, int radius, unsigned color)
+static void	draw_circle(t_img *img, t_vert *center, int radius, unsigned color)
 {
-	t_vertice	pt;
-	t_vertice	pt2;
+	t_vert	pt;
+	t_vert	pt2;
 
 	pt2.x = center->x - radius;
 	while (pt2.x < center->x + radius)
@@ -101,18 +101,18 @@ static void	draw_circle(t_img *img, t_vertice *center, int radius, unsigned colo
 	}
 }
 
-static void	draw_player(t_img *img, t_settings *settings)
+static void	draw_player(t_img *img, t_set *settings)
 {
-	t_vertice	pos_translate;
+	t_vert	pos_translate;
 
 	set_point(&pos_translate, settings->offset.x + MAP_RADIUS,
 		settings->offset.y + MAP_RADIUS, 0);
 	draw_circle(img, &pos_translate, PSIZE, RED);
 }
 
-static void	add_north(t_img *canva, double angle, t_settings *settings)
+static void	add_north(t_img *canva, double angle, t_set *settings)
 {
-	t_vertice	npos;
+	t_vert	npos;
 
 	if (!settings->mini_follow)
 		set_point(&npos, settings->offset.x + MAP_RADIUS, settings->offset.y + 2.5, 0);
@@ -121,9 +121,9 @@ static void	add_north(t_img *canva, double angle, t_settings *settings)
 	draw_circle(canva, &npos, PSIZE * 2, RED);
 }
 
-void	setup_rendermap(t_img *canva, t_settings *settings)
+void	setup_rendermap(t_img *canva, t_set *settings)
 {
-	t_vertice	pt;
+	t_vert	pt;
 
 	pt.y = settings->offset.y;
 	while (pt.y < settings->offset.y + MAP_DIAMETER)

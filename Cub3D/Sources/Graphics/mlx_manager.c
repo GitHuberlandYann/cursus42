@@ -6,15 +6,15 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/17 10:46:52 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:29:50 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_settings	*ft_settings_init(void)
+static t_set	*ft_set_init(void)
 {
-	t_settings	*res;
+	t_set	*res;
 
 	res = ft_malloc(sizeof(*res), __func__);
 	res->fov_width = WIN_WIDTH_2;
@@ -85,7 +85,7 @@ void	launch_mlx(t_map *map, char	*title)
 
 	cub.map = map;
 	cub.mlx = ft_mlx_init(title, map);
-	cub.settings = ft_settings_init();
+	cub.settings = ft_set_init();
 	set_ray_angles(&cub);
 	mlx_hook(cub.mlx->win_ptr, ON_KEYDOWN, 1L<<0, key_down, &cub);
 	mlx_hook(cub.mlx->win_ptr, ON_KEYUP, 1L<<1, key_released, &cub);

@@ -49,7 +49,8 @@ static int	ft_atoi_por(t_map *map, int *index, int sindex, int *number)
 	}
 	if (sindex == *index)
 		return (output_error(MSG_LINKUNSET));
-	if (map->line[*index] == ':' && map->line[*index + 1] >= '0' && map->line[*index + 1] <= '9')
+	if (map->line[*index] == ':' && map->line[*index + 1] >= '0'
+		&& map->line[*index + 1] <= '9')
 		++(*index);
 	return (0);
 }
@@ -61,7 +62,6 @@ static int	charge_portal(t_map *map, int x, int y, t_side orientation)
 	target = map->portals;
 	while (target)
 	{
-		// printf("debug num %d\n", target->num);
 		if (target->num == map->portal_count)
 		{
 			target->x = x;
@@ -94,6 +94,7 @@ static int	charge_portal(t_map *map, int x, int y, t_side orientation)
 	return (output_error(MSG_NOLINK));
 }
 
+	// printf("portal %d linked with %d\n", num, link);
 int	link_portals(t_map *map)
 {
 	int	index;
@@ -108,7 +109,6 @@ int	link_portals(t_map *map)
 	if (!only_spaces(map, index))
 		return (output_error(MSG_LINKEND));
 	add_portal(map, num, link);
-	// printf("portal %d linked with %d\n", num, link);
 	return (0);
 }
 

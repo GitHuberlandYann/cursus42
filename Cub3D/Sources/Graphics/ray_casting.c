@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 18:31:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/12 15:25:38 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/17 14:31:02 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4)
+t_vert	get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4)
 {
 	double		denominator;
 	double		t;
 	double		u;
-	t_vertice	pt1;
-	t_vertice	res;
+	t_vert	pt1;
+	t_vert	res;
 
 	pt1 = ray->ray.pt1;
 	res.z = 0;
@@ -41,8 +41,8 @@ t_vertice	get_inter(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4)
 void	ray_walling(t_wall *walls, t_ray *ray)
 {
 	int			index;
-	t_vertice	pt4;
-	t_vertice	intersection;
+	t_vert	pt4;
+	t_vert	intersection;
 	double		dist;
 
 	pt4.x = ray->ray.pt1.x + cos(ray->angle); //not opti to do it here and in ray_dooring and ray_portaling
@@ -73,11 +73,11 @@ void	ray_walling(t_wall *walls, t_ray *ray)
 	}
 }
 
-// static void	ray_walling_fov(t_player *player, t_wall *walls, t_ray *ray, t_settings *settings)
+// static void	ray_walling_fov(t_player *player, t_wall *walls, t_ray *ray, t_set *settings)
 // {
 // 	int			index;
-// 	t_vertice	pt4;
-// 	t_vertice	intersection;
+// 	t_vert	pt4;
+// 	t_vert	intersection;
 // 	double		dist;
 
 // 	pt4.x = player->pos.x + cos(ray->angle) * settings->fov_dist;
@@ -112,13 +112,13 @@ void	ray_walling(t_wall *walls, t_ray *ray)
 // 	}
 // }
 
-// t_vertice	get_inter_fov(t_ray *ray, t_vertice pt2, t_vertice pt3, t_vertice pt4)
+// t_vert	get_inter_fov(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4)
 // {
 // 	double		denominator;
 // 	double		t;
 // 	double		u;
-// 	t_vertice	pt1;
-// 	t_vertice	res;
+// 	t_vert	pt1;
+// 	t_vert	res;
 
 // 	pt1 = ray->ray.pt1;
 // 	res.z = 0;

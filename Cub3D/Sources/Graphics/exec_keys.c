@@ -29,8 +29,8 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 		ray_portaling(cub->map->portals, &wall_sensor, cub);
 		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < player->speed * (1 + keys->sprint) && wall_sensor.dist > player->speed * (1 + keys->sprint))
 		{
-			player->pos.x = wall_sensor.pray.pt1.x + cos(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));// - wall_sensor.dist);
-			player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));// - wall_sensor.dist);
+			player->pos.x = wall_sensor.pray.pt1.x + cos(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));
+			player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));
 			player->direction = wall_sensor.out_angle + M_PI * (keys->vertical == -1);
 		}
 		else if (wall_sensor.dist > 2 * player->speed * (1 + keys->sprint))
@@ -49,8 +49,8 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 		ray_portaling(cub->map->portals, &wall_sensor, cub);
 		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < player->speed * (1 + keys->sprint) && wall_sensor.dist > player->speed * (1 + keys->sprint))
 		{
-			player->pos.x = wall_sensor.pray.pt1.x + cos(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));// - wall_sensor.dist);
-			player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));// - wall_sensor.dist);
+			player->pos.x = wall_sensor.pray.pt1.x + cos(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));
+			player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));
 			player->direction = wall_sensor.out_angle + M_PI / 2 + M_PI * (keys->horizontal == 1);
 		}
 		else if (wall_sensor.dist > 2 * player->speed * (1 + keys->sprint))

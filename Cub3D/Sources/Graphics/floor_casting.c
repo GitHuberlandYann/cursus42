@@ -12,13 +12,13 @@
 
 #include "cub3d.h"
 
-void	render_ground(t_img *img, t_cub *cub, t_vertice *pxl, double alpha)
+void	render_ground(t_img *img, t_cub *cub, t_vert *pxl, double alpha)
 {
 	double		row;
 	double		straight_dist;
 	double		dist;
-	t_vertice	floor_pt;
-	t_vertice	cosin;
+	t_vert	floor_pt;
+	t_vert	cosin;
 	unsigned	color;
 
 	cosin.x = cos(alpha);

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/15 15:11:25 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:45:40 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static int	check_header(t_map *map, int res)
 	if (!res)
 	{
 		res = ((map->fc_colors[FLOOR] == 0x1000000) && !map->fc_textures[FLOOR])
-			+ ((map->fc_colors[CEILLING] == 0x1000000) && !map->fc_textures[CEILLING])
+			+ ((map->fc_colors[CEILLING] == 0x1000000)
+				&& !map->fc_textures[CEILLING])
 			+ !map->textures[NO] + !map->textures[SO] + !map->textures[WE]
 			+!map->textures[EA];
 		if (res)
@@ -40,35 +41,32 @@ static int	check_header(t_map *map, int res)
 	}
 	return (res);
 }
-static void	free_textures(t_map *map, int res)
-{
-	t_portal	*tmp;
-	t_obj		*tmp_obj;
 
-	if (res)
+static void	free_textures(t_map *map)
+{
+	void	*tmp;
+
+	free(map->textures[NO]);
+	free(map->textures[SO]);
+	free(map->textures[WE]);
+	free(map->textures[EA]);
+	free(map->fc_textures[FLOOR]);
+	free(map->fc_textures[CEILLING]);
+	free(map->ds_textures[0]);
+	free(map->ds_textures[1]);
+	free(map->obj_textures[BARREL]);
+	free(map->obj_textures[PILLAR]);
+	while (map->portals)
 	{
-		free(map->textures[NO]);
-		free(map->textures[SO]);
-		free(map->textures[WE]);
-		free(map->textures[EA]);
-		free(map->fc_textures[FLOOR]);
-		free(map->fc_textures[CEILLING]);
-		free(map->ds_textures[0]);
-		free(map->ds_textures[1]);
-		free(map->obj_textures[BARREL]);
-		free(map->obj_textures[PILLAR]);
-		while (map->portals)
-		{
-			tmp = map->portals;
-			map->portals = map->portals->next;
-			free(tmp);
-		}
-		while (map->objs)
-		{
-			tmp_obj = map->objs;
-			map->objs = map->objs->next;
-			free(tmp_obj);
-		}
+		tmp = map->portals;
+		map->portals = map->portals->next;
+		free(tmp);
+	}
+	while (map->objs)
+	{
+		tmp = map->objs;
+		map->objs = map->objs->next;
+		free(tmp);
 	}
 }
 
@@ -119,6 +117,7 @@ int	load_map(t_map *map, char *file)
 	if (!res)
 		res = read_map(map, fd);
 	close(fd);
-	free_textures(map, res);
+	if (res)
+		free_textures(map);
 	return (res);
 }
