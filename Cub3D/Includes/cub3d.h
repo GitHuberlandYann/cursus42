@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/20 12:11:40 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/21 16:38:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ enum { //mouse buttons
 enum {
 	KEY_A = 113,
 	KEY_D = 100,
+	KEY_G = 103,
 	KEY_M = 109,
 	KEY_S = 115,
 	KEY_W = 122,
@@ -172,6 +173,7 @@ enum {
 enum {
 	KEY_A = 0,
 	KEY_D = 2,
+	KEY_G = 5,
 	KEY_M = 46,
 	KEY_S = 1,
 	KEY_W = 13,
@@ -199,15 +201,15 @@ enum {
 // Structures
 typedef struct s_vertice
 {
-	double				x;
-	double				y;
-	double				z;
+	double	x;
+	double	y;
+	double	z;
 }				t_vert;
 
 typedef struct s_player {
 	t_vert	pos;
-	double		direction;
-	double		speed;
+	double	direction;
+	double	speed;
 }				t_player;
 
 typedef struct s_parsing {
@@ -224,16 +226,8 @@ typedef struct s_parsing {
 typedef struct s_line {
 	t_vert	pt1;
 	t_vert	pt2;
-	t_side		side;
+	t_side	side;
 }				t_line;
-
-// typedef struct s_wall {
-// 	int				x;
-// 	int				y;
-// 	t_line			edges[4];
-// 	struct s_wall	*next;
-// 	struct s_wall	*last;
-// }				t_wall;
 
 typedef struct s_wall {
 	t_line			wline;
@@ -266,7 +260,7 @@ typedef struct s_portal {
 
 typedef struct s_obj {
 	t_objtype		type;
-	t_vert		pos;
+	t_vert			pos;
 	double			u;
 	double			dist;
 	struct s_obj	*next;
@@ -292,22 +286,22 @@ typedef struct s_ray
 }				t_ray;
 
 typedef struct s_map {
-	int				player_count;
-	t_player		*player;
-	t_wall			*walls;
-	int				hasdoor;
-	t_door			*doors;
-	int				portal_count;
-	t_portal		*portals;
-	int				hasbarrel;
-	int				haspillar;
-	t_obj			*objs;
-	char			*line;
-	char			*(textures[4]);
-	unsigned int	fc_colors[2];
-	char			*(fc_textures[2]);
-	char			*(ds_textures[2]);
-	char			*(obj_textures[2]);
+	int			player_count;
+	t_player	*player;
+	t_wall		*walls;
+	int			hasdoor;
+	t_door		*doors;
+	int			portal_count;
+	t_portal	*portals;
+	int			hasbarrel;
+	int			haspillar;
+	t_obj		*objs;
+	char		*line;
+	char		*(textures[4]);
+	unsigned	fc_colors[2];
+	char		*(fc_textures[2]);
+	char		*(ds_textures[2]);
+	char		*(obj_textures[2]);
 }				t_map;
 
 typedef struct s_img {
@@ -335,42 +329,44 @@ typedef struct s_key {
 	int	mini_enable;
 	int	mousedate;
 	int	door;
+	int	godmode;
 }				t_key;
 
 typedef struct s_mlx
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_img		*render3d;
-	t_img		*(textures[4]);
-	t_img		*(fc_textures[2]);
-	t_img		*(ds_textures[2]);
-	t_img		*(obj_textures[2]);
-	t_key		*keys;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	t_img	*render3d;
+	t_img	*(textures[4]);
+	t_img	*(fc_textures[2]);
+	t_img	*(ds_textures[2]);
+	t_img	*(obj_textures[2]);
+	t_key	*keys;
 	t_vert	mouse_pos;
-	int			fps;
-	char		fpstr[15];
+	int		fps;
+	char	fpstr[15];
 }				t_mlx;
 
 typedef struct s_settings {
-	int			fov_width;
-	int			fov_enable;
-	double		fov_dist;
-	double		dist_feel;
-	int 		mini_follow;
-	int			mini_enable;
-	double		wall_width;
-	double		radius_divww;
-	int			recurse_level;
+	int		fov_width;
+	int		fov_enable;
+	double	fov_dist;
+	double	dist_feel;
+	int 	mini_follow;
+	int		mini_enable;
+	double	wall_width;
+	double	radius_divww;
+	int		recurse_level;
 	t_vert	offset;
-	int			timepoint;
+	int		timepoint;
+	int		godmode;
 }				t_set;
 
 typedef struct s_cub {
-	t_map		*map;
-	t_mlx		*mlx;
+	t_map	*map;
+	t_mlx	*mlx;
 	t_set	*settings;
-	t_ray		rays[WIN_WIDTH];
+	t_ray	rays[WIN_WIDTH];
 }				t_cub;
 
 //Graphics

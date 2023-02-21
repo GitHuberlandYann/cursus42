@@ -12,6 +12,20 @@
 
 #include "cub3d.h"
 
+static void	move_god(t_key *keys, t_player *player)
+{
+	if (keys->vertical)
+	{
+		player->pos.x += cos(player->direction) * player->speed * (1 + keys->sprint) * keys->vertical;
+		player->pos.y -= sin(player->direction) * player->speed * (1 + keys->sprint) * keys->vertical;
+	}
+	if (keys->horizontal)
+	{
+		player->pos.x += cos(player->direction + M_PI / 2) * player->speed * (1 + keys->sprint) * keys->horizontal;
+		player->pos.y -= sin(player->direction + M_PI / 2) * player->speed * (1 + keys->sprint) * keys->horizontal;
+	}
+}
+
 static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 {
 	t_ray	wall_sensor;
@@ -98,10 +112,13 @@ int	redraw_all(t_cub *cub)
 	if (!key->horizontal && !key->vertical && !key->steering && !key->fov_width
 		&& key->fov_enable != 1 && !key->fov_dist && key->mini_follow != 1
 		&& !key->mousedate && key->door != 1 && key->mini_enable != 1
-		&& !key->dist_feel && !key->wall_width)
+		&& !key->dist_feel && !key->wall_width && key->godmode != 1)
 		return (1);
 	key->mousedate = 0;
-	move_player(key, cub, cub->map->player);
+	if (!cub->settings->godmode)
+		move_player(key, cub, cub->map->player);
+	else
+		move_god(key, cub->map->player);
 	exec_keys(key, cub);
 	clear_render(cub->mlx->render3d, cub->map->fc_colors, cub);
 	render_map(cub->mlx->render3d, cub->map->player, cub->map, cub);

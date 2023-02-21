@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/17 14:29:50 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:39:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static t_set	*ft_set_init(void)
 	res->offset.x = WIN_WIDTH - MAP_DIAMETER - 20;
 	res->offset.y = 20;
 	res->timepoint = 0;
+	res->godmode = 0;
 	return (res);
 }
 
@@ -73,6 +74,7 @@ static t_mlx	*ft_mlx_init(char *title, t_map *map)
 	mlx->keys->mini_enable = 0;
 	mlx->keys->mousedate = 1;
 	mlx->keys->door = 0;
+	mlx->keys->godmode = 0;
 	mlx->mouse_pos.z = 1;
 	mlx->fps = 30;
 	ft_strcpy(mlx->fpstr, "fps : ");

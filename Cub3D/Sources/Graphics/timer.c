@@ -57,4 +57,6 @@ void	add_fps(t_mlx *mlx, t_set *settings)
 	mlx->fpstr[7 + fps_size] = '\0';
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 20, 20, WHITE, mlx->fpstr);
 	settings->timepoint = current_time;
+	if (settings->godmode)
+		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 20, 35, WHITE, "God mode on");
 }

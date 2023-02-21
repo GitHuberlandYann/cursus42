@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:51:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/14 14:45:46 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/21 16:40:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	key_down(int kcode, t_cub *cub)
 		cub->mlx->keys->dist_feel = (kcode == KEY_1) - (kcode == KEY_2);
 	else if (kcode == KEY_4 || kcode == KEY_5)
 		cub->mlx->keys->wall_width = (kcode == KEY_4) - (kcode == KEY_5);
+	else if (kcode == KEY_G && ++cub->mlx->keys->godmode == 1)
+		cub->settings->godmode = !cub->settings->godmode;
 	return (0);
 }
 
@@ -76,5 +78,7 @@ int	key_released(int kcode, t_cub *cub)
 		cub->mlx->keys->dist_feel = 0;
 	else if (kcode == KEY_4 || kcode == KEY_5)
 		cub->mlx->keys->wall_width = 0;
+	else if (kcode == KEY_G)
+		cub->mlx->keys->godmode = 0;
 	return (0);
 }
