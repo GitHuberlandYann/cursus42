@@ -60,17 +60,17 @@ static t_door	*new_door(int x, int y, t_side orientation)
 	return (res);
 }
 
-static void	remove_invisible_walls(t_wall *walls, t_door *doors)
-{
-	t_wall	*other;
+// static void	remove_invisible_walls(t_wall *walls, t_door *doors)
+// {
+// 	t_wall	*other;
 
-	other = get_wallat(walls, doors->last->x - 1, doors->last->y);
-	if (other)
-		other->edges[EA].side = CUT;
-	other = get_wallat(walls, doors->last->x, doors->last->y - 1);
-	if (other)
-		other->edges[SO].side = CUT;
-}
+// 	other = get_wallat(walls, doors->last->x - 1, doors->last->y);
+// 	if (other)
+// 		other->edges[EA].side = CUT;
+// 	other = get_wallat(walls, doors->last->x, doors->last->y - 1);
+// 	if (other)
+// 		other->edges[SO].side = CUT;
+// }
 
 int	add_door(t_map *map, t_parsing *line, int x, int y)
 {
@@ -97,6 +97,6 @@ int	add_door(t_map *map, t_parsing *line, int x, int y)
 		map->doors->last->next = new_door(x, y, orientation);
 		map->doors->last = map->doors->last->next;
 	}
-	remove_invisible_walls(map->walls, map->doors);
+	// remove_invisible_walls(map->walls, map->doors);
 	return (0);
 }

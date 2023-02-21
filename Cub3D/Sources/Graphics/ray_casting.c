@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 18:31:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/17 14:31:02 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/19 17:25:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_vert	get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4)
 
 void	ray_walling(t_wall *walls, t_ray *ray)
 {
-	int			index;
 	t_vert	pt4;
 	t_vert	intersection;
 	double		dist;
@@ -49,25 +48,18 @@ void	ray_walling(t_wall *walls, t_ray *ray)
 	pt4.y = ray->ray.pt1.y - sin(ray->angle);
 	while (walls)
 	{
-		index = 0;
-		while (index < 4)
+
+		intersection = get_inter(ray, pt4, walls->wline.pt1, walls->wline.pt2);
+		if (intersection.z)
 		{
-			if (walls->edges[index].side != CUT)
-			{
-				intersection = get_inter(ray, pt4, walls->edges[index].pt1, walls->edges[index].pt2);
-				if (intersection.z)
-				{
-					dist = get_dist(ray->ray.pt1, intersection);
-					if (dist < ray->dist)
-					{
-						ray->ray.pt2 = intersection;
-						ray->dist = dist;
-						ray->hit = walls->edges[index].side;
-						ray->u = intersection.z - 1;
-					}
-				}
+			dist = get_dist(ray->ray.pt1, intersection);
+		if (dist < ray->dist)
+		{
+				ray->ray.pt2 = intersection;
+				ray->dist = dist;
+				ray->hit = walls->wline.side;
+				ray->u = fmod((intersection.z - 1) * walls->size, 1);
 			}
-			++index;
 		}
 		walls = walls->next;
 	}

@@ -114,5 +114,6 @@ int	read_map(t_map *map, int fd)
 	if (error_check(map, lines))
 		return (free_return_lines(lines, map, map->player_count == 1));
 	create_walls(map, lines);
+	// console_map_content(map);
 	return (!map->walls);
 }

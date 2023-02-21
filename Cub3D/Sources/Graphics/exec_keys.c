@@ -82,7 +82,7 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 	if (keys->wall_width)
 	{
 		cub->settings->wall_width += keys->wall_width;
-		if (cub->settings->wall_width < 5 || cub->settings->wall_width > 75)
+		if (!cub->settings->wall_width || cub->settings->wall_width > 75)
 			cub->settings->wall_width -= keys->wall_width;
 		else
 			cub->settings->radius_divww = MAP_RADIUS / cub->settings->wall_width;

@@ -1,5 +1,7 @@
 Objs
 mlx/*.o
-Libft/libft.a
-mlx/libmlx.a
+*/*.a
+mlx_linux/Obj
+mlx_linux/test
+mlx_linux/Makefile.gen
 cub3D

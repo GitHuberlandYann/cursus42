@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/17 14:31:02 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:11:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,10 +227,17 @@ typedef struct s_line {
 	t_side		side;
 }				t_line;
 
+// typedef struct s_wall {
+// 	int				x;
+// 	int				y;
+// 	t_line			edges[4];
+// 	struct s_wall	*next;
+// 	struct s_wall	*last;
+// }				t_wall;
+
 typedef struct s_wall {
-	int				x;
-	int				y;
-	t_line			edges[4];
+	t_line			wline;
+	int				size;
 	struct s_wall	*next;
 	struct s_wall	*last;
 }				t_wall;
@@ -425,7 +432,11 @@ int			only_spaces(t_map *map, int index);
 int			free_return_lines(t_parsing *lines, t_map *map, int free_player);
 
 void		create_walls(t_map *map, t_parsing *lines);
-t_wall		*get_wallat(t_wall *walls, int x, int y);
+void		new_wall_north(t_map *map, t_parsing *curr, int x, int y);
+void		new_wall_south(t_map *map, t_parsing *curr, int x, int y);
+void		new_wall_west(t_map *map, t_parsing *curr, int x, int y);
+void		new_wall_east(t_map *map, t_parsing *curr, int x, int y);
+// t_wall		*get_wallat(t_wall *walls, int x, int y);
 int			add_door(t_map *map, t_parsing *line, int x, int y);
 
 int			set_portal(t_map *map, t_parsing *line, int x, int y);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 10:52:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/17 14:31:02 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/19 17:23:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,15 @@
 
 static void	draw_walls(t_img *img, t_wall *wall, t_map *map, t_set *settings)
 {
-	int			index;
 	t_vert	start;
 	t_vert	finish;
 
-	index = 0;
-	while (index < 4)
+	if (in_circle(&wall->wline.pt1, map->player->pos.x, map->player->pos.y, settings->radius_divww)
+		&& in_circle(&wall->wline.pt2, map->player->pos.x, map->player->pos.y, settings->radius_divww))
 	{
-		if (wall->edges[index].side != CUT)
-		{
-			if (in_circle(&wall->edges[index].pt1, map->player->pos.x, map->player->pos.y, settings->radius_divww)
-				&& in_circle(&wall->edges[index].pt2, map->player->pos.x, map->player->pos.y, settings->radius_divww))
-			{
-				set_point_follow(&start, &wall->edges[index].pt1, map, settings);
-				set_point_follow(&finish, &wall->edges[index].pt2, map, settings);
-				mlx_draw_line(img, start, finish, WHITE);
-			}
-		}
-		++index;
+		set_point_follow(&start, &wall->wline.pt1, map, settings);
+		set_point_follow(&finish, &wall->wline.pt2, map, settings);
+		mlx_draw_line(img, start, finish, WHITE);
 	}
 }
 
