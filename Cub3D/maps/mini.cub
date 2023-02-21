@@ -1,7 +1,7 @@
-NO maps/xpm/wallpaperflare.com_wallpaper.xpm
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA maps/xpm/img_colormap.xpm
+NO maps/xpm/wredbrick.xpm
+SO maps/xpm/wredbrick.xpm
+WE maps/xpm/wredbrick.xpm
+EA maps/xpm/wredbrick.xpm
 
 F 220,100,0
 C 225,30,0
@@ -13,9 +13,9 @@ C 225,30,0
 101
 101
 101
-101
-101
-101
+10111111111111111111
+100000000000000000001
+10111111111111111111
 101
 101
 101

@@ -1,7 +1,7 @@
-NO maps/xpm/cement.xpm
-SO maps/xpm/colortile.xpm
-WE maps/xpm/redbrick.xpm
-EA maps/xpm/whitebrick.xpm
+NO maps/xpm/wredbrick.xpm
+SO maps/xpm/wredbrick.xpm
+WE maps/xpm/wredbrick.xpm
+EA maps/xpm/wredbrick.xpm
 
 F 128,128,128
 C 96,96,96
