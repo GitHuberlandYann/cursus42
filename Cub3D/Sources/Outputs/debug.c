@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:23:41 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/19 17:22:07 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/21 18:09:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	console_map_content(t_map *map)
 	printf("ceilling text : |%s|\n", map->fc_textures[CEILLING]);
 	printf("door    : |%s|\n", map->ds_textures[FLOOR]);
 	printf("door_side : |%s|\n", map->ds_textures[CEILLING]);
+	printf("texture barrel : |%s|\n", map->obj_textures[BARREL]);
+	printf("texture pillar : |%s|\n", map->obj_textures[PILLAR]);
+	printf("texture post : |%s|\n", map->obj_textures[POST]);
 	cnt = 0;
 	w = map->walls;
 	while (w)

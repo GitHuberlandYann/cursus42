@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/21 16:39:15 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/21 22:50:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	ft_img_init(t_mlx *mlx, t_map *map)
 	mlx->ds_textures[1] = ft_create_xpmimg(mlx, map->ds_textures[1], 1);
 	mlx->obj_textures[BARREL] = ft_create_xpmimg(mlx, map->obj_textures[BARREL], 0);
 	mlx->obj_textures[PILLAR] = ft_create_xpmimg(mlx, map->obj_textures[PILLAR], 1);
+	mlx->obj_textures[POST] = ft_create_xpmimg(mlx, map->obj_textures[POST], 2);
 }
 
 static t_mlx	*ft_mlx_init(char *title, t_map *map)

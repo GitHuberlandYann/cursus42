@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_objing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:55:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/17 14:58:13 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:31:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,39 @@ static void	ray_add_obj(t_ray *ray, t_vert *inter, t_obj *obj, double dist)
 	if (!ray->objs)
 		ray->objs = obj;
 	else
-	{
 		ray->objs->last_ray->next_ray = obj;
-		ray->objs->last_ray = obj;
+	ray->objs->last_ray = obj;
+}
+
+static void	sort_ray_obj(t_obj *start)
+{
+	t_obj		*tmp;
+	double		dswap;
+	t_objtype	tswap;
+	t_vert		vswap;
+
+	tmp = start;
+	while (tmp->next_ray)
+	{
+		if (tmp->dist < tmp->next_ray->dist)
+		{
+			// printf("%lf < %lf\n", tmp->dist, tmp->next_ray->dist);
+			tswap = tmp->type;
+			tmp->type = tmp->next_ray->type;
+			tmp->next_ray->type = tswap;
+			set_point(&vswap, tmp->pos.x, tmp->pos.y, 0);
+			set_point(&tmp->pos, tmp->next_ray->pos.x, tmp->next_ray->pos.y, 0);
+			set_point(&tmp->next_ray->pos, vswap.x, vswap.y, 0);
+			dswap = tmp->u;
+			tmp->u = tmp->next_ray->u;
+			tmp->next_ray->u = dswap;
+			dswap = tmp->dist;
+			tmp->dist = tmp->next_ray->dist;
+			tmp->next_ray->dist = dswap;
+			// printf("after swap : %lf > %lf\n", tmp->dist, tmp->next_ray->dist);
+			return (sort_ray_obj(start));
+		}
+		tmp = tmp->next_ray;
 	}
 }
 
@@ -52,4 +82,6 @@ void	ray_objing(t_obj *objs, t_ray *ray, double angle) //still need to sort objs
 		}
 		objs = objs->next;
 	}
+	if (ray->objs)
+		sort_ray_obj(ray->objs);
 }

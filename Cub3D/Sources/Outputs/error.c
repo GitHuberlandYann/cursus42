@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:03:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 13:48:47 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/21 22:46:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ int	output_error(char *msg)
 	len = 0;
 	while (msg[len])
 		++len;
-	return (write(2, msg, len));
+	if (write(2, msg, len) == -1)
+		return (-1);
+	return (1);
 }

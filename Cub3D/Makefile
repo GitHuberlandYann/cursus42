@@ -27,7 +27,7 @@ FILES_OUTPUTS = debug error
 FILES += $(addprefix Outputs/, $(FILES_OUTPUTS))
 
 FILES_PARSING = add_wall colors doors flood_fill header map map_content objects \
-				portals walls
+				portals posts walls
 
 FILES += $(addprefix Parsing/, $(FILES_PARSING))
 

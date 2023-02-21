@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/21 16:38:37 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/21 22:49:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define MSG_TWODOORSIDES "Two different lines start with 'DS'"
 # define MSG_TWOBARRELS "Two different lines start with 'BT'"
 # define MSG_TWOPILLARS "Two different lines start with 'PT'"
+# define MSG_TWOPOSTS "Two different lines start with 'POSTT'"
 # define MSG_RGBZEROPAD "RGB values can't be zero-padded"
 # define MSG_RGB255 "RGB values can't be greater than 255"
 # define MSG_RGBUNSET "Unset or incorrect RGB value"
@@ -52,6 +53,14 @@
 # define MSG_OBJUNSET "Unset or incorrect Object position"
 # define MSG_OBJZERO "Object position can't be set at zero"
 # define MSG_OBJEND "Object line has unwanted elements ending it"
+# define MSG_POSTZEROPAD "Post double can't be zero-padded"
+# define MSG_POST255 "Post double can't be greater than 255"
+# define MSG_POSTUNSET "Unset or incorrect Post double"
+# define MSG_POSTDECI255 "Post double's decimal part can't be greater than 255"
+# define MSG_POSTDECIUNSET "Unset or incorrect Post double's decimal part"
+# define MSG_POSTDOT "Missing '.' in Post double"
+# define MSG_POSTZERO "Object double can't be set at zero"
+# define MSG_POSTEND "Post line has unwanted elements ending it"
 # define MSG_INVALIDCHAR "Invalid char found in map"
 # define MSG_NOPLAYER "No player found in map"
 # define MSG_DOOR_BORDER "Doors can't be at border of map"
@@ -66,7 +75,7 @@
 # define MSG_PORTAL_FLOOR "Map can't have portals and floor textures"
 # define MSG_PORTAL_CEILLING "Map can't have portals and ceilling textures"
 # define MSG_DOORTEXTURE "Missing D/DS line, no texture for doors"
-# define MSG_OBJTEXTURE "Missing BT/PT line, no texture for objs"
+# define MSG_OBJTEXTURE "Missing BT/PT/POSTT line, no texture for objs"
 
 # if __linux__
 #  define WIN_WIDTH 1800
@@ -103,7 +112,8 @@ typedef enum e_side {
 	DOOR,
 	DOORSIDE,
 	PORTAL,
-	CUT
+	CUT,
+	CIRCLE
 }			t_side;
 
 typedef enum e_ground {
@@ -113,7 +123,8 @@ typedef enum e_ground {
 
 typedef enum e_objtype {
 	BARREL,
-	PILLAR
+	PILLAR,
+	POST
 }				t_objtype;
 
 typedef enum e_doorstate {
@@ -269,6 +280,13 @@ typedef struct s_obj {
 	struct s_obj	*last_ray;
 }				t_obj;
 
+typedef struct s_post {
+	t_vert			center;
+	double			radius;
+	struct s_post	*next;
+	struct s_post	*last;
+}				t_post;
+
 typedef struct s_ray
 {
 	t_line		ray;
@@ -295,13 +313,15 @@ typedef struct s_map {
 	t_portal	*portals;
 	int			hasbarrel;
 	int			haspillar;
+	int			haspost;
 	t_obj		*objs;
+	t_post		*posts;
 	char		*line;
 	char		*(textures[4]);
 	unsigned	fc_colors[2];
 	char		*(fc_textures[2]);
 	char		*(ds_textures[2]);
-	char		*(obj_textures[2]);
+	char		*(obj_textures[3]);
 }				t_map;
 
 typedef struct s_img {
@@ -340,7 +360,7 @@ typedef struct s_mlx
 	t_img	*(textures[4]);
 	t_img	*(fc_textures[2]);
 	t_img	*(ds_textures[2]);
-	t_img	*(obj_textures[2]);
+	t_img	*(obj_textures[3]);
 	t_key	*keys;
 	t_vert	mouse_pos;
 	int		fps;
@@ -423,6 +443,7 @@ int			flood_fill(t_parsing *current, int index);
 int			load_texture_obj(t_map *map, t_objtype type);
 int			transform_color(t_map *map, t_ground ground);
 int			add_obj(t_map *map, t_objtype type);
+int			add_post(t_map *map);
 
 int			only_spaces(t_map *map, int index);
 int			free_return_lines(t_parsing *lines, t_map *map, int free_player);
@@ -432,7 +453,7 @@ void		new_wall_north(t_map *map, t_parsing *curr, int x, int y);
 void		new_wall_south(t_map *map, t_parsing *curr, int x, int y);
 void		new_wall_west(t_map *map, t_parsing *curr, int x, int y);
 void		new_wall_east(t_map *map, t_parsing *curr, int x, int y);
-// t_wall		*get_wallat(t_wall *walls, int x, int y);
+
 int			add_door(t_map *map, t_parsing *line, int x, int y);
 
 int			set_portal(t_map *map, t_parsing *line, int x, int y);

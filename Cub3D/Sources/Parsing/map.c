@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/19 17:21:51 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/21 17:52:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,11 @@ int	load_map(t_map *map, char *file)
 	map->ds_textures[1] = 0;
 	map->obj_textures[BARREL] = 0;
 	map->obj_textures[PILLAR] = 0;
+	map->obj_textures[POST] = 0;
 	map->walls = 0;
 	map->doors = 0;
 	map->portals = 0;
+	map->objs = 0;
 	res = read_first_lines(map, fd);
 	res = check_header(map, res);
 	if (!res)
