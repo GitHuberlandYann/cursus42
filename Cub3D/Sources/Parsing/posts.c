@@ -57,6 +57,7 @@ static t_post	*new_post(double x, double y, double radius)
 	res = ft_malloc(sizeof(*res), "add_post");
 	set_point(&res->center, x, y, 0);
 	res->radius = radius;
+	set_point(&res->squared, x * x, y * y, radius * radius);
 	res->next = 0;
 	res->last = 0;
 	return (res);

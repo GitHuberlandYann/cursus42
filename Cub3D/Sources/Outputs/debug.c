@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:23:41 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/21 18:09:34 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/22 15:57:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	console_map_content(t_map *map)
 {
 	int		cnt;
 	t_wall	*w;
+	t_post	*p;
 
 	printf("\n\n\t\t~map content~\n");
 	printf("\nline     : |%s|\n", map->line);
@@ -41,4 +42,10 @@ void	console_map_content(t_map *map)
 		++cnt;
 	}
 	printf("wall count : %d\n", cnt);
+	p = map->posts;
+	while (p)
+	{
+		printf("radius %lf, [%lf, %lf], squared x %lf y %lf r %lf\n", p->radius, p->center.x, p->center.y, p->squared.x, p->squared.y, p->squared.z);
+		p = p->next;
+	}
 }

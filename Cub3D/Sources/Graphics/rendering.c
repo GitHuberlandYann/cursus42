@@ -68,13 +68,15 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 	else if (ray->hit == CUT)
 		mlx_draw_line(img, start, finish, GREENISH);
 	else if (ray->hit == NO)
-		draw_wall_vert(img, &start, cub->mlx->textures[NO], ray->u); //mlx_draw_line(img, start, finish, 0x60);
+		draw_wall_vert(img, &start, cub->mlx->textures[NO], ray->u);
 	else if (ray->hit == SO)
-		draw_wall_vert(img, &start, cub->mlx->textures[SO], ray->u); //mlx_draw_line(img, start, finish, 0xa0);
+		draw_wall_vert(img, &start, cub->mlx->textures[SO], ray->u);
 	else if (ray->hit == WE)
-		draw_wall_vert(img, &start, cub->mlx->textures[WE], ray->u); //mlx_draw_line(img, start, finish, 0x6000);
+		draw_wall_vert(img, &start, cub->mlx->textures[WE], ray->u);
 	else if (ray->hit == EA)
-		draw_wall_vert(img, &start, cub->mlx->textures[EA], ray->u); //mlx_draw_line(img, start, finish, 0xa000);
+		draw_wall_vert(img, &start, cub->mlx->textures[EA], ray->u);
+	else if (ray->hit == CIRCLE)
+		mlx_draw_line(img, start, finish, LIGHT_WHITE);//draw_wall_vert(img, &start, cub->mlx->obj_textures[POST], ray->u);
 	else
 		mlx_draw_line(img, start, finish, BLUEISH);
 	if (cub->mlx->fc_textures[FLOOR] || cub->mlx->fc_textures[CEILLING])
@@ -119,6 +121,7 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		cub->rays[index].recurse_level = 0;
 		ray_walling(map->walls, &cub->rays[index]);
 		ray_dooring(map->doors, &cub->rays[index]);
+		ray_posting(map->posts, &cub->rays[index]);
 		ray_portaling(map->portals, &cub->rays[index], cub);
 		ray_objing(map->objs, &cub->rays[index], player->direction);
 		// printf("[%lf,%lf]-[%lf,%lf]\n", ray.ray.pt1.x, ray.ray.pt1.y, ray.ray.pt2.x, ray.ray.pt2.y);

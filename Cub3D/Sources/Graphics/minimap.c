@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 10:52:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/19 17:23:35 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/22 14:16:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	draw_portals(t_img *img, t_map *map, t_set *settings)
 	}
 }
 
-static void	draw_circle(t_img *img, t_vert *center, int radius, unsigned color)
+static void	draw_disk(t_img *img, t_vert *center, int radius, unsigned color)
 {
 	t_vert	pt;
 	t_vert	pt2;
@@ -92,13 +92,55 @@ static void	draw_circle(t_img *img, t_vert *center, int radius, unsigned color)
 	}
 }
 
+static void	draw_circle(t_img *img, t_vert *center, double radius, unsigned color)
+{
+	t_vert	pt;
+	t_vert	pt2;
+	double	dist;
+
+	pt2.x = center->x - radius;
+	while (pt2.x < center->x + radius)
+	{
+		pt2.y = center->y - radius;
+		while (pt2.y < center->y + radius)
+		{
+			dist = get_dist(*center, pt2);
+			if (dist <= radius && dist >= radius - 1)
+			{
+				pt.x = pt2.x;
+				pt.y = pt2.y;
+				mlx_pxl_put(img, pt.x, pt.y, color);
+			}
+			++pt2.y;
+		}
+		++pt2.x;
+	}
+}
+
+static void	draw_posts(t_img *img, t_map *map, t_set *settings)
+{
+	t_post	*post;
+	t_vert	center;
+
+	post = map->posts;
+	while (post)
+	{
+		if (in_circle(&post->center, map->player->pos.x, map->player->pos.y, settings->radius_divww - post->radius))
+		{
+			set_point_follow(&center, &post->center, map, settings);
+			draw_circle(img, &center, post->radius * settings->wall_width, WHITE);
+		}
+		post = post->next;
+	}
+}
+
 static void	draw_player(t_img *img, t_set *settings)
 {
 	t_vert	pos_translate;
 
 	set_point(&pos_translate, settings->offset.x + MAP_RADIUS,
 		settings->offset.y + MAP_RADIUS, 0);
-	draw_circle(img, &pos_translate, PSIZE, RED);
+	draw_disk(img, &pos_translate, PSIZE, RED);
 }
 
 static void	add_north(t_img *canva, double angle, t_set *settings)
@@ -109,7 +151,7 @@ static void	add_north(t_img *canva, double angle, t_set *settings)
 		set_point(&npos, settings->offset.x + MAP_RADIUS, settings->offset.y + 2.5, 0);
 	else
 		set_point(&npos, settings->offset.x + MAP_RADIUS + cos(angle) * (MAP_RADIUS - 2.5), settings->offset.y + MAP_RADIUS - sin(angle) * (MAP_RADIUS - 2.5), 0);
-	draw_circle(canva, &npos, PSIZE * 2, RED);
+	draw_disk(canva, &npos, PSIZE * 2, RED);
 }
 
 void	setup_rendermap(t_img *canva, t_set *settings)
@@ -154,7 +196,8 @@ void	fill_minimap(t_cub *cub)
 		door = door->next;
 	}
 	draw_portals(cub->mlx->render3d, cub->map, cub->settings);
-	// draw_stored_rays(cub->mlx->render3d, cub->mlx->tmp_rays, cub->settings);
+	draw_posts(cub->mlx->render3d, cub->map, cub->settings);
+	// draw_stored_rays(cub->mlx->render3d, cub->rays, cub->settings); //todo
 	draw_player(cub->mlx->render3d, cub->settings);
 	add_north(cub->mlx->render3d, M_PI - cub->map->player->direction, cub->settings);
 }

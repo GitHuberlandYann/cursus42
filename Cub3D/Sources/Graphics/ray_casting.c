@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 18:31:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/19 17:25:45 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/22 14:41:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	ray_walling(t_wall *walls, t_ray *ray)
 		if (intersection.z)
 		{
 			dist = get_dist(ray->ray.pt1, intersection);
-		if (dist < ray->dist)
-		{
+			if (dist < ray->dist)
+			{
 				ray->ray.pt2 = intersection;
 				ray->dist = dist;
 				ray->hit = walls->wline.side;

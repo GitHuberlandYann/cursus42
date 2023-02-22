@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/21 22:49:45 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/22 14:48:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,7 @@ typedef struct s_obj {
 typedef struct s_post {
 	t_vert			center;
 	double			radius;
+	t_vert			squared;
 	struct s_post	*next;
 	struct s_post	*last;
 }				t_post;
@@ -418,7 +419,8 @@ void		ray_walling(t_wall *walls, t_ray *ray);
 void		ray_dooring(t_door *doors, t_ray *ray);
 void		ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub);
 void		ray_objing(t_obj *objs, t_ray *ray, double angle);
-t_vert	get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4);
+void		ray_posting(t_post *posts, t_ray *ray);
+t_vert		get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4);
 
 void		try_door(t_player *player, t_door *doors);
 void		uptdate_doors(t_door *doors, t_key *key);
