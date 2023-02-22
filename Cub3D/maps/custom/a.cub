@@ -5,7 +5,9 @@ EA maps/xpm/colorstone.xpm
 
 F 128,128,128
 C 96,96,96
-POST 5.0,5.0,0.3
+POST 5.0,1.0,0.3
+POST 5.0,2.0,0.3
+POST 5.0,10.0,2.3
 POSTT maps/xpm/wredbrick.xpm
 
 111111111111111
