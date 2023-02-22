@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	solve_singular(t_ray *ray, t_vert *abc, double delta, double m, double p, t_vert *trpt, t_vert *center)
+void	solve_singular(t_ray *ray, t_vert *abc, double delta, double m, double p, t_vert *trpt, t_vert *center, double radius)
 {
 	t_vert	intersection;
 	double	dist;
@@ -13,11 +13,11 @@ void	solve_singular(t_ray *ray, t_vert *abc, double delta, double m, double p, t
 		set_point(&ray->ray.pt2, intersection.x + center->x, intersection.y + center->y, 0);
 		ray->dist = dist;
 		ray->hit = CIRCLE;
-		//todo ray->u ?? I guess acos or asin of inter.x-center.x
+		ray->u = fmod(acos(intersection.x / radius), 1);
 	}
 }
 
-void	solve_dual(t_ray *ray, t_vert *abc, double delta, double m, double p, t_vert *trpt, t_vert *center)
+void	solve_dual(t_ray *ray, t_vert *abc, double delta, double m, double p, t_vert *trpt, t_vert *center, double radius)
 {
 	t_vert	intersection;
 	t_vert	intersectionbis;
@@ -43,7 +43,7 @@ void	solve_dual(t_ray *ray, t_vert *abc, double delta, double m, double p, t_ver
 		set_point(&ray->ray.pt2, intersection.x + center->x, intersection.y + center->y, 0);
 		ray->dist = dist;
 		ray->hit = CIRCLE;
-		//todo ray->u ?? I guess acos or asin of inter.x-center.x
+		ray->u = fmod(acos(intersection.x / radius), 1);
 	}
 }
 
@@ -65,9 +65,9 @@ void	ray_posting(t_post *posts, t_ray *ray)
 		abc.z = p * p - posts->squared.z;
 		delta = abc.y * abc.y - 4 * abc.x * abc.z;
 		if (!delta)
-			solve_singular(ray, &abc, delta, m, p, &trpt, &posts->center);
+			solve_singular(ray, &abc, delta, m, p, &trpt, &posts->center, posts->radius);
 		else if (delta > 0)
-			solve_dual(ray, &abc, delta, m, p, &trpt, &posts->center);
+			solve_dual(ray, &abc, delta, m, p, &trpt, &posts->center, posts->radius);
 		posts = posts->next;
 	}
 }

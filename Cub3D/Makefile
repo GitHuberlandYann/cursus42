@@ -18,7 +18,7 @@ FILES = main
 
 FILES_GRAPHICS = exec_keys image floor_casting keys math_utils minimap \
 				mlx_manager mouse ray_casting \
-				ray_dooring ray_objing ray_portaling rendering timer
+				ray_dooring ray_objing ray_portaling ray_posting rendering timer
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
 

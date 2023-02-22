@@ -40,6 +40,7 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 		wall_sensor.out_angle = wall_sensor.angle;
 		ray_walling(cub->map->walls, &wall_sensor);
 		ray_dooring(cub->map->doors, &wall_sensor);
+		ray_posting(cub->map->posts, &wall_sensor);
 		ray_portaling(cub->map->portals, &wall_sensor, cub);
 		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < player->speed * (1 + keys->sprint) && wall_sensor.dist > player->speed * (1 + keys->sprint))
 		{
@@ -60,6 +61,7 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 		wall_sensor.out_angle = wall_sensor.angle;
 		ray_walling(cub->map->walls, &wall_sensor);
 		ray_dooring(cub->map->doors, &wall_sensor);
+		ray_posting(cub->map->posts, &wall_sensor);
 		ray_portaling(cub->map->portals, &wall_sensor, cub);
 		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < player->speed * (1 + keys->sprint) && wall_sensor.dist > player->speed * (1 + keys->sprint))
 		{

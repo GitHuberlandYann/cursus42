@@ -76,7 +76,7 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 	else if (ray->hit == EA)
 		draw_wall_vert(img, &start, cub->mlx->textures[EA], ray->u);
 	else if (ray->hit == CIRCLE)
-		mlx_draw_line(img, start, finish, LIGHT_WHITE);//draw_wall_vert(img, &start, cub->mlx->obj_textures[POST], ray->u);
+		draw_wall_vert(img, &start, cub->mlx->obj_textures[POST], ray->u);
 	else
 		mlx_draw_line(img, start, finish, BLUEISH);
 	if (cub->mlx->fc_textures[FLOOR] || cub->mlx->fc_textures[CEILLING])
