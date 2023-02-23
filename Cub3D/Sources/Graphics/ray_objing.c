@@ -14,7 +14,12 @@
 
 static void	ray_add_obj(t_ray *ray, t_vert *inter, t_obj *obj, double dist)
 {
-	obj->u = inter->z - 1;
+	// ray->dist = dist;
+	// ray->hit = NO;
+	if (obj->type == WIN)
+		obj->u = fmod((inter->z - 1) * obj->size, 1);
+	else
+		obj->u = inter->z - 1;
 	obj->dist = dist;
 	obj->next_ray = 0;
 	obj->last_ray = 0;
@@ -23,6 +28,8 @@ static void	ray_add_obj(t_ray *ray, t_vert *inter, t_obj *obj, double dist)
 	else
 		ray->objs->last_ray->next_ray = obj;
 	ray->objs->last_ray = obj;
+	if (dist < ray->mdist)
+		ray->mdist = dist;
 }
 
 static void	sort_ray_obj(t_obj *start)
@@ -31,6 +38,8 @@ static void	sort_ray_obj(t_obj *start)
 	double		dswap;
 	t_objtype	tswap;
 	t_vert		vswap;
+	t_line		lswap;
+	int			iswap;
 
 	tmp = start;
 	while (tmp->next_ray)
@@ -50,6 +59,12 @@ static void	sort_ray_obj(t_obj *start)
 			dswap = tmp->dist;
 			tmp->dist = tmp->next_ray->dist;
 			tmp->next_ray->dist = dswap;
+			iswap = tmp->size;
+			tmp->size = tmp->next_ray->size;
+			tmp->next_ray->size = iswap;
+			lswap = tmp->oline;
+			tmp->oline = tmp->next_ray->oline;
+			tmp->next_ray->oline = lswap;
 			// printf("after swap : %lf > %lf\n", tmp->dist, tmp->next_ray->dist);
 			return (sort_ray_obj(start));
 		}
@@ -57,7 +72,25 @@ static void	sort_ray_obj(t_obj *start)
 	}
 }
 
-void	ray_objing(t_obj *objs, t_ray *ray, double angle) //still need to sort objs by dist
+static t_line	set_obj_line(t_obj *obj, t_ray *ray)
+{
+	double	angle;
+	t_line	res;
+
+	if (obj->type == WIN)
+		return (obj->oline);
+	else
+	{
+		angle = atan2((ray->ray.pt1.y - obj->pos.y), (obj->pos.x - ray->ray.pt1.x));
+		set_point(&res.pt1, obj->pos.x - cos(angle) * 0.2 + cos(angle + M_PI_2) * 0.5,
+			obj->pos.y + sin(angle) * 0.2 - sin(angle + M_PI_2) * 0.5, 0);
+		set_point(&res.pt2, obj->pos.x - cos(angle) * 0.2 + cos(angle - M_PI_2) * 0.5,
+			obj->pos.y + sin(angle) * 0.2 - sin(angle - M_PI_2) * 0.5, 0);
+	}
+	return (res);
+}
+
+void	ray_objing(t_obj *objs, t_ray *ray)
 {
 	t_vert	pt4;
 	t_line	obj_line;
@@ -67,12 +100,10 @@ void	ray_objing(t_obj *objs, t_ray *ray, double angle) //still need to sort objs
 	pt4.x = ray->ray.pt1.x + cos(ray->angle);
 	pt4.y = ray->ray.pt1.y - sin(ray->angle);
 	ray->objs = 0;
+	ray->mdist = ray->dist;
 	while (objs)
 	{
-		set_point(&obj_line.pt1, objs->pos.x + cos(angle + M_PI_2) * 0.5,
-			objs->pos.y - sin(angle + M_PI_2) * 0.5, 0); //add offset towards player
-		set_point(&obj_line.pt2, objs->pos.x + cos(angle - M_PI_2) * 0.5,
-			objs->pos.y - sin(angle - M_PI_2) * 0.5, 0);
+		obj_line = set_obj_line(objs, ray);
 		intersection = get_inter(ray, pt4, obj_line.pt1, obj_line.pt2);
 		if (intersection.z)
 		{

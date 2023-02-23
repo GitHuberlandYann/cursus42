@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:54:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/21 22:30:58 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/23 16:55:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int	read_first_lines(t_map *map, int fd)
 	map->hasbarrel = 0;
 	map->haspillar = 0;
 	map->haspost = 0;
+	map->hascustom = 0;
+	map->haswindow = 0;
 	map->line = get_next_line(fd);
 	while (map->line && !line_from_map(map->line, 0))
 	{
@@ -118,11 +120,20 @@ int	read_first_lines(t_map *map, int fd)
 			return (free_return_line(map->line));
 		if (!ft_strncmp("POSTT ", map->line, 6) && load_texture_obj(map, POST))
 			return (free_return_line(map->line));
+		if (!ft_strncmp("CUST ", map->line, 5) && add_custom(map))
+			return (free_return_line(map->line));
+		if (!ft_strncmp("CUSTT ", map->line, 6) && load_texture_obj(map, CUST))
+			return (free_return_line(map->line));
+		if (!ft_strncmp("WIND ", map->line, 5) && ++map->haswindow && add_window(map))
+			return (free_return_line(map->line));
+		if (!ft_strncmp("WINDT ", map->line, 6) && load_texture_obj(map, WIN))
+			return (free_return_line(map->line));
 		free(map->line);
 		map->line = get_next_line(fd);
 	}
 	if ((map->hasbarrel && !map->obj_textures[BARREL]) || (map->haspillar && !map->obj_textures[PILLAR])
-		|| (map->haspost && !map->obj_textures[POST]))
+		|| (map->haspost && !map->obj_textures[POST]) || (map->hascustom && !map->obj_textures[CUST])
+		|| (map->haswindow && !map->obj_textures[WIN]))
 	{
 		output_error(MSG_OBJTEXTURE);
 		return (free_return_line(map->line));

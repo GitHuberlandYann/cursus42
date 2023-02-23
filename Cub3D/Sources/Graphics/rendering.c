@@ -77,9 +77,11 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 		draw_wall_vert(img, &start, cub->mlx->textures[EA], ray->u);
 	else if (ray->hit == CIRCLE)
 		draw_wall_vert(img, &start, cub->mlx->obj_textures[POST], ray->u);
+	else if (ray->hit == CUSTOM)
+		draw_wall_vert(img, &start, cub->mlx->obj_textures[CUST], ray->u);
 	else
 		mlx_draw_line(img, start, finish, BLUEISH);
-	if (cub->mlx->fc_textures[FLOOR] || cub->mlx->fc_textures[CEILLING])
+	if (cub->mlx->fc_textures[FLOOR] && cub->mlx->fc_textures[CEILLING])
 		render_ground(img, cub, &finish, ray->angle);
 }
 
@@ -100,6 +102,8 @@ static void	draw_hit_obj(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 			draw_wall_vert(img, &start, cub->mlx->obj_textures[BARREL], obj->u);
 		else if (obj->type == PILLAR)
 			draw_wall_vert(img, &start, cub->mlx->obj_textures[PILLAR], obj->u);
+		else if (obj->type == WIN)
+			draw_wall_vert(img, &start, cub->mlx->obj_textures[WIN], obj->u);
 		obj = obj->next_ray;
 	}
 }
@@ -123,7 +127,7 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		ray_dooring(map->doors, &cub->rays[index]);
 		ray_posting(map->posts, &cub->rays[index]);
 		ray_portaling(map->portals, &cub->rays[index], cub);
-		ray_objing(map->objs, &cub->rays[index], player->direction);
+		ray_objing(map->objs, &cub->rays[index]);
 		// printf("[%lf,%lf]-[%lf,%lf]\n", ray.ray.pt1.x, ray.ray.pt1.y, ray.ray.pt2.x, ray.ray.pt2.y);
 		draw_hit(img, &cub->rays[index], cub, index);
 		draw_hit_obj(img, &cub->rays[index], cub, index);

@@ -42,13 +42,14 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 		ray_dooring(cub->map->doors, &wall_sensor);
 		ray_posting(cub->map->posts, &wall_sensor);
 		ray_portaling(cub->map->portals, &wall_sensor, cub);
+		ray_objing(cub->map->objs, &wall_sensor);
 		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < player->speed * (1 + keys->sprint) && wall_sensor.dist > player->speed * (1 + keys->sprint))
 		{
 			player->pos.x = wall_sensor.pray.pt1.x + cos(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));
 			player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));
 			player->direction = wall_sensor.out_angle + M_PI * (keys->vertical == -1);
 		}
-		else if (wall_sensor.dist > 2 * player->speed * (1 + keys->sprint))
+		else if (wall_sensor.mdist > 2 * player->speed * (1 + keys->sprint))
 		{
 			player->pos.x += cos(player->direction) * player->speed * (1 + keys->sprint) * keys->vertical;
 			player->pos.y -= sin(player->direction) * player->speed * (1 + keys->sprint) * keys->vertical;
@@ -63,13 +64,14 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 		ray_dooring(cub->map->doors, &wall_sensor);
 		ray_posting(cub->map->posts, &wall_sensor);
 		ray_portaling(cub->map->portals, &wall_sensor, cub);
+		ray_objing(cub->map->objs, &wall_sensor);
 		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < player->speed * (1 + keys->sprint) && wall_sensor.dist > player->speed * (1 + keys->sprint))
 		{
 			player->pos.x = wall_sensor.pray.pt1.x + cos(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));
 			player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));
 			player->direction = wall_sensor.out_angle + M_PI / 2 + M_PI * (keys->horizontal == 1);
 		}
-		else if (wall_sensor.dist > 2 * player->speed * (1 + keys->sprint))
+		else if (wall_sensor.mdist > 2 * player->speed * (1 + keys->sprint))
 		{
 			player->pos.x += cos(player->direction + M_PI / 2) * player->speed * (1 + keys->sprint) * keys->horizontal;
 			player->pos.y -= sin(player->direction + M_PI / 2) * player->speed * (1 + keys->sprint) * keys->horizontal;

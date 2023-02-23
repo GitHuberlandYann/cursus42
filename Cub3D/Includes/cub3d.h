@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:56:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/22 14:48:53 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/23 17:37:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 # define MSG_TWOBARRELS "Two different lines start with 'BT'"
 # define MSG_TWOPILLARS "Two different lines start with 'PT'"
 # define MSG_TWOPOSTS "Two different lines start with 'POSTT'"
+# define MSG_TWOCUSTS "Two different lines start with 'CUSTT'"
+# define MSG_TWOWINDS "Two different lines start with 'WINDT'"
 # define MSG_RGBZEROPAD "RGB values can't be zero-padded"
 # define MSG_RGB255 "RGB values can't be greater than 255"
 # define MSG_RGBUNSET "Unset or incorrect RGB value"
@@ -61,6 +63,22 @@
 # define MSG_POSTDOT "Missing '.' in Post double"
 # define MSG_POSTZERO "Object double can't be set at zero"
 # define MSG_POSTEND "Post line has unwanted elements ending it"
+# define MSG_CUSTZEROPAD "Cust double can't be zero-padded"
+# define MSG_CUST255 "Cust double can't be greater than 255"
+# define MSG_CUSTUNSET "Unset or incorrect Cust double"
+# define MSG_CUSTDECI255 "Cust double's decimal part can't be greater than 255"
+# define MSG_CUSTDECIUNSET "Unset or incorrect Cust double's decimal part"
+# define MSG_CUSTDOT "Missing '.' in Cust double"
+# define MSG_CUSTZERO "Object double can't be set at zero"
+# define MSG_CUSTEND "Cust line has unwanted elements ending it"
+# define MSG_WINDZEROPAD "Wind double can't be zero-padded"
+# define MSG_WIND255 "Wind double can't be greater than 255"
+# define MSG_WINDUNSET "Unset or incorrect Wind double"
+# define MSG_WINDDECI255 "Wind double's decimal part can't be greater than 255"
+# define MSG_WINDDECIUNSET "Unset or incorrect Wind double's decimal part"
+# define MSG_WINDDOT "Missing '.' in Wind double"
+# define MSG_WINDZERO "Object double can't be set at zero"
+# define MSG_WINDEND "Wind line has unwanted elements ending it"
 # define MSG_INVALIDCHAR "Invalid char found in map"
 # define MSG_NOPLAYER "No player found in map"
 # define MSG_DOOR_BORDER "Doors can't be at border of map"
@@ -72,8 +90,6 @@
 # define MSG_TOOMANYPLAYERS "More than 1 player in map"
 # define MSG_NOLINK "Link missing for one of the portals"
 # define MSG_UNUSEDLINK "No portal matching one of the links"
-# define MSG_PORTAL_FLOOR "Map can't have portals and floor textures"
-# define MSG_PORTAL_CEILLING "Map can't have portals and ceilling textures"
 # define MSG_DOORTEXTURE "Missing D/DS line, no texture for doors"
 # define MSG_OBJTEXTURE "Missing BT/PT/POSTT line, no texture for objs"
 
@@ -113,7 +129,8 @@ typedef enum e_side {
 	DOORSIDE,
 	PORTAL,
 	CUT,
-	CIRCLE
+	CIRCLE,
+	CUSTOM
 }			t_side;
 
 typedef enum e_ground {
@@ -124,7 +141,9 @@ typedef enum e_ground {
 typedef enum e_objtype {
 	BARREL,
 	PILLAR,
-	POST
+	POST,
+	CUST,
+	WIN
 }				t_objtype;
 
 typedef enum e_doorstate {
@@ -272,6 +291,8 @@ typedef struct s_portal {
 typedef struct s_obj {
 	t_objtype		type;
 	t_vert			pos;
+	t_line			oline;
+	int				size;
 	double			u;
 	double			dist;
 	struct s_obj	*next;
@@ -297,6 +318,7 @@ typedef struct s_ray
 	int			recurse_level;
 	double		u;
 	double		dist;
+	double		mdist;
 	double		pdist;
 	double		preangle;
 	double		angle;
@@ -315,6 +337,8 @@ typedef struct s_map {
 	int			hasbarrel;
 	int			haspillar;
 	int			haspost;
+	int			hascustom;
+	int			haswindow;
 	t_obj		*objs;
 	t_post		*posts;
 	char		*line;
@@ -322,7 +346,7 @@ typedef struct s_map {
 	unsigned	fc_colors[2];
 	char		*(fc_textures[2]);
 	char		*(ds_textures[2]);
-	char		*(obj_textures[3]);
+	char		*(obj_textures[5]);
 }				t_map;
 
 typedef struct s_img {
@@ -361,7 +385,7 @@ typedef struct s_mlx
 	t_img	*(textures[4]);
 	t_img	*(fc_textures[2]);
 	t_img	*(ds_textures[2]);
-	t_img	*(obj_textures[3]);
+	t_img	*(obj_textures[5]);
 	t_key	*keys;
 	t_vert	mouse_pos;
 	int		fps;
@@ -418,7 +442,7 @@ int			mlx_exit(void *param);
 void		ray_walling(t_wall *walls, t_ray *ray);
 void		ray_dooring(t_door *doors, t_ray *ray);
 void		ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub);
-void		ray_objing(t_obj *objs, t_ray *ray, double angle);
+void		ray_objing(t_obj *objs, t_ray *ray);
 void		ray_posting(t_post *posts, t_ray *ray);
 t_vert		get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4);
 
@@ -457,10 +481,11 @@ void		new_wall_west(t_map *map, t_parsing *curr, int x, int y);
 void		new_wall_east(t_map *map, t_parsing *curr, int x, int y);
 
 int			add_door(t_map *map, t_parsing *line, int x, int y);
+int			add_custom(t_map *map);
+int			add_window(t_map *map);
 
 int			set_portal(t_map *map, t_parsing *line, int x, int y);
 int			link_portals(t_map *map);
 int			link_empty(t_map *map);
-int			conflict_pt(t_map *map);
 
 #endif

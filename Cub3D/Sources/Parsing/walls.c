@@ -88,7 +88,7 @@ void	create_walls(t_map *map, t_parsing *lines)
 		++y;
 		tmp = tmp->next;
 	}
-	if (link_empty(map) || conflict_pt(map))
+	if (link_empty(map))
 		return (free_return_all(lines, map));
 	free_return_lines(lines, map, 0);
 }

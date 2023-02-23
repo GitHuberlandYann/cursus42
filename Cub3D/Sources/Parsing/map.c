@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/21 17:52:33 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/23 17:24:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ static void	free_textures(t_map *map)
 	free(map->ds_textures[1]);
 	free(map->obj_textures[BARREL]);
 	free(map->obj_textures[PILLAR]);
+	free(map->obj_textures[POST]);
+	free(map->obj_textures[CUST]);
+	free(map->obj_textures[WIN]);
 	while (map->portals)
 	{
 		tmp = map->portals;
@@ -66,6 +69,18 @@ static void	free_textures(t_map *map)
 	{
 		tmp = map->objs;
 		map->objs = map->objs->next;
+		free(tmp);
+	}
+	while (map->walls)
+	{
+		tmp = map->walls;
+		map->walls = map->walls->next;
+		free(tmp);
+	}
+	while (map->posts)
+	{
+		tmp = map->posts;
+		map->posts = map->posts->next;
 		free(tmp);
 	}
 }
@@ -110,10 +125,13 @@ int	load_map(t_map *map, char *file)
 	map->obj_textures[BARREL] = 0;
 	map->obj_textures[PILLAR] = 0;
 	map->obj_textures[POST] = 0;
+	map->obj_textures[CUST] = 0;
+	map->obj_textures[WIN] = 0;
 	map->walls = 0;
 	map->doors = 0;
 	map->portals = 0;
 	map->objs = 0;
+	map->posts = 0;
 	res = read_first_lines(map, fd);
 	res = check_header(map, res);
 	if (!res)
