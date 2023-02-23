@@ -8,6 +8,8 @@ C 96,96,96
 
 D maps/xpm/wredbrick.xpm
 DS maps/xpm/purplestone.xpm
+FT maps/xpm/greystone.xpm
+CT maps/xpm/wood.xpm
 LINK 0:7
 LINK 1:2
 

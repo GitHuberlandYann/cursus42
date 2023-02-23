@@ -21,6 +21,14 @@ POST 12.0,7.0,0.4
 POST 14.0,7.0,0.4
 POST 16.0,6.0,0.5
 POSTT maps/xpm/wredbrick.xpm
+CUST 3.5,4.5,0.5,6.0
+CUST 3.5,4.5,4.5,5.0
+CUST 4.5,5.0,5.5,4.5
+CUSTT maps/xpm/bluestone.xpm
+WIND 0.5,11.5,3.5,11.5
+POST 0.5,13.5,1.2
+POST 3.5,13.5,1.2
+WINDT maps/xpm/window.xpm
 
             111
            10001
@@ -34,4 +42,6 @@ POSTT maps/xpm/wredbrick.xpm
 10001
 10001
 10N01 
+10001
+10001
  111
