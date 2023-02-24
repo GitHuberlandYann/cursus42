@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_posting.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/24 10:48:27 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/02/24 10:48:27 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	solve_singular(t_ray *ray, t_vert *abc, double delta, double m, double p, t_vert *trpt, t_vert *center, double radius)
