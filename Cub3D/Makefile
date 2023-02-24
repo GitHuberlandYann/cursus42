@@ -31,6 +31,10 @@ FILES_PARSING = add_wall colors custom doors flood_fill header map map_content o
 
 FILES += $(addprefix Parsing/, $(FILES_PARSING))
 
+FILES_FDF = parse_obj parse_utils
+
+FILES += $(addprefix Fdf/, $(FILES_FDF))
+
 Sources = $(addprefix Sources/, $(addsuffix .c, $(FILES)))
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(Sources:.c=.o))
@@ -53,7 +57,7 @@ endif
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -O3
-SAN = #-fsanitize=address -g
+SAN = -fsanitize=address -g
 MATH = -lm
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
@@ -73,6 +77,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR_SOURCES)/Graphics
 	@mkdir -p $(OBJS_DIR_SOURCES)/Outputs
 	@mkdir -p $(OBJS_DIR_SOURCES)/Parsing
+	@mkdir -p $(OBJS_DIR_SOURCES)/Fdf
 
 $(NAME): $(OBJS) libs
 	$(CC) $(SAN) $(OBJS) -o $(NAME) $(MLX) $(LIBFT) $(MATH)
@@ -84,6 +89,9 @@ $(OBJS_DIR_SOURCES)/Outputs/%.o: Sources/Outputs/%.c
 	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR_SOURCES)/Parsing/%.o: Sources/Parsing/%.c
+	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
+
+$(OBJS_DIR_SOURCES)/Fdf/%.o: Sources/Fdf/%.c
 	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR_SOURCES)/%.o: Sources/%.c

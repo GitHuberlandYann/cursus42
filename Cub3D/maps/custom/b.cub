@@ -29,6 +29,7 @@ WIND 0.5,11.5,3.5,11.5
 POST 0.5,13.5,1.2
 POST 3.5,13.5,1.2
 WINDT maps/xpm/window.xpm
+FDF maps/fdf/Crane.obj
 
             111
            10001

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/24 10:54:03 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/24 17:23:19 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define FUNCTIONS_H
 
 # include "structures.h"
+
+//FDF
+int			load_map_fdf(t_map *map);
+void		ft_add_line(t_fdfmap *res, char *line);
+t_vertice	*ft_get_node(t_vertice *vert, int index);
 
 //Graphics
 void		launch_mlx(t_map *map, char	*title);

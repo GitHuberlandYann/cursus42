@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/24 10:52:31 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:35:48 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # define STRUCTURES_H
 
 # include "macros.h"
+# include "fdf.h"
 
-typedef struct s_vertice
+typedef struct s_vert
 {
 	double	x;
 	double	y;
@@ -127,6 +128,7 @@ typedef struct s_map {
 	int			haswindow;
 	t_obj		*objs;
 	t_post		*posts;
+	t_fdf		*fdf;
 	char		*line;
 	char		*(textures[4]);
 	unsigned	fc_colors[2];
@@ -134,17 +136,6 @@ typedef struct s_map {
 	char		*(ds_textures[2]);
 	char		*(obj_textures[5]);
 }				t_map;
-
-typedef struct s_img {
-	void	*img_ptr;
-	char	*addr;
-	int		bits_per_pixel;
-	int		bytes_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-}				t_img;
 
 typedef struct s_key {
 	int	vertical;

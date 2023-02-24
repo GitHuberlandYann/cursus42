@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/23 17:24:18 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/24 17:39:17 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,24 @@ static void	free_textures(t_map *map)
 		map->posts = map->posts->next;
 		free(tmp);
 	}
+	while (map->fdf)
+	{
+		while (map->fdf->map.vert)
+		{
+			tmp = map->fdf->map.vert;
+			map->fdf->map.vert = map->fdf->map.vert->next;
+			free(tmp);
+		}
+		while (map->fdf->map.faces)
+		{
+			tmp = map->fdf->map.faces;
+			map->fdf->map.faces = map->fdf->map.faces->next;
+			free(tmp);
+		}
+		tmp = map->fdf;
+		map->fdf = map->fdf->next;
+		free(tmp);
+	}
 }
 
 int	free_return_lines(t_parsing *lines, t_map *map, int free_player)
@@ -132,6 +150,7 @@ int	load_map(t_map *map, char *file)
 	map->portals = 0;
 	map->objs = 0;
 	map->posts = 0;
+	map->fdf = 0;
 	res = read_first_lines(map, fd);
 	res = check_header(map, res);
 	if (!res)

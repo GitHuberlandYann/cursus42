@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:54:21 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/23 16:55:16 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/24 16:34:03 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ int	read_first_lines(t_map *map, int fd)
 		if (!ft_strncmp("WIND ", map->line, 5) && ++map->haswindow && add_window(map))
 			return (free_return_line(map->line));
 		if (!ft_strncmp("WINDT ", map->line, 6) && load_texture_obj(map, WIN))
+			return (free_return_line(map->line));
+		if (!ft_strncmp("FDF ", map->line, 4) && load_map_fdf(map))
 			return (free_return_line(map->line));
 		free(map->line);
 		map->line = get_next_line(fd);
