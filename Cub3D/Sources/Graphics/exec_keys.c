@@ -38,6 +38,7 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 		set_point(&wall_sensor.ray.pt1, player->pos.x, player->pos.y, 0);
 		wall_sensor.angle = player->direction + M_PI * (keys->vertical == -1);
 		wall_sensor.out_angle = wall_sensor.angle;
+		wall_sensor.objs = 0;
 		ray_walling(cub->map->walls, &wall_sensor);
 		ray_dooring(cub->map->doors, &wall_sensor);
 		ray_posting(cub->map->posts, &wall_sensor);
@@ -60,6 +61,7 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 		set_point(&wall_sensor.ray.pt1, player->pos.x, player->pos.y, 0);
 		wall_sensor.angle = player->direction + M_PI / 2 * keys->horizontal;
 		wall_sensor.out_angle = wall_sensor.angle;
+		wall_sensor.objs = 0;
 		ray_walling(cub->map->walls, &wall_sensor);
 		ray_dooring(cub->map->doors, &wall_sensor);
 		ray_posting(cub->map->posts, &wall_sensor);
@@ -124,6 +126,7 @@ int	redraw_all(t_cub *cub)
 	else
 		move_god(key, cub->map->player);
 	exec_keys(key, cub);
+	render_fdf(cub->map->objs, &cub->map->player->pos);
 	clear_render(cub->mlx->render3d, cub->map->fc_colors, cub);
 	render_map(cub->mlx->render3d, cub->map->player, cub->map, cub);
 	if (cub->settings->mini_enable)

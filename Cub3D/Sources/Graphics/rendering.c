@@ -36,7 +36,7 @@ static void	draw_wall_vert(t_img *img, t_vert *pt, t_img *texture, double u)
 		while (delta.z > 0 && pt->y < WIN_HEIGHT)
 		{
 			color = mlx_pxl_get(texture, pt_text.x, pt_text.y);
-			if (color != 0xff000000)
+			if (color != TRANSPARENT)
 				mlx_pxl_put(img, pt->x, pt->y, color);
 			pt_text.y += delta.y;
 			++pt->y;
@@ -104,6 +104,8 @@ static void	draw_hit_obj(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 			draw_wall_vert(img, &start, cub->mlx->obj_textures[PILLAR], obj->u);
 		else if (obj->type == WIN)
 			draw_wall_vert(img, &start, cub->mlx->obj_textures[WIN], obj->u);
+		else if (obj->type == FDF)
+			draw_wall_vert(img, &start, obj->fdf->canva, obj->u);
 		obj = obj->next_ray;
 	}
 }
@@ -123,6 +125,7 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 			cub->rays[index].dist = cub->settings->fov_dist;
 		cub->rays[index].hit = CUT;
 		cub->rays[index].recurse_level = 0;
+		cub->rays[index].objs = 0;
 		ray_walling(map->walls, &cub->rays[index]);
 		ray_dooring(map->doors, &cub->rays[index]);
 		ray_posting(map->posts, &cub->rays[index]);

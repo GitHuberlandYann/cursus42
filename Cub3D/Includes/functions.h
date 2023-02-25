@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/24 17:23:19 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:58:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,14 @@
 
 //FDF
 int			load_map_fdf(t_map *map);
+int			load_pos(char *line, t_fdf *res);
 void		ft_add_line(t_fdfmap *res, char *line);
 t_vertice	*ft_get_node(t_vertice *vert, int index);
+void		render_fdf(t_obj *objs, t_vert *pos);
+
+void		set_fdfangles(t_angles *a, double alpha, double beta, double gamma);
+double		ft_rotation_x(t_angles *a, t_vertice *node);
+double		ft_rotation_y(t_angles *a, t_vertice *node);
 
 //Graphics
 void		launch_mlx(t_map *map, char	*title);
@@ -34,7 +40,7 @@ void		add_fps(t_mlx *mlx, t_set *settings);
 
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
 t_img		*ft_create_xpmimg(t_mlx *mlx, char *textures, t_side side);
-void		mlx_clear_img(t_img *img);
+void		mlx_clear_img(t_img *img, unsigned color);
 void		mlx_draw_line(t_img *img, t_vert a, t_vert b, unsigned int color);
 void		mlx_pxl_put(t_img *img, int x, int y, unsigned int color);
 unsigned	mlx_pxl_get(t_img *img, int x, int y);

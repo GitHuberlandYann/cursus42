@@ -46,7 +46,7 @@ t_img	*ft_create_xpmimg(t_mlx *mlx, char *texture, t_side side)
 	return (img);
 }
 
-void	mlx_clear_img(t_img *img)
+void	mlx_clear_img(t_img *img, unsigned color)
 {
 	t_vert	pt;
 
@@ -57,7 +57,7 @@ void	mlx_clear_img(t_img *img)
 		pt.y = 0;
 		while (pt.y < img->height)
 		{
-			mlx_pxl_put(img, pt.x, pt.y, BLACK);
+			mlx_pxl_put(img, pt.x, pt.y, color);
 			++pt.y;
 		}
 		++pt.x;

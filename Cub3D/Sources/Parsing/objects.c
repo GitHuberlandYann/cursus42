@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:54:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/23 16:44:43 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/25 17:24:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static t_obj	*new_obj(t_objtype type, int x, int y)
 	res = ft_malloc(sizeof(*res), "add_obj");
 	res->type = type;
 	set_point(&res->pos, x, y, 0);
+	res->fdf = 0;
 	res->next = 0;
 	res->last = 0;
 	return (res);

@@ -31,7 +31,7 @@ FILES_PARSING = add_wall colors custom doors flood_fill header map map_content o
 
 FILES += $(addprefix Parsing/, $(FILES_PARSING))
 
-FILES_FDF = parse_obj parse_utils
+FILES_FDF = angles parse_obj parse_pos parse_utils rendering
 
 FILES += $(addprefix Fdf/, $(FILES_FDF))
 

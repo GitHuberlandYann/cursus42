@@ -15,10 +15,14 @@
 static int	read_map_fdf(t_map *map, t_fdfmap *res)
 {
 	int		fd;
+	int		index;
 	char	*line;
 
 	map->line[ft_strlen(map->line) - 1] = '\0';
-	fd = open(&map->line[4], O_RDONLY);
+	index = load_pos(map->line, map->objs->last->fdf);
+	if (!index)
+		return (1);
+	fd = open(&map->line[index], O_RDONLY);
 	if (fd == -1)
 		return (output_error(MSG_FDFDF));
 	line = get_next_line(fd);
@@ -46,30 +50,37 @@ t_vertice	*ft_get_node(t_vertice *vert, int index)
 		++count;
 	}
 	if (count < index)
-		;//problemo in this case todo
+		(void)count;//problemo in this case todo
 	return (res);
 }
 
 int	load_map_fdf(t_map *map)
 {
-	t_fdf	*res;
+	t_obj	*res;
 
 	res = ft_malloc(sizeof(*res), __func__);
-	res->map.faces = 0;
-	res->map.faces_last = 0;
-	res->map.vert = 0;
-	res->map.vert_last = 0;
+	res->type = FDF;
+	res->fdf = ft_malloc(sizeof(*res->fdf), __func__);
+	res->fdf->size = 100;
+	res->fdf->offset_x = WIN_FDFX_2;
+	res->fdf->offset_y = WIN_FDFY;
+	res->fdf->map.faces = 0;
+	res->fdf->map.faces_last = 0;
+	res->fdf->map.vert = 0;
+	res->fdf->map.vert_last = 0;
+	res->fdf->next = 0;
+	res->fdf->last = 0;
 	res->next = 0;
 	res->last = 0;
-	if (!map->fdf)
+	if (!map->objs)
 	{
-		map->fdf = res;
-		map->fdf->last = map->fdf;
+		map->objs = res;
+		map->objs->last = map->objs;
 	}
 	else
 	{
-		map->fdf->last->next = res;
-		map->fdf->last = map->fdf->last->next;
+		map->objs->last->next = res;
+		map->objs->last = map->objs->last->next;
 	}
-	return (read_map_fdf(map, &res->map));
+	return (read_map_fdf(map, &res->fdf->map));
 }

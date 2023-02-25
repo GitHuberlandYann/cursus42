@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/24 10:51:46 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:46:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@
 # define BROWNISH 0x6e4316
 # define BLUEISH 0xC1FF
 # define GREENISH 0x26E07
+# define TRANSPARENT 0xff000000
 
 # define PSIZE 5
 
@@ -132,7 +133,8 @@ typedef enum e_objtype {
 	PILLAR,
 	POST,
 	CUST,
-	WIN
+	WIN, 
+	FDF
 }				t_objtype;
 
 typedef enum e_doorstate {

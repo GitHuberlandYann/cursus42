@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/24 17:39:17 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:32:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,21 @@ static void	free_textures(t_map *map)
 	}
 	while (map->objs)
 	{
+		if (map->objs->type == FDF)
+		{
+			while (map->objs->fdf->map.vert)
+			{
+				tmp = map->objs->fdf->map.vert;
+				map->objs->fdf->map.vert = map->objs->fdf->map.vert->next;
+				free(tmp);
+			}
+			while (map->objs->fdf->map.faces)
+			{
+				tmp = map->objs->fdf->map.faces;
+				map->objs->fdf->map.faces = map->objs->fdf->map.faces->next;
+				free(tmp);
+			}
+		}
 		tmp = map->objs;
 		map->objs = map->objs->next;
 		free(tmp);
@@ -81,24 +96,6 @@ static void	free_textures(t_map *map)
 	{
 		tmp = map->posts;
 		map->posts = map->posts->next;
-		free(tmp);
-	}
-	while (map->fdf)
-	{
-		while (map->fdf->map.vert)
-		{
-			tmp = map->fdf->map.vert;
-			map->fdf->map.vert = map->fdf->map.vert->next;
-			free(tmp);
-		}
-		while (map->fdf->map.faces)
-		{
-			tmp = map->fdf->map.faces;
-			map->fdf->map.faces = map->fdf->map.faces->next;
-			free(tmp);
-		}
-		tmp = map->fdf;
-		map->fdf = map->fdf->next;
 		free(tmp);
 	}
 }
@@ -150,7 +147,6 @@ int	load_map(t_map *map, char *file)
 	map->portals = 0;
 	map->objs = 0;
 	map->posts = 0;
-	map->fdf = 0;
 	res = read_first_lines(map, fd);
 	res = check_header(map, res);
 	if (!res)

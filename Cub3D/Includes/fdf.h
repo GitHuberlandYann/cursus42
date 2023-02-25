@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 11:31:02 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/24 17:10:27 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:16:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,21 @@
 # define FDF_H
 
 # define WIN_FDFX 1000
+# define WIN_FDFX_2 500
 # define WIN_FDFY 1000
+# define WIN_FDFY_2 500
 
 # define MSG_FDFDF "Failed to open map referenced by FDF line"
 # define MSG_FDFEMPTY "Map referenced by FDF line is empty"
 # define MSG_FDFVERT "Invalid line 'v' in fdf .obj file"
+# define MSG_FDFZEROPAD "Fdf double can't be zero-padded"
+# define MSG_FDF255 "Fdf double can't be greater than 255"
+# define MSG_FDFUNSET "Unset or incorrect Fdf double"
+# define MSG_FDFDECI255 "Fdf double's decimal part can't be greater than 255"
+# define MSG_FDFDECIUNSET "Unset or incorrect Fdf double's decimal part"
+# define MSG_FDFDOT "Missing '.' in Fdf double"
+# define MSG_FDFZERO "Object double can't be set at zero"
+# define MSG_FDFEND "Fdf line has unwanted elements ending it"
 
 typedef struct s_vertice
 {
@@ -68,6 +78,7 @@ typedef struct s_img {
 }				t_img;
 
 typedef struct s_fdf {
+	t_vertice		pos;
 	int				size;
 	int				offset_x;
 	int				offset_y;

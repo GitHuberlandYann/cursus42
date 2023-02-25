@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/23 17:13:37 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/25 17:30:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static t_set	*ft_set_init(void)
 
 static void	ft_img_init(t_mlx *mlx, t_map *map)
 {
+	t_obj	*objs;
+
 	mlx->render3d = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT);
 	mlx->textures[NO] = ft_create_xpmimg(mlx, map->textures[NO], NO);
 	mlx->textures[SO] = ft_create_xpmimg(mlx, map->textures[SO], SO);
@@ -49,6 +51,13 @@ static void	ft_img_init(t_mlx *mlx, t_map *map)
 	mlx->obj_textures[POST] = ft_create_xpmimg(mlx, map->obj_textures[POST], 2);
 	mlx->obj_textures[CUST] = ft_create_xpmimg(mlx, map->obj_textures[CUST], 3);
 	mlx->obj_textures[WIN] = ft_create_xpmimg(mlx, map->obj_textures[WIN], 4);
+	objs = map->objs;
+	while (objs)
+	{
+		if (objs->type == FDF)
+			objs->fdf->canva = ft_create_img(mlx, WIN_FDFX, WIN_FDFY);
+		objs = objs->next;
+	}
 }
 
 static t_mlx	*ft_mlx_init(char *title, t_map *map)

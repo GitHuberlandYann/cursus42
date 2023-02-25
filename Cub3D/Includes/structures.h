@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/24 16:35:48 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:22:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_obj {
 	int				size;
 	double			u;
 	double			dist;
+	t_fdf			*fdf;
 	struct s_obj	*next;
 	struct s_obj	*last;
 	struct s_obj	*next_ray;
@@ -128,7 +129,6 @@ typedef struct s_map {
 	int			haswindow;
 	t_obj		*objs;
 	t_post		*posts;
-	t_fdf		*fdf;
 	char		*line;
 	char		*(textures[4]);
 	unsigned	fc_colors[2];
