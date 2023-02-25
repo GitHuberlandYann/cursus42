@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:40:49 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/01/31 17:36:46 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:55:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	*gnl_return(char **memory, int read_ret)
 
 char	*get_next_line(int fd)
 {
-	static char	*memory;
+	static char	*memory[OPEN_MAX];
 	char		*buf;
 	int			read_ret;
 	int			index;
@@ -62,17 +62,17 @@ char	*get_next_line(int fd)
 		return (0);
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
-		return (ft_free_return(&memory));
+		return (ft_free_return(&memory[fd]));
 	read_ret = 1;
 	index = 0;
-	while (!find_end_line(memory, &index) && read_ret > 0)
+	while (!find_end_line(memory[fd], &index) && read_ret > 0)
 	{
 		read_ret = read(fd, buf, BUFFER_SIZE);
 		buf[read_ret * (read_ret >= 0)] = '\0';
-		memory = ft_strjoin_gnl(memory, buf);
-		if (!memory)
+		memory[fd] = ft_strjoin_gnl(memory[fd], buf);
+		if (!memory[fd])
 			return (ft_free_return(&buf));
 	}
 	free(buf);
-	return (gnl_return(&memory, read_ret));
+	return (gnl_return(&memory[fd], read_ret));
 }
