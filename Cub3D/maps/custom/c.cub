@@ -9,8 +9,6 @@ FT maps/xpm/greystone.xpm
 CT maps/xpm/wood.xpm
 D maps/xpm/door.xpm
 DS maps/xpm/doorside.xpm
-LINK 0:1
-LINK 1:0
 POST 6.0,5.0,0.4
 POST 8.0,5.0,0.4
 POST 10.0,5.0,0.4
@@ -28,14 +26,14 @@ CUST 3.5,4.5,4.5,5.0
 CUST 4.5,5.0,5.5,4.5
 CUSTT maps/xpm/bluestone.xpm
 WIND 0.5,11.5,3.5,11.5
-WIND 13.5,1.0,13.5,2.0
 POST 0.5,13.5,1.2
 POST 3.5,13.5,1.2
 WINDT maps/xpm/window.xpm
+FDF 13.0,2.0 maps/fdf/Crane.obj
 
             111
            10001
-           1000P1
+           10001
            10001
  1111111111110111
 100000000000000001
@@ -47,5 +45,4 @@ WINDT maps/xpm/window.xpm
 10N01 
 10001
 10001
- 1P1
-  1
+ 111
