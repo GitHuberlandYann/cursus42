@@ -56,7 +56,7 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 	t_vert	finish;
 	double		wall_height;
 
-	ray->dist *= cos(cub->map->player->direction - ray->angle);
+	ray->dist *= cos(ray->preangle);
 	ray->dist *= cub->settings->dist_feel;
 	wall_height = 1 / ray->dist;
 	set_point(&start, pixel_x, (1 - wall_height) * WIN_HEIGHT_2,  (1 + wall_height) * WIN_HEIGHT_2);
@@ -75,6 +75,8 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 		draw_wall_vert(img, &start, cub->mlx->textures[WE], ray->u);
 	else if (ray->hit == EA)
 		draw_wall_vert(img, &start, cub->mlx->textures[EA], ray->u);
+	else if (ray->hit == ANIMATED)
+		draw_wall_vert(img, &start, cub->map->anims->frame, ray->u);
 	else if (ray->hit == CIRCLE)
 		draw_wall_vert(img, &start, cub->mlx->obj_textures[POST], ray->u);
 	else if (ray->hit == CUSTOM)
@@ -94,7 +96,7 @@ static void	draw_hit_obj(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 	obj = ray->objs;
 	while (obj)
 	{
-		obj->dist *= cos(cub->map->player->direction - ray->angle);
+		obj->dist *= cos(ray->preangle);
 		obj->dist *= cub->settings->dist_feel;
 		wall_height = 1 / obj->dist;
 		set_point(&start, pixel_x, (1 - wall_height) * WIN_HEIGHT_2,  (1 + wall_height) * WIN_HEIGHT_2);
@@ -115,14 +117,15 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 	int			index;
 
 	index = -1;
-	// ray.angle = player->direction - cub->settings->fov_width / 2;
-	while (++index < WIN_WIDTH)//ray.angle < player->direction + cub->settings->fov_width / 2)
+	while (++index < WIN_WIDTH)
 	{
 		set_point(&cub->rays[index].ray.pt1, player->pos.x, player->pos.y, 0);
 		cub->rays[index].angle = cub->map->player->direction + cub->rays[index].preangle;
 		cub->rays[index].dist = 10000;
 		if (cub->settings->fov_enable)
 			cub->rays[index].dist = cub->settings->fov_dist;
+		set_point(&cub->rays[index].ray.pt2, player->pos.x + cos(cub->rays[index].angle) * cub->rays[index].dist,
+											player->pos.y - sin(cub->rays[index].angle) * cub->rays[index].dist, 0);
 		cub->rays[index].hit = CUT;
 		cub->rays[index].recurse_level = 0;
 		cub->rays[index].objs = 0;

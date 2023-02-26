@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static void	add_wall(t_map *map, t_wall *wall)
+void	add_wall(t_map *map, t_wall *wall)
 {
 	if (!map->walls)
 	{
@@ -31,7 +31,7 @@ void	new_wall_north(t_map *map, t_parsing *curr, int x, int y)
 {
 	t_wall	*res;
 
-	res = ft_malloc(sizeof(*res), "new_wall_north");
+	res = ft_malloc(sizeof(*res), __func__);
 	res->wline.side = NO;
 	res->size = 0;
 	while (curr->line[x + res->size + 1] == '1' && ft_strchr("0XP", curr->prev->line[x + res->size + 1]))
@@ -48,7 +48,7 @@ void	new_wall_south(t_map *map, t_parsing *curr, int x, int y)
 {
 	t_wall	*res;
 
-	res = ft_malloc(sizeof(*res), "new_wall_south");
+	res = ft_malloc(sizeof(*res), __func__);
 	res->wline.side = SO;
 	res->size = 0;
 	while (curr->line[x + res->size + 1] == '1' && ft_strchr("0XP", curr->next->line[x + res->size + 1]))
@@ -66,7 +66,7 @@ void	new_wall_west(t_map *map, t_parsing *curr, int x, int y)
 	t_wall		*res;
 	t_parsing	*tmp;
 
-	res = ft_malloc(sizeof(*res), "new_wall_west");
+	res = ft_malloc(sizeof(*res), __func__);
 	res->wline.side = WE;
 	res->size = 0;
 	tmp = curr->next;
@@ -88,7 +88,7 @@ void	new_wall_east(t_map *map, t_parsing *curr, int x, int y)
 	t_wall		*res;
 	t_parsing	*tmp;
 
-	res = ft_malloc(sizeof(*res), "new_wall_east");
+	res = ft_malloc(sizeof(*res), __func__);
 	res->wline.side = EA;
 	res->size = 0;
 	tmp = curr->next;

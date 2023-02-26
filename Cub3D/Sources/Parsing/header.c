@@ -64,7 +64,7 @@ int	line_from_map(char *str, int empty_allowed)
 	res = 0;
 	while (str[index])
 	{
-		if (!ft_strchr(" 01DPNSWE\n", str[index]))
+		if (!ft_strchr(" 01ADPNSWE\n", str[index]))
 			return (0);
 		else if (empty_allowed)
 			res = 1;
@@ -130,6 +130,8 @@ int	read_first_lines(t_map *map, int fd)
 			return (free_return_line(map->line));
 		if (!ft_strncmp("FDF ", map->line, 4) && load_map_fdf(map))
 			return (free_return_line(map->line));
+		if (!ft_strncmp("FRAME ", map->line, 6))
+			load_frame(map);
 		free(map->line);
 		map->line = get_next_line(fd);
 	}

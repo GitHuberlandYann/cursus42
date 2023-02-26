@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/25 17:46:29 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/26 19:49:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@
 # define MSG_UNUSEDLINK "No portal matching one of the links"
 # define MSG_DOORTEXTURE "Missing D/DS line, no texture for doors"
 # define MSG_OBJTEXTURE "Missing BT/PT/POSTT line, no texture for objs"
+# define MSG_ANIMTEXTURE "Missing FRAME line, no texture for animated walls"
 
 # if __linux__
 #  define WIN_WIDTH 1800
@@ -108,6 +109,7 @@
 # define TRANSPARENT 0xff000000
 
 # define PSIZE 5
+# define ANIM_FPS 12
 
 // Enums
 typedef enum e_side {
@@ -120,7 +122,8 @@ typedef enum e_side {
 	PORTAL,
 	CUT,
 	CIRCLE,
-	CUSTOM
+	CUSTOM, 
+	ANIMATED
 }			t_side;
 
 typedef enum e_ground {

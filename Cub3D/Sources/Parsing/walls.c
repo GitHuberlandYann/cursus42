@@ -36,7 +36,7 @@
 // 	return (res);
 // }
 
-static int	add_wall(t_map *map, t_parsing *curr, int x, int y)
+static int	add_new_wall(t_map *map, t_parsing *curr, int x, int y)
 {
 	if (curr->prev && x && x < curr->prev->size && ft_strchr("0XP", curr->prev->line[x])
 		&& !(curr->line[x - 1] == '1' && ft_strchr("0XP", curr->prev->line[x - 1])))
@@ -83,6 +83,7 @@ void	create_walls(t_map *map, t_parsing *lines)
 	y = 0;
 	map->portal_count = 0;
 	map->hasdoor = 0;
+	map->hasanimated = 0;
 	while (tmp)
 	{
 		index = 0;
@@ -90,10 +91,12 @@ void	create_walls(t_map *map, t_parsing *lines)
 		while (tmp->line[index])
 		{
 			if (tmp->line[index] == '1')
-				add_wall(map, tmp, index, y);
+				add_new_wall(map, tmp, index, y);
 			else if (ft_strchr("dD", tmp->line[index]) && add_door(map, tmp, index, y))
 				return (free_return_all(lines, map));
 			else if (tmp->line[index] == 'P' && set_portal(map, tmp, index, y))
+				return (free_return_all(lines, map));
+			else if (tmp->line[index] == 'A' && add_animated_wall(map, tmp, index, y))
 				return (free_return_all(lines, map));
 			++index;
 		}

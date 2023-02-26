@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/25 17:58:33 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/26 19:49:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
 void		setup_rendermap(t_img *canva, t_set *settings);
 void		render_ground(t_img *img, t_cub *cub, t_vert *pxl, double alpha);
 
-void		add_fps(t_mlx *mlx, t_set *settings);
+void		add_fps(t_mlx *mlx, t_set *settings, t_player *player);
 
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
 t_img		*ft_create_xpmimg(t_mlx *mlx, char *textures, t_side side);
@@ -59,7 +59,8 @@ void		ray_posting(t_post *posts, t_ray *ray);
 t_vert		get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4);
 
 void		try_door(t_player *player, t_door *doors);
-void		uptdate_doors(t_door *doors, t_key *key);
+void		update_doors(t_door *doors, t_key *key);
+void		update_anim_frames(t_map *map, t_key *keys, int fps);
 
 double		get_dist(t_vert pt1, t_vert pt2);
 void		set_point(t_vert *pt, double x, double y, double z);
@@ -92,9 +93,12 @@ void		new_wall_south(t_map *map, t_parsing *curr, int x, int y);
 void		new_wall_west(t_map *map, t_parsing *curr, int x, int y);
 void		new_wall_east(t_map *map, t_parsing *curr, int x, int y);
 
+void		add_wall(t_map *map, t_wall *wall);
 int			add_door(t_map *map, t_parsing *line, int x, int y);
 int			add_custom(t_map *map);
 int			add_window(t_map *map);
+int			add_animated_wall(t_map *map, t_parsing *curr, int x, int y);
+void		load_frame(t_map *map);
 
 int			set_portal(t_map *map, t_parsing *line, int x, int y);
 int			link_portals(t_map *map);

@@ -92,7 +92,7 @@ void	try_door(t_player *player, t_door *doors)
 	}
 }
 
-void	uptdate_doors(t_door *doors, t_key *key)
+void	update_doors(t_door *doors, t_key *key)
 {
 	while (doors)
 	{

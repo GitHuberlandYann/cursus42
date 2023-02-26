@@ -40,7 +40,7 @@ static int	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	add_fps(t_mlx *mlx, t_set *settings)
+void	add_fps(t_mlx *mlx, t_set *settings, t_player *player)
 {
 	int		current_time;
 	int		fps_size;
@@ -59,4 +59,7 @@ void	add_fps(t_mlx *mlx, t_set *settings)
 	settings->timepoint = current_time;
 	if (settings->godmode)
 		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 20, 35, WHITE, "God mode on");
+	player->speed = 0.07 / mlx->fps * 60;
+	if (player->speed > 0.12)
+		player->speed = 0.12;
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 10:52:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/23 15:53:28 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/26 16:18:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,12 @@ static void	draw_stored_rays(t_img *img, t_ray	rays[WIN_WIDTH], t_map *map, t_se
 	index = -1;
 	while (++index < WIN_WIDTH)
 	{
-		set_point_follow(&start, &rays[index].ray.pt1, map, settings);
-		set_point_follow(&finish, &rays[index].ray.pt2, map, settings);
-		mlx_draw_line(img, start, finish, WHITE);
+		if (in_circle(&rays[index].ray.pt2, map->player->pos.x, map->player->pos.y, settings->radius_divww))
+		{
+			set_point_follow(&start, &rays[index].ray.pt1, map, settings);
+			set_point_follow(&finish, &rays[index].ray.pt2, map, settings);
+			mlx_draw_line(img, start, finish, WHITE);
+		}
 	}
 }
 

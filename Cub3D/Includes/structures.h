@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/25 17:22:05 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/26 19:52:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,14 @@ typedef struct s_post {
 	struct s_post	*last;
 }				t_post;
 
+typedef struct s_anim {
+	double			frame_count;
+	char			*str;
+	t_img			*frame;
+	struct s_anim	*next;
+	struct s_anim	*last;
+}				t_anim;
+
 typedef struct s_ray
 {
 	t_line		ray;
@@ -127,6 +135,7 @@ typedef struct s_map {
 	int			haspost;
 	int			hascustom;
 	int			haswindow;
+	int			hasanimated;
 	t_obj		*objs;
 	t_post		*posts;
 	char		*line;
@@ -135,6 +144,7 @@ typedef struct s_map {
 	char		*(fc_textures[2]);
 	char		*(ds_textures[2]);
 	char		*(obj_textures[5]);
+	t_anim		*anims;
 }				t_map;
 
 typedef struct s_key {

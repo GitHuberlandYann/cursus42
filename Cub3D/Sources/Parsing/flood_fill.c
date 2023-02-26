@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:44:28 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/04 14:23:50 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/26 18:37:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	flood_fill(t_parsing *current, int index)
 	if (!current || index >= current->size)
 		return (1);
 	if ((!index && current->line[index] != '1')
-		|| current->line[index] == ' ' || current->line[index] == '\n')
+		|| ft_strchr(" \n", current->line[index]))
 		return (1);
-	if (ft_strchr("1XdP", current->line[index]))
+	if (ft_strchr("1XdPA", current->line[index]))
 		return (0);
 	if (current->line[index] != 'D')
 		current->line[index] = 'X';

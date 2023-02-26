@@ -16,8 +16,8 @@ OBJS_DIR_SOURCES = Objs/Sources
 
 FILES = main
 
-FILES_GRAPHICS = exec_keys image floor_casting keys math_utils minimap \
-				mlx_manager mouse ray_casting \
+FILES_GRAPHICS = animation exec_keys image floor_casting keys math_utils \
+				minimap mlx_manager mouse ray_casting \
 				ray_dooring ray_objing ray_portaling ray_posting rendering timer
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
@@ -26,8 +26,8 @@ FILES_OUTPUTS = debug error
 
 FILES += $(addprefix Outputs/, $(FILES_OUTPUTS))
 
-FILES_PARSING = add_wall colors custom doors flood_fill header map map_content objects \
-				portals posts walls window
+FILES_PARSING = add_wall animated_wall animation colors custom doors flood_fill \
+				header map map_content objects portals posts walls window
 
 FILES += $(addprefix Parsing/, $(FILES_PARSING))
 
@@ -57,7 +57,7 @@ endif
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -O3
-SAN = -fsanitize=address -g
+SAN = #-fsanitize=address -g
 MATH = -lm
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---

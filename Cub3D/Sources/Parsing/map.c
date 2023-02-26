@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/25 17:32:08 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/26 18:56:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,16 @@ static void	free_textures(t_map *map)
 		map->posts = map->posts->next;
 		free(tmp);
 	}
+	while (map->anims)
+	{
+		tmp = map->anims;
+		free(map->anims->str);
+		map->anims->str = 0;
+		map->anims = map->anims->next;
+		free(tmp);
+		if (!map->anims->str)
+			break;
+	}
 }
 
 int	free_return_lines(t_parsing *lines, t_map *map, int free_player)
@@ -147,7 +157,10 @@ int	load_map(t_map *map, char *file)
 	map->portals = 0;
 	map->objs = 0;
 	map->posts = 0;
+	map->anims = 0;
 	res = read_first_lines(map, fd);
+	if (map->anims)
+		map->anims->last->next = map->anims;
 	res = check_header(map, res);
 	if (!res)
 		res = read_map(map, fd);

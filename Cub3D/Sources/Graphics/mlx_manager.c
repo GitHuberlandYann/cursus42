@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/25 17:30:19 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/26 19:11:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static t_set	*ft_set_init(void)
 static void	ft_img_init(t_mlx *mlx, t_map *map)
 {
 	t_obj	*objs;
+	t_anim	*anims;
+	int		cnt;
 
 	mlx->render3d = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT);
 	mlx->textures[NO] = ft_create_xpmimg(mlx, map->textures[NO], NO);
@@ -57,6 +59,18 @@ static void	ft_img_init(t_mlx *mlx, t_map *map)
 		if (objs->type == FDF)
 			objs->fdf->canva = ft_create_img(mlx, WIN_FDFX, WIN_FDFY);
 		objs = objs->next;
+	}
+	anims = map->anims;
+	cnt = 0;
+	while (anims)
+	{
+		if (anims->str)
+			anims->frame = ft_create_xpmimg(mlx, anims->str, cnt++);
+		else
+			break;
+		free(anims->str);
+		anims->str = 0;
+		anims = anims->next;
 	}
 }
 

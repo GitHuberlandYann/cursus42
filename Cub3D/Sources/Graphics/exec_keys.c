@@ -114,7 +114,8 @@ int	redraw_all(t_cub *cub)
 	t_key	*key;
 
 	key = cub->mlx->keys;
-	uptdate_doors(cub->map->doors, key);
+	update_doors(cub->map->doors, key);
+	update_anim_frames(cub->map, key, cub->mlx->fps);
 	if (!key->horizontal && !key->vertical && !key->steering && !key->fov_width
 		&& key->fov_enable != 1 && !key->fov_dist && key->mini_follow != 1
 		&& !key->mousedate && key->door != 1 && key->mini_enable != 1
@@ -136,6 +137,6 @@ int	redraw_all(t_cub *cub)
 	}
 	mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
 		cub->mlx->render3d->img_ptr, 0, 0);
-	add_fps(cub->mlx, cub->settings);
+	add_fps(cub->mlx, cub->settings, cub->map->player);
 	return (0);
 }
