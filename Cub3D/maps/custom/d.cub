@@ -9,17 +9,27 @@ FT maps/xpm/greystone.xpm
 CT maps/xpm/wood.xpm
 D maps/xpm/door.xpm
 DS maps/xpm/doorside.xpm
-POST 7.5,0.5,0.7
+LINK 0:1
+LINK 1:0
+LINK 2:0
+POST 7.5,1.5,0.7
 POSTT maps/xpm/wredbrick.xpm
-CUST 2.5,0.5,0.5,7.0
+CUST 2.0,1.5,0.5,8.0
 CUSTT maps/xpm/bluestone.xpm
-WIND 5.5,0.5,7.5,2.5
+WIND 5.5,1.5,7.5,3.5
 WINDT maps/xpm/window.xpm
-FDF 7.0,4.0 maps/fdf/Crane.obj
-FDF 7.0,6.0 maps/fdf/Crane.obj
-FDF 7.0,5.0 ../FDF/maps_obj/Lowpoly_tree_sample.obj
+FDF 7.0,5.0 maps/fdf/Crane.obj
+FDF 7.0,7.0 maps/fdf/Crane.obj
+FDF 7.0,6.0 ../FDF/maps_obj/Lowpoly_tree_sample.obj
+FRAME maps/xpm/fire0.xpm
+FRAME maps/xpm/fire1.xpm
+FRAME maps/xpm/fire2.xpm
+FRAME maps/xpm/fire3.xpm
+FRAME maps/xpm/fire4.xpm
+FRAME maps/xpm/fire5.xpm
 
-111111111
+ 1
+1P1A11111
 100000001
 100000001
 1000000001
@@ -27,4 +37,6 @@ FDF 7.0,5.0 ../FDF/maps_obj/Lowpoly_tree_sample.obj
 1000000001
 1001010001
 1001N10001
-111111111
+11P1D1111
+  11P1
+    1 

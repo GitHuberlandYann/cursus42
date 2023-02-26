@@ -5,8 +5,7 @@ EA maps/xpm/colorstone.xpm
 
 F 128,128,128
 C 96,96,96
-FT maps/xpm/greystone.xpm
-CT maps/xpm/wood.xpm
+
 D maps/xpm/door.xpm
 DS maps/xpm/doorside.xpm
 POST 6.0,5.0,0.4
@@ -29,12 +28,12 @@ WIND 0.5,11.5,3.5,11.5
 POST 0.5,13.5,1.2
 POST 3.5,13.5,1.2
 WINDT maps/xpm/window.xpm
-FDF 13.0,2.0 maps/fdf/Crane.obj
+FDF 15.5,2.0 maps/fdf/Crane.obj
 
-            111
-           10001
-           10001
-           10001
+            11111
+           1000001
+           1000001
+           1000001
  1111111111110111
 100000000000000001
 100000000000000001
