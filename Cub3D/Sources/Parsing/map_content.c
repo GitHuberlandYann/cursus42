@@ -44,8 +44,16 @@ static int	add_line(t_parsing **lines, char *line, int line_number)
 	}
 	if ((*lines)->last->player_count)
 	{
-		(*lines)->player_line = (*lines)->last;
-		(*lines)->player_line->line_number = line_number;
+		if (!(*lines)->player_line)
+		{
+			(*lines)->player_line = (*lines)->last;
+			(*lines)->player_line->line_number = line_number;
+		}
+		else
+		{
+			(*lines)->playerbis_line = (*lines)->last;
+			(*lines)->playerbis_line->line_number = line_number;
+		}
 	}
 	return (0);
 }
@@ -62,6 +70,18 @@ static int	error_check(t_map *map, t_parsing *lines)
 		++index;
 	if (flood_fill(lines->player_line, index))
 		return (output_error(MSG_UNCLOSED));
+	if (map->player_count == 2)
+	{
+		index = 0;
+		while (lines->playerbis_line->line[index])
+			++index;
+		--index;
+		while (index > 0
+			&& !ft_strchr("NSWE", lines->playerbis_line->line[index]))
+			--index;
+		if (flood_fill(lines->playerbis_line, index))
+			return (output_error(MSG_UNCLOSEDBIS));
+	}
 	return (0);
 }
 
@@ -69,6 +89,7 @@ static void	init_player(t_map *map, t_parsing *p_line)
 {
 	int	index;
 
+	map->playerbis = 0;
 	map->player = ft_malloc(sizeof(*map->player), __func__);
 	index = 0;
 	while (p_line->line[index]
@@ -88,6 +109,31 @@ static void	init_player(t_map *map, t_parsing *p_line)
 	map->player->speed = 0.1;
 }
 
+static void	init_playerbis(t_map *map, t_parsing *p_line)
+{
+	int	index;
+
+	map->playerbis = ft_malloc(sizeof(*map->playerbis), __func__);
+	index = 0;
+	while (p_line->line[index])
+		++index;
+	--index;
+	while (index > 0 && !ft_strchr("NSWE", p_line->line[index]))
+		--index;
+	map->playerbis->pos.x = index;
+	map->playerbis->pos.y = p_line->line_number;
+	map->playerbis->pos.z = 0;
+	if (p_line->line[index] == 'E')
+		map->playerbis->direction = 0;
+	else if (p_line->line[index] == 'N')
+		map->playerbis->direction = M_PI / 2;
+	else if (p_line->line[index] == 'W')
+		map->playerbis->direction = M_PI;
+	else if (p_line->line[index] == 'S')
+		map->playerbis->direction = -M_PI / 2;
+	map->playerbis->speed = 0.1;
+}
+
 		// printf("curr map line : %s", map->line);
 int	read_map(t_map *map, int fd)
 {
@@ -102,15 +148,17 @@ int	read_map(t_map *map, int fd)
 		if (add_line(&lines, map->line, line_number - 1))
 			return (free_return_lines(lines, map, 0));
 		map->player_count += lines->last->player_count;
-		if (map->player_count > 1)
+		if (map->player_count > 2)
 		{
 			free_return_lines(lines, map, 0);
 			return (output_error(MSG_TOOMANYPLAYERS));
 		}
 		map->line = get_next_line(fd);
 	}
-	if (map->player_count == 1)
+	if (map->player_count > 0)
 		init_player(map, lines->player_line);
+	if (map->player_count == 2)
+		init_playerbis(map, lines->playerbis_line);
 	if (error_check(map, lines))
 		return (free_return_lines(lines, map, map->player_count == 1));
 	create_walls(map, lines);

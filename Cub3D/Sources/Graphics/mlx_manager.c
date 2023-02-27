@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/26 19:11:20 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/27 14:51:38 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,13 @@ static void	ft_img_init(t_mlx *mlx, t_map *map)
 	t_anim	*anims;
 	int		cnt;
 
-	mlx->render3d = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (map->player_count == 1)
+		mlx->render3d = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT);
+	else
+	{
+		mlx->render3d = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT_2);
+		mlx->render3dbis = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT_2);
+	}
 	mlx->textures[NO] = ft_create_xpmimg(mlx, map->textures[NO], NO);
 	mlx->textures[SO] = ft_create_xpmimg(mlx, map->textures[SO], SO);
 	mlx->textures[WE] = ft_create_xpmimg(mlx, map->textures[WE], WE);
@@ -88,9 +94,12 @@ static t_mlx	*ft_mlx_init(char *title, t_map *map)
 	ft_img_init(mlx, map);
 	mlx->keys = ft_malloc(sizeof(*mlx->keys), "keys_init");
 	mlx->keys->vertical = 0;
+	mlx->keys->verticalbis = 0;
 	mlx->keys->horizontal = 0;
 	mlx->keys->sprint = 0;
+	mlx->keys->sprintbis = 0;
 	mlx->keys->steering = 0;
+	mlx->keys->steeringbis = 0;
 	mlx->keys->fov_width = 0;
 	mlx->keys->fov_enable = 0;
 	mlx->keys->fov_dist = 0;
@@ -100,6 +109,7 @@ static t_mlx	*ft_mlx_init(char *title, t_map *map)
 	mlx->keys->mini_enable = 0;
 	mlx->keys->mousedate = 1;
 	mlx->keys->door = 0;
+	mlx->keys->doorbis = 0;
 	mlx->keys->godmode = 0;
 	mlx->mouse_pos.z = 1;
 	mlx->fps = 30;
@@ -114,12 +124,20 @@ void	launch_mlx(t_map *map, char	*title)
 	cub.map = map;
 	cub.mlx = ft_mlx_init(title, map);
 	cub.settings = ft_set_init();
-	set_ray_angles(&cub);
-	mlx_hook(cub.mlx->win_ptr, ON_KEYDOWN, 1L<<0, key_down, &cub);
-	mlx_hook(cub.mlx->win_ptr, ON_KEYUP, 1L<<1, key_released, &cub);
+	set_ray_angles(cub.settings->fov_width, map->player, map->playerbis);
 	mlx_hook(cub.mlx->win_ptr, ON_DESTROY, 0, mlx_exit, 0);
-	mlx_hook(cub.mlx->win_ptr, ON_MOUSEMOVE, 1L<<6, mouse_move, &cub);
-	mlx_loop_hook(cub.mlx->mlx_ptr, redraw_all, &cub);
-	// mlx_mouse_hook(cub.mlx->win_ptr, mouse_button_pressed, &cub);
+	if (map->player_count == 1)
+	{
+		mlx_hook(cub.mlx->win_ptr, ON_KEYDOWN, 1L<<0, key_down, &cub);
+		mlx_hook(cub.mlx->win_ptr, ON_KEYUP, 1L<<1, key_released, &cub);
+		mlx_hook(cub.mlx->win_ptr, ON_MOUSEMOVE, 1L<<6, mouse_move, &cub);
+		mlx_loop_hook(cub.mlx->mlx_ptr, redraw_all, &cub);
+	}
+	else
+	{
+		mlx_hook(cub.mlx->win_ptr, ON_KEYDOWN, 1L<<0, key_down_2p, &cub);
+		mlx_hook(cub.mlx->win_ptr, ON_KEYUP, 1L<<1, key_released_2p, &cub);
+		mlx_loop_hook(cub.mlx->mlx_ptr, redraw_all_2p, &cub);
+	}
 	mlx_loop(cub.mlx->mlx_ptr);
 }

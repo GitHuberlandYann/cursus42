@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/26 19:49:14 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/27 14:12:48 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@
 # define MSG_PORTAL_BORDER "Portals can't be at border of map"
 # define MSG_CENTER_PORTAL "Portals must be between exactly three walls"
 # define MSG_UNCLOSED "Map isn't closed"
+# define MSG_UNCLOSEDBIS "Map isn't closed for second player"
 # define MSG_UNCLOSEDPORTAL "Portal leads to unclosed room"
-# define MSG_TOOMANYPLAYERS "More than 1 player in map"
+# define MSG_TOOMANYPLAYERS "More than 2 players in map"
 # define MSG_NOLINK "Link missing for one of the portals"
 # define MSG_UNUSEDLINK "No portal matching one of the links"
 # define MSG_DOORTEXTURE "Missing D/DS line, no texture for doors"

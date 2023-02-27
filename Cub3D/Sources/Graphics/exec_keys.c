@@ -89,7 +89,7 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 		|| (keys->fov_width > 0 && cub->settings->fov_width < WIN_WIDTH * 2))
 	{
 		cub->settings->fov_width += 10 * keys->fov_width;
-		set_ray_angles(cub);
+		set_ray_angles(cub->settings->fov_width, cub->map->player, cub->map->playerbis);
 	}
 	if (keys->fov_dist > 0 || (keys->fov_dist < 0 && cub->settings->fov_dist > 0.5))
 		cub->settings->fov_dist += keys->fov_dist * 0.1;
@@ -118,7 +118,7 @@ int	redraw_all(t_cub *cub)
 	update_anim_frames(cub->map, key, cub->mlx->fps);
 	if (!key->horizontal && !key->vertical && !key->steering && !key->fov_width
 		&& key->fov_enable != 1 && !key->fov_dist && key->mini_follow != 1
-		&& !key->mousedate && key->door != 1 && key->mini_enable != 1
+		&& !key->mousedate && key->mini_enable != 1
 		&& !key->dist_feel && !key->wall_width && key->godmode != 1)
 		return (1);
 	key->mousedate = 0;

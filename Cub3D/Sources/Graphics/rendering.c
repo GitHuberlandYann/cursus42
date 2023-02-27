@@ -33,7 +33,7 @@ static void	draw_wall_vert(t_img *img, t_vert *pt, t_img *texture, double u)
 			delta.z += pt->y;
 			pt->y = 0;
 		}
-		while (delta.z > 0 && pt->y < WIN_HEIGHT)
+		while (delta.z > 0 && pt->y < img->height)
 		{
 			color = mlx_pxl_get(texture, pt_text.x, pt_text.y);
 			if (color != TRANSPARENT)
@@ -50,7 +50,7 @@ static void	draw_wall_vert(t_img *img, t_vert *pt, t_img *texture, double u)
 	}
 }
 
-static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
+static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x, t_player *player)
 {
 	t_vert	start;
 	t_vert	finish;
@@ -59,8 +59,8 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 	ray->dist *= cos(ray->preangle);
 	ray->dist *= cub->settings->dist_feel;
 	wall_height = 1 / ray->dist;
-	set_point(&start, pixel_x, (1 - wall_height) * WIN_HEIGHT_2,  (1 + wall_height) * WIN_HEIGHT_2);
-	set_point(&finish, pixel_x, (1 + wall_height) * WIN_HEIGHT_2, 0);
+	set_point(&start, pixel_x, (1 - wall_height) * img->height / 2,  (1 + wall_height) * img->height / 2);
+	set_point(&finish, pixel_x, (1 + wall_height) * img->height / 2, 0);
 	if (ray->hit == DOOR)
 		draw_wall_vert(img, &start, cub->mlx->ds_textures[0], ray->u);
 	else if (ray->hit == DOORSIDE)
@@ -84,7 +84,7 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 	else
 		mlx_draw_line(img, start, finish, BLUEISH);
 	if (cub->mlx->fc_textures[FLOOR] && cub->mlx->fc_textures[CEILLING])
-		render_ground(img, cub, &finish, ray->angle);
+		render_ground(img, cub, &finish, ray->angle, player);
 }
 
 static void	draw_hit_obj(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
@@ -99,7 +99,7 @@ static void	draw_hit_obj(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 		obj->dist *= cos(ray->preangle);
 		obj->dist *= cub->settings->dist_feel;
 		wall_height = 1 / obj->dist;
-		set_point(&start, pixel_x, (1 - wall_height) * WIN_HEIGHT_2,  (1 + wall_height) * WIN_HEIGHT_2);
+		set_point(&start, pixel_x, (1 - wall_height) * img->height / 2,  (1 + wall_height) * img->height / 2);
 		if (obj->type == BARREL)
 			draw_wall_vert(img, &start, cub->mlx->obj_textures[BARREL], obj->u);
 		else if (obj->type == PILLAR)
@@ -119,24 +119,24 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 	index = -1;
 	while (++index < WIN_WIDTH)
 	{
-		set_point(&cub->rays[index].ray.pt1, player->pos.x, player->pos.y, 0);
-		cub->rays[index].angle = cub->map->player->direction + cub->rays[index].preangle;
-		cub->rays[index].dist = 10000;
+		set_point(&player->rays[index].ray.pt1, player->pos.x, player->pos.y, 0);
+		player->rays[index].angle = player->direction + player->rays[index].preangle;
+		player->rays[index].dist = 10000;
 		if (cub->settings->fov_enable)
-			cub->rays[index].dist = cub->settings->fov_dist;
-		set_point(&cub->rays[index].ray.pt2, player->pos.x + cos(cub->rays[index].angle) * cub->rays[index].dist,
-											player->pos.y - sin(cub->rays[index].angle) * cub->rays[index].dist, 0);
-		cub->rays[index].hit = CUT;
-		cub->rays[index].recurse_level = 0;
-		cub->rays[index].objs = 0;
-		ray_walling(map->walls, &cub->rays[index]);
-		ray_dooring(map->doors, &cub->rays[index]);
-		ray_posting(map->posts, &cub->rays[index]);
-		ray_portaling(map->portals, &cub->rays[index], cub);
-		ray_objing(map->objs, &cub->rays[index]);
+			player->rays[index].dist = cub->settings->fov_dist;
+		set_point(&player->rays[index].ray.pt2, player->pos.x + cos(player->rays[index].angle) * player->rays[index].dist,
+											player->pos.y - sin(player->rays[index].angle) * player->rays[index].dist, 0);
+		player->rays[index].hit = CUT;
+		player->rays[index].recurse_level = 0;
+		player->rays[index].objs = 0;
+		ray_walling(map->walls, &player->rays[index]);
+		ray_dooring(map->doors, &player->rays[index]);
+		ray_posting(map->posts, &player->rays[index]);
+		ray_portaling(map->portals, &player->rays[index], cub);
+		ray_objing(map->objs, &player->rays[index]);
 		// printf("[%lf,%lf]-[%lf,%lf]\n", ray.ray.pt1.x, ray.ray.pt1.y, ray.ray.pt2.x, ray.ray.pt2.y);
-		draw_hit(img, &cub->rays[index], cub, index);
-		draw_hit_obj(img, &cub->rays[index], cub, index);
+		draw_hit(img, &player->rays[index], cub, index, player);
+		draw_hit_obj(img, &player->rays[index], cub, index);
 	}
 }
 

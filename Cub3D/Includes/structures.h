@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/26 19:52:42 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/27 14:54:53 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ typedef struct s_vert
 	double	z;
 }				t_vert;
 
-typedef struct s_player {
-	t_vert	pos;
-	double	direction;
-	double	speed;
-}				t_player;
-
 typedef struct s_parsing {
 	int					player_count;
 	char				*line;
@@ -38,6 +32,7 @@ typedef struct s_parsing {
 	struct s_parsing	*next;
 	struct s_parsing	*last;
 	struct s_parsing	*player_line;
+	struct s_parsing	*playerbis_line;
 }				t_parsing;
 
 typedef struct s_line {
@@ -122,9 +117,17 @@ typedef struct s_ray
 	t_obj		*objs;
 }				t_ray;
 
+typedef struct s_player {
+	t_vert	pos;
+	double	direction;
+	double	speed;
+	t_ray	rays[WIN_WIDTH];
+}				t_player;
+
 typedef struct s_map {
 	int			player_count;
 	t_player	*player;
+	t_player	*playerbis;
 	t_wall		*walls;
 	int			hasdoor;
 	t_door		*doors;
@@ -149,9 +152,12 @@ typedef struct s_map {
 
 typedef struct s_key {
 	int	vertical;
+	int	verticalbis;
 	int	horizontal;
 	int	sprint;
+	int	sprintbis;
 	int	steering;
+	int	steeringbis;
 	int	fov_width;
 	int	fov_enable;
 	int	fov_dist;
@@ -161,6 +167,7 @@ typedef struct s_key {
 	int	mini_enable;
 	int	mousedate;
 	int	door;
+	int	doorbis;
 	int	godmode;
 }				t_key;
 
@@ -169,6 +176,7 @@ typedef struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	*render3d;
+	t_img	*render3dbis;
 	t_img	*(textures[4]);
 	t_img	*(fc_textures[2]);
 	t_img	*(ds_textures[2]);
@@ -198,7 +206,6 @@ typedef struct s_cub {
 	t_map	*map;
 	t_mlx	*mlx;
 	t_set	*settings;
-	t_ray	rays[WIN_WIDTH];
 }				t_cub;
 
 #endif

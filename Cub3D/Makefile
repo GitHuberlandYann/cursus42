@@ -26,6 +26,10 @@ FILES_GRAPHICS = animation exec_keys image keys math_utils \
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
 
+FILES_MULTIPLAYER = exec_keys keys
+
+FILES += $(addprefix MultiPlayer/, $(FILES_MULTIPLAYER))
+
 FILES_OUTPUTS = debug error
 
 FILES += $(addprefix Outputs/, $(FILES_OUTPUTS))
@@ -81,24 +85,13 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR_SOURCES)
 	@mkdir -p $(OBJS_DIR_SOURCES)/Fdf
 	@mkdir -p $(OBJS_DIR_SOURCES)/Graphics
+	@mkdir -p $(OBJS_DIR_SOURCES)/MultiPlayer
 	@mkdir -p $(OBJS_DIR_SOURCES)/Outputs
 	@mkdir -p $(OBJS_DIR_SOURCES)/Parsing
 	@mkdir -p $(OBJS_DIR_SOURCES)/RayCasting
 
 $(NAME): $(OBJS) libs
 	$(CC) $(SAN) $(OBJS) -o $(NAME) $(MLX) $(LIBFT) $(MATH)
-
-$(OBJS_DIR_SOURCES)/Graphics/%.o: Sources/Graphics/%.c
-	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
-
-$(OBJS_DIR_SOURCES)/Outputs/%.o: Sources/Outputs/%.c
-	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
-
-$(OBJS_DIR_SOURCES)/Parsing/%.o: Sources/Parsing/%.c
-	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
-
-$(OBJS_DIR_SOURCES)/Fdf/%.o: Sources/Fdf/%.c
-	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR_SOURCES)/%.o: Sources/%.c
 	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@

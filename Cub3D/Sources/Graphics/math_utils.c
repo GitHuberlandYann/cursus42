@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:36:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/17 14:31:02 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/27 14:40:13 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,15 @@ int	in_circle(t_vert *pt, double x, double y, double radius)
 	return (get_dist(*pt, center) <= radius);
 }
 
-void	set_ray_angles(t_cub *cub)
+void	set_ray_angles(double fov_width, t_player *player, t_player *playerbis)
 {
 	int		index;
-	double	fov_width;
 
-	fov_width = cub->settings->fov_width;
 	index = -1;
 	while (++index < WIN_WIDTH)
 	{
-		cub->rays[index].preangle = atan((WIN_WIDTH_2 - index) / fov_width);
+		player->rays[index].preangle = atan((WIN_WIDTH_2 - index) / fov_width);
+		if (playerbis)
+			playerbis->rays[index].preangle = atan((WIN_WIDTH_2 - index) / fov_width);
 	}
 }

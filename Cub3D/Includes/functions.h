@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/26 19:49:33 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/27 15:13:01 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		fill_old_minimap(t_cub *cub);
 void		clear_render(t_img *canva, unsigned int cols[2], t_cub *cub);
 void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
 void		setup_rendermap(t_img *canva, t_set *settings);
-void		render_ground(t_img *img, t_cub *cub, t_vert *pxl, double alpha);
+void		render_ground(t_img *img, t_cub *cub, t_vert *pxl, double alpha, t_player *player);
 
 void		add_fps(t_mlx *mlx, t_set *settings, t_player *player);
 
@@ -51,22 +51,17 @@ int			mouse_move(int x, int y, t_cub *cub);
 int			redraw_all(t_cub *cub);
 int			mlx_exit(void *param);
 
-void		ray_walling(t_wall *walls, t_ray *ray);
-void		ray_dooring(t_door *doors, t_ray *ray);
-void		ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub);
-void		ray_objing(t_obj *objs, t_ray *ray);
-void		ray_posting(t_post *posts, t_ray *ray);
-t_vert		get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4);
-
-void		try_door(t_player *player, t_door *doors);
-void		update_doors(t_door *doors, t_key *key);
-void		update_anim_frames(t_map *map, t_key *keys, int fps);
-
 double		get_dist(t_vert pt1, t_vert pt2);
 void		set_point(t_vert *pt, double x, double y, double z);
 void		set_point_follow(t_vert *pt, t_vert *pt2, t_map *map, t_set *settings);
 int			in_circle(t_vert *pt, double x, double y, double radius);
-void		set_ray_angles(t_cub *cub);
+void		set_ray_angles(double fov_width, t_player *player, t_player *playerbis);
+
+//MultiPlayer
+int			key_down_2p(int kcode, t_cub *cub);
+int			key_released_2p(int kcode, t_cub *cub);
+int			redraw_all_2p(t_cub *cub);
+void		clear_render_2p(t_img *canva, unsigned int cols[2], t_cub *cub);
 
 // Outputs
 int			output_error(char *msg);
@@ -103,5 +98,18 @@ void		load_frame(t_map *map);
 int			set_portal(t_map *map, t_parsing *line, int x, int y);
 int			link_portals(t_map *map);
 int			link_empty(t_map *map);
+
+//RayCasting
+void		ray_walling(t_wall *walls, t_ray *ray);
+void		ray_dooring(t_door *doors, t_ray *ray);
+void		ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub);
+void		ray_objing(t_obj *objs, t_ray *ray);
+void		ray_posting(t_post *posts, t_ray *ray);
+t_vert		get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4);
+
+void		try_door(t_player *player, t_door *doors);
+void		update_doors(t_door *doors, t_key *key);
+void		update_anim_frames(t_map *map, t_key *keys, int fps);
+
 
 #endif
