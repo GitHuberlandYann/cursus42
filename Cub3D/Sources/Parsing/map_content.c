@@ -98,6 +98,7 @@ static void	init_player(t_map *map, t_parsing *p_line)
 	map->player->pos.x = index;
 	map->player->pos.y = p_line->line_number;
 	map->player->pos.z = 0;
+	map->player->other = 0;
 	if (p_line->line[index] == 'E')
 		map->player->direction = 0;
 	else if (p_line->line[index] == 'N')
@@ -107,6 +108,11 @@ static void	init_player(t_map *map, t_parsing *p_line)
 	else if (p_line->line[index] == 'S')
 		map->player->direction = -M_PI / 2;
 	map->player->speed = 0.1;
+	map->player->obj = ft_malloc(sizeof(*map->player->obj), __func__);
+	map->player->obj->type = HUMAN;
+	map->player->obj->fdf = 0;
+	map->player->obj->next = 0;
+	map->player->obj->last = 0;
 }
 
 static void	init_playerbis(t_map *map, t_parsing *p_line)
@@ -123,6 +129,8 @@ static void	init_playerbis(t_map *map, t_parsing *p_line)
 	map->playerbis->pos.x = index;
 	map->playerbis->pos.y = p_line->line_number;
 	map->playerbis->pos.z = 0;
+	map->player->other = map->playerbis;
+	map->playerbis->other = map->player;
 	if (p_line->line[index] == 'E')
 		map->playerbis->direction = 0;
 	else if (p_line->line[index] == 'N')
@@ -132,6 +140,11 @@ static void	init_playerbis(t_map *map, t_parsing *p_line)
 	else if (p_line->line[index] == 'S')
 		map->playerbis->direction = -M_PI / 2;
 	map->playerbis->speed = 0.1;
+	map->playerbis->obj = ft_malloc(sizeof(*map->playerbis->obj), __func__);
+	map->playerbis->obj->type = HUMAN;
+	map->playerbis->obj->fdf = 0;
+	map->playerbis->obj->next = 0;
+	map->playerbis->obj->last = 0;
 }
 
 		// printf("curr map line : %s", map->line);

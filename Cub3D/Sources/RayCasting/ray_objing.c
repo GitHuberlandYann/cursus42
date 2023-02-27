@@ -102,7 +102,62 @@ static t_line	set_obj_line(t_obj *obj, t_ray *ray)
 	return (res);
 }
 
-void	ray_objing(t_obj *objs, t_ray *ray)
+static void	ray_add_other_player(t_ray *ray, t_vert *inter, t_obj *obj, double dist)
+{
+	t_obj	*objs;
+
+	obj->u = inter->z - 1;
+	obj->dist = dist;
+	obj->next_ray = 0;
+	obj->last_ray = 0;
+	if (!ray->objs)
+		ray->objs = obj;
+	else if (dist > ray->objs->dist)
+	{
+		obj->next_ray = ray->objs;
+		ray->objs = obj;
+	}
+	else
+	{
+		objs = ray->objs;
+		while (objs->next_ray)
+		{
+			if (dist > objs->next_ray->dist)
+			{
+				obj->next_ray = objs->next_ray;
+				objs->next_ray = obj;
+				break;
+			}
+			objs = objs->next_ray;
+		}
+		if (!objs->next_ray)
+			objs->next_ray = obj;
+	}
+	if (dist < ray->mdist)
+		ray->mdist = dist;
+}
+
+static void	ray_other_player(t_player *other, t_ray *ray, t_vert pt4)
+{
+	double	angle;
+	t_vert	intersection;
+	double	dist;
+
+	angle = atan2((ray->ray.pt1.y - other->pos.y), (other->pos.x - ray->ray.pt1.x));
+	set_point(&other->obj->oline.pt1, other->pos.x - cos(angle) * 0.2 + cos(angle + M_PI_2) * 0.5,
+		other->pos.y + sin(angle) * 0.2 - sin(angle + M_PI_2) * 0.5, 0);
+	set_point(&other->obj->oline.pt2, other->pos.x - cos(angle) * 0.2 + cos(angle - M_PI_2) * 0.5,
+		other->pos.y + sin(angle) * 0.2 - sin(angle - M_PI_2) * 0.5, 0);
+	intersection = get_inter(ray, pt4, other->obj->oline.pt1, other->obj->oline.pt2);
+	if (intersection.z)
+	{
+		dist = get_dist(ray->ray.pt1, intersection);
+		if (dist < ray->dist)
+			ray_add_other_player(ray, &intersection, other->obj, dist);
+	}
+}
+
+void	ray_objing(t_obj *objs, t_player *other, t_ray *ray)
 {
 	t_vert	pt4;
 	t_line	obj_line;
@@ -126,4 +181,6 @@ void	ray_objing(t_obj *objs, t_ray *ray)
 	}
 	if (ray->objs)
 		sort_ray_obj(ray->objs);
+	if (other)
+		ray_other_player(other, ray, pt4);
 }

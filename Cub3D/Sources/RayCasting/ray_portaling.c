@@ -49,7 +49,7 @@ static void	extend_ray(t_ray *ray, t_cub *cub, t_portal *in)
 	ray_walling(cub->map->walls, &pray);
 	ray_dooring(cub->map->doors, &pray);
 	ray_posting(cub->map->posts, &pray);
-	ray_objing(cub->map->objs, &pray);
+	ray_objing(cub->map->objs, 0, &pray);
 	// if (pray.recurse_level < cub->settings->recurse_level)
 	// 	ray_portaling(cub->map->portals, &pray, cub);
 	ray->objs = pray.objs;

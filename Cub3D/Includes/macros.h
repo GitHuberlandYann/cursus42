@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/27 14:12:48 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:13:10 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ typedef enum e_objtype {
 	POST,
 	CUST,
 	WIN, 
-	FDF
+	FDF,
+	HUMAN
 }				t_objtype;
 
 typedef enum e_doorstate {

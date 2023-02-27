@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/27 14:54:53 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:09:37 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,12 @@ typedef struct s_ray
 }				t_ray;
 
 typedef struct s_player {
-	t_vert	pos;
-	double	direction;
-	double	speed;
-	t_ray	rays[WIN_WIDTH];
+	t_vert			pos;
+	double			direction;
+	double			speed;
+	t_ray			rays[WIN_WIDTH];
+	t_obj			*obj;
+	struct s_player	*other;
 }				t_player;
 
 typedef struct s_map {

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/27 15:13:01 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:11:53 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int			link_empty(t_map *map);
 void		ray_walling(t_wall *walls, t_ray *ray);
 void		ray_dooring(t_door *doors, t_ray *ray);
 void		ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub);
-void		ray_objing(t_obj *objs, t_ray *ray);
+void		ray_objing(t_obj *objs, t_player *other, t_ray *ray);
 void		ray_posting(t_post *posts, t_ray *ray);
 t_vert		get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4);
 

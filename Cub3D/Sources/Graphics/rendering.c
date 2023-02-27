@@ -108,6 +108,8 @@ static void	draw_hit_obj(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 			draw_wall_vert(img, &start, cub->mlx->obj_textures[WIN], obj->u);
 		else if (obj->type == FDF)
 			draw_wall_vert(img, &start, obj->fdf->canva, obj->u);
+		else if (obj->type == HUMAN)
+			draw_wall_vert(img, &start, cub->mlx->textures[NO], obj->u);
 		obj = obj->next_ray;
 	}
 }
@@ -133,7 +135,7 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		ray_dooring(map->doors, &player->rays[index]);
 		ray_posting(map->posts, &player->rays[index]);
 		ray_portaling(map->portals, &player->rays[index], cub);
-		ray_objing(map->objs, &player->rays[index]);
+		ray_objing(map->objs, player->other, &player->rays[index]);
 		// printf("[%lf,%lf]-[%lf,%lf]\n", ray.ray.pt1.x, ray.ray.pt1.y, ray.ray.pt2.x, ray.ray.pt2.y);
 		draw_hit(img, &player->rays[index], cub, index, player);
 		draw_hit_obj(img, &player->rays[index], cub, index);
