@@ -16,9 +16,13 @@ OBJS_DIR_SOURCES = Objs/Sources
 
 FILES = main
 
-FILES_GRAPHICS = animation exec_keys image floor_casting keys math_utils \
-				minimap mlx_manager mouse ray_casting \
-				ray_dooring ray_objing ray_portaling ray_posting rendering timer
+FILES_FDF = angles parse_obj parse_pos parse_utils rendering
+
+FILES += $(addprefix Fdf/, $(FILES_FDF))
+
+FILES_GRAPHICS = animation exec_keys image keys math_utils \
+				minimap mlx_manager mouse \
+				rendering timer
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
 
@@ -31,9 +35,10 @@ FILES_PARSING = add_wall animated_wall animation colors custom doors flood_fill 
 
 FILES += $(addprefix Parsing/, $(FILES_PARSING))
 
-FILES_FDF = angles parse_obj parse_pos parse_utils rendering
+FILES_RAYCASTING = floor_casting ray_casting ray_dooring ray_objing \
+					ray_portaling ray_posting
 
-FILES += $(addprefix Fdf/, $(FILES_FDF))
+FILES += $(addprefix RayCasting/, $(FILES_RAYCASTING))
 
 Sources = $(addprefix Sources/, $(addsuffix .c, $(FILES)))
 
@@ -74,10 +79,11 @@ all: $(OBJS_DIR) $(NAME)
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR_SOURCES)
+	@mkdir -p $(OBJS_DIR_SOURCES)/Fdf
 	@mkdir -p $(OBJS_DIR_SOURCES)/Graphics
 	@mkdir -p $(OBJS_DIR_SOURCES)/Outputs
 	@mkdir -p $(OBJS_DIR_SOURCES)/Parsing
-	@mkdir -p $(OBJS_DIR_SOURCES)/Fdf
+	@mkdir -p $(OBJS_DIR_SOURCES)/RayCasting
 
 $(NAME): $(OBJS) libs
 	$(CC) $(SAN) $(OBJS) -o $(NAME) $(MLX) $(LIBFT) $(MATH)
