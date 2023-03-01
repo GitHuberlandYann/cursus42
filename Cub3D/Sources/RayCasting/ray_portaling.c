@@ -30,7 +30,7 @@ static void	get_linked(t_portal *portals, t_ray *ray, t_ray *pray, t_portal *in)
 	exit(output_error("no link ????\n"));
 }
 
-static void	extend_ray(t_ray *ray, t_cub *cub, t_portal *in)
+static void	extend_ray(t_ray *ray, t_cub *cub, t_player *other, t_portal *in)
 {
 	t_obj	*objs;
 	t_ray	pray;
@@ -49,7 +49,7 @@ static void	extend_ray(t_ray *ray, t_cub *cub, t_portal *in)
 	ray_walling(cub->map->walls, &pray);
 	ray_dooring(cub->map->doors, &pray);
 	ray_posting(cub->map->posts, &pray);
-	ray_objing(cub->map->objs, 0, &pray);
+	ray_objing(cub->map->objs, other, &pray);
 	// if (pray.recurse_level < cub->settings->recurse_level)
 	// 	ray_portaling(cub->map->portals, &pray, cub);
 	ray->objs = pray.objs;
@@ -67,7 +67,7 @@ static void	extend_ray(t_ray *ray, t_cub *cub, t_portal *in)
 	ray->fhit = PORTAL;
 }
 
-void	ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub)
+void	ray_portaling(t_portal *portals, t_ray *ray, t_player *other, t_cub *cub)
 {
 	t_vert	pt4;
 	t_vert	intersection;
@@ -96,5 +96,5 @@ void	ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub)
 		portals = portals->next;
 	}
 	if (ray->hit == PORTAL && in)
-		extend_ray(ray, cub, in);
+		extend_ray(ray, cub, other, in);
 }

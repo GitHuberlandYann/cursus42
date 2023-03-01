@@ -26,7 +26,7 @@ FILES_GRAPHICS = animation exec_keys image keys math_utils \
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
 
-FILES_MULTIPLAYER = exec_keys keys
+FILES_MULTIPLAYER = exec_keys keys load_images precompute
 
 FILES += $(addprefix MultiPlayer/, $(FILES_MULTIPLAYER))
 
@@ -39,7 +39,7 @@ FILES_PARSING = add_wall animated_wall animation colors custom doors flood_fill 
 
 FILES += $(addprefix Parsing/, $(FILES_PARSING))
 
-FILES_RAYCASTING = floor_casting ray_casting ray_dooring ray_objing \
+FILES_RAYCASTING = floor_casting precompute ray_casting ray_dooring ray_objing \
 					ray_portaling ray_posting
 
 FILES += $(addprefix RayCasting/, $(FILES_RAYCASTING))

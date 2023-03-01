@@ -48,6 +48,11 @@ static int	add_line(t_parsing **lines, char *line, int line_number)
 		{
 			(*lines)->player_line = (*lines)->last;
 			(*lines)->player_line->line_number = line_number;
+			if ((*lines)->last->player_count == 2)
+			{
+				(*lines)->playerbis_line = (*lines)->last;
+				(*lines)->playerbis_line->line_number = line_number;
+			}
 		}
 		else
 		{
@@ -79,7 +84,7 @@ static int	error_check(t_map *map, t_parsing *lines)
 		while (index > 0
 			&& !ft_strchr("NSWE", lines->playerbis_line->line[index]))
 			--index;
-		if (flood_fill(lines->playerbis_line, index))
+		if (ft_strchr("NSWE", lines->playerbis_line->line[index]) && flood_fill(lines->playerbis_line, index))
 			return (output_error(MSG_UNCLOSEDBIS));
 	}
 	return (0);
@@ -95,9 +100,8 @@ static void	init_player(t_map *map, t_parsing *p_line)
 	while (p_line->line[index]
 		&& !ft_strchr("NSWE", p_line->line[index]))
 		++index;
-	map->player->pos.x = index;
-	map->player->pos.y = p_line->line_number;
-	map->player->pos.z = 0;
+	set_point(&map->player->pos, index, p_line->line_number, 0);
+	map->player->state = IDLE;
 	map->player->other = 0;
 	if (p_line->line[index] == 'E')
 		map->player->direction = 0;
@@ -126,9 +130,8 @@ static void	init_playerbis(t_map *map, t_parsing *p_line)
 	--index;
 	while (index > 0 && !ft_strchr("NSWE", p_line->line[index]))
 		--index;
-	map->playerbis->pos.x = index;
-	map->playerbis->pos.y = p_line->line_number;
-	map->playerbis->pos.z = 0;
+	set_point(&map->playerbis->pos, index, p_line->line_number, 0);
+	map->playerbis->state = IDLE;
 	map->player->other = map->playerbis;
 	map->playerbis->other = map->player;
 	if (p_line->line[index] == 'E')
@@ -173,7 +176,7 @@ int	read_map(t_map *map, int fd)
 	if (map->player_count == 2)
 		init_playerbis(map, lines->playerbis_line);
 	if (error_check(map, lines))
-		return (free_return_lines(lines, map, map->player_count == 1));
+		return (free_return_lines(lines, map, map->player_count > 0));
 	create_walls(map, lines);
 	// console_map_content(map);
 	return (!map->walls);

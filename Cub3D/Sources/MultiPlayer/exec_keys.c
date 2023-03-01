@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_keys.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:04:12 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/27 16:31:43 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:20:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 	wall_sensor.dist = 10000;
 	wall_sensor.pdist = 10000;
 	wall_sensor.fhit = CUT;
-	if (keys->vertical)
+	if (keys->vertical && player->state != DEAD)
 	{
 		set_point(&wall_sensor.ray.pt1, player->pos.x, player->pos.y, 0);
 		wall_sensor.angle = player->direction + M_PI * (keys->vertical == -1);
@@ -28,7 +28,7 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 		ray_walling(cub->map->walls, &wall_sensor);
 		ray_dooring(cub->map->doors, &wall_sensor);
 		ray_posting(cub->map->posts, &wall_sensor);
-		ray_portaling(cub->map->portals, &wall_sensor, cub);
+		ray_portaling(cub->map->portals, &wall_sensor, player->other, cub);
 		ray_objing(cub->map->objs, player->other, &wall_sensor);
 		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < player->speed * (1 + keys->sprint) && wall_sensor.dist > player->speed * (1 + keys->sprint))
 		{
@@ -41,7 +41,10 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 			player->pos.x += cos(player->direction) * player->speed * (1 + keys->sprint) * keys->vertical;
 			player->pos.y -= sin(player->direction) * player->speed * (1 + keys->sprint) * keys->vertical;
 		}
+		player->state = RUNNING;
 	}
+	else
+		player->state = IDLE;
 }
 
 static void	move_playerbis(t_key *keys, t_cub *cub, t_player *player)
@@ -51,7 +54,7 @@ static void	move_playerbis(t_key *keys, t_cub *cub, t_player *player)
 	wall_sensor.dist = 10000;
 	wall_sensor.pdist = 10000;
 	wall_sensor.fhit = CUT;
-	if (keys->verticalbis)
+	if (keys->verticalbis && player->state != DEAD)
 	{
 		set_point(&wall_sensor.ray.pt1, player->pos.x, player->pos.y, 0);
 		wall_sensor.angle = player->direction + M_PI * (keys->verticalbis == -1);
@@ -60,7 +63,7 @@ static void	move_playerbis(t_key *keys, t_cub *cub, t_player *player)
 		ray_walling(cub->map->walls, &wall_sensor);
 		ray_dooring(cub->map->doors, &wall_sensor);
 		ray_posting(cub->map->posts, &wall_sensor);
-		ray_portaling(cub->map->portals, &wall_sensor, cub);
+		ray_portaling(cub->map->portals, &wall_sensor, player->other, cub);
 		ray_objing(cub->map->objs, player->other, &wall_sensor);
 		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < player->speed * (1 + keys->sprintbis) && wall_sensor.dist > player->speed * (1 + keys->sprintbis))
 		{
@@ -73,7 +76,10 @@ static void	move_playerbis(t_key *keys, t_cub *cub, t_player *player)
 			player->pos.x += cos(player->direction) * player->speed * (1 + keys->sprintbis) * keys->verticalbis;
 			player->pos.y -= sin(player->direction) * player->speed * (1 + keys->sprintbis) * keys->verticalbis;
 		}
+		player->state = RUNNING;
 	}
+	else
+		player->state = IDLE;
 }
 
 static void	exec_keys(t_key *keys, t_cub *cub)
@@ -102,7 +108,7 @@ int	redraw_all_2p(t_cub *cub)
 
 	key = cub->mlx->keys;
 	update_doors(cub->map->doors, key);
-	update_anim_frames(cub->map, key, cub->mlx->fps);
+	update_anim_frames(cub->map, cub->mlx, key, cub->mlx->fps);
 	if (!key->vertical && !key->verticalbis && !key->steering && !key->fov_width
 		&& !key->steeringbis && !key->mousedate && !key->dist_feel)
 		return (1);
@@ -113,8 +119,12 @@ int	redraw_all_2p(t_cub *cub)
 	clear_render(cub->mlx->render3d, cub->map->fc_colors, cub);
 	clear_render(cub->mlx->render3dbis, cub->map->fc_colors, cub);
 	render_fdf(cub->map->objs, &cub->map->player->pos);
+	precompute_other_player(cub->map->player, cub->map->playerbis);
+	precompute_obj_lines(&cub->map->player->pos, cub->map->objs);
 	render_map(cub->mlx->render3d, cub->map->player, cub->map, cub);
 	render_fdf(cub->map->objs, &cub->map->playerbis->pos);
+	precompute_other_player(cub->map->playerbis, cub->map->player);
+	precompute_obj_lines(&cub->map->playerbis->pos, cub->map->objs);
 	render_map(cub->mlx->render3dbis, cub->map->playerbis, cub->map, cub);
 	mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
 		cub->mlx->render3d->img_ptr, 0, 0);

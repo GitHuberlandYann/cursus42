@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/27 16:11:53 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:18:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ int			key_down_2p(int kcode, t_cub *cub);
 int			key_released_2p(int kcode, t_cub *cub);
 int			redraw_all_2p(t_cub *cub);
 void		clear_render_2p(t_img *canva, unsigned int cols[2], t_cub *cub);
+void		precompute_other_player(t_player *player, t_player *other);
+
+void		load_player_imgs(t_mlx *mlx);
 
 // Outputs
 int			output_error(char *msg);
@@ -102,14 +105,14 @@ int			link_empty(t_map *map);
 //RayCasting
 void		ray_walling(t_wall *walls, t_ray *ray);
 void		ray_dooring(t_door *doors, t_ray *ray);
-void		ray_portaling(t_portal *portals, t_ray *ray, t_cub *cub);
+void		ray_portaling(t_portal *portals, t_ray *ray, t_player *other, t_cub *cub);
+void		precompute_obj_lines(t_vert *pos, t_obj *objs);
 void		ray_objing(t_obj *objs, t_player *other, t_ray *ray);
 void		ray_posting(t_post *posts, t_ray *ray);
 t_vert		get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4);
 
 void		try_door(t_player *player, t_door *doors);
 void		update_doors(t_door *doors, t_key *key);
-void		update_anim_frames(t_map *map, t_key *keys, int fps);
-
+void		update_anim_frames(t_map *map, t_mlx *mlx,  t_key *keys, int fps);
 
 #endif

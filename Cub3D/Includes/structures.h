@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/27 17:09:37 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:54:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct s_obj {
 	int				size;
 	double			u;
 	double			dist;
+	int				angle_index;
+	t_state			state;
 	t_fdf			*fdf;
 	struct s_obj	*next;
 	struct s_obj	*last;
@@ -120,6 +122,7 @@ typedef struct s_ray
 typedef struct s_player {
 	t_vert			pos;
 	double			direction;
+	t_state			state;
 	double			speed;
 	t_ray			rays[WIN_WIDTH];
 	t_obj			*obj;
@@ -183,8 +186,14 @@ typedef struct s_mlx
 	t_img	*(fc_textures[2]);
 	t_img	*(ds_textures[2]);
 	t_img	*(obj_textures[5]);
+	t_img	*(player_idle[8]);
+	t_img	*(player_death[5]);
+	t_img	*(player_shoot[4]);
+	t_img	*(player_run[8][4]);
 	t_key	*keys;
 	t_vert	mouse_pos;
+	double	frame_count;
+	int		curr_frame;
 	int		fps;
 	char	fpstr[15];
 }				t_mlx;

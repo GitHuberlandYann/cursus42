@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/27 17:13:10 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:21:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@
 # define PSIZE 5
 # define ANIM_FPS 12
 
+# include <math.h>
+# define M_PI_8 M_PI_4 / 2
+
 // Enums
 typedef enum e_side {
 	EA,
@@ -148,6 +151,13 @@ typedef enum e_doorstate {
 	CLOSING,
 	OPENING
 }				t_doorstate;
+
+typedef enum e_state {
+	IDLE,
+	RUNNING,
+	SHOOTING,
+	DEAD
+}				t_state;
 
 enum {	//events supported on mac (only a fraction of what can be found on x11)
 	ON_KEYDOWN = 2,

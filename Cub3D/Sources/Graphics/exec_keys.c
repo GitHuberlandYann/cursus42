@@ -42,7 +42,7 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 		ray_walling(cub->map->walls, &wall_sensor);
 		ray_dooring(cub->map->doors, &wall_sensor);
 		ray_posting(cub->map->posts, &wall_sensor);
-		ray_portaling(cub->map->portals, &wall_sensor, cub);
+		ray_portaling(cub->map->portals, &wall_sensor, 0, cub);
 		ray_objing(cub->map->objs, player->other, &wall_sensor);
 		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < player->speed * (1 + keys->sprint) && wall_sensor.dist > player->speed * (1 + keys->sprint))
 		{
@@ -65,7 +65,7 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 		ray_walling(cub->map->walls, &wall_sensor);
 		ray_dooring(cub->map->doors, &wall_sensor);
 		ray_posting(cub->map->posts, &wall_sensor);
-		ray_portaling(cub->map->portals, &wall_sensor, cub);
+		ray_portaling(cub->map->portals, &wall_sensor, 0, cub);
 		ray_objing(cub->map->objs, player->other, &wall_sensor);
 		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < player->speed * (1 + keys->sprint) && wall_sensor.dist > player->speed * (1 + keys->sprint))
 		{
@@ -115,7 +115,7 @@ int	redraw_all(t_cub *cub)
 
 	key = cub->mlx->keys;
 	update_doors(cub->map->doors, key);
-	update_anim_frames(cub->map, key, cub->mlx->fps);
+	update_anim_frames(cub->map, cub->mlx, key, cub->mlx->fps);
 	if (!key->horizontal && !key->vertical && !key->steering && !key->fov_width
 		&& key->fov_enable != 1 && !key->fov_dist && key->mini_follow != 1
 		&& !key->mousedate && key->mini_enable != 1
@@ -128,6 +128,7 @@ int	redraw_all(t_cub *cub)
 		move_god(key, cub->map->player);
 	exec_keys(key, cub);
 	render_fdf(cub->map->objs, &cub->map->player->pos);
+	precompute_obj_lines(&cub->map->player->pos, cub->map->objs);
 	clear_render(cub->mlx->render3d, cub->map->fc_colors, cub);
 	render_map(cub->mlx->render3d, cub->map->player, cub->map, cub);
 	if (cub->settings->mini_enable)

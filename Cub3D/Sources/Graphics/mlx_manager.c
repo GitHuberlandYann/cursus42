@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/27 14:51:38 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:52:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ static void	ft_img_init(t_mlx *mlx, t_map *map)
 		anims->str = 0;
 		anims = anims->next;
 	}
+	if (map->playerbis)
+		load_player_imgs(mlx);
 }
 
 static t_mlx	*ft_mlx_init(char *title, t_map *map)
@@ -112,6 +114,8 @@ static t_mlx	*ft_mlx_init(char *title, t_map *map)
 	mlx->keys->doorbis = 0;
 	mlx->keys->godmode = 0;
 	mlx->mouse_pos.z = 1;
+	mlx->frame_count = 0;
+	mlx->curr_frame = 0;
 	mlx->fps = 30;
 	ft_strcpy(mlx->fpstr, "fps : ");
 	return (mlx);
