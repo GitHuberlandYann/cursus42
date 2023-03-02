@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/01 18:18:52 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/02 14:19:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,12 @@ int			link_portals(t_map *map);
 int			link_empty(t_map *map);
 
 //RayCasting
+void		precompute_obj_lines(t_vert *pos, t_obj *objs);
+void		precompute_floor_ceilling(t_player *player, t_img *(fc_textures[2]));
+
 void		ray_walling(t_wall *walls, t_ray *ray);
 void		ray_dooring(t_door *doors, t_ray *ray);
 void		ray_portaling(t_portal *portals, t_ray *ray, t_player *other, t_cub *cub);
-void		precompute_obj_lines(t_vert *pos, t_obj *objs);
 void		ray_objing(t_obj *objs, t_player *other, t_ray *ray);
 void		ray_posting(t_post *posts, t_ray *ray);
 t_vert		get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4);

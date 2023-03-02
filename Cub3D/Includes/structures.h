@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/01 17:54:31 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/02 14:27:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,42 @@
 # define STRUCTURES_H
 
 # include "macros.h"
-# include "fdf.h"
+
+typedef struct s_vertice
+{
+	double				x;
+	double				y;
+	double				z;
+	struct s_vertice	*next;
+}				t_vertice;
+
+typedef struct s_face
+{
+	int					poly;
+	struct s_vertice	face[4];
+	struct s_face		*next;
+}				t_face;
+
+typedef struct s_angles
+{
+	double	alpha;
+	double	beta;
+	double	gamma;
+	double	sa;
+	double	ca;
+	double	sb;
+	double	cb;
+	double	sg;
+	double	cg;
+}				t_angles;
+
+typedef struct s_fdfmap
+{
+	t_vertice	*vert;
+	t_face		*faces;
+	t_vertice	*vert_last;
+	t_face		*faces_last;
+}				t_fdfmap;
 
 typedef struct s_vert
 {
@@ -69,6 +104,30 @@ typedef struct s_portal {
 	struct s_portal	*next;
 	struct s_portal	*last;
 }				t_portal;
+
+typedef struct s_img {
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		bytes_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+	t_vert	atplayer;
+}				t_img;
+
+typedef struct s_fdf {
+	t_vertice		pos;
+	int				size;
+	int				offset_x;
+	int				offset_y;
+	t_angles		angles;
+	t_img			*canva;
+	t_fdfmap		map;
+	struct s_fdf	*next;
+	struct s_fdf	*last;
+}				t_fdf;
 
 typedef struct s_obj {
 	t_objtype		type;

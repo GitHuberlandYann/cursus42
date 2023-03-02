@@ -20,24 +20,28 @@ void	render_ground(t_img *img, t_cub *cub, t_vert *pxl, double alpha, t_player *
 	t_vert		floor_pt;
 	t_vert		cosin;
 	unsigned	color;
+	t_img		*(fc_textures[2]);
 
 	cosin.x = cos(alpha);
 	cosin.y = sin(alpha);
 	cosin.z = cos(alpha - player->direction);
+	row = pxl->y - img->height / 2;
+	fc_textures[FLOOR] = cub->mlx->fc_textures[FLOOR];
+	fc_textures[CEILLING] = cub->mlx->fc_textures[CEILLING];
 	while (pxl->y < img->height)
 	{
-		row = pxl->y - img->height / 2;
-		straight_dist = img->height / 2 * cub->mlx->fc_textures[FLOOR]->width * (2 - cub->settings->dist_feel) / row;
+		straight_dist = img->height / 2 * fc_textures[FLOOR]->width * (2 - cub->settings->dist_feel) / row;
 		dist = straight_dist / cosin.z;
-		floor_pt.x = fabs(fmod(player->pos.x * cub->mlx->fc_textures[FLOOR]->width + cosin.x * dist + cub->mlx->fc_textures[FLOOR]->width / 2, cub->mlx->fc_textures[FLOOR]->width));
-		floor_pt.y = fabs(fmod(player->pos.y * cub->mlx->fc_textures[FLOOR]->height - cosin.y * dist + cub->mlx->fc_textures[FLOOR]->height / 2, cub->mlx->fc_textures[FLOOR]->height));
-		color = mlx_pxl_get(cub->mlx->fc_textures[FLOOR], floor_pt.x, floor_pt.y);
+		floor_pt.x = fabs(ft_fmod(fc_textures[FLOOR]->atplayer.x + cosin.x * dist, fc_textures[FLOOR]->width));
+		floor_pt.y = fabs(ft_fmod(fc_textures[FLOOR]->atplayer.y - cosin.y * dist, fc_textures[FLOOR]->height));
+		color = mlx_pxl_get(fc_textures[FLOOR], floor_pt.x, floor_pt.y);
 		mlx_pxl_put(img, pxl->x, pxl->y, color);
-		if (cub->mlx->fc_textures[CEILLING])
+		if (fc_textures[CEILLING])
 		{
-			color = mlx_pxl_get(cub->mlx->fc_textures[CEILLING], floor_pt.x, floor_pt.y);
+			color = mlx_pxl_get(fc_textures[CEILLING], floor_pt.x, floor_pt.y);
 			mlx_pxl_put(img, pxl->x, img->height - pxl->y, color);
 		}
 		++pxl->y;
+		++row;
 	}
 }

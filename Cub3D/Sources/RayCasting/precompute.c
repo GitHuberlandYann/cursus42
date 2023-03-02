@@ -1,5 +1,13 @@
 #include "cub3d.h"
 
+void	precompute_floor_ceilling(t_player *player, t_img *(fc_textures[2]))
+{
+	if (!fc_textures[FLOOR])
+		return ;
+	fc_textures[FLOOR]->atplayer.x = (player->pos.x + 0.5) * fc_textures[FLOOR]->width;
+	fc_textures[FLOOR]->atplayer.y = (player->pos.y + 0.5) * fc_textures[FLOOR]->height;
+}
+
 void	precompute_obj_lines(t_vert *pos, t_obj *objs)
 {
 	double	angle;

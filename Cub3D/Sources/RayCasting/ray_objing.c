@@ -17,7 +17,7 @@ static void	ray_add_obj(t_ray *ray, t_vert *inter, t_obj *obj, double dist)
 	// ray->dist = dist;
 	// ray->hit = NO;
 	if (obj->type == WIN)
-		obj->u = fmod((inter->z - 1) * obj->size, 1);
+		obj->u = ft_fmod((inter->z - 1) * obj->size, 1);
 	else
 		obj->u = inter->z - 1;
 	obj->dist = dist;

@@ -12,7 +12,7 @@ void	precompute_other_player(t_player *player, t_player *other)
 		other->pos.y + sin(angle) * 0.2 - sin(angle - M_PI_2) * 0.5, 0);
 	if (angle < -M_PI)
 		angle += 2 * M_PI;
-	dir = fmod(other->direction, 2 * M_PI);
+	dir = ft_fmod(other->direction, 2 * M_PI);
 	if (dir < -M_PI)
 		dir += 2 * M_PI;
 	else if (dir > M_PI)

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/01 16:21:28 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/02 15:14:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,17 @@
 # define MSG_DOORTEXTURE "Missing D/DS line, no texture for doors"
 # define MSG_OBJTEXTURE "Missing BT/PT/POSTT line, no texture for objs"
 # define MSG_ANIMTEXTURE "Missing FRAME line, no texture for animated walls"
+# define MSG_FDFDF "Failed to open map referenced by FDF line"
+# define MSG_FDFEMPTY "Map referenced by FDF line is empty"
+# define MSG_FDFVERT "Invalid line 'v' in fdf .obj file"
+# define MSG_FDFZEROPAD "Fdf double can't be zero-padded"
+# define MSG_FDF255 "Fdf double can't be greater than 255"
+# define MSG_FDFUNSET "Unset or incorrect Fdf double"
+# define MSG_FDFDECI255 "Fdf double's decimal part can't be greater than 255"
+# define MSG_FDFDECIUNSET "Unset or incorrect Fdf double's decimal part"
+# define MSG_FDFDOT "Missing '.' in Fdf double"
+# define MSG_FDFZERO "Object double can't be set at zero"
+# define MSG_FDFEND "Fdf line has unwanted elements ending it"
 
 # if __linux__
 #  define WIN_WIDTH 1800
@@ -109,10 +120,14 @@
 # define GREENISH 0x26E07
 # define TRANSPARENT 0xff000000
 
+# define WIN_FDFX 1000
+# define WIN_FDFX_2 500
+# define WIN_FDFY 1000
+# define WIN_FDFY_2 500
+
 # define PSIZE 5
 # define ANIM_FPS 12
 
-# include <math.h>
 # define M_PI_8 M_PI_4 / 2
 
 // Enums

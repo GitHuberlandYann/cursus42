@@ -25,7 +25,7 @@ void	solve_singular(t_ray *ray, t_vert *abc, double delta, double m, double p, t
 		set_point(&ray->ray.pt2, intersection.x + center->x, intersection.y + center->y, 0);
 		ray->dist = dist;
 		ray->hit = CIRCLE;
-		ray->u = fmod(acos(intersection.x / radius), 1);
+		ray->u = ft_fmod(acos(intersection.x / radius), 1);
 	}
 }
 
@@ -55,7 +55,7 @@ void	solve_dual(t_ray *ray, t_vert *abc, double delta, double m, double p, t_ver
 		set_point(&ray->ray.pt2, intersection.x + center->x, intersection.y + center->y, 0);
 		ray->dist = dist;
 		ray->hit = CIRCLE;
-		ray->u = fmod(acos(intersection.x / radius), 1);
+		ray->u = ft_fmod(acos(intersection.x / radius), 1);
 	}
 }
 

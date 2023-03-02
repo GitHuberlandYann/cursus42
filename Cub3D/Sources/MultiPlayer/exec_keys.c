@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:04:12 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/01 18:20:08 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/02 13:54:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,18 +113,18 @@ int	redraw_all_2p(t_cub *cub)
 		&& !key->steeringbis && !key->mousedate && !key->dist_feel)
 		return (1);
 	key->mousedate = 0;
-	move_player(key, cub, cub->map->player);
-	move_playerbis(key, cub, cub->map->playerbis);
 	exec_keys(key, cub);
 	clear_render(cub->mlx->render3d, cub->map->fc_colors, cub);
 	clear_render(cub->mlx->render3dbis, cub->map->fc_colors, cub);
-	render_fdf(cub->map->objs, &cub->map->player->pos);
-	precompute_other_player(cub->map->player, cub->map->playerbis);
 	precompute_obj_lines(&cub->map->player->pos, cub->map->objs);
+	move_player(key, cub, cub->map->player);
+	precompute_other_player(cub->map->player, cub->map->playerbis);
+	render_fdf(cub->map->objs, &cub->map->player->pos);
 	render_map(cub->mlx->render3d, cub->map->player, cub->map, cub);
-	render_fdf(cub->map->objs, &cub->map->playerbis->pos);
-	precompute_other_player(cub->map->playerbis, cub->map->player);
 	precompute_obj_lines(&cub->map->playerbis->pos, cub->map->objs);
+	move_playerbis(key, cub, cub->map->playerbis);
+	precompute_other_player(cub->map->playerbis, cub->map->player);
+	render_fdf(cub->map->objs, &cub->map->playerbis->pos);
 	render_map(cub->mlx->render3dbis, cub->map->playerbis, cub->map, cub);
 	mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
 		cub->mlx->render3d->img_ptr, 0, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 10:52:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/27 14:55:23 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/02 15:02:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ void	fill_minimap(t_cub *cub)
 	t_wall	*wall;
 	t_door	*door;
 
+	draw_stored_rays(cub->mlx->render3d, cub->map->player->rays, cub->map, cub->settings);
 	wall = cub->map->walls;
 	while (wall)
 	{
@@ -215,7 +216,6 @@ void	fill_minimap(t_cub *cub)
 	}
 	draw_portals(cub->mlx->render3d, cub->map, cub->settings);
 	draw_posts(cub->mlx->render3d, cub->map, cub->settings);
-	draw_stored_rays(cub->mlx->render3d, cub->map->player->rays, cub->map, cub->settings);
 	draw_player(cub->mlx->render3d, cub->settings);
 	add_north(cub->mlx->render3d, M_PI - cub->map->player->direction, cub->settings);
 }

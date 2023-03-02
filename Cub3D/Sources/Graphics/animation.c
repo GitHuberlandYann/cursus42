@@ -36,7 +36,7 @@ void	update_anim_frames(t_map *map, t_mlx *mlx, t_key *keys, int fps)
 	{
 		map->anims = map->anims->next;
 		map->anims->frame_count = 0;
-		keys->mousedate = 1;
 	}
+	keys->mousedate = 1;
 	update_player_frames(map, mlx, keys, fps);
 }

@@ -120,6 +120,7 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 {
 	int			index;
 
+	precompute_floor_ceilling(player, cub->mlx->fc_textures);
 	index = -1;
 	while (++index < WIN_WIDTH)
 	{

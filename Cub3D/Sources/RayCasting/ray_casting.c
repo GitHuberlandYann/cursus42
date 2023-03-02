@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 18:31:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/22 14:41:56 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/02 15:21:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ray_walling(t_wall *walls, t_ray *ray)
 				ray->ray.pt2 = intersection;
 				ray->dist = dist;
 				ray->hit = walls->wline.side;
-				ray->u = fmod((intersection.z - 1) * walls->size, 1);
+				ray->u = ft_fmod((intersection.z - 1) * walls->size, 1);
 			}
 		}
 		walls = walls->next;
