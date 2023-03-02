@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 12:41:11 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/03 13:55:35 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/02 15:16:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@
 # include <limits.h>
 # include <stdarg.h>
 # include <stdio.h>
+# include <math.h>
 
 void	ft_perror(const char *str);
 void	*ft_malloc(int size, const char *msg);
 // int		ft_max(int a, int b);
 // int		ft_min(int a, int b);
 // int		ft_abs(int nb);
+double	ft_fmod(double a, double b);
 void	ft_bzero(void *s, size_t n);
 void	ft_free_arr(char **arr);
 
