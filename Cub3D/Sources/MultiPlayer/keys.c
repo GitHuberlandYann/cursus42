@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:43:33 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/27 16:21:59 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:10:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	key_down_2p(int kcode, t_cub *cub)
 	else if (kcode == KEY_PLUS || kcode == KEY_MINUS)
 		cub->mlx->keys->fov_width = (kcode == KEY_PLUS) - (kcode == KEY_MINUS);
 	else if (kcode == KEY_PLUS_PAD || kcode == KEY_MINUS_PAD)
-		cub->mlx->keys->dist_feel = (kcode == KEY_PLUS_PAD) - (kcode == KEY_MINUS_PAD);
+		cub->mlx->keys->dist_feel = (kcode == KEY_PLUS_PAD)
+			- (kcode == KEY_MINUS_PAD);
 	else if (kcode == KEY_SPACE && ++cub->mlx->keys->doorbis == 1)
 		try_door(cub->map->playerbis, cub->map->doors);
 	else if (kcode == KEY_1 && ++cub->mlx->keys->door == 1)
@@ -39,9 +40,9 @@ int	key_down_2p(int kcode, t_cub *cub)
 	return (0);
 }
 
+	// printf("key %10d\n", kcode);
 int	key_released_2p(int kcode, t_cub *cub)
 {
-	// printf("key %10d\n", kcode);
 	if (kcode == KEY_UP || kcode == KEY_DOWN)
 		cub->mlx->keys->vertical = 0;
 	else if (kcode == KEY_W || kcode == KEY_S)

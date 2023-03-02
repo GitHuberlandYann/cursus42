@@ -62,23 +62,27 @@ static double	ft_atod(t_map *map, int *index, int sindex)
 	return (number);
 }
 
-static t_obj	*new_window(t_line line)
+static void	add_new_window(t_map *map, t_line line)
 {
-	t_obj	*res;
+	t_obj	*new;
 	double	size;
 
 	size = (int)get_dist(line.pt1, line.pt2);
 	if (!size)
-		return (0);
-	res = ft_malloc(sizeof(*res), "add_window");
-	res->type = WIN;
+		return ;
+	new = ft_malloc(sizeof(*new), "add_window");
+	new->type = WIN;
 	line.pt1.z = 0;
 	line.pt2.z = 0;
-	res->oline = line;
-	res->size = size;
-	res->next = 0;
-	res->last = 0;
-	return (res);
+	new->oline = line;
+	new->size = size;
+	new->next = 0;
+	new->last = 0;
+	if (!map->objs)
+		map->objs = new;
+	else
+		map->objs->last->next = new;
+	map->objs->last = new;
 }
 
 int	add_window(t_map *map)
@@ -101,17 +105,6 @@ int	add_window(t_map *map)
 		return (1);
 	if (!only_spaces(map, index))
 		return (output_error(MSG_WINDEND));
-	if (!map->objs)
-	{
-		map->objs = new_window(wline);
-		if (map->objs)
-			map->objs->last = map->objs;
-	}
-	else
-	{
-		map->objs->last->next = new_window(wline);
-		if (map->objs->last->next)
-			map->objs->last = map->objs->last->next;
-	}
+	add_new_window(map, wline);
 	return (0);
 }

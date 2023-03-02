@@ -25,7 +25,8 @@ static void	add_portal(t_map *map, int num, int link)
 	}
 	else
 	{
-		map->portals->last->next = ft_malloc(sizeof(*map->portals), "add_portal");
+		map->portals->last->next = ft_malloc(sizeof(*map->portals),
+				"add_portal");
 		map->portals->last = map->portals->last->next;
 		map->portals->last->num = num;
 		map->portals->last->link = link;

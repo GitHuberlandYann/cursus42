@@ -62,17 +62,21 @@ static double	ft_atod(t_map *map, int *index, int sindex)
 	return (number);
 }
 
-static t_post	*new_post(double x, double y, double radius)
+static void	add_new_post(t_map *map, double x, double y, double radius)
 {
-	t_post	*res;
+	t_post	*new;
 
-	res = ft_malloc(sizeof(*res), "add_post");
-	set_point(&res->center, x, y, 0);
-	res->radius = radius;
-	set_point(&res->squared, x * x, y * y, radius * radius);
-	res->next = 0;
-	res->last = 0;
-	return (res);
+	new = ft_malloc(sizeof(*new), "add_post");
+	set_point(&new->center, x, y, 0);
+	new->radius = radius;
+	set_point(&new->squared, x * x, y * y, radius * radius);
+	new->next = 0;
+	new->last = 0;
+	if (!map->posts)
+		map->posts = new;
+	else
+		map->posts->last->next = new;
+	map->posts->last = new;
 }
 
 int	add_post(t_map *map)
@@ -94,15 +98,6 @@ int	add_post(t_map *map)
 		return (1);
 	if (!only_spaces(map, index))
 		return (output_error(MSG_POSTEND));
-	if (!map->posts)
-	{
-		map->posts = new_post(x, y, radius);
-		map->posts->last = map->posts;
-	}
-	else
-	{
-		map->posts->last->next = new_post(x, y, radius);
-		map->posts->last = map->posts->last->next;
-	}
+	add_new_post(map, x, y, radius);
 	return (0);
 }

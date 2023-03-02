@@ -49,12 +49,6 @@ static int	load_texture_ds(t_map *map, int side)
 	return (0);
 }
 
-static int	free_return_line(char *line)
-{
-	free(line);
-	return (1);
-}
-
 int	line_from_map(char *str, int empty_allowed)
 {
 	int	index;

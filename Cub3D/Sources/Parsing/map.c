@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/26 18:56:02 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/02 17:34:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,100 +42,8 @@ static int	check_header(t_map *map, int res)
 	return (res);
 }
 
-static void	free_textures(t_map *map)
+static void	setup_map(t_map *map)
 {
-	void	*tmp;
-
-	free(map->textures[NO]);
-	free(map->textures[SO]);
-	free(map->textures[WE]);
-	free(map->textures[EA]);
-	free(map->fc_textures[FLOOR]);
-	free(map->fc_textures[CEILLING]);
-	free(map->ds_textures[0]);
-	free(map->ds_textures[1]);
-	free(map->obj_textures[BARREL]);
-	free(map->obj_textures[PILLAR]);
-	free(map->obj_textures[POST]);
-	free(map->obj_textures[CUST]);
-	free(map->obj_textures[WIN]);
-	while (map->portals)
-	{
-		tmp = map->portals;
-		map->portals = map->portals->next;
-		free(tmp);
-	}
-	while (map->objs)
-	{
-		if (map->objs->type == FDF)
-		{
-			while (map->objs->fdf->map.vert)
-			{
-				tmp = map->objs->fdf->map.vert;
-				map->objs->fdf->map.vert = map->objs->fdf->map.vert->next;
-				free(tmp);
-			}
-			while (map->objs->fdf->map.faces)
-			{
-				tmp = map->objs->fdf->map.faces;
-				map->objs->fdf->map.faces = map->objs->fdf->map.faces->next;
-				free(tmp);
-			}
-		}
-		tmp = map->objs;
-		map->objs = map->objs->next;
-		free(tmp);
-	}
-	while (map->walls)
-	{
-		tmp = map->walls;
-		map->walls = map->walls->next;
-		free(tmp);
-	}
-	while (map->posts)
-	{
-		tmp = map->posts;
-		map->posts = map->posts->next;
-		free(tmp);
-	}
-	while (map->anims)
-	{
-		tmp = map->anims;
-		free(map->anims->str);
-		map->anims->str = 0;
-		map->anims = map->anims->next;
-		free(tmp);
-		if (!map->anims->str)
-			break;
-	}
-}
-
-int	free_return_lines(t_parsing *lines, t_map *map, int free_player)
-{
-	t_parsing	*tmp;
-
-	if (free_player)
-		free(map->player);
-	while (lines)
-	{
-		free(lines->line);
-		tmp = lines;
-		lines = lines->next;
-		free(tmp);
-	}
-	return (1);
-}
-
-int	load_map(t_map *map, char *file)
-{
-	int	fd;
-	int	res;
-
-	if (check_filename(file))
-		return (1);
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		ft_perror(file);
 	map->line = 0;
 	map->textures[NO] = 0;
 	map->textures[SO] = 0;
@@ -158,6 +66,22 @@ int	load_map(t_map *map, char *file)
 	map->objs = 0;
 	map->posts = 0;
 	map->anims = 0;
+	map->portal_count = 0;
+	map->hasdoor = 0;
+	map->hasanimated = 0;
+}
+
+int	load_map(t_map *map, char *file)
+{
+	int	fd;
+	int	res;
+
+	if (check_filename(file))
+		return (1);
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		ft_perror(file);
+	setup_map(map);
 	res = read_first_lines(map, fd);
 	if (map->anims)
 		map->anims->last->next = map->anims;

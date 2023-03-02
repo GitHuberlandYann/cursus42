@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:04:12 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/02 13:54:01 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/02 16:16:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ static void	exec_keys(t_key *keys, t_cub *cub)
 		|| (keys->fov_width > 0 && cub->settings->fov_width < WIN_WIDTH * 2))
 	{
 		cub->settings->fov_width += 10 * keys->fov_width;
-		set_ray_angles(cub->settings->fov_width, cub->map->player, cub->map->playerbis);
+		set_ray_angles(cub->settings->fov_width, cub->map->player,
+			cub->map->playerbis);
 	}
 	if (keys->dist_feel)
 	{

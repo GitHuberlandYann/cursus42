@@ -73,14 +73,9 @@ int	load_map_fdf(t_map *map)
 	res->next = 0;
 	res->last = 0;
 	if (!map->objs)
-	{
 		map->objs = res;
-		map->objs->last = map->objs;
-	}
 	else
-	{
 		map->objs->last->next = res;
-		map->objs->last = map->objs->last->next;
-	}
+	map->objs->last = res;
 	return (read_map_fdf(map, &res->fdf->map));
 }

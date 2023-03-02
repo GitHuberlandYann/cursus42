@@ -62,25 +62,28 @@ static double	ft_atod(t_map *map, int *index, int sindex)
 	return (number);
 }
 
-static t_wall	*new_custom(t_line line)
+static void	add_new_custom(t_map *map, t_line line)
 {
-	t_wall	*res;
+	t_wall	*new;
 	double	size;
 
 	size = (int)get_dist(line.pt1, line.pt2);
 	if (!size)
-		return (0);
-	res = ft_malloc(sizeof(*res), "add_custom");
+		return ;
+	new = ft_malloc(sizeof(*new), "add_custom");
 	line.pt1.z = 0;
 	line.pt2.z = 0;
-	res->wline = line;
-	res->wline.side = CUSTOM;
-	res->size = size;
-	res->next = 0;
-	res->last = 0;
-	return (res);
+	new->wline = line;
+	new->wline.side = CUSTOM;
+	new->size = size;
+	new->next = 0;
+	new->last = 0;
+	if (!map->walls)
+		map->walls = new;
+	else
+		map->walls->last->next = new;
+	map->walls->last = new;
 }
-
 
 int	add_custom(t_map *map)
 {
@@ -102,17 +105,6 @@ int	add_custom(t_map *map)
 		return (1);
 	if (!only_spaces(map, index))
 		return (output_error(MSG_CUSTEND));
-	if (!map->walls)
-	{
-		map->walls = new_custom(cline);
-		if (map->walls)
-			map->walls->last = map->walls;
-	}
-	else
-	{
-		map->walls->last->next = new_custom(cline);
-		if (map->walls->last->next)
-			map->walls->last = map->walls->last->next;
-	}
+	add_new_custom(map, cline);
 	return (0);
 }

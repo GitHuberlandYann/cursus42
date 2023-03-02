@@ -32,7 +32,7 @@ static void	ft_catitoa(char str[15], int nb, int index)
 	str[index] = nb % 10 + '0';
 }
 
-static int	get_time(void)
+int	get_time(void)
 {
 	struct timeval	time;
 

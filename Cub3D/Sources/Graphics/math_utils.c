@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:36:03 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/27 14:40:13 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/02 15:51:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ void	set_ray_angles(double fov_width, t_player *player, t_player *playerbis)
 	{
 		player->rays[index].preangle = atan((WIN_WIDTH_2 - index) / fov_width);
 		if (playerbis)
-			playerbis->rays[index].preangle = atan((WIN_WIDTH_2 - index) / fov_width);
+			playerbis->rays[index].preangle = player->rays[index].preangle;
 	}
 }

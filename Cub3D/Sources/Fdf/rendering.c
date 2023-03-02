@@ -54,7 +54,7 @@ void	render_fdf(t_obj *objs, t_vert *pos)
 		if (objs->type == FDF)
 		{
 			mlx_clear_img(objs->fdf->canva, TRANSPARENT);
-			angle = atan2((pos->y - objs->fdf->pos.y), (pos->x - objs->fdf->pos.x));
+			angle = atan2(pos->y - objs->fdf->pos.y, pos->x - objs->fdf->pos.x);
 			set_fdfangles(&objs->fdf->angles, 0, angle, M_PI);
 			mlx_map_img(objs->fdf);
 		}

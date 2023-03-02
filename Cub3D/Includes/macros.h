@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/02 15:14:36 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/02 16:28:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@
 
 # define PSIZE 5
 # define ANIM_FPS 12
+# define DOOR_TIMER 3000
 
 # define M_PI_8 M_PI_4 / 2
 

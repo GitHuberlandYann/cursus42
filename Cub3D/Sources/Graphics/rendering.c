@@ -17,7 +17,7 @@ static void	draw_wall_vert(t_img *img, t_vert *pt, t_img *texture, double u)
 	t_vert		pt2;
 	t_vert		delta;
 	t_vert		pt_text;
-	unsigned int	color;
+	unsigned	color;
 
 	if (texture->img_ptr)
 	{
@@ -54,7 +54,7 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x, t_player *
 {
 	t_vert	start;
 	t_vert	finish;
-	double		wall_height;
+	double	wall_height;
 
 	ray->dist *= cos(ray->preangle);
 	ray->dist *= cub->settings->dist_feel;

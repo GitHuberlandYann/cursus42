@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/02 14:19:54 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/02 17:15:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
 void		setup_rendermap(t_img *canva, t_set *settings);
 void		render_ground(t_img *img, t_cub *cub, t_vert *pxl, double alpha, t_player *player);
 
+int			get_time(void);
 void		add_fps(t_mlx *mlx, t_set *settings, t_player *player);
 
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
@@ -84,6 +85,8 @@ int			add_post(t_map *map);
 
 int			only_spaces(t_map *map, int index);
 int			free_return_lines(t_parsing *lines, t_map *map, int free_player);
+int			free_return_line(char *line);
+void		free_textures(t_map *map);
 
 void		create_walls(t_map *map, t_parsing *lines);
 void		new_wall_north(t_map *map, t_parsing *curr, int x, int y);

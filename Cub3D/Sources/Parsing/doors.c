@@ -42,35 +42,27 @@ static void	set_vertical_door(t_door *door, int x, int y)
 	door->edges[2].side = DOORSIDE;
 }
 
-static t_door	*new_door(int x, int y, t_side orientation)
+static void	add_new_door(t_map *map, int x, int y, t_side orientation)
 {
-	t_door	*res;
+	t_door	*new;
 
-	res = ft_malloc(sizeof(*res), "add_door");
-	res->x = x;
-	res->y = y;
-	res->side = orientation;
+	new = ft_malloc(sizeof(*new), "add_door");
+	new->x = x;
+	new->y = y;
+	new->side = orientation;
 	if (orientation == NO)
-		set_horizontal_door(res, x, y);
+		set_horizontal_door(new, x, y);
 	else
-		set_vertical_door(res, x, y);
-	res->state = CLOSED;
-	res->next = 0;
-	res->last = 0;
-	return (res);
+		set_vertical_door(new, x, y);
+	new->state = CLOSED;
+	new->next = 0;
+	new->last = 0;
+	if (!map->doors)
+		map->doors = new;
+	else
+		map->doors->last->next = new;
+	map->doors->last = new;
 }
-
-// static void	remove_invisible_walls(t_wall *walls, t_door *doors)
-// {
-// 	t_wall	*other;
-
-// 	other = get_wallat(walls, doors->last->x - 1, doors->last->y);
-// 	if (other)
-// 		other->edges[EA].side = CUT;
-// 	other = get_wallat(walls, doors->last->x, doors->last->y - 1);
-// 	if (other)
-// 		other->edges[SO].side = CUT;
-// }
 
 int	add_door(t_map *map, t_parsing *line, int x, int y)
 {
@@ -79,24 +71,17 @@ int	add_door(t_map *map, t_parsing *line, int x, int y)
 	if (!map->hasdoor && (!map->ds_textures[0] || !map->ds_textures[1]))
 		return (output_error(MSG_DOORTEXTURE));
 	map->hasdoor = 1;
-	if (!x || !y || !line->next || x >= line->prev->size || x >= line->next->size)
+	if (!x || !y || !line->next || x >= line->prev->size
+		|| x >= line->next->size)
 		return (output_error(MSG_DOOR_BORDER));
-	if (line->line[x - 1] == '1' && line->line[x + 1] == '1' && line->prev->line[x] != '1' && line->next->line[x] != '1')
+	if (line->line[x - 1] == '1' && line->line[x + 1] == '1'
+		&& line->prev->line[x] != '1' && line->next->line[x] != '1')
 		orientation = NO;
-	else if (line->prev->line[x] == '1' && line->next->line[x] == '1' && line->line[x - 1] != '1' && line->line[x + 1] != '1')
+	else if (line->prev->line[x] == '1' && line->next->line[x] == '1'
+		&& line->line[x - 1] != '1' && line->line[x + 1] != '1')
 		orientation = WE;
 	else
 		return (output_error(MSG_CENTER_DOOR));
-	if (!map->doors)
-	{
-		map->doors = new_door(x, y, orientation);
-		map->doors->last = map->doors;
-	}
-	else
-	{
-		map->doors->last->next = new_door(x, y, orientation);
-		map->doors->last = map->doors->last->next;
-	}
-	// remove_invisible_walls(map->walls, map->doors);
+	add_new_door(map, x, y, orientation);
 	return (0);
 }
