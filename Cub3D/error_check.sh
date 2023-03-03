@@ -51,8 +51,15 @@ check_file map_content/3players.cub
 check_file map_content/centereddoor.cub
 check_file map_content/centeredportal.cub
 check_file map_content/emptylineinmap.cub
+check_file map_content/falsestart.cub
+check_file map_content/falsestart2.cub
+check_file map_content/falsestart3.cub
+check_file map_content/lineaftermap.cub
+check_file map_content/nomap.cub
 check_file map_content/noplayer.cub
 check_file map_content/openline.cub
+check_file map_content/openplayer.cub
+check_file map_content/openplayerbis.cub
 check_file map_content/openportal.cub
 check_file map_content/spaceinmap.cub
 
