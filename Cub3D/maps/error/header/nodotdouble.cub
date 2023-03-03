@@ -1,0 +1,47 @@
+NO maps/xpm/colorstone.xpm
+SO maps/xpm/colorstone.xpm
+WE maps/xpm/colorstone.xpm
+EA maps/xpm/colorstone.xpm
+
+F 128,128,128
+C 96,96,96
+
+D maps/xpm/door.xpm
+DS maps/xpm/doorside.xpm
+POST 6.0,5.0,0.4
+POST 8.0,5.0,0.4
+POST 10.0,5.0,0.4
+POST 12.0,5.0,0.4
+POST 14.0,5.0,0.4
+POST 6.0,70,0.4
+POST 8.0,7.0,0.4
+POST 10.0,7.0,0.4
+POST 12.0,7.0,0.4
+POST 14.0,7.0,0.4
+POST 16.0,6.0,0.5
+POSTT maps/xpm/wredbrick.xpm
+CUST 3.5,4.5,0.5,6.0
+CUST 3.5,4.5,4.5,5.0
+CUST 4.5,5.0,5.5,4.5
+CUSTT maps/xpm/bluestone.xpm
+WIND 0.5,11.5,3.5,11.5
+POST 0.5,13.5,1.2
+POST 3.5,13.5,1.2
+WINDT maps/xpm/window.xpm
+FDF 15.5,2.0 maps/fdf/Crane.obj
+
+            11111
+           1000001
+           1000001
+           1000001
+ 1111111111110111
+100000000000000001
+100000000000000001
+100000000000000001
+11D11111111111111
+10001
+10001
+10N01 
+10001
+10001
+ 111

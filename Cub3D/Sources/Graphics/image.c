@@ -38,7 +38,7 @@ t_img	*ft_create_xpmimg(t_mlx *mlx, char *texture, t_side side)
 	img->img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			texture, &img->width, &img->height);
 	if (!img->img_ptr)
-		exit(printf("failed to load img |%s| on side %d\n", texture, side));
+		exit(!!printf("failed to load img |%s| on side %d\n", texture, side));
 	img->addr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
 	img->bytes_per_pixel = img->bits_per_pixel / 8;

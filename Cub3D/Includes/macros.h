@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/02 16:28:17 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/03 11:22:11 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@
 # define MSG_NOLINK "Link missing for one of the portals"
 # define MSG_UNUSEDLINK "No portal matching one of the links"
 # define MSG_DOORTEXTURE "Missing D/DS line, no texture for doors"
-# define MSG_OBJTEXTURE "Missing BT/PT/POSTT line, no texture for objs"
+# define MSG_OBJTEXTURE "Missing one of BT/PT/POSTT/CUSTT/WINDT line, no texture for objs"
 # define MSG_ANIMTEXTURE "Missing FRAME line, no texture for animated walls"
 # define MSG_FDFDF "Failed to open map referenced by FDF line"
 # define MSG_FDFEMPTY "Map referenced by FDF line is empty"

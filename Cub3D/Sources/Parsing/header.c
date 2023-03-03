@@ -114,7 +114,7 @@ int	read_first_lines(t_map *map, int fd)
 			return (free_return_line(map->line));
 		if (!ft_strncmp("POSTT ", map->line, 6) && load_texture_obj(map, POST))
 			return (free_return_line(map->line));
-		if (!ft_strncmp("CUST ", map->line, 5) && add_custom(map))
+		if (!ft_strncmp("CUST ", map->line, 5) && ++map->hascustom && add_custom(map))
 			return (free_return_line(map->line));
 		if (!ft_strncmp("CUSTT ", map->line, 6) && load_texture_obj(map, CUST))
 			return (free_return_line(map->line));
