@@ -45,6 +45,24 @@ static void	mlx_map_img(t_fdf *fdf)
 	}
 }
 
+static void	mlx_clear_img(t_img *img, unsigned int color)
+{
+	t_vert	pt;
+
+	pt.x = 0;
+	pt.z = 0;
+	while (pt.x < img->width)
+	{
+		pt.y = 0;
+		while (pt.y < img->height)
+		{
+			mlx_pxl_put(img, pt.x, pt.y, color);
+			++pt.y;
+		}
+		++pt.x;
+	}
+}
+
 void	render_fdf(t_obj *objs, t_vert *pos)
 {
 	double	angle;

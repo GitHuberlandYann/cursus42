@@ -12,14 +12,14 @@
 
 #include "cub3d.h"
 
-static t_parsing	*new_parsing_node(char *line, t_parsing *previous)
+static t_parsing	*new_parsing_node(char *line, t_parsing *previous, int line_number)
 {
 	t_parsing	*res;
 
 	res = ft_malloc(sizeof(*res), "add_line");
 	res->player_count = ft_strchr_cntset(line, "NSWE");
 	res->line = line;
-	res->line_number = 0;
+	res->line_number = line_number;
 	res->size = ft_strlen(line);
 	res->prev = previous;
 	res->next = 0;
@@ -34,12 +34,12 @@ static int	add_line(t_parsing **lines, char *line, int line_number)
 		return (output_error(MSG_INVALIDCHAR));
 	if (!*lines)
 	{
-		*lines = new_parsing_node(line, 0);
+		*lines = new_parsing_node(line, 0, line_number);
 		(*lines)->last = *lines;
 	}
 	else
 	{
-		(*lines)->last->next = new_parsing_node(line, (*lines)->last);
+		(*lines)->last->next = new_parsing_node(line, (*lines)->last, line_number);
 		(*lines)->last = (*lines)->last->next;
 	}
 	if ((*lines)->last->player_count)
@@ -47,18 +47,11 @@ static int	add_line(t_parsing **lines, char *line, int line_number)
 		if (!(*lines)->player_line)
 		{
 			(*lines)->player_line = (*lines)->last;
-			(*lines)->player_line->line_number = line_number;
 			if ((*lines)->last->player_count == 2)
-			{
 				(*lines)->playerbis_line = (*lines)->last;
-				(*lines)->playerbis_line->line_number = line_number;
-			}
 		}
 		else
-		{
 			(*lines)->playerbis_line = (*lines)->last;
-			(*lines)->playerbis_line->line_number = line_number;
-		}
 	}
 	return (0);
 }
@@ -177,7 +170,7 @@ int	read_map(t_map *map, int fd)
 		init_playerbis(map, lines->playerbis_line);
 	if (error_check(map, lines))
 		return (free_return_lines(lines, map, map->player_count > 0));
-	create_walls(map, lines);
+	create_walls(map, lines, lines);
 	// console_map_content(map);
 	return (!map->walls);
 }

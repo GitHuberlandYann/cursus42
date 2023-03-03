@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   precompute.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/03 16:00:01 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/03/03 16:00:01 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 	// printf("dir before %lf with angle %lf -> ", dir, angle);
@@ -47,5 +59,5 @@ void	precompute_other_player(t_player *player, t_player *other)
 	dir -= angle;
 	set_angle_index(other, dir);
 	other->obj->state = other->state;
-	// printf("index %d when dir %lf\n", other->obj->angle_index, dir);
 }
+	// printf("index %d when dir %lf\n", other->obj->angle_index, dir);

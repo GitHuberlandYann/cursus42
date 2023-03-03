@@ -126,7 +126,7 @@ static void	ray_add_other_player(t_ray *ray, t_vert *inter, t_obj *obj, double d
 			{
 				obj->next_ray = objs->next_ray;
 				objs->next_ray = obj;
-				break;
+				break ;
 			}
 			objs = objs->next_ray;
 		}

@@ -59,7 +59,7 @@ static void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, int pixel_x, t_player *
 	ray->dist *= cos(ray->preangle);
 	ray->dist *= cub->settings->dist_feel;
 	wall_height = 1 / ray->dist;
-	set_point(&start, pixel_x, (1 - wall_height) * img->height / 2,  (1 + wall_height) * img->height / 2);
+	set_point(&start, pixel_x, (1 - wall_height) * img->height / 2, (1 + wall_height) * img->height / 2);
 	set_point(&finish, pixel_x, (1 + wall_height) * img->height / 2, 0);
 	if (ray->hit == DOOR)
 		draw_wall_vert(img, &start, cub->mlx->ds_textures[0], ray->u);
@@ -99,7 +99,7 @@ static void	draw_hit_obj(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 		obj->dist *= cos(ray->preangle);
 		obj->dist *= cub->settings->dist_feel;
 		wall_height = 1 / obj->dist;
-		set_point(&start, pixel_x, (1 - wall_height) * img->height / 2,  (1 + wall_height) * img->height / 2);
+		set_point(&start, pixel_x, (1 - wall_height) * img->height / 2, (1 + wall_height) * img->height / 2);
 		if (obj->type == BARREL)
 			draw_wall_vert(img, &start, cub->mlx->obj_textures[BARREL], obj->u);
 		else if (obj->type == PILLAR)
@@ -130,7 +130,7 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		if (cub->settings->fov_enable)
 			player->rays[index].dist = cub->settings->fov_dist;
 		set_point(&player->rays[index].ray.pt2, player->pos.x + cos(player->rays[index].angle) * player->rays[index].dist,
-											player->pos.y - sin(player->rays[index].angle) * player->rays[index].dist, 0);
+			player->pos.y - sin(player->rays[index].angle) * player->rays[index].dist, 0);
 		player->rays[index].hit = CUT;
 		player->rays[index].recurse_level = 0;
 		player->rays[index].objs = 0;

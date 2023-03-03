@@ -12,24 +12,24 @@
 
 #include "cub3d.h"
 
-static int	add_new_wall(t_map *map, t_parsing *curr, int x, int y)
+static int	add_new_wall(t_map *map, t_parsing *curr, int x)
 {
 	if (curr->prev && x && x < curr->prev->size
 		&& ft_strchr("0XP", curr->prev->line[x]) && !(curr->line[x - 1] == '1'
 			&& ft_strchr("0XP", curr->prev->line[x - 1])))
-		new_wall_north(map, curr, x, y);
+		new_wall_north(map, curr, x, curr->line_number);
 	if (curr->next && x && x < curr->next->size
 		&& ft_strchr("0XP", curr->next->line[x]) && !(curr->line[x - 1] == '1'
 			&& ft_strchr("0XP", curr->next->line[x - 1])))
-		new_wall_south(map, curr, x, y);
+		new_wall_south(map, curr, x, curr->line_number);
 	if (x > 1 && curr->prev && curr->next && ft_strchr("0XP", curr->line[x - 1])
 		&& !(curr->prev->line[x] == '1'
 			&& ft_strchr("0XP", curr->prev->line[x - 1])))
-		new_wall_west(map, curr, x, y);
+		new_wall_west(map, curr, x, curr->line_number);
 	if (x < curr->size - 1 && curr->prev && curr->next
 		&& ft_strchr("0XP", curr->line[x + 1]) && !(curr->prev->line[x] == '1'
 			&& ft_strchr("0XP", curr->prev->line[x + 1])))
-		new_wall_east(map, curr, x, y);
+		new_wall_east(map, curr, x, curr->line_number);
 	return (0);
 }
 
@@ -53,33 +53,28 @@ static void	free_return_all(t_parsing *lines, t_map *map)
 	free_return_lines(lines, map, 1);
 }
 
-void	create_walls(t_map *map, t_parsing *lines)
+		// printf("debug %s", tmp->line);
+void	create_walls(t_map *map, t_parsing *lines, t_parsing *tmp)
 {
 	int			index;
-	int			y;
-	t_parsing	*tmp;
 
-	tmp = lines;
-	y = 0;
 	while (tmp)
 	{
 		index = 0;
-		// printf("debug %s", tmp->line);
 		while (tmp->line[index])
 		{
 			if (tmp->line[index] == '1')
-				add_new_wall(map, tmp, index, y);
+				add_new_wall(map, tmp, index);
 			else if (ft_strchr("dD", tmp->line[index])
-				&& add_door(map, tmp, index, y))
+				&& add_door(map, tmp, index))
 				return (free_return_all(lines, map));
-			else if (tmp->line[index] == 'P' && set_portal(map, tmp, index, y))
+			else if (tmp->line[index] == 'P' && set_portal(map, tmp, index))
 				return (free_return_all(lines, map));
 			else if (tmp->line[index] == 'A'
-				&& add_animated_wall(map, tmp, index, y))
+				&& add_animated_wall(map, tmp, index))
 				return (free_return_all(lines, map));
 			++index;
 		}
-		++y;
 		tmp = tmp->next;
 	}
 	if (link_empty(map))

@@ -45,25 +45,7 @@ t_img	*ft_create_xpmimg(t_mlx *mlx, char *texture, t_side side)
 	return (img);
 }
 
-void	mlx_clear_img(t_img *img, unsigned color)
-{
-	t_vert	pt;
-
-	pt.x = 0;
-	pt.z = 0;
-	while (pt.x < img->width)
-	{
-		pt.y = 0;
-		while (pt.y < img->height)
-		{
-			mlx_pxl_put(img, pt.x, pt.y, color);
-			++pt.y;
-		}
-		++pt.x;
-	}
-}
-
-unsigned	mlx_pxl_get(t_img *img, int x, int y)
+unsigned int	mlx_pxl_get(t_img *img, int x, int y)
 {
 	char	*dst;
 
@@ -79,7 +61,6 @@ void	mlx_pxl_put(t_img *img, int x, int y, unsigned int color)
 
 	if (y < 0 || y >= img->height || x < 0 || x >= img->width)
 		return ;
-	// printf("width %d, height %d, x %d, y %d\n", img->width, img->height, x, y);
 	dst = img->addr + (y * img->line_length + x * img->bytes_per_pixel);
 	*(unsigned *) dst = color;
 }
@@ -88,7 +69,7 @@ void	mlx_draw_line(t_img *img, t_vert a, t_vert b, unsigned int color)
 {
 	t_vert	delta;
 	t_vert	pixel;
-	double		len;
+	double	len;
 
 	delta.x = b.x - a.x;
 	delta.y = b.y - a.y;

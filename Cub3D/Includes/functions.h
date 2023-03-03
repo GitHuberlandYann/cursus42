@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/02 17:15:53 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/03 18:01:38 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void		add_fps(t_mlx *mlx, t_set *settings, t_player *player);
 
 t_img		*ft_create_img(t_mlx *mlx, int width, int height);
 t_img		*ft_create_xpmimg(t_mlx *mlx, char *textures, t_side side);
-void		mlx_clear_img(t_img *img, unsigned color);
 void		mlx_draw_line(t_img *img, t_vert a, t_vert b, unsigned int color);
 void		mlx_pxl_put(t_img *img, int x, int y, unsigned int color);
 unsigned	mlx_pxl_get(t_img *img, int x, int y);
@@ -88,20 +87,20 @@ int			free_return_lines(t_parsing *lines, t_map *map, int free_player);
 int			free_return_line(char *line);
 void		free_textures(t_map *map);
 
-void		create_walls(t_map *map, t_parsing *lines);
+void		create_walls(t_map *map, t_parsing *lines, t_parsing *tmp);
 void		new_wall_north(t_map *map, t_parsing *curr, int x, int y);
 void		new_wall_south(t_map *map, t_parsing *curr, int x, int y);
 void		new_wall_west(t_map *map, t_parsing *curr, int x, int y);
 void		new_wall_east(t_map *map, t_parsing *curr, int x, int y);
 
 void		add_wall(t_map *map, t_wall *wall);
-int			add_door(t_map *map, t_parsing *line, int x, int y);
+int			add_door(t_map *map, t_parsing *line, int x);
 int			add_custom(t_map *map);
 int			add_window(t_map *map);
-int			add_animated_wall(t_map *map, t_parsing *curr, int x, int y);
+int			add_animated_wall(t_map *map, t_parsing *curr, int x);
 void		load_frame(t_map *map);
 
-int			set_portal(t_map *map, t_parsing *line, int x, int y);
+int			set_portal(t_map *map, t_parsing *line, int x);
 int			link_portals(t_map *map);
 int			link_empty(t_map *map);
 
@@ -118,6 +117,6 @@ t_vert		get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4);
 
 void		try_door(t_player *player, t_door *doors);
 void		update_doors(t_door *doors, t_key *key);
-void		update_anim_frames(t_map *map, t_mlx *mlx,  t_key *keys, int fps);
+void		update_anim_frames(t_map *map, t_mlx *mlx, t_key *keys, int fps);
 
 #endif

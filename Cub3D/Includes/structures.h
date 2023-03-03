@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/02 14:27:34 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/03 15:58:28 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ typedef struct s_settings {
 	int		fov_enable;
 	double	fov_dist;
 	double	dist_feel;
-	int 	mini_follow;
+	int		mini_follow;
 	int		mini_enable;
 	double	wall_width;
 	double	radius_divww;

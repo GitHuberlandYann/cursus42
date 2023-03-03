@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/01 17:52:26 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/03 16:08:44 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	ft_img_init(t_mlx *mlx, t_map *map)
 		if (anims->str)
 			anims->frame = ft_create_xpmimg(mlx, anims->str, cnt++);
 		else
-			break;
+			break ;
 		free(anims->str);
 		anims->str = 0;
 		anims = anims->next;
@@ -132,15 +132,15 @@ void	launch_mlx(t_map *map, char	*title)
 	mlx_hook(cub.mlx->win_ptr, ON_DESTROY, 0, mlx_exit, 0);
 	if (map->player_count == 1)
 	{
-		mlx_hook(cub.mlx->win_ptr, ON_KEYDOWN, 1L<<0, key_down, &cub);
-		mlx_hook(cub.mlx->win_ptr, ON_KEYUP, 1L<<1, key_released, &cub);
-		mlx_hook(cub.mlx->win_ptr, ON_MOUSEMOVE, 1L<<6, mouse_move, &cub);
+		mlx_hook(cub.mlx->win_ptr, ON_KEYDOWN, 1 << 0, key_down, &cub);
+		mlx_hook(cub.mlx->win_ptr, ON_KEYUP, 1L << 1, key_released, &cub);
+		mlx_hook(cub.mlx->win_ptr, ON_MOUSEMOVE, 1L << 6, mouse_move, &cub);
 		mlx_loop_hook(cub.mlx->mlx_ptr, redraw_all, &cub);
 	}
 	else
 	{
-		mlx_hook(cub.mlx->win_ptr, ON_KEYDOWN, 1L<<0, key_down_2p, &cub);
-		mlx_hook(cub.mlx->win_ptr, ON_KEYUP, 1L<<1, key_released_2p, &cub);
+		mlx_hook(cub.mlx->win_ptr, ON_KEYDOWN, 1L << 0, key_down_2p, &cub);
+		mlx_hook(cub.mlx->win_ptr, ON_KEYUP, 1L << 1, key_released_2p, &cub);
 		mlx_loop_hook(cub.mlx->mlx_ptr, redraw_all_2p, &cub);
 	}
 	mlx_loop(cub.mlx->mlx_ptr);

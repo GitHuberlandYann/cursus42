@@ -64,14 +64,14 @@ static void	add_new_door(t_map *map, int x, int y, t_side orientation)
 	map->doors->last = new;
 }
 
-int	add_door(t_map *map, t_parsing *line, int x, int y)
+int	add_door(t_map *map, t_parsing *line, int x)
 {
 	t_side	orientation;
 
 	if (!map->hasdoor && (!map->ds_textures[0] || !map->ds_textures[1]))
 		return (output_error(MSG_DOORTEXTURE));
 	map->hasdoor = 1;
-	if (!x || !y || !line->next || x >= line->prev->size
+	if (!x || !line->line_number || !line->next || x >= line->prev->size
 		|| x >= line->next->size)
 		return (output_error(MSG_DOOR_BORDER));
 	if (line->line[x - 1] == '1' && line->line[x + 1] == '1'
@@ -82,6 +82,6 @@ int	add_door(t_map *map, t_parsing *line, int x, int y)
 		orientation = WE;
 	else
 		return (output_error(MSG_CENTER_DOOR));
-	add_new_door(map, x, y, orientation);
+	add_new_door(map, x, line->line_number, orientation);
 	return (0);
 }

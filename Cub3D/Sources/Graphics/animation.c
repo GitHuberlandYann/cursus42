@@ -27,6 +27,31 @@ static void	update_player_frames(t_map *map, t_mlx *mlx, t_key *keys, int fps)
 	}
 }
 
+static void	update_openning_door(t_door *doors, t_key *key)
+{
+	if (doors->state == OPENING)
+	{
+		key->mousedate = 1;
+		if (doors->side == WE || doors->side == EA)
+		{
+			doors->edges[1].pt1.y += 0.01;
+			doors->edges[1].pt2.y += 0.01;
+		}
+		else if (doors->side == NO || doors->side == SO)
+		{
+			doors->edges[1].pt1.x += 0.01;
+			doors->edges[1].pt2.x += 0.01;
+		}
+		if (doors->edges[1].pt1.x > doors->x + 0.5
+			|| doors->edges[1].pt1.y > doors->y + 0.5)
+		{
+			doors->state = OPEN;
+			doors->timer = get_time();
+			doors->edges[1].side = CUT;
+		}
+	}
+}
+
 void	update_anim_frames(t_map *map, t_mlx *mlx, t_key *keys, int fps)
 {
 	if (!map->anims || map->anims->next == map->anims)
@@ -45,27 +70,8 @@ void	update_doors(t_door *doors, t_key *key)
 {
 	while (doors)
 	{
-		if (doors->state == OPENING)
-		{
-			key->mousedate = 1;
-			if (doors->side == WE || doors->side == EA)
-			{
-				doors->edges[1].pt1.y += 0.01;
-				doors->edges[1].pt2.y += 0.01;
-			}
-			else if (doors->side == NO || doors->side == SO)
-			{
-				doors->edges[1].pt1.x += 0.01;
-				doors->edges[1].pt2.x += 0.01;
-			}
-			if (doors->edges[1].pt1.x > doors->x + 0.5 || doors->edges[1].pt1.y > doors->y + 0.5)
-			{
-				doors->state = OPEN;
-				doors->timer = get_time();
-				doors->edges[1].side = CUT;
-			}
-		}
-		else if (doors->state == CLOSING)
+		update_openning_door(doors, key);
+		if (doors->state == CLOSING)
 		{
 			key->mousedate = 1;
 			doors->edges[1].side = DOOR;
@@ -79,7 +85,8 @@ void	update_doors(t_door *doors, t_key *key)
 				doors->edges[1].pt1.x -= 0.01;
 				doors->edges[1].pt2.x -= 0.01;
 			}
-			if (doors->edges[1].pt1.y < doors->y - 0.5 || doors->edges[1].pt1.x < doors->x - 0.5)
+			if (doors->edges[1].pt1.y < doors->y - 0.5
+				|| doors->edges[1].pt1.x < doors->x - 0.5)
 				doors->state = CLOSED;
 		}
 		if (doors->state == OPEN && get_time() - doors->timer > DOOR_TIMER)

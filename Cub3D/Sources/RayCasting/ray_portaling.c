@@ -22,7 +22,7 @@ static void	get_linked(t_portal *portals, t_ray *ray, t_ray *pray, t_portal *in)
 		{
 			pray->angle = ray->angle - (in->pline.side - 2) * M_PI_2 + portals->pline.side * M_PI_2;
 			u = 1 - ray->u;
-			set_point(&pray->ray.pt1, portals->pline.pt1.x + u * (portals->pline.pt2.x - portals->pline.pt1.x),  portals->pline.pt1.y + u * (portals->pline.pt2.y - portals->pline.pt1.y), 0);
+			set_point(&pray->ray.pt1, portals->pline.pt1.x + u * (portals->pline.pt2.x - portals->pline.pt1.x), portals->pline.pt1.y + u * (portals->pline.pt2.y - portals->pline.pt1.y), 0);
 			return ;
 		}
 		portals = portals->next;

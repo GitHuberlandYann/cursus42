@@ -113,11 +113,11 @@ int	link_portals(t_map *map)
 	return (0);
 }
 
-int	set_portal(t_map *map, t_parsing *line, int x, int y)
+int	set_portal(t_map *map, t_parsing *line, int x)
 {
 	t_side	orientation;
 
-	if (!x || !y || !line->next || x >= line->prev->size || x >= line->next->size)
+	if (!x || !line->line_number || !line->next || x >= line->prev->size || x >= line->next->size)
 		return (output_error(MSG_PORTAL_BORDER));
 	if (line->line[x - 1] == '1' && line->line[x + 1] == '1' && line->prev->line[x] != '1' && (line->next->line[x] == '1' || line->next->line[x] == 'P'))
 	{
@@ -145,7 +145,7 @@ int	set_portal(t_map *map, t_parsing *line, int x, int y)
 	}
 	else
 		return (output_error(MSG_CENTER_PORTAL));
-	if (charge_portal(map, x, y, orientation))
+	if (charge_portal(map, x, line->line_number, orientation))
 		return (1);
 	++map->portal_count;
 	return (0);

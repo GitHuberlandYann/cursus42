@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 10:52:09 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/02 15:02:16 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/03 16:11:21 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	draw_stored_rays(t_img *img, t_ray	rays[WIN_WIDTH], t_map *map, t_se
 	}
 }
 
-static void	draw_disk(t_img *img, t_vert *center, int radius, unsigned color)
+static void	draw_disk(t_img *img, t_vert *center, int radius, unsigned int color)
 {
 	t_vert	pt;
 	t_vert	pt2;
@@ -110,7 +110,7 @@ static void	draw_disk(t_img *img, t_vert *center, int radius, unsigned color)
 	}
 }
 
-static void	draw_circle(t_img *img, t_vert *center, double radius, unsigned color)
+static void	draw_circle(t_img *img, t_vert *center, double radius, unsigned int color)
 {
 	t_vert	pt;
 	t_vert	pt2;

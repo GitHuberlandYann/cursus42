@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/03 11:22:11 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:03:41 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@
 # define MSG_FDFDOT "Missing '.' in Fdf double"
 # define MSG_FDFZERO "Object double can't be set at zero"
 # define MSG_FDFEND "Fdf line has unwanted elements ending it"
+# define MSG_GOD "God mode on"
 
 # if __linux__
 #  define WIN_WIDTH 1800
@@ -129,7 +130,7 @@
 # define ANIM_FPS 12
 # define DOOR_TIMER 3000
 
-# define M_PI_8 M_PI_4 / 2
+# define M_PI_8 (M_PI_4 / 2)
 
 // Enums
 typedef enum e_side {
@@ -142,7 +143,7 @@ typedef enum e_side {
 	PORTAL,
 	CUT,
 	CIRCLE,
-	CUSTOM, 
+	CUSTOM,
 	ANIMATED
 }			t_side;
 
@@ -156,7 +157,7 @@ typedef enum e_objtype {
 	PILLAR,
 	POST,
 	CUST,
-	WIN, 
+	WIN,
 	FDF,
 	HUMAN
 }				t_objtype;
@@ -195,6 +196,7 @@ enum { //mouse buttons
 };
 
 # if __linux__
+
 enum {
 	KEY_A = 113,
 	KEY_D = 100,
@@ -221,7 +223,9 @@ enum {
 	KEY_PLUS_PAD = 65451,
 	KEY_MINUS_PAD = 65453
 };
+
 # else
+
 enum {
 	KEY_A = 0,
 	KEY_D = 2,
@@ -248,6 +252,7 @@ enum {
 	KEY_PLUS_PAD = 69,
 	KEY_MINUS_PAD = 78
 };
+
 # endif
 
 #endif

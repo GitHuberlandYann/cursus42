@@ -58,7 +58,7 @@ void	add_fps(t_mlx *mlx, t_set *settings, t_player *player)
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 20, 20, WHITE, mlx->fpstr);
 	settings->timepoint = current_time;
 	if (settings->godmode)
-		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 20, 35, WHITE, "God mode on");
+		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 20, 35, WHITE, MSG_GOD);
 	player->speed = 0.07 / mlx->fps * 60;
 	if (player->speed > 0.12)
 		player->speed = 0.12;

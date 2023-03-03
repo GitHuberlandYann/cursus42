@@ -68,21 +68,21 @@ static void	new_anim_east(t_map *map, int x, int y)
 	add_wall(map, res);
 }
 
-int	add_animated_wall(t_map *map, t_parsing *curr, int x, int y)
+int	add_animated_wall(t_map *map, t_parsing *curr, int x)
 {
 	if (!map->hasanimated && !map->anims)
 		return (output_error(MSG_ANIMTEXTURE));
 	if (curr->prev && x && x < curr->prev->size
 		&& ft_strchr("0XP", curr->prev->line[x]))
-		new_anim_north(map, x, y);
+		new_anim_north(map, x, curr->line_number);
 	if (curr->next && x && x < curr->next->size
 		&& ft_strchr("0XP", curr->next->line[x]))
-		new_anim_south(map, x, y);
+		new_anim_south(map, x, curr->line_number);
 	if (x > 1 && curr->prev && curr->next
 		&& ft_strchr("0XP", curr->line[x - 1]))
-		new_anim_west(map, x, y);
+		new_anim_west(map, x, curr->line_number);
 	if (x < curr->size - 1 && curr->prev && curr->next
 		&& ft_strchr("0XP", curr->line[x + 1]))
-		new_anim_east(map, x, y);
+		new_anim_east(map, x, curr->line_number);
 	return (0);
 }
