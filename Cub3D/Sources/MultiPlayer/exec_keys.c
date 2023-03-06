@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_keys.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:04:12 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/02 16:16:51 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/06 12:35:20 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 {
 	t_ray	wall_sensor;
 
+	if (player->state == SHOOTING)
+		return ;
 	wall_sensor.dist = 10000;
 	wall_sensor.pdist = 10000;
 	wall_sensor.fhit = CUT;
@@ -51,6 +53,8 @@ static void	move_playerbis(t_key *keys, t_cub *cub, t_player *player)
 {
 	t_ray	wall_sensor;
 
+	if (player->state == SHOOTING)
+		return ;
 	wall_sensor.dist = 10000;
 	wall_sensor.pdist = 10000;
 	wall_sensor.fhit = CUT;
@@ -110,8 +114,9 @@ int	redraw_all_2p(t_cub *cub)
 	key = cub->mlx->keys;
 	update_doors(cub->map->doors, key);
 	update_anim_frames(cub->map, cub->mlx, key, cub->mlx->fps);
+	update_shooting_frames(cub->mlx, cub->map->player, cub->map->playerbis);
 	if (!key->vertical && !key->verticalbis && !key->steering && !key->fov_width
-		&& !key->steeringbis && !key->mousedate && !key->dist_feel)
+		&& !key->steeringbis && !key->mousedate && !key->dist_feel && 0)
 		return (1);
 	key->mousedate = 0;
 	exec_keys(key, cub);
@@ -131,6 +136,8 @@ int	redraw_all_2p(t_cub *cub)
 		cub->mlx->render3d->img_ptr, 0, 0);
 	mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
 		cub->mlx->render3dbis->img_ptr, 0, WIN_HEIGHT_2);
+	display_weapon(cub->mlx, cub->map->player, 1);
+	display_weapon(cub->mlx, cub->map->playerbis, 2);
 	add_fps(cub->mlx, cub->settings, cub->map->player);
 	return (0);
 }

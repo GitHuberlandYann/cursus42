@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/03 18:01:38 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/06 12:11:06 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ int			redraw_all_2p(t_cub *cub);
 void		clear_render_2p(t_img *canva, unsigned int cols[2], t_cub *cub);
 void		precompute_other_player(t_player *player, t_player *other);
 
+t_img		*ft_create_gunimg(t_mlx *mlx, char *texture, t_side side);
 void		load_player_imgs(t_mlx *mlx);
+void		display_weapon(t_mlx *mlx, t_player *player, int player_num);
+void		update_shooting_frames(t_mlx *mlx, t_player *player, t_player *playerbis);
 
 // Outputs
 int			output_error(char *msg);

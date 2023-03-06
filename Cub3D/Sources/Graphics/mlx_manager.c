@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/03 16:08:44 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/06 12:28:34 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ static t_mlx	*ft_mlx_init(char *title, t_map *map)
 	mlx->keys->sprintbis = 0;
 	mlx->keys->steering = 0;
 	mlx->keys->steeringbis = 0;
+	mlx->keys->shoot = 0;
+	mlx->keys->shootbis = 0;
 	mlx->keys->fov_width = 0;
 	mlx->keys->fov_enable = 0;
 	mlx->keys->fov_dist = 0;

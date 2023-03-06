@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/03 15:58:28 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/06 12:28:57 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef struct s_obj {
 	double			dist;
 	int				angle_index;
 	t_state			state;
+	int				frame_shoot;
 	t_fdf			*fdf;
 	struct s_obj	*next;
 	struct s_obj	*last;
@@ -222,6 +223,8 @@ typedef struct s_key {
 	int	sprintbis;
 	int	steering;
 	int	steeringbis;
+	int	shoot;
+	int	shootbis;
 	int	fov_width;
 	int	fov_enable;
 	int	fov_dist;
@@ -249,10 +252,14 @@ typedef struct s_mlx
 	t_img	*(player_death[5]);
 	t_img	*(player_shoot[4]);
 	t_img	*(player_run[8][4]);
+	t_img	*gun_idle;
+	t_img	*(gun_shoot[4]);
 	t_key	*keys;
 	t_vert	mouse_pos;
 	double	frame_count;
 	int		curr_frame;
+	int		frame_shoot;
+	int		frame_shootbis;
 	int		fps;
 	char	fpstr[15];
 }				t_mlx;

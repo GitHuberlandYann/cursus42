@@ -107,6 +107,7 @@ static void	init_player(t_map *map, t_parsing *p_line)
 	map->player->speed = 0.1;
 	map->player->obj = ft_malloc(sizeof(*map->player->obj), __func__);
 	map->player->obj->type = HUMAN;
+	map->player->obj->frame_shoot = 0;
 	map->player->obj->fdf = 0;
 	map->player->obj->next = 0;
 	map->player->obj->last = 0;
@@ -138,6 +139,7 @@ static void	init_playerbis(t_map *map, t_parsing *p_line)
 	map->playerbis->speed = 0.1;
 	map->playerbis->obj = ft_malloc(sizeof(*map->playerbis->obj), __func__);
 	map->playerbis->obj->type = HUMAN;
+	map->playerbis->obj->frame_shoot = 0;
 	map->playerbis->obj->fdf = 0;
 	map->playerbis->obj->next = 0;
 	map->playerbis->obj->last = 0;

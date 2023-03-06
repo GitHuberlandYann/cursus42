@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/03 18:03:41 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/06 11:54:40 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ enum { //mouse buttons
 enum {
 	KEY_A = 113,
 	KEY_D = 100,
+	KEY_E = 113,//TODO
 	KEY_G = 103,
 	KEY_M = 109,
 	KEY_S = 115,
@@ -219,9 +220,13 @@ enum {
 	KEY_3 = 65435,
 	KEY_4 = 65430,
 	KEY_5 = 65437,
+	KEY_6 = 65437,//TODO
+	KEY_8 = 65437,//TODO
+	KEY_9 = 65437,//TODO
 	KEY_ASTERISK = 65450,
 	KEY_PLUS_PAD = 65451,
 	KEY_MINUS_PAD = 65453
+	KEY_ENTER_PAD = 113//TODO
 };
 
 # else
@@ -229,6 +234,7 @@ enum {
 enum {
 	KEY_A = 0,
 	KEY_D = 2,
+	KEY_E = 14,
 	KEY_G = 5,
 	KEY_M = 46,
 	KEY_S = 1,
@@ -248,9 +254,13 @@ enum {
 	KEY_3 = 85,
 	KEY_4 = 86,
 	KEY_5 = 87,
+	KEY_6 = 88,
+	KEY_8 = 91,
+	KEY_9 = 92,
 	KEY_ASTERISK = 67,
 	KEY_PLUS_PAD = 69,
-	KEY_MINUS_PAD = 78
+	KEY_MINUS_PAD = 78,
+	KEY_ENTER_PAD = 76
 };
 
 # endif

@@ -26,7 +26,7 @@ FILES_GRAPHICS = animation exec_keys image keys math_utils \
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
 
-FILES_MULTIPLAYER = exec_keys keys load_images precompute
+FILES_MULTIPLAYER = animation exec_keys keys load_images precompute weapons
 
 FILES += $(addprefix MultiPlayer/, $(FILES_MULTIPLAYER))
 

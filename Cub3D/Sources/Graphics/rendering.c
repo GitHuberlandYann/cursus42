@@ -108,10 +108,12 @@ static void	draw_hit_obj(t_img *img, t_ray *ray, t_cub *cub, int pixel_x)
 			draw_wall_vert(img, &start, cub->mlx->obj_textures[WIN], obj->u);
 		else if (obj->type == FDF)
 			draw_wall_vert(img, &start, obj->fdf->canva, obj->u);
-		else if (obj->type == HUMAN && obj->state == IDLE)
-			draw_wall_vert(img, &start, cub->mlx->player_idle[obj->angle_index], obj->u);
+		else if (obj->type == HUMAN && obj->state == SHOOTING && !obj->angle_index)
+			draw_wall_vert(img, &start, cub->mlx->player_shoot[obj->frame_shoot], obj->u);
 		else if (obj->type == HUMAN && obj->state == RUNNING)
 			draw_wall_vert(img, &start, cub->mlx->player_run[obj->angle_index][cub->mlx->curr_frame], obj->u);
+		else if (obj->type == HUMAN)
+			draw_wall_vert(img, &start, cub->mlx->player_idle[obj->angle_index], obj->u);
 		obj = obj->next_ray;
 	}
 }
