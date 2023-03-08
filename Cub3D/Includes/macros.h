@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/06 11:54:40 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/08 13:27:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ enum { //mouse buttons
 enum {
 	KEY_A = 113,
 	KEY_D = 100,
-	KEY_E = 113,//TODO
+	KEY_E = 101,
 	KEY_G = 103,
 	KEY_M = 109,
 	KEY_S = 115,
@@ -220,13 +220,13 @@ enum {
 	KEY_3 = 65435,
 	KEY_4 = 65430,
 	KEY_5 = 65437,
-	KEY_6 = 65437,//TODO
-	KEY_8 = 65437,//TODO
-	KEY_9 = 65437,//TODO
+	KEY_6 = 65432,
+	KEY_8 = 65431,
+	KEY_9 = 65434,
 	KEY_ASTERISK = 65450,
 	KEY_PLUS_PAD = 65451,
-	KEY_MINUS_PAD = 65453
-	KEY_ENTER_PAD = 113//TODO
+	KEY_MINUS_PAD = 65453,
+	KEY_ENTER_PAD = 65421
 };
 
 # else

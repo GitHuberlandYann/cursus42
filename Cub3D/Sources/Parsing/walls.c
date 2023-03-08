@@ -68,7 +68,7 @@ void	create_walls(t_map *map, t_parsing *lines, t_parsing *tmp)
 			else if (ft_strchr("dD", tmp->line[index])
 				&& add_door(map, tmp, index))
 				return (free_return_all(lines, map));
-			else if (tmp->line[index] == 'P' && set_portal(map, tmp, index))
+			else if (tmp->line[index] == 'P' && set_portal(map, tmp, index, NO))
 				return (free_return_all(lines, map));
 			else if (tmp->line[index] == 'A'
 				&& add_animated_wall(map, tmp, index))

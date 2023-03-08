@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:54:19 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/25 17:24:37 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/08 17:15:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,6 @@ static t_obj	*new_obj(t_objtype type, int x, int y)
 	res->next = 0;
 	res->last = 0;
 	return (res);
-}
-
-int	load_texture_obj(t_map *map, t_objtype type)
-{
-	if (type == BARREL && map->obj_textures[type])
-		return (output_error(MSG_TWOBARRELS));
-	if (type == PILLAR && map->obj_textures[type])
-		return (output_error(MSG_TWOPILLARS));
-	if (type == POST && map->obj_textures[type])
-		return (output_error(MSG_TWOPOSTS));
-	if (type == CUST && map->obj_textures[type])
-		return (output_error(MSG_TWOCUSTS));
-	if (type == WIN && map->obj_textures[type])
-		return (output_error(MSG_TWOWINDS));
-	map->obj_textures[type] = ft_strdup(&map->line[3 + 3 * (type >= POST)]);
-	map->obj_textures[type][ft_strlen(map->obj_textures[type]) - 1] = '\0';
-	return (0);
 }
 
 int	add_obj(t_map *map, t_objtype type)
