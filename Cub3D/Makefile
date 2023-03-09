@@ -20,9 +20,9 @@ FILES_FDF = angles parse_obj parse_pos parse_utils rendering
 
 FILES += $(addprefix Fdf/, $(FILES_FDF))
 
-FILES_GRAPHICS = animation exec_keys image keys math_utils \
-				minimap mlx_manager mouse \
-				rendering timer
+FILES_GRAPHICS = animation clear_renders exec_keys image keys math_utils \
+				minimap minimap_utils mlx_init mlx_manager mouse \
+				rendering render_hit timer
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
 
@@ -67,7 +67,7 @@ endif
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -O3
-SAN = -fsanitize=address -g
+SAN = #-fsanitize=address -g
 MATH = -lm
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---

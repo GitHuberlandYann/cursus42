@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/08 17:55:02 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:23:15 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,20 @@ double		ft_rotation_y(t_angles *a, t_vertice *node);
 
 //Graphics
 void		launch_mlx(t_map *map, char	*title);
+void		ft_img_init(t_mlx *mlx, t_map *map);
+
 void		fill_minimap(t_cub *cub);
-void		fill_old_minimap(t_cub *cub);
+void		draw_posts(t_img *img, t_map *map, t_set *sett);
+void		draw_player(t_img *img, t_set *settings);
+void		add_north(t_img *canva, double angle, t_set *sett);
 
 void		clear_render(t_img *canva, unsigned int cols[2], t_cub *cub);
-void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
 void		setup_rendermap(t_img *canva, t_set *settings);
 void		render_ground(t_img *img, t_cub *cub, t_vert *pxl, double alpha, t_player *player);
+
+void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
+void		draw_hit(t_img *img, t_ray *ray, t_cub *cub, t_player *player);
+void		draw_wall_vert(t_img *img, t_vert *pt, t_img *texture, double u);
 
 int			get_time(void);
 void		add_fps(t_mlx *mlx, t_set *settings, t_player *player);

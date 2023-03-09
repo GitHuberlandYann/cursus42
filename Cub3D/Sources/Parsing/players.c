@@ -1,4 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   players.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/09 10:45:48 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/03/09 10:45:48 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
+
+static void	set_rays_pixel(t_player *player)
+{
+	int	index;
+
+	index = 0;
+	while (index < WIN_WIDTH)
+	{
+		player->rays[index].pixel_x = index;
+		++index;
+	}
+}
 
 static void	set_player_direction(t_player *player, t_parsing *p_line, int index)
 {
@@ -26,6 +50,7 @@ static void	init_player(t_map *map, t_parsing *p_line)
 	map->player->state = IDLE;
 	map->player->other = 0;
 	set_player_direction(map->player, p_line, index);
+	set_rays_pixel(map->player);
 	map->player->speed = 0.1;
 	map->player->obj = ft_malloc(sizeof(*map->player->obj), __func__);
 	map->player->obj->type = HUMAN;
@@ -51,6 +76,7 @@ static void	init_playerbis(t_map *map, t_parsing *p_line)
 	map->player->other = map->playerbis;
 	map->playerbis->other = map->player;
 	set_player_direction(map->playerbis, p_line, index);
+	set_rays_pixel(map->playerbis);
 	map->playerbis->speed = 0.1;
 	map->playerbis->obj = ft_malloc(sizeof(*map->playerbis->obj), __func__);
 	map->playerbis->obj->type = HUMAN;

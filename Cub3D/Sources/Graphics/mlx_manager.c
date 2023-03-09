@@ -6,13 +6,13 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/06 12:28:34 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:02:00 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_set	*ft_set_init(void)
+static t_set	*ft_init_settings(void)
 {
 	t_set	*res;
 
@@ -33,68 +33,8 @@ static t_set	*ft_set_init(void)
 	return (res);
 }
 
-static void	ft_img_init(t_mlx *mlx, t_map *map)
+static void	bzero_mlx(t_mlx *mlx)
 {
-	t_obj	*objs;
-	t_anim	*anims;
-	int		cnt;
-
-	if (map->player_count == 1)
-		mlx->render3d = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT);
-	else
-	{
-		mlx->render3d = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT_2);
-		mlx->render3dbis = ft_create_img(mlx, WIN_WIDTH, WIN_HEIGHT_2);
-	}
-	mlx->textures[NO] = ft_create_xpmimg(mlx, map->textures[NO], NO);
-	mlx->textures[SO] = ft_create_xpmimg(mlx, map->textures[SO], SO);
-	mlx->textures[WE] = ft_create_xpmimg(mlx, map->textures[WE], WE);
-	mlx->textures[EA] = ft_create_xpmimg(mlx, map->textures[EA], EA);
-	mlx->fc_textures[FLOOR] = ft_create_xpmimg(mlx, map->fc_textures[FLOOR], 0);
-	mlx->fc_textures[CEILLING] = ft_create_xpmimg(mlx, map->fc_textures[CEILLING], 1);
-	mlx->ds_textures[0] = ft_create_xpmimg(mlx, map->ds_textures[0], 0);
-	mlx->ds_textures[1] = ft_create_xpmimg(mlx, map->ds_textures[1], 1);
-	mlx->obj_textures[BARREL] = ft_create_xpmimg(mlx, map->obj_textures[BARREL], 0);
-	mlx->obj_textures[PILLAR] = ft_create_xpmimg(mlx, map->obj_textures[PILLAR], 1);
-	mlx->obj_textures[POST] = ft_create_xpmimg(mlx, map->obj_textures[POST], 2);
-	mlx->obj_textures[CUST] = ft_create_xpmimg(mlx, map->obj_textures[CUST], 3);
-	mlx->obj_textures[WIN] = ft_create_xpmimg(mlx, map->obj_textures[WIN], 4);
-	objs = map->objs;
-	while (objs)
-	{
-		if (objs->type == FDF)
-			objs->fdf->canva = ft_create_img(mlx, WIN_FDFX, WIN_FDFY);
-		objs = objs->next;
-	}
-	anims = map->anims;
-	cnt = 0;
-	while (anims)
-	{
-		if (anims->str)
-			anims->frame = ft_create_xpmimg(mlx, anims->str, cnt++);
-		else
-			break ;
-		free(anims->str);
-		anims->str = 0;
-		anims = anims->next;
-	}
-	if (map->playerbis)
-		load_player_imgs(mlx);
-}
-
-static t_mlx	*ft_mlx_init(char *title, t_map *map)
-{
-	t_mlx	*mlx;
-
-	mlx = ft_malloc(sizeof(*mlx), __func__);
-	mlx->mlx_ptr = mlx_init();
-	if (!mlx->mlx_ptr)
-		ft_perror(__func__);
-	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, title);
-	if (!mlx->win_ptr)
-		ft_perror("mlx_new_window");
-	ft_img_init(mlx, map);
-	mlx->keys = ft_malloc(sizeof(*mlx->keys), "keys_init");
 	mlx->keys->vertical = 0;
 	mlx->keys->verticalbis = 0;
 	mlx->keys->horizontal = 0;
@@ -120,6 +60,22 @@ static t_mlx	*ft_mlx_init(char *title, t_map *map)
 	mlx->curr_frame = 0;
 	mlx->fps = 30;
 	ft_strcpy(mlx->fpstr, "fps : ");
+}
+
+static t_mlx	*ft_mlx_init(char *title, t_map *map)
+{
+	t_mlx	*mlx;
+
+	mlx = ft_malloc(sizeof(*mlx), __func__);
+	mlx->mlx_ptr = mlx_init();
+	if (!mlx->mlx_ptr)
+		ft_perror(__func__);
+	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, title);
+	if (!mlx->win_ptr)
+		ft_perror("mlx_new_window");
+	ft_img_init(mlx, map);
+	mlx->keys = ft_malloc(sizeof(*mlx->keys), "keys_init");
+	bzero_mlx(mlx);
 	return (mlx);
 }
 
@@ -129,7 +85,7 @@ void	launch_mlx(t_map *map, char	*title)
 
 	cub.map = map;
 	cub.mlx = ft_mlx_init(title, map);
-	cub.settings = ft_set_init();
+	cub.settings = ft_init_settings();
 	set_ray_angles(cub.settings->fov_width, map->player, map->playerbis);
 	mlx_hook(cub.mlx->win_ptr, ON_DESTROY, 0, mlx_exit, 0);
 	if (map->player_count == 1)
