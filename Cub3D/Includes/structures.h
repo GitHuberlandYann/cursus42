@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/06 12:28:57 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:20:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,6 @@ typedef struct s_ray
 	t_line		pray;
 	t_side		hit;
 	t_side		fhit;
-	int			recurse_level;
 	double		u;
 	double		dist;
 	double		mdist;

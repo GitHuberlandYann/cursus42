@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/06 12:11:06 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:55:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,11 @@ int			line_from_map(char *str, int empty_allowed);
 int			read_first_lines(t_map *map, int fd);
 int			flood_fill(t_parsing *current, int index);
 
+int			load_texture_w(t_map *map, t_side side);
+int			load_texture_ds(t_map *map, int side);
+int			load_texture_fc(t_map *map, t_ground side);
 int			load_texture_obj(t_map *map, t_objtype type);
+
 int			transform_color(t_map *map, t_ground ground);
 int			add_obj(t_map *map, t_objtype type);
 int			add_post(t_map *map);
@@ -103,9 +107,11 @@ int			add_window(t_map *map);
 int			add_animated_wall(t_map *map, t_parsing *curr, int x);
 void		load_frame(t_map *map);
 
-int			set_portal(t_map *map, t_parsing *line, int x);
+int			set_portal(t_map *map, t_parsing *line, int x, t_side orientation);
 int			link_portals(t_map *map);
 int			link_empty(t_map *map);
+
+void		init_players(t_map *map, t_parsing *lines);
 
 //RayCasting
 void		precompute_obj_lines(t_vert *pos, t_obj *objs);

@@ -60,6 +60,7 @@ static void	free_map_content(t_map *map)
 				map->objs->fdf->map.faces = map->objs->fdf->map.faces->next;
 				free(tmp);
 			}
+			free(map->objs->fdf);
 		}
 		tmp = map->objs;
 		map->objs = map->objs->next;

@@ -134,7 +134,6 @@ void	render_map(t_img *img, t_player *player, t_map *map, t_cub *cub)
 		set_point(&player->rays[index].ray.pt2, player->pos.x + cos(player->rays[index].angle) * player->rays[index].dist,
 			player->pos.y - sin(player->rays[index].angle) * player->rays[index].dist, 0);
 		player->rays[index].hit = CUT;
-		player->rays[index].recurse_level = 0;
 		player->rays[index].objs = 0;
 		ray_walling(map->walls, &player->rays[index]);
 		ray_dooring(map->doors, &player->rays[index]);
