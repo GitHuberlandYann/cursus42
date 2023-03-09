@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 16:11:16 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:54:30 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void		add_north(t_img *canva, double angle, t_set *sett);
 
 void		clear_render(t_img *canva, unsigned int cols[2], t_cub *cub);
 void		setup_rendermap(t_img *canva, t_set *settings);
-void		render_ground(t_img *img, t_cub *cub, t_vert *pxl, double alpha, t_player *player);
+void		render_ground(t_img *img, t_cub *cub, t_vert *pxl, t_ray *ray);
 
 void		render_map(t_img *img, t_player *player, t_map *map, t_cub *cub);
-void		draw_hit(t_img *img, t_ray *ray, t_cub *cub, t_player *player);
+void		draw_hit(t_img *img, t_ray *ray, t_cub *cub);
 void		draw_wall_vert(t_img *img, t_vert *pt, t_img *texture, double u);
 
 int			get_time(void);
@@ -129,6 +129,7 @@ void		ray_walling(t_wall *walls, t_ray *ray);
 void		ray_dooring(t_door *doors, t_ray *ray);
 void		ray_portaling(t_portal *portals, t_ray *ray, t_player *other, t_cub *cub);
 void		ray_objing(t_obj *objs, t_player *other, t_ray *ray);
+void		ray_other_player(t_obj *obj, t_ray *ray, t_vert pt4);
 void		ray_posting(t_post *posts, t_ray *ray);
 t_vert		get_inter(t_ray *ray, t_vert pt2, t_vert pt3, t_vert pt4);
 

@@ -105,7 +105,7 @@ void	render_map(t_img *img, t_player *p, t_map *map, t_cub *cub)
 		ray_posting(map->posts, &p->rays[index]);
 		ray_portaling(map->portals, &p->rays[index], p->other, cub);
 		ray_objing(map->objs, p->other, &p->rays[index]);
-		draw_hit(img, &p->rays[index], cub, p);
+		draw_hit(img, &p->rays[index], cub);
 		draw_hit_obj(img, &p->rays[index], cub, index);
 	}
 }

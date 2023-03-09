@@ -41,7 +41,7 @@ FILES_PARSING = add_wall animated_wall animation colors custom doors \
 FILES += $(addprefix Parsing/, $(FILES_PARSING))
 
 FILES_RAYCASTING = floor_casting precompute ray_casting ray_dooring ray_objing \
-					ray_portaling ray_posting
+					ray_player ray_portaling ray_posting
 
 FILES += $(addprefix RayCasting/, $(FILES_RAYCASTING))
 

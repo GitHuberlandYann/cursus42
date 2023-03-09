@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:25:11 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 11:42:38 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:54:15 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	draw_other_hit(t_img *img, t_ray *ray, t_cub *cub, t_vert *start)
 	return (1);
 }
 
-void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, t_player *player)
+void	draw_hit(t_img *img, t_ray *ray, t_cub *cub)
 {
 	t_vert	start;
 	t_vert	finish;
@@ -54,5 +54,5 @@ void	draw_hit(t_img *img, t_ray *ray, t_cub *cub, t_player *player)
 	else if (!draw_other_hit(img, ray, cub, &start))
 		set_point(&finish, ray->pixel_x, img->height / 2, 0);
 	if (cub->mlx->fc_textures[FLOOR] && cub->mlx->fc_textures[CEILLING])
-		render_ground(img, cub, &finish, ray->angle, player);
+		render_ground(img, cub, &finish, ray);
 }
