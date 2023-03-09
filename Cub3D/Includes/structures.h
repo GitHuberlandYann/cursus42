@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 14:49:58 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:46:07 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,7 @@ typedef struct s_mlx
 	t_img	*(obj_textures[5]);
 	t_img	*(player_idle[8]);
 	t_img	*(player_death[5]);
+	t_img	*(avatar[5]);
 	t_img	*(player_shoot[4]);
 	t_img	*(player_run[8][4]);
 	t_img	*gun_idle;

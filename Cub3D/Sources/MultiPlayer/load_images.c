@@ -27,11 +27,16 @@ static void	load_more_running(t_mlx *mlx, t_img *(player_run[8][4]),
 	player_run[7][1] = ft_create_xpmimg(mlx, "maps/xpm/human/run71.xpm", 1);
 	player_run[7][2] = ft_create_xpmimg(mlx, "maps/xpm/human/run72.xpm", 2);
 	player_run[7][3] = ft_create_xpmimg(mlx, "maps/xpm/human/run73.xpm", 3);
-	mlx->gun_idle = ft_create_gunimg(mlx, "maps/xpm/weapons/mgidle.xpm", 0);
-	gun_shoot[0] = ft_create_gunimg(mlx, "maps/xpm/weapons/mgshoot0.xpm", 0);
-	gun_shoot[1] = ft_create_gunimg(mlx, "maps/xpm/weapons/mgshoot13.xpm", 1);
-	gun_shoot[2] = ft_create_gunimg(mlx, "maps/xpm/weapons/mgshoot2.xpm", 2);
-	gun_shoot[3] = ft_create_gunimg(mlx, "maps/xpm/weapons/mgshoot13.xpm", 3);
+	mlx->gun_idle = ft_create_gunimg(mlx, "maps/xpm/weapons/mgidle.xpm", 0, 1);
+	gun_shoot[0] = ft_create_gunimg(mlx, "maps/xpm/weapons/shoot0.xpm", 0, 1);
+	gun_shoot[1] = ft_create_gunimg(mlx, "maps/xpm/weapons/shoot13.xpm", 1, 1);
+	gun_shoot[2] = ft_create_gunimg(mlx, "maps/xpm/weapons/shoot2.xpm", 2, 1);
+	gun_shoot[3] = ft_create_gunimg(mlx, "maps/xpm/weapons/shoot13.xpm", 3, 1);
+	mlx->avatar[0] = ft_create_gunimg(mlx, "maps/xpm/human/hud0.xpm", 0, 2);
+	mlx->avatar[1] = ft_create_gunimg(mlx, "maps/xpm/human/hud1.xpm", 1, 2);
+	mlx->avatar[2] = ft_create_gunimg(mlx, "maps/xpm/human/hud2.xpm", 2, 2);
+	mlx->avatar[3] = ft_create_gunimg(mlx, "maps/xpm/human/hud3.xpm", 3, 2);
+	mlx->avatar[4] = ft_create_gunimg(mlx, "maps/xpm/human/hud4.xpm", 4, 2);
 }
 
 static void	load_running_player(t_mlx *mlx, t_img *(player_run[8][4]))

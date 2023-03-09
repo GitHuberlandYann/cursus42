@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:14:14 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 15:28:29 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:24:31 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	filter_red(t_img *img, int proportion)
 	}
 }
 
-t_img	*ft_create_gunimg(t_mlx *mlx, char *texture, t_side side)
+t_img	*ft_create_gunimg(t_mlx *mlx, char *texture, t_side side, int type)
 {
 	t_img	*img;
 	t_img	*res;
@@ -65,14 +65,19 @@ t_img	*ft_create_gunimg(t_mlx *mlx, char *texture, t_side side)
 	if (!texture)
 		return (0);
 	img = ft_create_xpmimg(mlx, texture, side);
-	width = WIN_HEIGHT / 3;
+	width = WIN_HEIGHT / (3 * type);
 	res = ft_create_img(mlx, width, width);
 	transform_xpm(res, img, width);
+	free(img);
 	return (res);
 }
 
 void	display_weapon(t_mlx *mlx, t_player *player, int player_num)
 {
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+		mlx->avatar[4 - player->hp]->img_ptr,
+		mlx->avatar[4 - player->hp]->width / 2,
+		player_num * WIN_HEIGHT_2 - mlx->avatar[4 - player->hp]->height);
 	if (player->state == DEAD)
 		return ;
 	if (player->state != SHOOTING)
