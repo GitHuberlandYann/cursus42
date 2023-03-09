@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/08 13:27:36 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:50:26 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@
 # define PSIZE 5
 # define ANIM_FPS 12
 # define DOOR_TIMER 3000
+# define PLAYERS_HP 3
 
 # define M_PI_8 (M_PI_4 / 2)
 

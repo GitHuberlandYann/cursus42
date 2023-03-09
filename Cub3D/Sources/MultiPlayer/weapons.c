@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:14:14 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/06 12:32:04 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:28:29 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,26 @@ static void	transform_xpm(t_img *dst, t_img *src, double width)
 	}
 }
 
+static void	filter_red(t_img *img, int proportion)
+{
+	int		x;
+	int		y;
+	double	quarter;
+	char	*col;
+
+	quarter = img->height / 4;
+	x = -1;
+	while (++x < img->width)
+	{
+		y = -1;
+		while (++y < quarter * proportion)
+		{
+			col = img->addr + (y * img->line_length + x * img->bytes_per_pixel);
+			*(unsigned *) col += 0x600000;
+		}
+	}
+}
+
 t_img	*ft_create_gunimg(t_mlx *mlx, char *texture, t_side side)
 {
 	t_img	*img;
@@ -53,6 +73,8 @@ t_img	*ft_create_gunimg(t_mlx *mlx, char *texture, t_side side)
 
 void	display_weapon(t_mlx *mlx, t_player *player, int player_num)
 {
+	if (player->state == DEAD)
+		return ;
 	if (player->state != SHOOTING)
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
 			mlx->gun_idle->img_ptr, WIN_WIDTH_2 - mlx->gun_idle->width / 2,
@@ -62,4 +84,12 @@ void	display_weapon(t_mlx *mlx, t_player *player, int player_num)
 			mlx->gun_shoot[player->obj->frame_shoot]->img_ptr,
 			WIN_WIDTH_2 - mlx->gun_idle->width / 2,
 			player_num * WIN_HEIGHT_2 - mlx->gun_idle->height);
+}
+
+void	add_death_filters(t_mlx *mlx, t_player *player, t_player *other)
+{
+	if (player->state == DEAD)
+		filter_red(mlx->render3d, player->obj->frame_shoot);
+	if (other->state == DEAD)
+		filter_red(mlx->render3dbis, other->obj->frame_shoot);
 }

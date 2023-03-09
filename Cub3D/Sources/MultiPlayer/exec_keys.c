@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:04:12 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/06 12:35:20 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:15:59 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static void	move_player(t_key *keys, t_cub *cub, t_player *player)
 {
 	t_ray	wall_sensor;
 
-	if (player->state == SHOOTING)
+	if (player->state == SHOOTING || player->state == DEAD)
 		return ;
 	wall_sensor.dist = 10000;
 	wall_sensor.pdist = 10000;
 	wall_sensor.fhit = CUT;
-	if (keys->vertical && player->state != DEAD)
+	if (keys->vertical)
 	{
 		set_point(&wall_sensor.ray.pt1, player->pos.x, player->pos.y, 0);
 		wall_sensor.angle = player->direction + M_PI * (keys->vertical == -1);
@@ -53,12 +53,12 @@ static void	move_playerbis(t_key *keys, t_cub *cub, t_player *player)
 {
 	t_ray	wall_sensor;
 
-	if (player->state == SHOOTING)
+	if (player->state == SHOOTING || player->state == DEAD)
 		return ;
 	wall_sensor.dist = 10000;
 	wall_sensor.pdist = 10000;
 	wall_sensor.fhit = CUT;
-	if (keys->verticalbis && player->state != DEAD)
+	if (keys->verticalbis)
 	{
 		set_point(&wall_sensor.ray.pt1, player->pos.x, player->pos.y, 0);
 		wall_sensor.angle = player->direction + M_PI * (keys->verticalbis == -1);
@@ -132,6 +132,7 @@ int	redraw_all_2p(t_cub *cub)
 	precompute_other_player(cub->map->playerbis, cub->map->player);
 	render_fdf(cub->map->objs, &cub->map->playerbis->pos);
 	render_map(cub->mlx->render3dbis, cub->map->playerbis, cub->map, cub);
+	add_death_filters(cub->mlx, cub->map->player, cub->map->playerbis);
 	mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
 		cub->mlx->render3d->img_ptr, 0, 0);
 	mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,

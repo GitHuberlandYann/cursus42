@@ -12,7 +12,8 @@
 
 #include "cub3d.h"
 
-static void	load_more_running(t_mlx *mlx, t_img *(player_run[8][4]), t_img *(gun_shoot[4]))
+static void	load_more_running(t_mlx *mlx, t_img *(player_run[8][4]),
+	t_img *(gun_shoot[4]))
 {
 	player_run[5][0] = ft_create_xpmimg(mlx, "maps/xpm/human/run50.xpm", 0);
 	player_run[5][1] = ft_create_xpmimg(mlx, "maps/xpm/human/run51.xpm", 1);
@@ -58,24 +59,24 @@ static void	load_running_player(t_mlx *mlx, t_img *(player_run[8][4]))
 	load_more_running(mlx, player_run, mlx->gun_shoot);
 }
 
-void	load_player_imgs(t_mlx *mlx)
+void	load_player_imgs(t_mlx *m)
 {
-	// mlx->player_death[0] = ft_create_xpmimg(mlx, "maps/xpm/human/death0.xpm", 0);
-	// mlx->player_death[1] = ft_create_xpmimg(mlx, "maps/xpm/human/death1.xpm", 1);
-	// mlx->player_death[2] = ft_create_xpmimg(mlx, "maps/xpm/human/death2.xpm", 2);
-	// mlx->player_death[3] = ft_create_xpmimg(mlx, "maps/xpm/human/death3.xpm", 3);
-	// mlx->player_death[4] = ft_create_xpmimg(mlx, "maps/xpm/human/death4.xpm", 4);
-	mlx->player_idle[0] = ft_create_xpmimg(mlx, "maps/xpm/human/idle0.xpm", 0);
-	mlx->player_idle[1] = ft_create_xpmimg(mlx, "maps/xpm/human/idle1.xpm", 1);
-	mlx->player_idle[2] = ft_create_xpmimg(mlx, "maps/xpm/human/idle2.xpm", 2);
-	mlx->player_idle[3] = ft_create_xpmimg(mlx, "maps/xpm/human/idle3.xpm", 3);
-	mlx->player_idle[4] = ft_create_xpmimg(mlx, "maps/xpm/human/idle4.xpm", 4);
-	mlx->player_idle[5] = ft_create_xpmimg(mlx, "maps/xpm/human/idle5.xpm", 5);
-	mlx->player_idle[6] = ft_create_xpmimg(mlx, "maps/xpm/human/idle6.xpm", 6);
-	mlx->player_idle[7] = ft_create_xpmimg(mlx, "maps/xpm/human/idle7.xpm", 7);
-	mlx->player_shoot[0] = ft_create_xpmimg(mlx, "maps/xpm/human/shoot0.xpm", 0);
-	mlx->player_shoot[1] = ft_create_xpmimg(mlx, "maps/xpm/human/shoot13.xpm", 1);
-	mlx->player_shoot[2] = ft_create_xpmimg(mlx, "maps/xpm/human/shoot2.xpm", 2);
-	mlx->player_shoot[3] = ft_create_xpmimg(mlx, "maps/xpm/human/shoot13.xpm", 3);
-	load_running_player(mlx, mlx->player_run);
+	m->player_death[0] = ft_create_xpmimg(m, "maps/xpm/human/death0.xpm", 0);
+	m->player_death[1] = ft_create_xpmimg(m, "maps/xpm/human/death1.xpm", 1);
+	m->player_death[2] = ft_create_xpmimg(m, "maps/xpm/human/death2.xpm", 2);
+	m->player_death[3] = ft_create_xpmimg(m, "maps/xpm/human/death3.xpm", 3);
+	m->player_death[4] = ft_create_xpmimg(m, "maps/xpm/human/death4.xpm", 4);
+	m->player_idle[0] = ft_create_xpmimg(m, "maps/xpm/human/idle0.xpm", 0);
+	m->player_idle[1] = ft_create_xpmimg(m, "maps/xpm/human/idle1.xpm", 1);
+	m->player_idle[2] = ft_create_xpmimg(m, "maps/xpm/human/idle2.xpm", 2);
+	m->player_idle[3] = ft_create_xpmimg(m, "maps/xpm/human/idle3.xpm", 3);
+	m->player_idle[4] = ft_create_xpmimg(m, "maps/xpm/human/idle4.xpm", 4);
+	m->player_idle[5] = ft_create_xpmimg(m, "maps/xpm/human/idle5.xpm", 5);
+	m->player_idle[6] = ft_create_xpmimg(m, "maps/xpm/human/idle6.xpm", 6);
+	m->player_idle[7] = ft_create_xpmimg(m, "maps/xpm/human/idle7.xpm", 7);
+	m->player_shoot[0] = ft_create_xpmimg(m, "maps/xpm/human/shoot0.xpm", 0);
+	m->player_shoot[1] = ft_create_xpmimg(m, "maps/xpm/human/shoot13.xpm", 1);
+	m->player_shoot[2] = ft_create_xpmimg(m, "maps/xpm/human/shoot2.xpm", 2);
+	m->player_shoot[3] = ft_create_xpmimg(m, "maps/xpm/human/shoot13.xpm", 3);
+	load_running_player(m, m->player_run);
 }

@@ -14,12 +14,14 @@
 
 static int	extend_key_down_2p(int kcode, t_cub *cub)
 {
-	if (kcode == KEY_SPACE && ++cub->mlx->keys->shootbis == 1)
+	if (kcode == KEY_SPACE && ++cub->mlx->keys->shootbis == 1
+		&& cub->map->playerbis->state != DEAD)
 	{
 		cub->map->playerbis->state = SHOOTING;
 		cub->mlx->keys->mousedate = 1;
 	}
-	else if (kcode == KEY_RIGHT && ++cub->mlx->keys->shoot == 1)
+	else if (kcode == KEY_RIGHT && ++cub->mlx->keys->shoot == 1
+		&& cub->map->player->state != DEAD)
 	{
 		cub->map->player->state = SHOOTING;
 		cub->mlx->keys->mousedate = 1;

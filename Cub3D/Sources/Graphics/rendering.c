@@ -19,6 +19,8 @@ static void	draw_hit_human(t_img *img, t_vert *start, t_obj *obj, t_mlx *mlx)
 	else if (obj->state == RUNNING)
 		draw_wall_vert(img, start,
 			mlx->player_run[obj->angle_index][mlx->curr_frame], obj->u);
+	else if (obj->state == DEAD)
+		draw_wall_vert(img, start, mlx->player_death[obj->frame_shoot], obj->u);
 	else
 		draw_wall_vert(img, start,
 			mlx->player_idle[obj->angle_index], obj->u);

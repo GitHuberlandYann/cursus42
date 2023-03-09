@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 14:23:15 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:17:32 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_img		*ft_create_gunimg(t_mlx *mlx, char *texture, t_side side);
 void		load_player_imgs(t_mlx *mlx);
 void		display_weapon(t_mlx *mlx, t_player *player, int player_num);
 void		update_shooting_frames(t_mlx *mlx, t_player *player, t_player *playerbis);
+void		add_death_filters(t_mlx *mlx, t_player *player, t_player *other);
 
 // Outputs
 int			output_error(char *msg);

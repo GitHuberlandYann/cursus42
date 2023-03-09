@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 11:34:15 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:49:58 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ typedef struct s_ray
 
 typedef struct s_player {
 	t_vert			pos;
+	int				hp;
 	double			direction;
 	t_state			state;
 	double			speed;
