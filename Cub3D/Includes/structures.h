@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 15:46:07 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/10 11:58:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,15 @@ typedef struct s_post {
 	struct s_post	*next;
 	struct s_post	*last;
 }				t_post;
+
+typedef struct s_postsolver {
+	double	m;
+	double	p;
+	double	a;
+	double	b;
+	double	c;
+	double	delta;
+}				t_solve;
 
 typedef struct s_anim {
 	double			frame_count;
