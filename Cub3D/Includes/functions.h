@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/10 11:48:42 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/10 15:36:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void			draw_player(t_img *img, t_set *settings);
 void			add_north(t_img *canva, double angle, t_set *sett);
 
 void			clear_render(t_img *canva, unsigned int cols[2], t_cub *cub);
-void			setup_rendermap(t_img *canva, t_set *settings);
+void			setup_minimap(t_img *canva, t_set *settings, t_cub *cub);
 void			render_ground(t_img *img, t_cub *cub, t_vert *pxl, t_ray *ray);
 
 void			render_map(t_img *img, t_player *player, t_map *map,
@@ -59,6 +59,7 @@ unsigned int	mlx_pxl_get(t_img *img, int x, int y);
 int				key_down(int kcode, t_cub *cub);
 int				key_released(int kcode, t_cub *cub);
 int				mouse_move(int x, int y, t_cub *cub);
+void			move_player(t_key *keys, t_cub *cub, t_player *player);
 int				redraw_all(t_cub *cub);
 int				mlx_exit(void *param);
 

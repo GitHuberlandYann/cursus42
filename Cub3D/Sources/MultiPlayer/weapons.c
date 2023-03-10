@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapons.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:14:14 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 16:24:31 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:42:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,8 @@ void	add_death_filters(t_mlx *mlx, t_player *player, t_player *other)
 		filter_red(mlx->render3d, player->obj->frame_shoot);
 	if (other->state == DEAD)
 		filter_red(mlx->render3dbis, other->obj->frame_shoot);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+		mlx->render3d->img_ptr, 0, 0);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+		mlx->render3dbis->img_ptr, 0, WIN_HEIGHT_2);
 }

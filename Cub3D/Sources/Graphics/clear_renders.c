@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_renders.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:24:38 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 14:25:33 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/10 14:55:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	clear_render(t_img *canva, unsigned int cols[2], t_cub *cub)
 	}
 }
 
-void	setup_rendermap(t_img *canva, t_set *settings)
+void	setup_minimap(t_img *canva, t_set *settings, t_cub *cub)
 {
 	t_vert	pt;
 
@@ -56,4 +56,5 @@ void	setup_rendermap(t_img *canva, t_set *settings)
 		}
 		++pt.y;
 	}
+	fill_minimap(cub);
 }

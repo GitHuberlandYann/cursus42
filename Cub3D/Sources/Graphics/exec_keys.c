@@ -16,96 +16,46 @@ static void	move_god(t_key *keys, t_player *player)
 {
 	if (keys->vertical)
 	{
-		player->pos.x += cos(player->direction) * player->speed * (1 + keys->sprint) * keys->vertical;
-		player->pos.y -= sin(player->direction) * player->speed * (1 + keys->sprint) * keys->vertical;
+		player->pos.x += cos(player->direction) * player->speed
+			* (1 + keys->sprint) * keys->vertical;
+		player->pos.y -= sin(player->direction) * player->speed
+			* (1 + keys->sprint) * keys->vertical;
 	}
 	if (keys->horizontal)
 	{
-		player->pos.x += cos(player->direction + M_PI / 2) * player->speed * (1 + keys->sprint) * keys->horizontal;
-		player->pos.y -= sin(player->direction + M_PI / 2) * player->speed * (1 + keys->sprint) * keys->horizontal;
+		player->pos.x += cos(player->direction + M_PI / 2)
+			* player->speed * (1 + keys->sprint) * keys->horizontal;
+		player->pos.y -= sin(player->direction + M_PI / 2)
+			* player->speed * (1 + keys->sprint) * keys->horizontal;
 	}
 }
 
-static void	move_player(t_key *keys, t_cub *cub, t_player *player)
+static void	exec_keys(t_key *keys, t_cub *cub, t_set *sett)
 {
-	t_ray	wall_sensor;
-
-	wall_sensor.dist = 10000;
-	wall_sensor.pdist = 10000;
-	wall_sensor.fhit = CUT;
-	if (keys->vertical)
-	{
-		set_point(&wall_sensor.ray.pt1, player->pos.x, player->pos.y, 0);
-		wall_sensor.angle = player->direction + M_PI * (keys->vertical == -1);
-		wall_sensor.out_angle = wall_sensor.angle;
-		wall_sensor.objs = 0;
-		ray_walling(cub->map->walls, &wall_sensor);
-		ray_dooring(cub->map->doors, &wall_sensor);
-		ray_posting(cub->map->posts, &wall_sensor);
-		ray_portaling(cub->map->portals, &wall_sensor, 0, cub);
-		ray_objing(cub->map->objs, player->other, &wall_sensor);
-		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < player->speed * (1 + keys->sprint) && wall_sensor.dist > player->speed * (1 + keys->sprint))
-		{
-			player->pos.x = wall_sensor.pray.pt1.x + cos(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));
-			player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));
-			player->direction = wall_sensor.out_angle + M_PI * (keys->vertical == -1);
-		}
-		else if (wall_sensor.mdist > 2 * player->speed * (1 + keys->sprint))
-		{
-			player->pos.x += cos(player->direction) * player->speed * (1 + keys->sprint) * keys->vertical;
-			player->pos.y -= sin(player->direction) * player->speed * (1 + keys->sprint) * keys->vertical;
-		}
-	}
-	if (keys->horizontal)
-	{
-		set_point(&wall_sensor.ray.pt1, player->pos.x, player->pos.y, 0);
-		wall_sensor.angle = player->direction + M_PI / 2 * keys->horizontal;
-		wall_sensor.out_angle = wall_sensor.angle;
-		wall_sensor.objs = 0;
-		ray_walling(cub->map->walls, &wall_sensor);
-		ray_dooring(cub->map->doors, &wall_sensor);
-		ray_posting(cub->map->posts, &wall_sensor);
-		ray_portaling(cub->map->portals, &wall_sensor, 0, cub);
-		ray_objing(cub->map->objs, player->other, &wall_sensor);
-		if (wall_sensor.fhit == PORTAL && wall_sensor.pdist < player->speed * (1 + keys->sprint) && wall_sensor.dist > player->speed * (1 + keys->sprint))
-		{
-			player->pos.x = wall_sensor.pray.pt1.x + cos(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));
-			player->pos.y = wall_sensor.pray.pt1.y - sin(wall_sensor.out_angle) * (player->speed * (1 + keys->sprint));
-			player->direction = wall_sensor.out_angle + M_PI / 2 + M_PI * (keys->horizontal == 1);
-		}
-		else if (wall_sensor.mdist > 2 * player->speed * (1 + keys->sprint))
-		{
-			player->pos.x += cos(player->direction + M_PI / 2) * player->speed * (1 + keys->sprint) * keys->horizontal;
-			player->pos.y -= sin(player->direction + M_PI / 2) * player->speed * (1 + keys->sprint) * keys->horizontal;
-		}
-	}
-}
-
-static void	exec_keys(t_key *keys, t_cub *cub)
-{
+	keys->mousedate = 0;
 	if (keys->steering)
 		cub->map->player->direction += keys->steering * 5 * M_PI / 180;
-	if ((keys->fov_width < 0 && cub->settings->fov_width > WIN_WIDTH / 10)
-		|| (keys->fov_width > 0 && cub->settings->fov_width < WIN_WIDTH * 2))
+	if ((keys->fov_width < 0 && sett->fov_width > WIN_WIDTH / 10)
+		|| (keys->fov_width > 0 && sett->fov_width < WIN_WIDTH * 2))
 	{
-		cub->settings->fov_width += 10 * keys->fov_width;
-		set_ray_angles(cub->settings->fov_width, cub->map->player, cub->map->playerbis);
+		sett->fov_width += 10 * keys->fov_width;
+		set_ray_angles(sett->fov_width, cub->map->player, cub->map->playerbis);
 	}
-	if (keys->fov_dist > 0 || (keys->fov_dist < 0 && cub->settings->fov_dist > 0.5))
-		cub->settings->fov_dist += keys->fov_dist * 0.1;
+	if (keys->fov_dist > 0 || (keys->fov_dist < 0 && sett->fov_dist > 0.5))
+		sett->fov_dist += keys->fov_dist * 0.1;
 	if (keys->dist_feel)
 	{
-		cub->settings->dist_feel += keys->dist_feel * 0.01;
-		if (cub->settings->dist_feel < 0.5 || cub->settings->dist_feel > 1.5)
-			cub->settings->dist_feel -= keys->dist_feel * 0.01;
+		sett->dist_feel += keys->dist_feel * 0.01;
+		if (sett->dist_feel < 0.5 || sett->dist_feel > 1.5)
+			sett->dist_feel -= keys->dist_feel * 0.01;
 	}
 	if (keys->wall_width)
 	{
-		cub->settings->wall_width += keys->wall_width;
-		if (!cub->settings->wall_width || cub->settings->wall_width > 75)
-			cub->settings->wall_width -= keys->wall_width;
+		sett->wall_width += keys->wall_width;
+		if (!sett->wall_width || sett->wall_width > 75)
+			sett->wall_width -= keys->wall_width;
 		else
-			cub->settings->radius_divww = MAP_RADIUS / cub->settings->wall_width;
+			sett->radius_divww = MAP_RADIUS / sett->wall_width;
 	}
 }
 
@@ -121,21 +71,17 @@ int	redraw_all(t_cub *cub)
 		&& !key->mousedate && key->mini_enable != 1
 		&& !key->dist_feel && !key->wall_width && key->godmode != 1)
 		return (1);
-	key->mousedate = 0;
 	if (!cub->settings->godmode)
 		move_player(key, cub, cub->map->player);
 	else
 		move_god(key, cub->map->player);
-	exec_keys(key, cub);
+	exec_keys(key, cub, cub->settings);
 	render_fdf(cub->map->objs, &cub->map->player->pos);
 	precompute_obj_lines(&cub->map->player->pos, cub->map->objs);
 	clear_render(cub->mlx->render3d, cub->map->fc_colors, cub);
 	render_map(cub->mlx->render3d, cub->map->player, cub->map, cub);
 	if (cub->settings->mini_enable)
-	{
-		setup_rendermap(cub->mlx->render3d, cub->settings);
-		fill_minimap(cub);
-	}
+		setup_minimap(cub->mlx->render3d, cub->settings, cub);
 	mlx_put_image_to_window(cub->mlx->mlx_ptr, cub->mlx->win_ptr,
 		cub->mlx->render3d->img_ptr, 0, 0);
 	add_fps(cub->mlx, cub->settings, cub->map->player);
