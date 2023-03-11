@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:03:22 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 15:17:54 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/11 14:54:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,20 @@ static void	shootframe(t_player *player, t_player *other)
 	t_obj	*obj;
 
 	obj = player->rays[WIN_WIDTH_2].objs;
-	while (obj)
-	{
-		if (obj->type == HUMAN)
-		{
-			--other->hp;
-			if (!other->hp)
-			{
-				other->state = DEAD;
-				other->obj->frame_shoot = 0;
-			}
-		}
+	if (!obj)
+		return ;
+	while (obj->next)
 		obj = obj->next;
+	if (obj->type == HUMAN)
+	{
+		if (!player->weapon && obj->dist > KNIFE_DIST)
+			return ;
+		--other->hp;
+		if (!other->hp)
+		{
+			other->state = DEAD;
+			other->obj->frame_shoot = 0;
+		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:14:14 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/10 15:42:33 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/11 15:01:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_img	*ft_create_gunimg(t_mlx *mlx, char *texture, t_side side, int type)
 	width = WIN_HEIGHT / (3 * type);
 	res = ft_create_img(mlx, width, width);
 	transform_xpm(res, img, width);
+	mlx_destroy_image(mlx->mlx_ptr, img->img_ptr);
 	free(img);
 	return (res);
 }
@@ -82,13 +83,14 @@ void	display_weapon(t_mlx *mlx, t_player *player, int player_num)
 		return ;
 	if (player->state != SHOOTING)
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
-			mlx->gun_idle->img_ptr, WIN_WIDTH_2 - mlx->gun_idle->width / 2,
-			player_num * WIN_HEIGHT_2 - mlx->gun_idle->height);
+			mlx->weap_idle[player->weapon]->img_ptr,
+			WIN_WIDTH_2 - mlx->weap_idle[0]->width / 2,
+			player_num * WIN_HEIGHT_2 - mlx->weap_idle[0]->height);
 	else
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
-			mlx->gun_shoot[player->obj->frame_shoot]->img_ptr,
-			WIN_WIDTH_2 - mlx->gun_idle->width / 2,
-			player_num * WIN_HEIGHT_2 - mlx->gun_idle->height);
+			mlx->weap_use[player->weapon][player->obj->frame_shoot]->img_ptr,
+			WIN_WIDTH_2 - mlx->weap_idle[0]->width / 2,
+			player_num * WIN_HEIGHT_2 - mlx->weap_idle[0]->height);
 }
 
 void	add_death_filters(t_mlx *mlx, t_player *player, t_player *other)

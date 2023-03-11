@@ -16,16 +16,23 @@ static int	extend_key_down_2p(int kcode, t_cub *cub)
 {
 	if (kcode == KEY_SPACE && ++cub->mlx->keys->shootbis == 1
 		&& cub->map->playerbis->state != DEAD)
-	{
 		cub->map->playerbis->state = SHOOTING;
-		cub->mlx->keys->mousedate = 1;
-	}
 	else if (kcode == KEY_RIGHT && ++cub->mlx->keys->shoot == 1
 		&& cub->map->player->state != DEAD)
-	{
 		cub->map->player->state = SHOOTING;
-		cub->mlx->keys->mousedate = 1;
-	}
+	else if (kcode == KEY_Q && ++cub->mlx->keys->weap_switchbis == 1)
+		cub->map->playerbis->weapon = !cub->map->playerbis->weapon;
+	else if (kcode == KEY_7 && ++cub->mlx->keys->weap_switch == 1)
+		cub->map->player->weapon = !cub->map->player->weapon;
+	return (0);
+}
+
+static int	extend_key_released_2p(int kcode, t_cub *cub)
+{
+	if (kcode == KEY_Q)
+		cub->mlx->keys->weap_switchbis = 0;
+	if (kcode == KEY_7)
+		cub->mlx->keys->weap_switch = 0;
 	return (0);
 }
 
@@ -84,5 +91,5 @@ int	key_released_2p(int kcode, t_cub *cub)
 		cub->mlx->keys->shoot = 0;
 	else if (kcode == KEY_SPACE)
 		cub->mlx->keys->shootbis = 0;
-	return (0);
+	return (extend_key_released_2p(kcode, cub));
 }

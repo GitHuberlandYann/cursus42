@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/10 11:49:34 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/11 14:08:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@
 # define ANIM_FPS 12
 # define DOOR_TIMER 3000
 # define PLAYERS_HP 4
+# define KNIFE_DIST 0.7
 
 # define M_PI_8 (M_PI_4 / 2)
 
@@ -206,6 +207,7 @@ enum {
 	KEY_E = 101,
 	KEY_G = 103,
 	KEY_M = 109,
+	KEY_Q = 97,
 	KEY_S = 115,
 	KEY_W = 122,
 	KEY_ESC = 65307,
@@ -224,6 +226,7 @@ enum {
 	KEY_4 = 65430,
 	KEY_5 = 65437,
 	KEY_6 = 65432,
+	KEY_7 = 65429,
 	KEY_8 = 65431,
 	KEY_9 = 65434,
 	KEY_ASTERISK = 65450,
@@ -240,6 +243,7 @@ enum {
 	KEY_E = 14,
 	KEY_G = 5,
 	KEY_M = 46,
+	KEY_Q = 12,
 	KEY_S = 1,
 	KEY_W = 13,
 	KEY_ESC = 53,
@@ -258,6 +262,7 @@ enum {
 	KEY_4 = 86,
 	KEY_5 = 87,
 	KEY_6 = 88,
+	KEY_7 = 89,
 	KEY_8 = 91,
 	KEY_9 = 92,
 	KEY_ASTERISK = 67,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 11:02:00 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/11 13:55:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static t_mlx	*ft_mlx_init(char *title, t_map *map)
 	ft_img_init(mlx, map);
 	mlx->keys = ft_malloc(sizeof(*mlx->keys), "keys_init");
 	bzero_mlx(mlx);
+	mlx->keys->weap_switch = 0;
+	mlx->keys->weap_switchbis = 0;
 	return (mlx);
 }
 

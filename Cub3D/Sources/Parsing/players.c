@@ -22,6 +22,15 @@ static void	set_rays_pixel(t_player *player)
 		player->rays[index].pixel_x = index;
 		++index;
 	}
+	player->speed = 0.1;
+	player->weapon = 0;
+	player->hp = PLAYERS_HP;
+	player->obj = ft_malloc(sizeof(*player->obj), __func__);
+	player->obj->type = HUMAN;
+	player->obj->frame_shoot = 0;
+	player->obj->fdf = 0;
+	player->obj->next = 0;
+	player->obj->last = 0;
 }
 
 static void	set_player_direction(t_player *player, t_parsing *p_line, int index)
@@ -51,14 +60,6 @@ static void	init_player(t_map *map, t_parsing *p_line)
 	map->player->other = 0;
 	set_player_direction(map->player, p_line, index);
 	set_rays_pixel(map->player);
-	map->player->speed = 0.1;
-	map->player->hp = PLAYERS_HP;
-	map->player->obj = ft_malloc(sizeof(*map->player->obj), __func__);
-	map->player->obj->type = HUMAN;
-	map->player->obj->frame_shoot = 0;
-	map->player->obj->fdf = 0;
-	map->player->obj->next = 0;
-	map->player->obj->last = 0;
 }
 
 static void	init_playerbis(t_map *map, t_parsing *p_line)
@@ -78,14 +79,6 @@ static void	init_playerbis(t_map *map, t_parsing *p_line)
 	map->playerbis->other = map->player;
 	set_player_direction(map->playerbis, p_line, index);
 	set_rays_pixel(map->playerbis);
-	map->playerbis->speed = 0.1;
-	map->playerbis->hp = PLAYERS_HP;
-	map->playerbis->obj = ft_malloc(sizeof(*map->playerbis->obj), __func__);
-	map->playerbis->obj->type = HUMAN;
-	map->playerbis->obj->frame_shoot = 0;
-	map->playerbis->obj->fdf = 0;
-	map->playerbis->obj->next = 0;
-	map->playerbis->obj->last = 0;
 }
 
 void	init_players(t_map *map, t_parsing *lines)

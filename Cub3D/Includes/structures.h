@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/10 11:58:14 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/11 13:54:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ typedef struct s_ray
 typedef struct s_player {
 	t_vert			pos;
 	int				hp;
+	int				weapon;
 	double			direction;
 	t_state			state;
 	double			speed;
@@ -235,6 +236,8 @@ typedef struct s_key {
 	int	steeringbis;
 	int	shoot;
 	int	shootbis;
+	int	weap_switch;
+	int	weap_switchbis;
 	int	fov_width;
 	int	fov_enable;
 	int	fov_dist;
@@ -263,8 +266,8 @@ typedef struct s_mlx
 	t_img	*(avatar[5]);
 	t_img	*(player_shoot[4]);
 	t_img	*(player_run[8][4]);
-	t_img	*gun_idle;
-	t_img	*(gun_shoot[4]);
+	t_img	*(weap_idle[2]);
+	t_img	*(weap_use[2][4]);
 	t_key	*keys;
 	t_vert	mouse_pos;
 	double	frame_count;
