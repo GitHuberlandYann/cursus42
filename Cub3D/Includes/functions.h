@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/10 15:36:39 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/12 13:38:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int				add_obj(t_map *map, t_objtype type);
 int				add_post(t_map *map);
 
 int				only_spaces(t_map *map, int index);
+void			trim_spaces(char *str, int index, int cpyindex, int len);
+
 int				free_return_lines(t_parsing *lines, t_map *map,
 					int free_player);
 int				free_return_line(char *line);

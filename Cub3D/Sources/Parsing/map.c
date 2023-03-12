@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:12:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/02 17:34:54 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/12 13:38:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,29 @@ static void	setup_map(t_map *map)
 	map->portal_count = 0;
 	map->hasdoor = 0;
 	map->hasanimated = 0;
+}
+
+void	trim_spaces(char *str, int index, int cpyindex, int len)
+{
+	if (len)
+		str[len - 1] = '\0';
+	while (str[index] == ' ')
+		++index;
+	while (str[index])
+	{
+		str[cpyindex++] = str[index];
+		if (str[index] == ' ')
+		{
+			while (str[index] == ' ')
+				++index;
+			--index;
+		}
+		++index;
+	}
+	if (cpyindex && str[cpyindex - 1] == ' ')
+		--cpyindex;
+	str[cpyindex] = '\n';
+	str[cpyindex + 1] = '\0';
 }
 
 int	load_map(t_map *map, char *file)

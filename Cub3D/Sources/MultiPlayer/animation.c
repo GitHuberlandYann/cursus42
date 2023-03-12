@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:03:22 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/11 14:54:13 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/12 15:30:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	shootframe(t_player *player, t_player *other)
 	obj = player->rays[WIN_WIDTH_2].objs;
 	if (!obj)
 		return ;
-	while (obj->next)
-		obj = obj->next;
+	while (obj->next_ray)
+		obj = obj->next_ray;
 	if (obj->type == HUMAN)
 	{
 		if (!player->weapon && obj->dist > KNIFE_DIST)

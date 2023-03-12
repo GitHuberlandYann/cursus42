@@ -6,18 +6,18 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:20:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/11 13:55:29 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/12 13:09:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_set	*ft_init_settings(void)
+static t_set	*ft_init_settings(int multi)
 {
 	t_set	*res;
 
 	res = ft_malloc(sizeof(*res), __func__);
-	res->fov_width = WIN_WIDTH_2;
+	res->fov_width = WIN_WIDTH_2 / multi;
 	res->fov_enable = 0;
 	res->fov_dist = 5;
 	res->dist_feel = 1;
@@ -87,7 +87,7 @@ void	launch_mlx(t_map *map, char	*title)
 
 	cub.map = map;
 	cub.mlx = ft_mlx_init(title, map);
-	cub.settings = ft_init_settings();
+	cub.settings = ft_init_settings(1 + (map->player_count == 2));
 	set_ray_angles(cub.settings->fov_width, map->player, map->playerbis);
 	mlx_hook(cub.mlx->win_ptr, ON_DESTROY, 0, mlx_exit, 0);
 	if (map->player_count == 1)

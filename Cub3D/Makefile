@@ -91,15 +91,17 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR_SOURCES)/Parsing
 	@mkdir -p $(OBJS_DIR_SOURCES)/RayCasting
 
-$(NAME): $(OBJS) libs
+$(NAME): $(OBJS) $(LIBFT) $(MLX_PATH)
 	$(CC) $(SAN) $(OBJS) -o $(NAME) $(MLX) $(LIBFT) $(MATH)
 
 $(OBJS_DIR_SOURCES)/%.o: Sources/%.c
 	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
 
-libs:
-	@make -C $(MLX_DIR)
+$(LIBFT):
 	@make -C $(LIBFT_DIR)
+
+$(MLX_PATH):
+	@make -C $(MLX_DIR)
 
 clean:
 	make fclean -C $(LIBFT_DIR)
@@ -111,4 +113,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re libs
+.PHONY: all clean fclean re

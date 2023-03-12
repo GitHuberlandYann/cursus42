@@ -108,6 +108,7 @@ int	read_first_lines(t_map *map, int fd)
 	map->line = get_next_line(fd);
 	while (map->line && !line_from_map(map->line, 0))
 	{
+		trim_spaces(map->line, 0, 0, ft_strlen(map->line));
 		if (strcmp_line(map))
 			return (1);
 		free(map->line);
