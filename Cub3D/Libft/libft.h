@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 12:41:11 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/02 15:16:29 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/13 11:09:27 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@ void	*ft_malloc(int size, const char *msg);
 // int		ft_min(int a, int b);
 // int		ft_abs(int nb);
 double	ft_fmod(double a, double b);
-void	ft_bzero(void *s, size_t n);
+// void	ft_bzero(void *s, size_t n);
 void	ft_free_arr(char **arr);
 
 int		ft_atoi(const char *str);
-int		ft_atoi_64bits(char *str);
-char	*ft_itoa(int n);
+// int		ft_atoi_64bits(char *str);
+// char	*ft_itoa(int n);
 // void	ft_arrayset(int *tab, int value, int size);
 // int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(const char *s, int c);
 int		ft_strchr_cntset(char *str, char *targets);
-char	*ft_strchr_quotes(char *str, char c);
+// char	*ft_strchr_quotes(char *str, char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_strcpy(char *dst, const char *src);
-void	ft_strcat(char *dst, const char *src);
+// void	ft_strcat(char *dst, const char *src);
 char	*get_next_line(int fd);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 char	*ft_strdup_gnl(char **str);
@@ -57,11 +57,11 @@ char	*ft_strcpy_until_nl(char *str);
 size_t	ft_strlen(const char *str);
 // char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
-char	**ft_split_quotes(char *str, char c);
-char	**ft_split_first(char const *s, char c);
-char	**ft_split_quotes_set(char const *s, char *set);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strjoins(int ac, ...);
+// char	**ft_split_quotes(char *str, char c);
+// char	**ft_split_first(char const *s, char c);
+// char	**ft_split_quotes_set(char const *s, char *set);
+// char	*ft_strjoin(char const *s1, char const *s2);
+// char	*ft_strjoins(int ac, ...);
 char	*ft_strdup(const char *s1);
 // char	**ft_arrayadd_back(char **arr, char *str);
 int		ft_arraylen(char **array);
@@ -72,7 +72,7 @@ int		ft_arraylen(char **array);
 // char	ft_get_type(char c);
 // void	ft_putchar(unsigned char c);
 // void	ft_putchars(unsigned char c, int size);
-void	ft_putendl(char *s);
+// void	ft_putendl(char *s);
 // void	ft_putstr_fd(char *str, int fd);
 // void	ft_putnbr(int nb);
 // void	ft_putunbr(unsigned int nb);

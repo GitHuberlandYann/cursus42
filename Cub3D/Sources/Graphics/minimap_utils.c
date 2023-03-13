@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:19:25 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 14:26:01 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/13 10:59:12 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	draw_disk(t_img *img, t_vert *center, int radius, unsigned int col)
 	}
 }
 
-static void	draw_circle(t_img *img, t_vert *c, double r, unsigned int color)
+void	draw_circle(t_img *img, t_vert *c, double r, unsigned int color)
 {
 	t_vert	pt;
 	t_vert	pt2;

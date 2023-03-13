@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapons.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:14:14 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/11 15:01:40 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/13 11:02:05 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,15 @@ void	display_weapon(t_mlx *mlx, t_player *player, int player_num)
 
 void	add_death_filters(t_mlx *mlx, t_player *player, t_player *other)
 {
+	t_vert	pos;
+
 	if (player->state == DEAD)
 		filter_red(mlx->render3d, player->obj->frame_shoot);
 	if (other->state == DEAD)
 		filter_red(mlx->render3dbis, other->obj->frame_shoot);
+	set_point(&pos, WIN_WIDTH_2, mlx->render3d->height / 2, 0);
+	draw_circle(mlx->render3d, &pos, 3, RED);
+	draw_circle(mlx->render3dbis, &pos, 3, RED);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
 		mlx->render3d->img_ptr, 0, 0);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,

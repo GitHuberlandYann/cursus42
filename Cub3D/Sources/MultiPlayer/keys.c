@@ -17,7 +17,7 @@ static int	extend_key_down_2p(int kcode, t_cub *cub)
 	if (kcode == KEY_SPACE && ++cub->mlx->keys->shootbis == 1
 		&& cub->map->playerbis->state != DEAD)
 		cub->map->playerbis->state = SHOOTING;
-	else if (kcode == KEY_RIGHT && ++cub->mlx->keys->shoot == 1
+	else if (kcode == KEY_ENTER_PAD && ++cub->mlx->keys->shoot == 1
 		&& cub->map->player->state != DEAD)
 		cub->map->player->state = SHOOTING;
 	else if (kcode == KEY_Q && ++cub->mlx->keys->weap_switchbis == 1)
@@ -50,7 +50,7 @@ int	key_down_2p(int kcode, t_cub *cub)
 		cub->mlx->keys->steeringbis = (kcode == KEY_A) - (kcode == KEY_D);
 	else if (kcode == KEY_SHIFT)
 		cub->mlx->keys->sprintbis = 1;
-	else if (kcode == KEY_ENTER_PAD)
+	else if (kcode == KEY_RIGHT)
 		cub->mlx->keys->sprint = 1;
 	else if (kcode == KEY_PLUS || kcode == KEY_MINUS)
 		cub->mlx->keys->fov_width = (kcode == KEY_PLUS) - (kcode == KEY_MINUS);
@@ -77,7 +77,7 @@ int	key_released_2p(int kcode, t_cub *cub)
 		cub->mlx->keys->steeringbis = 0;
 	else if (kcode == KEY_SHIFT)
 		cub->mlx->keys->sprintbis = 0;
-	else if (kcode == KEY_ENTER_PAD)
+	else if (kcode == KEY_RIGHT)
 		cub->mlx->keys->sprint = 0;
 	else if (kcode == KEY_PLUS || kcode == KEY_MINUS)
 		cub->mlx->keys->fov_width = 0;
@@ -87,7 +87,7 @@ int	key_released_2p(int kcode, t_cub *cub)
 		cub->mlx->keys->door = 0;
 	else if (kcode == KEY_PLUS_PAD || kcode == KEY_MINUS_PAD)
 		cub->mlx->keys->dist_feel = 0;
-	else if (kcode == KEY_RIGHT)
+	else if (kcode == KEY_ENTER_PAD)
 		cub->mlx->keys->shoot = 0;
 	else if (kcode == KEY_SPACE)
 		cub->mlx->keys->shootbis = 0;

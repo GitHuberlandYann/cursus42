@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/12 13:38:35 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/13 11:12:04 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void			update_shooting_frames(t_mlx *mlx, t_player *player,
 					t_player *playerbis);
 void			add_death_filters(t_mlx *mlx, t_player *player,
 					t_player *other);
+void			draw_circle(t_img *img, t_vert *c, double r,
+					unsigned int color);
 
 // Outputs
 int				output_error(char *msg);
