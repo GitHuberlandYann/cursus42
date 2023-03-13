@@ -40,10 +40,11 @@ static int	charge_portal(t_map *map, int x, int y, t_side orientation)
 {
 	t_portal	*target;
 
+	++map->portal_count;
 	target = map->portals;
 	while (target)
 	{
-		if (target->num == map->portal_count)
+		if (target->num == map->portal_count - 1)
 		{
 			target->x = x;
 			target->y = y;
@@ -58,17 +59,19 @@ static int	charge_portal(t_map *map, int x, int y, t_side orientation)
 
 static int	set_other_orientations(t_parsing *line, int x, t_side *orientation)
 {
-	if (line->line[x - 1] != '1'
-		&& (line->line[x + 1] == '1' || line->line[x + 1] == 'P')
-		&& line->prev->line[x] == '1' && line->next->line[x] == '1')
+	if (!ft_strchr("1A", line->line[x - 1])
+		&& ft_strchr("1AP", line->line[x + 1])
+		&& ft_strchr("1A", line->prev->line[x])
+		&& ft_strchr("1A", line->next->line[x]))
 	{
 		*orientation = WE;
 		if (flood_fill(line, x - 1))
 			return (output_error(MSG_UNCLOSEDPORTAL));
 	}
-	else if ((line->line[x - 1] == '1' || line->line[x - 1] == 'P')
-		&& line->line[x + 1] != '1' && line->prev->line[x] == '1'
-		&& line->next->line[x] == '1')
+	else if (ft_strchr("1AP", line->line[x - 1])
+		&& !ft_strchr("1A", line->line[x + 1])
+		&& ft_strchr("1A", line->prev->line[x])
+		&& ft_strchr("1A", line->next->line[x]))
 	{
 		*orientation = EA;
 		if (flood_fill(line, x + 1))
@@ -84,17 +87,18 @@ int	set_portal(t_map *map, t_parsing *line, int x, t_side orientation)
 	if (!x || !line->line_number || !line->next || x >= line->prev->size
 		|| x >= line->next->size)
 		return (output_error(MSG_PORTAL_BORDER));
-	if (line->line[x - 1] == '1' && line->line[x + 1] == '1'
-		&& line->prev->line[x] != '1'
-		&& (line->next->line[x] == '1' || line->next->line[x] == 'P'))
+	if (ft_strchr("1A", line->line[x - 1]) && ft_strchr("1A", line->line[x + 1])
+		&& !ft_strchr("1A", line->prev->line[x])
+		&& ft_strchr("1AP", line->next->line[x]))
 	{
 		orientation = NO;
 		if (flood_fill(line->prev, x))
 			return (output_error(MSG_UNCLOSEDPORTAL));
 	}
-	else if (line->line[x - 1] == '1' && line->line[x + 1] == '1'
-		&& (line->prev->line[x] == '1' || line->prev->line[x] == 'P')
-		&& line->next->line[x] != '1')
+	else if (ft_strchr("1A", line->line[x - 1])
+		&& ft_strchr("1A", line->line[x + 1])
+		&& ft_strchr("1AP", line->prev->line[x])
+		&& !ft_strchr("1A", line->next->line[x]))
 	{
 		orientation = SO;
 		if (flood_fill(line->next, x))
@@ -104,6 +108,5 @@ int	set_portal(t_map *map, t_parsing *line, int x, t_side orientation)
 		return (1);
 	if (charge_portal(map, x, line->line_number, orientation))
 		return (1);
-	++map->portal_count;
 	return (0);
 }
