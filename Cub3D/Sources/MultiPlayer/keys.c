@@ -24,6 +24,8 @@ static int	extend_key_down_2p(int kcode, t_cub *cub)
 		cub->map->playerbis->weapon = !cub->map->playerbis->weapon;
 	else if (kcode == KEY_7 && ++cub->mlx->keys->weap_switch == 1)
 		cub->map->player->weapon = !cub->map->player->weapon;
+	else if (kcode == KEY_R && ++cub->mlx->keys->restart == 1)
+		reset_players(cub->map->player, cub->map->playerbis);
 	return (0);
 }
 
@@ -31,8 +33,10 @@ static int	extend_key_released_2p(int kcode, t_cub *cub)
 {
 	if (kcode == KEY_Q)
 		cub->mlx->keys->weap_switchbis = 0;
-	if (kcode == KEY_7)
+	else if (kcode == KEY_7)
 		cub->mlx->keys->weap_switch = 0;
+	else if (kcode == KEY_R)
+		cub->mlx->keys->restart = 0;
 	return (0);
 }
 

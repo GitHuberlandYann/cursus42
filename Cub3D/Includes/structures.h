@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:51:18 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/11 13:54:22 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/14 09:45:02 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ typedef struct s_ray
 }				t_ray;
 
 typedef struct s_player {
+	t_vert			starting_pos;
 	t_vert			pos;
 	int				hp;
 	int				weapon;
@@ -249,6 +250,7 @@ typedef struct s_key {
 	int	door;
 	int	doorbis;
 	int	godmode;
+	int	restart;
 }				t_key;
 
 typedef struct s_mlx

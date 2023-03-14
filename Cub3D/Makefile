@@ -26,7 +26,8 @@ FILES_GRAPHICS = animation clear_renders exec_keys exec_move image keys \
 
 FILES += $(addprefix Graphics/, $(FILES_GRAPHICS))
 
-FILES_MULTIPLAYER = animation exec_keys keys load_images precompute weapons
+FILES_MULTIPLAYER = animation exec_keys keys load_images precompute reset \
+					weapons
 
 FILES += $(addprefix MultiPlayer/, $(FILES_MULTIPLAYER))
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/11 14:08:59 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/14 09:53:08 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,7 @@ enum {
 	KEY_G = 103,
 	KEY_M = 109,
 	KEY_Q = 97,
+	KEY_R = 115,//TODO
 	KEY_S = 115,
 	KEY_W = 122,
 	KEY_ESC = 65307,
@@ -244,6 +245,7 @@ enum {
 	KEY_G = 5,
 	KEY_M = 46,
 	KEY_Q = 12,
+	KEY_R = 15,
 	KEY_S = 1,
 	KEY_W = 13,
 	KEY_ESC = 53,

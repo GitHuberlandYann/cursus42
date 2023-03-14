@@ -31,6 +31,8 @@ static void	set_rays_pixel(t_player *player)
 	player->obj->fdf = 0;
 	player->obj->next = 0;
 	player->obj->last = 0;
+	set_point(&player->starting_pos, player->pos.x, player->pos.y,
+		player->direction);
 }
 
 static void	set_player_direction(t_player *player, t_parsing *p_line, int index)

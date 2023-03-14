@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/13 11:12:04 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/14 09:52:04 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void			set_ray_angles(double fov_width, t_player *player,
 //MultiPlayer
 int				key_down_2p(int kcode, t_cub *cub);
 int				key_released_2p(int kcode, t_cub *cub);
+void			reset_players(t_player *player, t_player *other);
+
 int				redraw_all_2p(t_cub *cub);
 void			clear_render_2p(t_img *canva, unsigned int cols[2], t_cub *cub);
 void			precompute_other_player(t_player *player, t_player *other);
