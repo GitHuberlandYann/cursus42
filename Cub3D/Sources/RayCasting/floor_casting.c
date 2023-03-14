@@ -55,3 +55,32 @@ void	render_ground(t_img *img, t_cub *cub, t_vert *pxl, t_ray *ray)
 		++rsd.x;
 	}
 }
+
+void	render_roof(t_img *img, t_cub *cub, t_vert *pxl, t_ray *ray)
+{
+	t_vert			rsd;
+	t_vert			floor_pt;
+	t_vert			cosin;
+	t_img			*c_texture;
+	unsigned int	color;
+
+	cosin.x = cos(ray->angle);
+	cosin.y = sin(ray->angle);
+	cosin.z = cos(ray->preangle);
+	rsd.x = pxl->y - img->height / 2;
+	c_texture = cub->mlx->fc_textures[CEILLING];
+	while (pxl->y < img->height)
+	{
+		rsd.y = img->height / 2 * c_texture->width
+			* (2 - cub->settings->dist_feel) / rsd.x;
+		rsd.z = rsd.y / cosin.z;
+		floor_pt.x = fabs(ft_fmod(c_texture->atplayer.x
+					+ cosin.x * rsd.z, c_texture->width));
+		floor_pt.y = fabs(ft_fmod(c_texture->atplayer.y
+					- cosin.y * rsd.z, c_texture->height));
+		color = mlx_pxl_get(c_texture, floor_pt.x, floor_pt.y);
+		mlx_pxl_put(img, pxl->x, img->height - pxl->y, color);
+		++pxl->y;
+		++rsd.x;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:25:11 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/09 16:54:15 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/14 10:25:42 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	draw_hit(t_img *img, t_ray *ray, t_cub *cub)
 		mlx_draw_line(img, start, finish, GREENISH);
 	else if (!draw_other_hit(img, ray, cub, &start))
 		set_point(&finish, ray->pixel_x, img->height / 2, 0);
-	if (cub->mlx->fc_textures[FLOOR] && cub->mlx->fc_textures[CEILLING])
+	if (cub->mlx->fc_textures[FLOOR])
 		render_ground(img, cub, &finish, ray);
+	else if (cub->mlx->fc_textures[CEILLING])
+		render_roof(img, cub, &finish, ray);
 }

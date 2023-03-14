@@ -6,7 +6,6 @@ EA maps/xpm/colorstone.xpm
 F 128,128,128
 C 96,96,96
 FT maps/xpm/greystone.xpm
-CT maps/xpm/wood.xpm
 D maps/xpm/door.xpm
 DS maps/xpm/doorside.xpm
 LINK 0:1

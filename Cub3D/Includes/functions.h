@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:52:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/14 09:52:04 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/14 10:25:36 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void			add_north(t_img *canva, double angle, t_set *sett);
 void			clear_render(t_img *canva, unsigned int cols[2], t_cub *cub);
 void			setup_minimap(t_img *canva, t_set *settings, t_cub *cub);
 void			render_ground(t_img *img, t_cub *cub, t_vert *pxl, t_ray *ray);
+void			render_roof(t_img *img, t_cub *cub, t_vert *pxl, t_ray *ray);
 
 void			render_map(t_img *img, t_player *player, t_map *map,
 					t_cub *cub);
