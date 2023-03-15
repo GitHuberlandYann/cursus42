@@ -25,7 +25,7 @@ Contact::~Contact(void) {
 //                                  Private                                   //
 // ************************************************************************** //
 
-static void	Contact::_display_column(std::string str) {
+void	Contact::_display_column(std::string str) {
 	if (str.size() > 10) {
 		for (size_t i = 0; i < 9; ++i) {
 			std::cout << str[i];
@@ -40,7 +40,7 @@ static void	Contact::_display_column(std::string str) {
 }
 
 // ************************************************************************** //
-//                                    Main                                    //
+//                                   Public                                   //
 // ************************************************************************** //
 
 void	Contact::set_attributes(void) {

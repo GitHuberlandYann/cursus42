@@ -24,7 +24,7 @@ private:
 	std::string	_phone_number;
 	std::string	_darkest_secret;
 
-	static void	_display_column(std::string str);
+	void	_display_column(std::string str);
 
 public:
 	Contact(void);
