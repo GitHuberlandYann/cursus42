@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:25:11 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/14 10:25:42 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/15 10:40:24 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 
 static int	draw_other_hit(t_img *img, t_ray *ray, t_cub *cub, t_vert *start)
 {
-	if (ray->hit == DOOR)
+	if (ray->hit == NO)
+		draw_wall_vert(img, start, cub->mlx->textures[NO], ray->u);
+	else if (ray->hit == SO)
+		draw_wall_vert(img, start, cub->mlx->textures[SO], ray->u);
+	else if (ray->hit == WE)
+		draw_wall_vert(img, start, cub->mlx->textures[WE], ray->u);
+	else if (ray->hit == EA)
+		draw_wall_vert(img, start, cub->mlx->textures[EA], ray->u);
+	else if (ray->hit == DOOR)
 		draw_wall_vert(img, start, cub->mlx->ds_textures[0], ray->u);
 	else if (ray->hit == DOORSIDE)
 		draw_wall_vert(img, start, cub->mlx->ds_textures[1], ray->u);
@@ -41,15 +49,7 @@ void	draw_hit(t_img *img, t_ray *ray, t_cub *cub)
 	set_point(&start, ray->pixel_x, (1 - wall_height) * img->height / 2,
 		(1 + wall_height) * img->height / 2);
 	set_point(&finish, ray->pixel_x, (1 + wall_height) * img->height / 2, 0);
-	if (ray->hit == NO)
-		draw_wall_vert(img, &start, cub->mlx->textures[NO], ray->u);
-	else if (ray->hit == SO)
-		draw_wall_vert(img, &start, cub->mlx->textures[SO], ray->u);
-	else if (ray->hit == WE)
-		draw_wall_vert(img, &start, cub->mlx->textures[WE], ray->u);
-	else if (ray->hit == EA)
-		draw_wall_vert(img, &start, cub->mlx->textures[EA], ray->u);
-	else if (ray->hit == CUT)
+	if (ray->hit == CUT)
 		mlx_draw_line(img, start, finish, GREENISH);
 	else if (!draw_other_hit(img, ray, cub, &start))
 		set_point(&finish, ray->pixel_x, img->height / 2, 0);
