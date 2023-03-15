@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/15 11:06:22 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/03/15 11:06:22 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
 #include <string>
 #include "PhoneBook.hpp"
@@ -10,7 +22,7 @@ int	main(void)
 	
 	while (1) {
 		std::cout << "Enter one of the following commands :  ADD, SEARCH or EXIT" << std::endl << "$> ";
-		std::cin >> str;
+		std::getline(std::cin, str);
 		if (!str.compare("ADD")) {
 			Contact	new_contact;
 			new_contact.set_attributes();

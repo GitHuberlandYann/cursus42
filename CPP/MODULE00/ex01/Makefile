@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/03/15 11:04:37 by yhuberla          #+#    #+#              #
+#    Updated: 2023/03/15 11:04:37 by yhuberla         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = phonebook
 OBJS_DIR = Objs
 
@@ -33,4 +45,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all $(NAME) clean fclean re
+.PHONY: all clean fclean re

@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/03/15 10:58:59 by yhuberla          #+#    #+#              #
+#    Updated: 2023/03/15 10:58:59 by yhuberla         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = megaphone
 OBJS_DIR = Objs
 
@@ -32,4 +44,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all $(NAME) clean fclean re
+.PHONY: all clean fclean re
