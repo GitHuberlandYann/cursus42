@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 11:56:53 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/15 14:11:22 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/17 12:55:15 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ bool	Account::makeWithdrawal( int withdrawal ) {
 	std::cout << "p_amount:" << this->_amount << ';';
 	this->_amount -= withdrawal;
 	if (checkAmount()) {
-		_totalAmount += withdrawal;
+		_totalAmount -= withdrawal;
 		++_totalNbWithdrawals;
 		std::cout << "withdrawal:" << withdrawal << ';';
 		std::cout << "amount:" << this->_amount << ';';
