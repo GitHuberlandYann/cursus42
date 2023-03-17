@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 15:29:52 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/15 15:59:10 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:34:57 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	main( void ) {
 	randomChump("44");
 	main.announce();
 	newZomb->announce();
-	delete newZomb; //remove this for leak, valgrind -leaks-check=full ./brainz
+	delete newZomb; //remove this for leak, valgrind --leak-check=full ./brainz
 	return (0);
 }
