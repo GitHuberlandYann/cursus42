@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:37:50 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/16 17:05:26 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/17 10:10:31 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main( int ac, char **av ) {
 
 	std::string	line;
 	while (!infile.eof()) {
-		std::getline (infile, line);
+		std::getline(infile, line);
 		for (size_t i = 0; i < line.size(); ++i) {
 		if (!line.compare(i, src.size(), src)) {
 			outfile << dst;

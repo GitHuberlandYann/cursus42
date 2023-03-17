@@ -1,11 +1,15 @@
 */*/Objs
+
 MODULE00/ex00/megaphone
 MODULE00/ex01/phonebook
 MODULE00/ex02/recover
+
 MODULE01/ex00/brainz
 MODULE01/ex01/moar_brainz
 MODULE01/ex02/refptr
 MODULE01/ex03/weapons
 MODULE01/ex04/replace
 MODULE01/ex05/harl
-MODULE01/ex05/harlFilter
+MODULE01/ex06/harlFilter
+
+MODULE02/ex00/fixed
