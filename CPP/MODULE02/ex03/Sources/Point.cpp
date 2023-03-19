@@ -11,9 +11,8 @@ Point::Point( const float a, const float b ) : _x(a), _y(b) {
 	return ;
 }
 
-Point::Point( const Point &other ) {
+Point::Point( const Point &other ) : _x(other._x), _y(other._y) {
 	// std::cout << "Copy constructor called" << std::endl;
-	*this = other;
 	return ;
 }
 
