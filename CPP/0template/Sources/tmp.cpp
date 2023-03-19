@@ -1,26 +1,25 @@
-#include "Fixed.hpp"
+#include "tmp.hpp"
 #include <iostream>
 
-Fixed::Fixed( void ) : _value(0) {
+Tmp::Tmp( void ) {
 	std::cout << "Default constructor called" << std::endl;
 	return ;
 }
 
 
-Fixed::Fixed( const Fixed &other ) {
+Tmp::Tmp( const Tmp &other ) {
 	std::cout << "Copy constructor called" << std::endl;
 	*this = other;
 	return ;
 }
 
-Fixed::~Fixed( void ) {
+Tmp::~Tmp( void ) {
 	std::cout << "Destructor called" << std::endl;
 	return ;
 }
 
-Fixed &Fixed::operator=( const Fixed &other ) {
+Tmp &Tmp::operator=( const Tmp &other ) {
 	std::cout << "Copy assignment operator called" << std::endl;
-	this->_value = other.getRawBits();
 	return (*this);
 }
 
@@ -31,13 +30,3 @@ Fixed &Fixed::operator=( const Fixed &other ) {
 // ************************************************************************** //
 //                                   Public                                   //
 // ************************************************************************** //
-
-int		Fixed::getRawBits( void ) const {
-	std::cout << "getRawBits member function called" << std::endl;
-	return (this->_value);
-}
-
-void	Fixed::setRawBits( int const raw ) {
-	std::cout << "setRawBits member function called" << std::endl;
-	this->_value = raw;
-}

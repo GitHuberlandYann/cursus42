@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 10:04:46 by yhuberla          #+#    #+#              #
-#    Updated: 2023/03/17 10:12:59 by yhuberla         ###   ########.fr        #
+#    Updated: 2023/03/19 14:14:36 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fixed
 OBJS_DIR = Objs
 
-FILES = main.cpp Harl.cpp
-SRCS = $(addprefix Sources/, $(FILES))
+FILES = main Fixed
+SRCS = $(addprefix Sources/, $(addsuffix .cpp, $(FILES)))
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
 
 # ===---===---===---===---===---===---===---===---===---===---===---===---
