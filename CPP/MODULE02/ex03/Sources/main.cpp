@@ -20,7 +20,7 @@ int main( void ) {
 	test_case(a, b, c, Point( 1.5, 1.5 ));
 	test_case(a, b, c, Point( 0.5, -0.5 ));
 	test_case(a, b, c, Point( 1.5, 0.0 ));
-	test_case(a, b, c, Point( 1.5, 2.9 )); //problem here
+	test_case(a, b, c, Point( 1.5, 2.9 )); //problem here ?
 	test_case(a, b, c, Point( 1.5, 2.5));
 	test_case(a, b, c, Point( 1.5, 3.1 ));
 	test_case(a, b, c, a);
