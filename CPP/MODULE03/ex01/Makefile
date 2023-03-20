@@ -10,10 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = claptrap
+NAME = scavtrap
 OBJS_DIR = Objs
 
-FILES = main ClapTrap
+FILES = main ClapTrap ScavTrap
 SRCS = $(addprefix Sources/, $(addsuffix .cpp, $(FILES)))
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
 
