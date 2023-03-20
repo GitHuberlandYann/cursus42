@@ -5,15 +5,15 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/20 09:32:05 by yhuberla          #+#    #+#              #
-#    Updated: 2023/03/20 09:32:05 by yhuberla         ###   ########.fr        #
+#    Created: 2023/03/20 09:30:01 by yhuberla          #+#    #+#              #
+#    Updated: 2023/03/20 09:30:01 by yhuberla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fixed_better
+NAME = CHANGETHIS
 OBJS_DIR = Objs
 
-FILES = main Fixed
+FILES = main ClapTrap
 SRCS = $(addprefix Sources/, $(addsuffix .cpp, $(FILES)))
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
 
