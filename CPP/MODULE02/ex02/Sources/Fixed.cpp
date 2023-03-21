@@ -87,12 +87,14 @@ Fixed	Fixed::operator-( const Fixed &other ) {
 }
 
 Fixed	Fixed::operator*( const Fixed &other ) {
-	Fixed	result(this->toFloat() * other.toFloat());
+	Fixed	result;
+	result.setRawBits(((long)this->_value * (long)other._value) >> this->_binary_point);
 	return (result);
 }
 
 Fixed	Fixed::operator/( const Fixed &other ) {
-	Fixed	result(this->toFloat() / other.toFloat());
+	Fixed	result;
+	result.setRawBits(((long)this->_value << this->_binary_point) / (long)other._value);
 	return (result);
 }
 

@@ -24,8 +24,6 @@ int main( void ) {
 	Point const	b( 3.0, 0.0 );
 	Point const	c( 1.5, 3.0 );
 
-	std::cout << "div by 0 : " << b.getX() / a.getX() << std::endl;
-
 	std::cout << "a : " << a.getX() << ", " << a.getY() << std::endl;
 	std::cout << "b : " << b.getX() << ", " << b.getY() << std::endl;
 	std::cout << "c : " << c.getX() << ", " << c.getY() << std::endl;
