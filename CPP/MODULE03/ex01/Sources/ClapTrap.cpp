@@ -14,12 +14,12 @@
 #include <iostream>
 
 
-ClapTrap::ClapTrap( void ) : _name("Default"), _hit_points(10), _energy_points(10), _attack_damage(0) {
+ClapTrap::ClapTrap( void ) : _name("Default"), _hit_points(10), _energy_points(10), _attack_damage(0), _max_hit_points(10) {
 	// std::cout << "Default constructor called" << std::endl;
 	return ;
 }
 
-ClapTrap::ClapTrap( std::string name ) : _name(name), _hit_points(10), _energy_points(10), _attack_damage(0) {
+ClapTrap::ClapTrap( std::string name ) : _name(name), _hit_points(10), _energy_points(10), _attack_damage(0), _max_hit_points(10) {
 	std::cout << "Setter constructor of " << this->_name << " called" << std::endl;
 	return ;
 }
@@ -73,11 +73,13 @@ void	ClapTrap::takeDamage( unsigned int amount ) {
 }
 
 void	ClapTrap::beRepaired( unsigned int amount ) {
-	if (this->_energy_points && this->_hit_points) {
+	if (this->_hit_points == this->_max_hit_points) {
+		std::cout << this->_name << " doesn't need to repair itself, it has " << this->_max_hit_points << " hit points." << std::endl;
+	} else if (this->_energy_points && this->_hit_points) {
 		std::cout << this->_name << " repairs itself of " << amount << " hit points." << std::endl;
 		this->_hit_points += amount;
-		if (this->_hit_points > 10) {
-			this->_hit_points = 10;
+		if (this->_hit_points > this->_max_hit_points) {
+			this->_hit_points = this->_max_hit_points;
 		}
 		--this->_energy_points;
 		std::cout << this->_name << " now has " << this->_hit_points << " hit points and " << this->_energy_points << " energy points left." << std::endl;
