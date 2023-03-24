@@ -38,10 +38,10 @@ ClapTrap::~ClapTrap( void ) {
 
 ClapTrap &ClapTrap::operator=( const ClapTrap &other ) {
 	// std::cout << "Copy assignment operator called" << std::endl;
-	this->_name = other.getName();
-	this->_hit_points = other.getHitPoints();
-	this->_energy_points = other.getEnergyPoints();
-	this->_attack_damage = other.getAttackDamage();
+	this->_name = other._name;
+	this->_hit_points = other._hit_points;
+	this->_energy_points = other._energy_points;
+	this->_attack_damage = other._attack_damage;
 	return (*this);
 }
 

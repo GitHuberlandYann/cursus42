@@ -61,6 +61,19 @@ int	main( void ) {
 	diaguy.highFivesGuys();
 	diaguy.attack( "no one" );
 	diaguy.beRepaired( 4 );
+	
+	std::cout << std::endl;
 	DiamondTrap	copycat( diaguy );
+	copycat.whoAmI();
+	std::cout << std::endl;
+
+	diaguy.setAttackDamage(69);
+	copycat.attack( "og dia" );
+	std::cout << std::endl;
+
+	DiamondTrap	def;
+	def.whoAmI();
+	std::cout << std::endl;
+
 	return (0);
 }

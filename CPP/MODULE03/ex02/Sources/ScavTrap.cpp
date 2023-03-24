@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:56:29 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/21 11:15:08 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:20:50 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ ScavTrap::~ScavTrap( void ) {
 
 ScavTrap &ScavTrap::operator=( const ScavTrap &other ) {
 	// std::cout << "Copy assignment operator called" << std::endl;
-	this->_name = other.getName();
-	this->_hit_points = other.getHitPoints();
-	this->_energy_points = other.getEnergyPoints();
-	this->_attack_damage = other.getAttackDamage();
+	this->_name = other._name;
+	this->_hit_points = other._hit_points;
+	this->_energy_points = other._energy_points;
+	this->_attack_damage = other._attack_damage;
+	this->_max_hit_points = 100;
 	return (*this);
 }
 

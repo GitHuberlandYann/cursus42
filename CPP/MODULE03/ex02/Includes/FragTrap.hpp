@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:54:35 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/21 11:32:25 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:10:57 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ public:
 	~FragTrap( void );
 	FragTrap &operator=( const FragTrap &other );
 
-	void attack( const std::string& target );
 	void highFivesGuys( void );
 
 };
