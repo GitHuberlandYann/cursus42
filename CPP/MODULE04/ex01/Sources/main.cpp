@@ -17,6 +17,7 @@
 
 int	main( void ) {
 	const Animal	*(animals[4]) = {new Dog(), new Cat(), new Cat(), new Dog()};
+	std::cout << std::endl;
 	Brain			*brain;
 
 	brain = animals[1]->getBrain();
@@ -31,6 +32,7 @@ int	main( void ) {
 
 	if (brain) {
 		brain->addIdea( "yoghurt." );
+		brain->setIdea( 0, "Don't get copied." );
 	}
 	brain = copycat->getBrain();
 	if (brain) {
@@ -63,5 +65,7 @@ int	main( void ) {
 	for (int i = 0; i < 4; i++) {
 		delete animals[i];
 	}
+	std::cout << std::endl;
+	delete copycat;
 	return (0);
 }

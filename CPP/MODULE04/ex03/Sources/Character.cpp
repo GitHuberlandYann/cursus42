@@ -78,11 +78,14 @@ void	Character::equip( AMateria* m ) {
 void	Character::unequip( int idx ) {
 	if (idx >= 0 && idx <= 3 && this->_inventory[idx]) {
 		this->_inventory[idx] = NULL;
+		std::cout << this->_name << ", inventory " << idx << " unequiped." << std::endl;
 	}
 }
 
 void	Character::use( int idx, ICharacter& target ) {
 	if (idx >= 0 && idx <= 3 && this->_inventory[idx]) {
 		this->_inventory[idx]->use( target );
+	} else {
+		std::cout << this->_name << " can't use inventory " << idx << std::endl;
 	}
 }

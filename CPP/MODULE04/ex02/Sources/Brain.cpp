@@ -15,12 +15,14 @@
 
 Brain::Brain( void ) {
 	std::cout << "Default constructor of Brain called" << std::endl;
+	this->_curr_idea = 0;
 	return ;
 }
 
 
 Brain::Brain( const Brain &other ) {
 	std::cout << "Copy constructor of Brain called" << std::endl;
+	this->_curr_idea = other._curr_idea;
 	for (int i = 0; i < 100; i++) {
 		this->_ideas[i] = other._ideas[i];
 	}
@@ -34,6 +36,7 @@ Brain::~Brain( void ) {
 
 Brain &Brain::operator=( const Brain &other ) {
 	std::cout << "Copy assignment operator of Brain called" << std::endl;
+	this->_curr_idea = other._curr_idea;
 	for (int i = 0; i < 100; i++) {
 		this->_ideas[i] = other._ideas[i];
 	}

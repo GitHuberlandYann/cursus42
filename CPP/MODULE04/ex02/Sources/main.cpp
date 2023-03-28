@@ -17,7 +17,8 @@
 
 int	main( void ) {
 	// AAnimal	chimera;	//this won't work because abstract
-	const Animal	*(animals[4]) = {new Dog(), new Cat(), new Cat(), new Dog()};
+	const AAnimal	*(animals[4]) = {new Dog(), new Cat(), new Cat(), new Dog()};
+	std::cout << std::endl;
 	Brain			*brain;
 
 	brain = animals[1]->getBrain();
@@ -28,7 +29,7 @@ int	main( void ) {
 		brain->setIdea( 3, "Learn some kung fu." );
 	}
 
-	Animal	*copycat = new Cat(*(Cat *)(animals[1]));
+	AAnimal	*copycat = new Cat(*(Cat *)(animals[1]));
 
 	if (brain) {
 		brain->addIdea( "yoghurt." );
@@ -64,5 +65,7 @@ int	main( void ) {
 	for (int i = 0; i < 4; i++) {
 		delete animals[i];
 	}
+	std::cout << std::endl;
+	delete copycat;
 	return (0);
 }

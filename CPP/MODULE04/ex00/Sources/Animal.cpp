@@ -44,6 +44,7 @@ Animal &Animal::operator=( const Animal &other ) {
 // ************************************************************************** //
 
 void			Animal::makeSound( void ) const {
+	std::cout << "*Animal::makeSound*" << std::endl;
 }
 
 std::string		Animal::getType( void ) const {

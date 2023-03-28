@@ -29,10 +29,35 @@ int	main( void ) {
 
 	ICharacter* bob = new Character("bob");
 	me->use(0, *bob);
+	me->use(0, *bob);
+	me->use(0, *bob);
 	me->use(1, *bob);
 
 	delete bob;
 	delete me;
 	delete src;
+
+	std::cout << std::endl;
+	IMateriaSource*	source = new MateriaSource();
+	source->learnMateria(new Ice());
+	source->learnMateria(new Cure());
+	ICharacter*	man = new Character("man");
+	AMateria*	temp;
+	temp = source->createMateria("icing cake");
+	man->equip(temp);
+	temp = source->createMateria("cure");
+	man->equip(temp);
+
+	ICharacter*	bobby = new Character("bobby");
+	man->use(0, *bobby);
+	man->use(1, *bobby);
+
+	man->unequip(0);
+	man->use(0, *bobby);
+
+	delete temp;
+	delete bobby;
+	delete man;
+	delete source;
 	return (0);
 }

@@ -29,7 +29,7 @@ public:
 
 	virtual void	makeSound( void ) const;
 	std::string		getType( void ) const;
-	virtual	Brain	*getBrain( void ) const {return (NULL);}
+	virtual	Brain	*getBrain( void ) const;
 
 };
 
