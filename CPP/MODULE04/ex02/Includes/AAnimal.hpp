@@ -14,6 +14,7 @@
 # define AANIMAL_HPP
 
 # include <string>
+# include "Brain.hpp"
 
 class AAnimal {
 
@@ -28,6 +29,7 @@ public:
 
 	virtual void	makeSound( void ) const = 0;
 	std::string		getType( void ) const;
+	virtual	Brain	*getBrain( void ) const = 0;
 
 };
 

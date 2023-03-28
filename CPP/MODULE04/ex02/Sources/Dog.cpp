@@ -52,3 +52,7 @@ Dog &Dog::operator=( const Dog &other ) {
 void	Dog::makeSound( void ) const {
 	std::cout << "*distinguished bark*" << std::endl;
 }
+
+Brain	*Dog::getBrain( void ) const {
+	return (this->_brain);
+}

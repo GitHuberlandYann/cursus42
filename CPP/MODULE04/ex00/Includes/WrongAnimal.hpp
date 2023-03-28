@@ -23,7 +23,7 @@ protected:
 public:
 	WrongAnimal( void );
 	WrongAnimal( const WrongAnimal &other );
-	virtual ~WrongAnimal( void );
+	~WrongAnimal( void );
 	WrongAnimal &operator=( const WrongAnimal &other );
 
 	void	makeSound( void ) const;

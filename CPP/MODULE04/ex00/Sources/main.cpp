@@ -32,5 +32,6 @@ int	main( void ) {
 	delete meta;
 	delete j;
 	delete i;
+	delete k;
 	return (0);
 }
