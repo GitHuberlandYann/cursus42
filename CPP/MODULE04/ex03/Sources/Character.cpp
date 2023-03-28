@@ -31,7 +31,11 @@ Character::Character( std::string const & name ) : _name(name) {
 Character::Character( const Character &other ) : ICharacter( other ), _name(other._name) {
 	// std::cout << "Copy constructor called" << std::endl;
 	for (int i = 0; i < 4; i++) {
-		this->_inventory[i] = other._inventory[i]->clone();
+		if (other._inventory[i]) {
+			this->_inventory[i] = other._inventory[i]->clone();
+		} else {
+			this->_inventory[i] = NULL;
+		}
 	}
 	return ;
 }
@@ -48,7 +52,11 @@ Character &Character::operator=( const Character &other ) {
 	// std::cout << "Copy assignment operator called" << std::endl;
 	for (int i = 0; i < 4; i++) {
 		delete this->_inventory[i];
-		this->_inventory[i] = other._inventory[i]->clone();
+		if (other._inventory[i]) {
+			this->_inventory[i] = other._inventory[i]->clone();
+		} else {
+			this->_inventory[i] = NULL;
+		}
 	}
 	return (*this);
 }

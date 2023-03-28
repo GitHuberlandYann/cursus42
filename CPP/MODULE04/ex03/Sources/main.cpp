@@ -41,23 +41,31 @@ int	main( void ) {
 	IMateriaSource*	source = new MateriaSource();
 	source->learnMateria(new Ice());
 	source->learnMateria(new Cure());
-	ICharacter*	man = new Character("man");
-	AMateria*	temp;
+	ICharacter	*man = new Character("man");
+	AMateria	*temp;
 	temp = source->createMateria("icing cake");
 	man->equip(temp);
 	temp = source->createMateria("cure");
 	man->equip(temp);
 
-	ICharacter*	bobby = new Character("bobby");
+	ICharacter	*bobby = new Character("bobby");
 	man->use(0, *bobby);
 	man->use(1, *bobby);
 
-	man->unequip(0);
-	man->use(0, *bobby);
+	ICharacter	*manme = new Character(*(Character *)man);
 
-	delete temp;
+	std::cout << std::endl;
+	man->unequip(0);
+	manme->equip(temp);
+	man->use(0, *bobby);
+	man->use(1, *bobby);
+	manme->use(0, *bobby);
+	manme->use(1, *bobby);
+
+	// delete temp;
 	delete bobby;
 	delete man;
+	delete manme;
 	delete source;
 	return (0);
 }
