@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:49:44 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/14 09:53:08 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:36:18 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@
 # define PLAYERS_HP 4
 # define KNIFE_DIST 0.7
 
-# define M_PI_8 (M_PI_4 / 2)
+# define M_PI_8 0.392699//(M_PI_4 / 2)
 
 // Enums
 typedef enum e_side {
@@ -208,7 +208,7 @@ enum {
 	KEY_G = 103,
 	KEY_M = 109,
 	KEY_Q = 97,
-	KEY_R = 115,//TODO
+	KEY_R = 114,
 	KEY_S = 115,
 	KEY_W = 122,
 	KEY_ESC = 65307,

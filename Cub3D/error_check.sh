@@ -12,8 +12,7 @@ NC='\033[0m'
 
 check_file()
 {
-	echo "$GREEN$EXEC $MAP_DIR/$1$NC"
-	printf "\t"
+	echo "\t$GREEN$EXEC $MAP_DIR/$1$NC"
 	$EXEC $MAP_DIR/$1
 	ERROR_CODES=$(( ERROR_CODES + $? ))
 	COUNT=$(( COUNT + 1 ))

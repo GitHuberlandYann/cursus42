@@ -20,7 +20,6 @@ int	main(int ac, char **av)
 		return (output_error(MSG_ARGS));
 	if (load_map(&map, av[1]))
 		return (output_error(MSG_MAP));
-	// console_map_content(&map);
 	launch_mlx(&map, av[1]);
 	return (0);
 }

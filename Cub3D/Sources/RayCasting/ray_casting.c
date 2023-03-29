@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 18:31:01 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/03/08 18:05:38 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/29 11:18:44 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ray_walling(t_wall *walls, t_ray *ray)
 	t_vert	intersection;
 	double	dist;
 
-	pt4.x = ray->ray.pt1.x + cos(ray->angle); //not opti to do it here and in ray_dooring and ray_portaling
+	pt4.x = ray->ray.pt1.x + cos(ray->angle);
 	pt4.y = ray->ray.pt1.y - sin(ray->angle);
 	while (walls)
 	{

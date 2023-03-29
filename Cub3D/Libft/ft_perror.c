@@ -14,6 +14,7 @@
 
 void	ft_perror(const char *str)
 {
+	write(2, "Error\n", 6);
 	perror(str);
 	exit(EXIT_FAILURE);
 }

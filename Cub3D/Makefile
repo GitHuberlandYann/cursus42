@@ -95,7 +95,7 @@ $(OBJS_DIR):
 $(NAME): $(OBJS) $(LIBFT) $(MLX_PATH)
 	$(CC) $(SAN) $(OBJS) -o $(NAME) $(MLX) $(LIBFT) $(MATH)
 
-$(OBJS_DIR_SOURCES)/%.o: Sources/%.c
+$(OBJS_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) $(SAN) $(INCLUDES) -c $< -o $@
 
 $(LIBFT):
@@ -106,7 +106,7 @@ $(MLX_PATH):
 
 clean:
 	make fclean -C $(LIBFT_DIR)
-	#make clean -C $(MLX_DIR)
+	make clean -C $(MLX_DIR)
 	rm -rf $(OBJS_DIR)
 
 fclean: clean

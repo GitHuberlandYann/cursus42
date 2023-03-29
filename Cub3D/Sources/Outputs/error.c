@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:03:51 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/02/21 22:46:21 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/29 11:50:28 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	output_error(char *msg)
 
 	if (!msg)
 		return (1);
+	if (ft_strncmp(msg, MSG_MAP, 16))
+		write(2, "Error\n", 6);
 	len = 0;
 	while (msg[len])
 		++len;

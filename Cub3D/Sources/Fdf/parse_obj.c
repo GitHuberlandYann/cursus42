@@ -50,7 +50,7 @@ t_vertice	*ft_get_node(t_vertice *vert, int index)
 		++count;
 	}
 	if (count < index)
-		(void)count;//problemo in this case todo
+		(void)count;
 	return (res);
 }
 
