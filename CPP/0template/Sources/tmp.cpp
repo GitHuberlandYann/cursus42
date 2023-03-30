@@ -2,24 +2,23 @@
 #include <iostream>
 
 Tmp::Tmp( void ) {
-	std::cout << "Default constructor called" << std::endl;
+	std::cout << "Default constructor of Tmp called" << std::endl;
 	return ;
 }
 
-
 Tmp::Tmp( const Tmp &other ) {
-	std::cout << "Copy constructor called" << std::endl;
+	std::cout << "Copy constructor of Tmp called" << std::endl;
 	*this = other;
 	return ;
 }
 
 Tmp::~Tmp( void ) {
-	std::cout << "Destructor called" << std::endl;
+	std::cout << "Destructor of Tmp called" << std::endl;
 	return ;
 }
 
 Tmp &Tmp::operator=( const Tmp &other ) {
-	std::cout << "Copy assignment operator called" << std::endl;
+	std::cout << "Copy assignment operator of Tmp called" << std::endl;
 	return (*this);
 }
 
