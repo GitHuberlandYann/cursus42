@@ -11,40 +11,39 @@
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Intern.hpp"
 
 int	main( void ) {
-	Bureaucrat	worker0;
-	Bureaucrat	worker1( "tom" );
-	Bureaucrat	worker2( worker1 );
-	Bureaucrat	worker3( "Bob", 56 );
-	Bureaucrat	worker4( "obb", 1 );
-	Bureaucrat	worker5( "bbo", 150 );
+	Intern	someRandomIntern;
+	AForm*	rrf;
+	AForm*	scf;
+	AForm*	pdf;
+	AForm*	errorf;
 
 	std::cout << std::endl;
-	std::cout << worker0 << std::endl;
-	std::cout << worker1 << std::endl;
-	std::cout << worker2 << std::endl;
-	std::cout << worker3 << std::endl;
-	std::cout << worker4 << std::endl;
-	std::cout << worker5 << std::endl << std::endl;
-
-	worker3.gradeUp();
-	std::cout << worker3 << std::endl;
-	worker3.gradeUp();
-	std::cout << worker3 << std::endl;
-	worker3.gradeDown();
-	std::cout << worker3 << std::endl;
-	worker4.gradeUp();
-	worker5.gradeDown();
-
-	std::cout << std::endl;
-	const Bureaucrat	fail0( "Bobef", -56 );
-	const Bureaucrat	fail1( "Bobbef", 0 );
-	const Bureaucrat	fail2( "Bobbbef", 151 );
+	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+	scf = someRandomIntern.makeForm("shrubbery creation", "Blender");
+	pdf = someRandomIntern.makeForm("presidential pardon", "Blunder");
+	errorf = someRandomIntern.makeForm("error in request", "Bender");
+	Bureaucrat	lowRank("dylan", 144);
+	Bureaucrat	highRank("dydy", 4);
 	std::cout << std::endl;
 
-	std::cout << fail0 << std::endl;
-	std::cout << fail1 << std::endl;
-	std::cout << fail2 << std::endl << std::endl;
+
+	lowRank.executeForm( *rrf );
+	highRank.executeForm( *rrf );
+	lowRank.signForm( *rrf );
+	highRank.signForm( *rrf );
+	lowRank.executeForm( *rrf );
+	highRank.executeForm( *rrf );
+
+	lowRank.signForm( *scf );
+	highRank.signForm( *pdf );
+
+	std::cout << std::endl;
+	delete rrf;
+	delete scf;
+	delete pdf;
+	delete errorf;
 	return (0);
 }

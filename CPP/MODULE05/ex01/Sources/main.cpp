@@ -27,7 +27,7 @@ int	main( void ) {
 	std::cout << worker2 << std::endl;
 	std::cout << worker3 << std::endl;
 	std::cout << worker4 << std::endl;
-	std::cout << worker5 << std::endl;
+	std::cout << worker5 << std::endl << std::endl;
 
 	worker3.gradeUp();
 	std::cout << worker3 << std::endl;
@@ -43,10 +43,10 @@ int	main( void ) {
 	Form	form1( "bad", 750, 0 );
 	std::cout << std::endl;
 
-	form.beSigned( worker5 );
-	form.beSigned( worker0 );
-	form.beSigned( worker3 );
-	form.beSigned( worker4 );
+	worker5.signForm( form );
+	worker0.signForm( form );
+	worker3.signForm( form );
+	worker4.signForm( form );
 
 	std::cout << std::endl;
 	const Bureaucrat	fail0( "Bobef", -56 );

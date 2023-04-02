@@ -13,7 +13,7 @@
 #include "Bureaucrat.hpp"
 #include <stdexcept>
 
-Bureaucrat::Bureaucrat( void ) : _name("Default"), _grade(0) {
+Bureaucrat::Bureaucrat( void ) : _name("Default"), _grade(150) {
 	std::cout << "Default constructor of Bureaucrat Default called" << std::endl;
 	return ;
 }
@@ -78,12 +78,17 @@ int			Bureaucrat::getGrade( void ) const {
 	return (this->_grade);
 }
 
+static void	displayGradeChange( std::string name, int prev, int now ) {
+	std::cout << name << "'s grade went from " << prev << " to " << now << "." << std::endl;
+}
+
 void		Bureaucrat::gradeUp( void ) {
 	try {
 		if (this->_grade - 1 < 1) {
 			throw Bureaucrat::GradeTooHighException();
 		} else {
 			--this->_grade;
+			displayGradeChange( this->_name, this->_grade + 1, this->_grade );
 		}
 	}
 	catch (std::exception &e) {
@@ -97,6 +102,7 @@ void		Bureaucrat::gradeDown( void ) {
 			throw Bureaucrat::GradeTooLowException();
 		} else {
 			++this->_grade;
+			displayGradeChange( this->_name, this->_grade - 1, this->_grade );
 		}
 	}
 	catch (std::exception &e) {

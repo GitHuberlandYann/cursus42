@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 #include <stdexcept>
 
 Bureaucrat::Bureaucrat( void ) : _name("Default"), _grade(150) {
@@ -111,7 +111,7 @@ void		Bureaucrat::gradeDown( void ) {
 	}
 }
 
-void		Bureaucrat::signForm( Form &f ) const {
+void		Bureaucrat::signForm( AForm &f ) const {
 	if (f.getSigned()) {
 		std::cout << this->_name << " couldn’t sign " << f.getName() << " because it is already signed." << std::endl;
 	} else if (this->_grade > f.getGradeSign()) {
@@ -119,5 +119,13 @@ void		Bureaucrat::signForm( Form &f ) const {
 	} else {
 		std::cout << this->_name << " signed " << f.getName() << std::endl;
 		f.beSigned( *this );
+	}
+}
+
+void		Bureaucrat::executeForm( AForm const & form ) {
+	if (form.execute( *this )) {
+		std::cout << this->_name << " executed " << form.getName() << std::endl;
+	} else {
+		std::cout << this->_name << " could not execute " << form.getName() << std::endl;
 	}
 }
