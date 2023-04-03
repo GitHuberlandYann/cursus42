@@ -25,18 +25,12 @@ Bureaucrat::Bureaucrat( const std::string name ) : _name(name), _grade(150) {
 
 Bureaucrat::Bureaucrat( const std::string name, const int grade ) : _name(name), _grade(150) {
 	std::cout << "Full setter constructor of Bureaucrat " << name << " called" << std::endl;
-	try {
-		if (grade < 1) {
-			throw Bureaucrat::GradeTooHighException();
-		} else if (grade > 150) {
-			throw Bureaucrat::GradeTooLowException();
-		} else {
-			this->_grade = grade;
-		}
+	if (grade < 1) {
+		throw Bureaucrat::GradeTooHighException();
+	} else if (grade > 150) {
+		throw Bureaucrat::GradeTooLowException();
 	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	this->_grade = grade;
 	return ;
 }
 
@@ -83,29 +77,29 @@ static void	displayGradeChange( std::string name, int prev, int now ) {
 }
 
 void		Bureaucrat::gradeUp( void ) {
-	try {
-		if (this->_grade - 1 < 1) {
-			throw Bureaucrat::GradeTooHighException();
-		} else {
-			--this->_grade;
-			displayGradeChange( this->_name, this->_grade + 1, this->_grade );
-		}
+	if (this->_grade - 1 < 1) {
+		throw Bureaucrat::GradeTooHighException();
 	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	--this->_grade;
+	displayGradeChange( this->_name, this->_grade + 1, this->_grade );
 }
 
 void		Bureaucrat::gradeDown( void ) {
-	try {
-		if (this->_grade + 1 > 150) {
-			throw Bureaucrat::GradeTooLowException();
-		} else {
-			++this->_grade;
-			displayGradeChange( this->_name, this->_grade - 1, this->_grade );
-		}
+	if (this->_grade + 1 > 150) {
+		throw Bureaucrat::GradeTooLowException();
 	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	++this->_grade;
+	displayGradeChange( this->_name, this->_grade - 1, this->_grade );
+}
+
+// ************************************************************************** //
+//                                 Exceptions                                 //
+// ************************************************************************** //
+
+const char* Bureaucrat::GradeTooHighException::what() const throw() {
+	return ("[Bureaucrat::GradeTooHighException] You can't go above the highest grade : 1.");
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const throw() {
+	return ("[Bureaucrat::GradeTooLowException] You can't go above the lowest grade : 150.");
 }

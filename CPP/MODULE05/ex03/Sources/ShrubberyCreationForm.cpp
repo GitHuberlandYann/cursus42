@@ -49,9 +49,15 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=( const ShrubberyCreation
 //                                   Public                                   //
 // ************************************************************************** //
 
-void	ShrubberyCreationForm::activate( void ) {
-	std::string filename = this->_target + "_shrubbery";
-	const char	*fname = filename.c_str();
+void	ShrubberyCreationForm::execute( Bureaucrat const & executor ) const {
+	if (!this->_signed) {
+		throw AForm::FormNotSigned();
+	} else if (executor.getGrade() > this->_grade_execute) {
+		throw AForm::GradeTooLowException();
+	}
+
+	std::string 	filename = this->_target + "_shrubbery";
+	const char		*fname = filename.c_str();
 	std::ofstream	outfile(fname);
 
 	if (!outfile.is_open()) {

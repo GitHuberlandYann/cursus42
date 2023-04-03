@@ -27,7 +27,7 @@ public:
 	~RobotomyRequestForm( void );
 	RobotomyRequestForm &operator=( const RobotomyRequestForm &other );
 
-	virtual void	activate( void );
+	virtual void	execute( Bureaucrat const & executor ) const;
 };
 
 #endif

@@ -41,19 +41,13 @@ public:
 	class GradeTooHighException: public std::exception {
 	
 	public:
-		virtual const char* what() const throw()
-		{
-			return ("You can't go above the highest grade : 1.");
-		}
+		virtual const char* what() const throw();
 	};
 
 	class GradeTooLowException: public std::exception {
 	
 	public:
-		virtual const char* what() const throw()
-		{
-			return ("You can't go bellow the lowest grade : 150.");
-		}
+		virtual const char* what() const throw();
 	};
 };
 

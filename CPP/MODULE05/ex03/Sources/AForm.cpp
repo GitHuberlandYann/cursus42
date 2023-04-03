@@ -22,25 +22,14 @@ AForm::AForm( void ) : _name("Default"), _signed(false), _grade_sign(150), _grad
 AForm::AForm( const std::string name, const int grade_sign, const int grade_execute )
 		: _name(name), _signed(false), _grade_sign(grade_sign), _grade_execute(grade_execute) {
 	std::cout << "Full setter constructor of AForm " << name << " called" << std::endl;
-	try {
-		if (grade_sign < 1) {
-			throw AForm::GradeTooHighException();
-		} else if (grade_sign > 150) {
-			throw AForm::GradeTooLowException();
-		} 
-	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
-	try {
-		if (grade_execute < 1) {
-			throw AForm::GradeTooHighException();
-		} else if (grade_execute > 150) {
-			throw AForm::GradeTooLowException();
-		}
-	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
+	if (grade_sign < 1) {
+		throw Form::GradeTooHighException();
+	} else if (grade_sign > 150) {
+		throw Form::GradeTooLowException();
+	} else if (grade_execute < 1) {
+		throw Form::GradeTooHighException();
+	} else if (grade_execute > 150) {
+		throw Form::GradeTooLowException();
 	}
 	return ;
 }
@@ -98,32 +87,31 @@ int			AForm::getGradeExecute( void ) const {
 	return (this->_grade_execute);
 }
 
-void		AForm::beSigned( const Bureaucrat &b ) {
-	try {
-		if (b.getGrade() > this->_grade_sign) {
-			throw AForm::GradeTooLowException();
-		} else {
-			this->_signed = true;
-		}
+void		Form::beSigned( const Bureaucrat &b ) {
+	if (this->_signed) {
+		throw Form::FormAlreadySignedException();
+	} else if (b.getGrade() > this->_grade_sign) {
+		throw Form::GradeTooLowException();
 	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	this->_signed = true;
 }
 
-bool		AForm::execute( Bureaucrat const & executor ) const {
-	try {
-		if (!this->_signed) {
-			throw AForm::FormNotSigned();
-		} else if (executor.getGrade() > this->_grade_execute) {
-			throw AForm::GradeTooLowException();
-		} else {
-			((AForm *)this)->activate();
-		}
-	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-		return (false);
-	}
-	return (true);
+// ************************************************************************** //
+//                                 Exceptions                                 //
+// ************************************************************************** //
+
+const char* Form::GradeTooHighException::what() const throw() {
+	return ("[Form::GradeTooHighException] Grade is too high.");
+}
+
+const char* Form::GradeTooLowException::what() const throw() {
+	return ("[Form::GradeTooLowException] Grade is too low.");
+}
+
+const char* Form::FormAlreadySignedException::what() const throw() {
+	return ("[Form::FormAlreadySignedException] Form is already signed.");
+}
+
+const char* Form::FormNotSigned::what() const throw() {
+	return ("[Form::FormNotSigned] Form must first be signed before being executed.");
 }

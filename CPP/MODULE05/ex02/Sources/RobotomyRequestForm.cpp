@@ -52,7 +52,13 @@ RobotomyRequestForm &RobotomyRequestForm::operator=( const RobotomyRequestForm &
 //                                   Public                                   //
 // ************************************************************************** //
 
-void	RobotomyRequestForm::activate( void ) {
+void	RobotomyRequestForm::execute( Bureaucrat const & executor ) const {
+	if (!this->_signed) {
+		throw AForm::FormNotSigned();
+	} else if (executor.getGrade() > this->_grade_execute) {
+		throw AForm::GradeTooLowException();
+	}
+
 	std::cout << "dzzzz dzzzz" << std::endl;
 	int dice_roll =  std::rand()/((RAND_MAX + 1u)/2);
 

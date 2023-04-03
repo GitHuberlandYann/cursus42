@@ -22,25 +22,14 @@ Form::Form( void ) : _name("Default"), _signed(false), _grade_sign(150), _grade_
 Form::Form( const std::string name, const int grade_sign, const int grade_execute )
 		: _name(name), _signed(false), _grade_sign(grade_sign), _grade_execute(grade_execute) {
 	std::cout << "Full setter constructor of Form " << name << " called" << std::endl;
-	try {
-		if (grade_sign < 1) {
-			throw Form::GradeTooHighException();
-		} else if (grade_sign > 150) {
-			throw Form::GradeTooLowException();
-		} 
-	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
-	try {
-		if (grade_execute < 1) {
-			throw Form::GradeTooHighException();
-		} else if (grade_execute > 150) {
-			throw Form::GradeTooLowException();
-		}
-	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
+	if (grade_sign < 1) {
+		throw Form::GradeTooHighException();
+	} else if (grade_sign > 150) {
+		throw Form::GradeTooLowException();
+	} else if (grade_execute < 1) {
+		throw Form::GradeTooHighException();
+	} else if (grade_execute > 150) {
+		throw Form::GradeTooLowException();
 	}
 	return ;
 }
@@ -99,14 +88,26 @@ int			Form::getGradeExecute( void ) const {
 }
 
 void		Form::beSigned( const Bureaucrat &b ) {
-	try {
-		if (b.getGrade() > this->_grade_sign) {
-			throw Form::GradeTooLowException();
-		} else {
-			this->_signed = true;
-		}
+	if (this->_signed) {
+		throw Form::FormAlreadySignedException();
+	} else if (b.getGrade() > this->_grade_sign) {
+		throw Form::GradeTooLowException();
 	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	this->_signed = true;
+}
+
+// ************************************************************************** //
+//                                 Exceptions                                 //
+// ************************************************************************** //
+
+const char* Form::GradeTooHighException::what() const throw() {
+	return ("[Form::GradeTooHighException] Grade is too high.");
+}
+
+const char* Form::GradeTooLowException::what() const throw() {
+	return ("[Form::GradeTooLowException] Grade is too low.");
+}
+
+const char* Form::FormAlreadySignedException::what() const throw() {
+	return ("[Form::FormAlreadySignedException] Form is already signed.");
 }
