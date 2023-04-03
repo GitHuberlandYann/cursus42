@@ -23,13 +23,13 @@ AForm::AForm( const std::string name, const int grade_sign, const int grade_exec
 		: _name(name), _signed(false), _grade_sign(grade_sign), _grade_execute(grade_execute) {
 	std::cout << "Full setter constructor of AForm " << name << " called" << std::endl;
 	if (grade_sign < 1) {
-		throw Form::GradeTooHighException();
+		throw AForm::GradeTooHighException();
 	} else if (grade_sign > 150) {
-		throw Form::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 	} else if (grade_execute < 1) {
-		throw Form::GradeTooHighException();
+		throw AForm::GradeTooHighException();
 	} else if (grade_execute > 150) {
-		throw Form::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 	}
 	return ;
 }
@@ -59,7 +59,7 @@ std::ostream &operator<<( std::ostream &out, const AForm &b )
 	} else {
 		std::cout << " is not signed";
 	}
-	std::cout << ", it needs grade " << b.getGradeSign() << " to be signed and grade " << b.getGradeExecute() << " to be executed." << std::endl;
+	std::cout << ", it needs grade " << b.getGradeSign() << " to be signed and grade " << b.getGradeExecute() << " to be executed.";
 	return (out);
 }
 
@@ -87,11 +87,11 @@ int			AForm::getGradeExecute( void ) const {
 	return (this->_grade_execute);
 }
 
-void		Form::beSigned( const Bureaucrat &b ) {
+void		AForm::beSigned( const Bureaucrat &b ) {
 	if (this->_signed) {
-		throw Form::FormAlreadySignedException();
+		throw AForm::FormAlreadySignedException();
 	} else if (b.getGrade() > this->_grade_sign) {
-		throw Form::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 	}
 	this->_signed = true;
 }
@@ -100,18 +100,18 @@ void		Form::beSigned( const Bureaucrat &b ) {
 //                                 Exceptions                                 //
 // ************************************************************************** //
 
-const char* Form::GradeTooHighException::what() const throw() {
-	return ("[Form::GradeTooHighException] Grade is too high.");
+const char* AForm::GradeTooHighException::what() const throw() {
+	return ("[AForm::GradeTooHighException] Grade is too high.");
 }
 
-const char* Form::GradeTooLowException::what() const throw() {
-	return ("[Form::GradeTooLowException] Grade is too low.");
+const char* AForm::GradeTooLowException::what() const throw() {
+	return ("[AForm::GradeTooLowException] Grade is too low.");
 }
 
-const char* Form::FormAlreadySignedException::what() const throw() {
-	return ("[Form::FormAlreadySignedException] Form is already signed.");
+const char* AForm::FormAlreadySignedException::what() const throw() {
+	return ("[AForm::AFormAlreadySignedException] Form is already signed.");
 }
 
-const char* Form::FormNotSigned::what() const throw() {
-	return ("[Form::FormNotSigned] Form must first be signed before being executed.");
+const char* AForm::FormNotSigned::what() const throw() {
+	return ("[AForm::FormNotSigned] Form must first be signed before being executed.");
 }

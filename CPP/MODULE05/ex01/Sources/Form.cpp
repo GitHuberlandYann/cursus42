@@ -59,7 +59,7 @@ std::ostream &operator<<( std::ostream &out, const Form &b )
 	} else {
 		std::cout << " is not signed";
 	}
-	std::cout << ", it needs grade " << b.getGradeSign() << " to be signed and grade " << b.getGradeExecute() << " to be executed." << std::endl;
+	std::cout << ", it needs grade " << b.getGradeSign() << " to be signed and grade " << b.getGradeExecute() << " to be executed.";
 	return (out);
 }
 

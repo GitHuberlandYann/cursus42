@@ -28,6 +28,12 @@ public:
 	Intern &operator=( const Intern &other );
 
 	AForm	*makeForm( std::string name, std::string target );
+
+	class InvalidFormName: public std::exception {
+	
+	public:
+		virtual const char* what() const throw();
+	};
 };
 
 #endif

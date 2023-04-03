@@ -13,38 +13,87 @@
 #include "Bureaucrat.hpp"
 
 int	main( void ) {
-	Bureaucrat	worker0;
-	Bureaucrat	worker1( "tom" );
-	Bureaucrat	worker2( worker1 );
-	Bureaucrat	worker3( "Bob", 56 );
-	Bureaucrat	worker4( "obb", 1 );
-	Bureaucrat	worker5( "bbo", 150 );
+	try {
+		std::cout << "********** TRY 0 **********" << std::endl << std::endl;
+		Bureaucrat	master( "john", 1 );
+		Bureaucrat	servant( "marc", 149 );
 
-	std::cout << std::endl;
-	std::cout << worker0 << std::endl;
-	std::cout << worker1 << std::endl;
-	std::cout << worker2 << std::endl;
-	std::cout << worker3 << std::endl;
-	std::cout << worker4 << std::endl;
-	std::cout << worker5 << std::endl << std::endl;
+		std::cout << std::endl;
+		std::cout << master << std::endl;
+		std::cout << servant << std::endl << std::endl;
 
-	worker3.gradeUp();
-	std::cout << worker3 << std::endl;
-	worker3.gradeUp();
-	std::cout << worker3 << std::endl;
-	worker3.gradeDown();
-	std::cout << worker3 << std::endl;
-	worker4.gradeUp();
-	worker5.gradeDown();
+		master.gradeDown();
+		std::cout << master << std::endl;
+		master.gradeUp();
+		std::cout << master << std::endl;
+		servant.gradeDown();
+		servant.gradeDown();
+		std::cout << servant << std::endl;
+		std::cout << std::endl << "********** SUCCESS **********" << std::endl << std::endl;
+	}
+	catch (std::exception &e) {
+		std::cout << std::endl << "********** CATCH **********" << std::endl;
+		std::cout << std::endl << e.what() << std::endl << std::endl;
+	}
 
-	std::cout << std::endl;
-	const Bureaucrat	fail0( "Bobef", -56 );
-	const Bureaucrat	fail1( "Bobbef", 0 );
-	const Bureaucrat	fail2( "Bobbbef", 151 );
-	std::cout << std::endl;
+	try {
+		std::cout << "********** TRY 1 **********" << std::endl << std::endl;
+		Bureaucrat	failup( "bob", 0 );
 
-	std::cout << fail0 << std::endl;
-	std::cout << fail1 << std::endl;
-	std::cout << fail2 << std::endl << std::endl;
+		std::cout << failup << std::endl;
+		std::cout << std::endl << "********** SUCCESS **********" << std::endl << std::endl;
+	}
+	catch (std::exception &e) {
+		std::cout << std::endl << "********** CATCH **********" << std::endl;
+		std::cout << std::endl << e.what() << std::endl << std::endl;
+	}
+
+	try {
+		std::cout << "********** TRY 2 **********" << std::endl << std::endl;
+		Bureaucrat	faildown( "obo", 151 );
+
+		std::cout << faildown << std::endl;
+		std::cout << std::endl << "********** SUCCESS **********" << std::endl << std::endl;
+	}
+	catch (std::exception &e) {
+		std::cout << std::endl << "********** CATCH **********" << std::endl;
+		std::cout << std::endl << e.what() << std::endl << std::endl;
+	}
+
+	try {
+		std::cout << "********** TRY 3 **********" << std::endl << std::endl;
+		Bureaucrat	failup( "bbb", -56 );
+		Bureaucrat	normal( "ooo", 6 );
+
+		std::cout << failup << std::endl;
+		std::cout << std::endl << "********** SUCCESS **********" << std::endl << std::endl;
+	}
+	catch (std::exception &e) {
+		std::cout << std::endl << "********** CATCH **********" << std::endl;
+		std::cout << std::endl << e.what() << std::endl << std::endl;
+	}
+
+	try {
+		std::cout << "********** TRY 4 **********" << std::endl << std::endl;
+		Bureaucrat	master( "john", 1 );
+		Bureaucrat	servant( "marc", 149 );
+
+		std::cout << std::endl;
+		std::cout << master << std::endl;
+		std::cout << servant << std::endl << std::endl;
+
+		master.gradeDown();
+		std::cout << master << std::endl;
+		master.gradeUp();
+		std::cout << master << std::endl;
+		servant.gradeDown();
+		std::cout << servant << std::endl;
+		std::cout << "This is never read." << std::endl;
+		std::cout << std::endl << "********** SUCCESS **********" << std::endl << std::endl;
+	}
+	catch (std::exception &e) {
+		std::cout << std::endl << "********** CATCH **********" << std::endl;
+		std::cout << std::endl << e.what() << std::endl << std::endl;
+	}
 	return (0);
 }

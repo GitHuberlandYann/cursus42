@@ -14,48 +14,48 @@
 #include "Form.hpp"
 
 int	main( void ) {
-	Bureaucrat	worker0;
-	Bureaucrat	worker1( "tom" );
-	Bureaucrat	worker2( worker1 );
-	Bureaucrat	worker3( "Bob", 56 );
-	Bureaucrat	worker4( "obb", 1 );
-	Bureaucrat	worker5( "bbo", 150 );
-
-	std::cout << std::endl;
-	std::cout << worker0 << std::endl;
-	std::cout << worker1 << std::endl;
-	std::cout << worker2 << std::endl;
-	std::cout << worker3 << std::endl;
-	std::cout << worker4 << std::endl;
-	std::cout << worker5 << std::endl << std::endl;
-
-	worker3.gradeUp();
-	std::cout << worker3 << std::endl;
-	worker3.gradeUp();
-	std::cout << worker3 << std::endl;
-	worker3.gradeDown();
-	std::cout << worker3 << std::endl;
-	worker4.gradeUp();
-	worker5.gradeDown();
+	Bureaucrat	master( "john", 46 );
+	Bureaucrat	servant( "marc", 47 );
 	std::cout << std::endl;
 
-	Form	form( "basic", 75, 1 );
-	Form	form1( "bad", 750, 0 );
-	std::cout << std::endl;
+	try {
+		std::cout << "********** TRY 0 **********" << std::endl << std::endl;
+		Form		form( "random request", 46, 4 );
 
-	worker5.signForm( form );
-	worker0.signForm( form );
-	worker3.signForm( form );
-	worker4.signForm( form );
+		std::cout << std::endl;
+		std::cout << master << std::endl;
+		std::cout << servant << std::endl;
+		std::cout << form << std::endl << std::endl;
 
-	std::cout << std::endl;
-	const Bureaucrat	fail0( "Bobef", -56 );
-	const Bureaucrat	fail1( "Bobbef", 0 );
-	const Bureaucrat	fail2( "Bobbbef", 151 );
-	std::cout << std::endl;
+		servant.signForm(form);
+		master.signForm(form);
+		servant.signForm(form);
+		std::cout << form << std::endl;
+		std::cout << std::endl << "********** SUCCESS **********" << std::endl << std::endl;
+	}
+	catch (std::exception &e) {
+		std::cout << std::endl << "********** CATCH **********" << std::endl;
+		std::cout << std::endl << e.what() << std::endl << std::endl;
+	}
 
-	std::cout << fail0 << std::endl;
-	std::cout << fail1 << std::endl;
-	std::cout << fail2 << std::endl << std::endl;
+	try {
+		std::cout << "********** TRY 1 **********" << std::endl << std::endl;
+		Form		form( "random request", 0, 4 );
+
+		std::cout << std::endl;
+		std::cout << master << std::endl;
+		std::cout << servant << std::endl;
+		std::cout << form << std::endl << std::endl;
+
+		master.signForm(form);
+		servant.signForm(form);
+		servant.gradeDown();
+		servant.signForm(form);
+		std::cout << std::endl << "********** SUCCESS **********" << std::endl << std::endl;
+	}
+	catch (std::exception &e) {
+		std::cout << std::endl << "********** CATCH **********" << std::endl;
+		std::cout << std::endl << e.what() << std::endl << std::endl;
+	}
 	return (0);
 }

@@ -63,7 +63,15 @@ AForm	*Intern::makeForm( std::string name, std::string target ) {
 			return (new PresidentialPardonForm(target));
 			break ;
 		default:
-			std::cout << "Intern couldn't create form " << name << std::endl;
-			return (0);
+			throw Intern::InvalidFormName();
 	}
+}
+
+
+// ************************************************************************** //
+//                                 Exceptions                                 //
+// ************************************************************************** //
+
+const char* Intern::InvalidFormName::what() const throw() {
+	return ("[Intern::InvalidFormName] Form's name is invalid.");
 }
