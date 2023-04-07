@@ -18,7 +18,7 @@ int	main( void ) {
 	AForm*	rrf;
 	AForm*	scf;
 	AForm*	pdf;
-	AForm*	errorf;
+	AForm*	errorf = 0;
 
 	std::cout << std::endl;
 
