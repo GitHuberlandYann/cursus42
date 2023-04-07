@@ -14,6 +14,15 @@
 # define SCALARCONVERTER_HPP
 
 # include <string>
+# include <ctype.h>
+# include <sstream>
+
+# define CHAR 0
+# define INT 1
+# define FLOAT 2
+# define DOUBLE 3
+# define SPECIAL 4
+# define INVALID 5
 
 class ScalarConverter {
 

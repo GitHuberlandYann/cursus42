@@ -13,7 +13,7 @@
 NAME = convert
 OBJS_DIR = Objs
 
-FILES = main
+FILES = main ScalarConverter
 SRCS = $(addprefix Sources/, $(addsuffix .cpp, $(FILES)))
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
 
