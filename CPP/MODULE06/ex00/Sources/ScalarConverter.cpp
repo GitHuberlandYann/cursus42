@@ -61,7 +61,7 @@ static int	detect_type( std::string str ) {
 		return (INT);
 	if (index == start_index && !str[index + 1])
 		return (CHAR);
-	if (index == start_index || str[index] != '.' || !str[index + 1])
+	if (index == start_index || str[index] != '.')
 		return (INVALID);
 	++index;
 	start_index = index;
@@ -73,45 +73,9 @@ static int	detect_type( std::string str ) {
 		return (DOUBLE);
 	if (str[index] != 'f')
 		return (INVALID);
-	++index;
-	if (!str[index])
+	if (!str[index + 1])
 		return (FLOAT);
 	return (INVALID);
-}
-
-static void	convert_char( std::string str ) {
-	// std::cout << "type char detected" << std::endl;
-	char	tochar = str[0];
-	int		toint = static_cast<int>(tochar);
-	float	tofloat = static_cast<float>(tochar);
-	double	todouble = static_cast<double>(tochar);
-
-	std::cout << "char: " << tochar << std::endl;
-	std::cout << "int: " << toint << std::endl;
-	std::cout << "float: " << tofloat << ".0f" << std::endl;
-	std::cout << "double: " << todouble << ".0" << std::endl;
-}
-
-static void	convert_int( std::string str ) {
-	// std::cout << "type int detected" << std::endl;
-	try {
-		int		toint = stoi( str );
-		char	tochar = static_cast<char>(toint);
-		float	tofloat = static_cast<float>(toint);
-		double	todouble = static_cast<double>(toint);
-
-		if (isprint(tochar)) {
-			std::cout << "char: " << tochar << std::endl;
-		} else {
-			std::cout << "char: Non displayable" << std::endl;
-		}
-		std::cout << "int: " << toint << std::endl;
-		std::cout << "float: " << tofloat << ".0f" << std::endl;
-		std::cout << "double: " << todouble << ".0" << std::endl;
-	}
-	catch ( std::exception &e ) {
-		std::cout << e.what() << std::endl;
-	}
 }
 
 static std::string convert_dot( int toint, float tofloat ) {
@@ -123,48 +87,79 @@ static std::string convert_dot( int toint, float tofloat ) {
 	return ("");
 }
 
+static void	display_result( char tochar, int toint, float tofloat, double todouble ) {
+	if (isprint(tochar)) {
+		std::cout << "char: " << tochar << std::endl;
+	} else {
+		std::cout << "char: Non displayable" << std::endl;
+	}
+	double	overflow_check = static_cast<double>(toint);
+	if ((overflow_check > todouble && overflow_check - todouble >= 1)
+		|| (todouble > overflow_check && todouble - overflow_check >= 1)) {
+		std::cout << "int: Overflow" << std::endl;
+	} else {
+		std::cout << "int: " << toint << std::endl;
+	}
+	std::cout << "float: " << tofloat << convert_dot(toint, tofloat) << "f" << std::endl;
+	std::cout << "double: " << todouble << convert_dot(toint, tofloat) << std::endl;
+}
+
+static void	convert_char( std::string str ) {
+	// std::cout << "type char detected" << std::endl;
+	char	tochar = str[0];
+	int		toint = static_cast<int>(tochar);
+	float	tofloat = static_cast<float>(tochar);
+	double	todouble = static_cast<double>(tochar);
+
+	display_result( tochar, toint, tofloat, todouble );
+}
+
+static void	convert_int( std::string str ) {
+	// std::cout << "type int detected" << std::endl;
+	std::istringstream	iss( str );
+	int		toint;// = std::stoi( str ); <- since c++11 only
+	iss >> toint;
+	if (iss.fail()) {
+		std::cout << "Overflow" << std::endl;
+		return ;
+	}
+	char	tochar = static_cast<char>(toint);
+	float	tofloat = static_cast<float>(toint);
+	double	todouble = static_cast<double>(toint);
+
+	display_result( tochar, toint, tofloat, todouble );
+}
+
 static void	convert_float( std::string str ) {
 	// std::cout << "type float detected" << std::endl;
-	try {
-		float	tofloat = stof( str );
-		char	tochar = static_cast<char>(tofloat);
-		int		toint = static_cast<float>(tofloat);
-		double	todouble = static_cast<double>(tofloat);
+	std::istringstream	iss( str );
+	float	tofloat;
+	iss >> tofloat;
+	if (iss.fail()) {
+		std::cout << "Overflow" << std::endl;
+		return ;
+	}
+	char	tochar = static_cast<char>(tofloat);
+	int		toint = static_cast<int>(tofloat);
+	double	todouble = static_cast<double>(tofloat);
 
-		if (isprint(tochar)) {
-			std::cout << "char: " << tochar << std::endl;
-		} else {
-			std::cout << "char: Non displayable" << std::endl;
-		}
-		std::cout << "int: " << toint << std::endl;
-		std::cout << "float: " << tofloat << convert_dot(toint, tofloat) << "f" << std::endl;
-		std::cout << "double: " << todouble << convert_dot(toint, tofloat) << std::endl;
-	}
-	catch ( std::exception &e ) {
-		std::cout << e.what() << std::endl;
-	}
+	display_result( tochar, toint, tofloat, todouble );
 }
 
 static void	convert_double( std::string str ) {
 	// std::cout << "type double detected" << std::endl;
-	try {
-		double		todouble = stod( str );
-		char	tochar = static_cast<char>(todouble);
-		int		toint = static_cast<float>(todouble);
-		float	tofloat = static_cast<double>(todouble);
+	std::istringstream	iss( str );
+	double	todouble;
+	iss >> todouble;
+	if (iss.fail()) {
+		std::cout << "Overflow" << std::endl;
+		return ;
+	}
+	char	tochar = static_cast<char>(todouble);
+	int		toint = static_cast<int>(todouble);
+	float	tofloat = static_cast<float>(todouble);
 
-		if (isprint(tochar)) {
-			std::cout << "char: " << tochar << std::endl;
-		} else {
-			std::cout << "char: Non displayable" << std::endl;
-		}
-		std::cout << "int: " << toint << std::endl;
-		std::cout << "float: " << tofloat << convert_dot(toint, tofloat) << "f" << std::endl;
-		std::cout << "double: " << todouble << convert_dot(toint, tofloat) << std::endl;
-	}
-	catch ( std::exception &e ) {
-		std::cout << e.what() << std::endl;
-	}
+	display_result( tochar, toint, tofloat, todouble );
 }
 
 static void	convert_special( std::string str ) {
