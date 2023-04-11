@@ -17,8 +17,9 @@ void display( int x ) {
 	std::cout << "Number " << x << std::endl;
 }
 
-void display_char( char c ) {
+int display_char( char c ) {
 	std::cout << "Character " << c << std::endl;
+	return (99);
 }
 
 int	main( void ) {
