@@ -13,6 +13,12 @@
 #include "ScalarConverter.hpp"
 #include <iostream>
 
+void	test( std::string str ) {
+	std::cout << "\t-----------Test with " << str << "-----------" << std::endl;
+	ScalarConverter::convert( str );
+	std::cout << std::endl;
+}
+
 int	main( int ac, char **av ) {
 	if (ac != 2) {
 		std::cout << "Usage: ./convert <string>" << std::endl;
@@ -20,28 +26,22 @@ int	main( int ac, char **av ) {
 	}
 	std::string	arg = av[1];
 	if (arg == "-c") {
-		ScalarConverter::convert( "0" );
-		std::cout << std::endl;
-		ScalarConverter::convert( "*" );
-		std::cout << std::endl;
-		ScalarConverter::convert( "inf" );
-		std::cout << std::endl;
-		ScalarConverter::convert( "+inf" );
-		std::cout << std::endl;
-		ScalarConverter::convert( "0." );
-		std::cout << std::endl;
-		ScalarConverter::convert( "05" );
-		std::cout << std::endl;
-		ScalarConverter::convert( "-846f" );
-		std::cout << std::endl;
-		ScalarConverter::convert( "nan" );
-		std::cout << std::endl;
-		ScalarConverter::convert( "**" );
-		std::cout << std::endl;
-		ScalarConverter::convert( "\"" );
-		std::cout << std::endl;
+		test( "0" );
+		test( "*" );
+		test( "inf" );
+		test( "+inf" );
+		test( "0." );
+		test( "05" );
+		test( "2 5" );
+		test( "-846f" );
+		test( "nan" );
+		test( "**" );
+		test( "\"" );
+		test( "2147483648" );
+		test( "2147483648.0f" );
+		test( "2147483648.0" );
 	} else {
-		ScalarConverter::convert( av[1] );
+		test( av[1] );
 	}
 	return (0);
 }

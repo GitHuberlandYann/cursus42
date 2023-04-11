@@ -12,6 +12,7 @@
 
 #include "ScalarConverter.hpp"
 #include <iostream>
+#include <cstdlib>
 
 ScalarConverter::ScalarConverter( void ) {
 	std::cout << "Default constructor of ScalarConverter called" << std::endl;
@@ -120,7 +121,7 @@ static void	convert_int( std::string str ) {
 	int		toint;// = std::stoi( str ); <- since c++11 only
 	iss >> toint;
 	if (iss.fail()) {
-		std::cout << "Overflow" << std::endl;
+		std::cout << "Int overflow" << std::endl;
 		return ;
 	}
 	char	tochar = static_cast<char>(toint);
@@ -132,11 +133,9 @@ static void	convert_int( std::string str ) {
 
 static void	convert_float( std::string str ) {
 	// std::cout << "type float detected" << std::endl;
-	std::istringstream	iss( str );
-	float	tofloat;
-	iss >> tofloat;
-	if (iss.fail()) {
-		std::cout << "Overflow" << std::endl;
+	float	tofloat = strtof( str.c_str(), NULL );
+	if (errno == ERANGE) {
+		std::cout << "Float overflow" << std::endl;
 		return ;
 	}
 	char	tochar = static_cast<char>(tofloat);
@@ -148,11 +147,9 @@ static void	convert_float( std::string str ) {
 
 static void	convert_double( std::string str ) {
 	// std::cout << "type double detected" << std::endl;
-	std::istringstream	iss( str );
-	double	todouble;
-	iss >> todouble;
-	if (iss.fail()) {
-		std::cout << "Overflow" << std::endl;
+	double	todouble = strtod( str.c_str(), NULL );
+	if (errno == ERANGE) {
+		std::cout << "Double overflow" << std::endl;
 		return ;
 	}
 	char	tochar = static_cast<char>(todouble);
