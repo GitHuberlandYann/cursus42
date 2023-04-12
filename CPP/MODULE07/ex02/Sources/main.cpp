@@ -6,7 +6,7 @@
 /*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 09:24:16 by yhuberla          #+#    #+#             */
-/*   Updated: 2023/04/11 14:30:35 by yhuberla         ###   ########.fr       */
+/*   Updated: 2023/04/11 14:40:28 by yhuberla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 #define MAX_VAL 750
 int main(int, char**)
 {
-	{
-		Array<int> test;
-	}
     int * a = new int();
     std::cout << "value of a: " << *a << std::endl;
     delete a;
