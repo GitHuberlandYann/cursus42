@@ -13,6 +13,7 @@
 #include "Span.hpp"
 #include <iostream>
 #include <vector>
+// #include <cstdlib>
 
 int	main( void ) {
 	std::cout << "\t---------TEST 1---------" << std::endl;
@@ -124,9 +125,29 @@ int	main( void ) {
 	std::cout << sp;
 	}
 
+	std::srand(std::time(0));
 	std::cout << std::endl << "\t---------TEST 4---------" << std::endl;
 	{
-	
+	Span sp = Span(50);
+
+	for (int i = 0; i < 50; i++) {
+		sp.addNumber(std::rand() % 100);
+	}
+	std::cout << sp;
+	std::cout << "shortest: " << sp.shortestSpan() << std::endl;
+	std::cout << "longest: " << sp.longestSpan() << std::endl;
+	}
+
+	std::cout << std::endl << "\t---------TEST 5---------" << std::endl;
+	{
+	Span sp = Span(15000);
+
+	for (int i = 0; i < 15000; i++) {
+		sp.addNumber(std::rand());
+	}
+	// std::cout << sp;
+	std::cout << "shortest: " << sp.shortestSpan() << std::endl;
+	std::cout << "longest: " << sp.longestSpan() << std::endl;
 	}
 	return (0);
 }
