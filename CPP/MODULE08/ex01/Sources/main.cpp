@@ -13,7 +13,8 @@
 #include "Span.hpp"
 #include <iostream>
 #include <vector>
-// #include <cstdlib>
+#include <cstdlib>
+#include <ctime>
 
 int	main( void ) {
 	std::cout << "\t---------TEST 1---------" << std::endl;
@@ -35,7 +36,7 @@ int	main( void ) {
 	}
 	sp.addNumber(3);
 	try {
-		std::cout << sp.shortestSpan() << std::endl;
+		std::cout << sp << "shortest: " << sp.shortestSpan() << std::endl;
 	}
 	catch ( std::exception &e ) {
 		std::cout << e.what() << std::endl;
@@ -51,7 +52,7 @@ int	main( void ) {
 		std::cout << e.what() << std::endl;
 	}
 
-	std::cout << sp;
+	std::cout << std::endl << sp;
 	std::cout << "shortest: " << sp.shortestSpan() << std::endl;
 	std::cout << "longest: " << sp.longestSpan() << std::endl;
 
@@ -66,6 +67,7 @@ int	main( void ) {
 	Span copybis(20);
 	copybis = copy;
 	copybis.addNumber(-48);
+	std::cout << std::endl;
 	try {
 		copybis.addNumber(20);
 	}
@@ -83,39 +85,44 @@ int	main( void ) {
 	v.push_back(2);
 	v.push_back(2);
 	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
-	v.push_back(2);
 
 	Span sp = Span(9);
 	sp.addNumber( 20 );
+	sp.addBunchOfNumbers( v.begin(), v.end() );
+	std::cout << sp;
+	std::cout << "shortest: " << sp.shortestSpan() << std::endl;
+	std::cout << "longest: " << sp.longestSpan() << std::endl;
+
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
+	v.push_back(2);
 	try {
 		sp.addBunchOfNumbers( v.begin(), v.end() );
 	}
@@ -123,6 +130,11 @@ int	main( void ) {
 		std::cout << e.what() << std::endl;
 	}
 	std::cout << sp;
+
+	sp.addNumber(-2147483648);
+	sp.addNumber(2147483647);
+	std::cout << sp;
+	std::cout << "longest: " << sp.longestSpan() << std::endl;
 	}
 
 	std::srand(std::time(0));

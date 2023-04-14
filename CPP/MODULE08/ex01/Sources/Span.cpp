@@ -42,7 +42,7 @@ std::ostream &operator<<( std::ostream &out, const Span &s )
 	std::list<int>::const_iterator it = s.begin();
 	std::list<int>::const_iterator ite = s.end();
 
-	std::cout << "List: " << *it;
+	std::cout << "[size=" << s.size() << "/" << s.max_size() << "] Span content: " << *it;
 	++it;
 	for (; it != ite; it++) {
 		std::cout << " " << *it;
@@ -58,6 +58,10 @@ std::ostream &operator<<( std::ostream &out, const Span &s )
 // ************************************************************************** //
 //                                   Public                                   //
 // ************************************************************************** //
+
+size_t Span::max_size( void ) const {
+	return (this->_N);
+}
 
 size_t Span::size( void ) const {
 	return (this->_list.size());

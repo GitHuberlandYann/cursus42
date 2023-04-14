@@ -14,7 +14,7 @@
 # define EASYFIND_HPP
 
 #include <algorithm>
-#include <iterator>
+// #include <iterator>
 #include <exception>
 
 class NotFindException : public std::exception {

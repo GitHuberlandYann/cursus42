@@ -29,6 +29,7 @@ public:
 	~Span( void );
 	Span &operator=( const Span &other );
 
+	size_t max_size( void ) const;
 	size_t size( void ) const;
 	std::list<int>::const_iterator begin( void ) const;
 	std::list<int>::const_iterator end( void ) const;
