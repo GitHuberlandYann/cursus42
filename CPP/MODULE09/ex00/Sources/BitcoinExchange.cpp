@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhuberla <yhuberla@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/17 09:20:44 by yhuberla          #+#    #+#             */
+/*   Updated: 2023/04/17 09:20:44 by yhuberla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "BitcoinExchange.hpp"
 #include <iostream>
 #include <fstream>
@@ -5,13 +17,13 @@
 
 static int date_line( std::string str, char end ) {
 	int index = 0;
-	
-	if (str[index] == '0')
-		return (1);
+
 	int year = atoi(str.c_str());
-	while (isdigit(str[index]))
-		++index;
-	if (!index || index > 9 || str[index] != '-')
+	for (; index < 4; index++) {
+		if (!isdigit(str[index]))
+			return (1);
+	}
+	if (str[index] != '-')
 		return (1);
 	++index;
 	if (str[index] != '0' && str[index] != '1')
@@ -57,30 +69,28 @@ static int value_line( std::string str, int index ) {
 		return (1);
 	while (isdigit(str[index]))
 		++index;
-	// std::cout << "got here " << (int)str[index] << std::endl;
-	if (isspace(str[index]))
-		return (0);
-	return (str[index]);
+	for (; str[index]; index++) {
+		if (!isspace(str[index]))
+			return (1);
+	}
+	return (0);
 }
 
 BitcoinExchange::BitcoinExchange( void ) {
 	std::cout << "Default constructor of BitcoinExchange called" << std::endl;
-	std::ifstream indata( "testfile.csv" );
+	std::ifstream indata( "data.csv" );
 	if (!indata.is_open()) {
 		throw BitcoinExchange::FailedOpenFileException();
 	}
 	std::string line;
 	while (!indata.eof()) {
 		std::getline( indata, line );
-		std::cout << "debug | " << line << std::endl;
 		if (!date_line(line, ',')) {
-			// std::cout << "-> accepted !" << std::endl;
 			int index = 0;
 			for (; line[index] != ','; index++);
 			line[index] = '\0';
 			++index;
 			if (!value_line(line, index)) {
-				// std::cout << "-> and float !" << std::endl;
 				std::string key = line.substr( 0, index - 1 );
 				float value = strtof( &line.c_str()[index], NULL );
 				this->_database.insert( std::pair<std::string, float>(key, value) );
@@ -88,24 +98,15 @@ BitcoinExchange::BitcoinExchange( void ) {
 		}
 	}
 	indata.close();
-	return ;
-}
-
-BitcoinExchange::BitcoinExchange( const BitcoinExchange &other ) {
-	std::cout << "Copy constructor of BitcoinExchange called" << std::endl;
-	(void)other;
+	if (!this->_database.size()) {
+		throw BitcoinExchange::EmptyDataBaseException();
+	}
 	return ;
 }
 
 BitcoinExchange::~BitcoinExchange( void ) {
 	std::cout << "Destructor of BitcoinExchange called" << std::endl;
 	return ;
-}
-
-BitcoinExchange &BitcoinExchange::operator=( const BitcoinExchange &other ) {
-	std::cout << "Copy assignment operator of BitcoinExchange called" << std::endl;
-	(void)other;
-	return (*this);
 }
 
 // ************************************************************************** //
@@ -123,10 +124,96 @@ void BitcoinExchange::display_database( void ) {
 		std::cout << it->first << " => " << it->second << '\n';
 }
 
+static int correct_value( std::string str, int index ) {
+	if (str[index] != '|' || str[index + 1] != ' ') {
+		str[index - 1] = ' ';
+		std::cerr << "Error: bad input => " << str << std::endl;
+		return (1);
+	}
+	index += 2;
+	int nb = atoi(&str[index]);
+	if (!isdigit(str[index])) {
+		std::cerr << "Error: not a positive number." << std::endl;
+		return (1);
+	}
+	if (str[index] == '0' && isdigit(str[index + 1])) {
+		std::cerr << "Error: number can't be zero-padded." << std::endl;
+		return (1);
+	}
+	int cnt = 0;
+	while (isdigit(str[index + cnt]))
+		++cnt;
+	if (cnt > 4 || nb > 1000) {
+		std::cerr << "Error: too large a number." << std::endl;
+		return (1);
+	}
+	index += cnt;
+	if (!str[index])
+		return (0);
+	if (str[index] == '.')
+		++index;
+	if (!isdigit(str[index])) {
+		std::cerr << "Error: not a positive number." << std::endl;
+		return (1);
+	}
+	while (isdigit(str[index]))
+		++index;
+	for (; str[index]; index++) {
+		if (!isspace(str[index])) {
+			std::cerr << "Error: not a positive number." << std::endl;
+			return (1);
+		}
+	}
+	return (0);
+}
+
+void BitcoinExchange::read_file( std::string &filename ) {
+	std::ifstream infile( filename.c_str() );
+	if (!infile.is_open()) {
+		throw BitcoinExchange::FailedOpenFileException();
+	}
+	std::string line;
+	bool first_line = true;
+	while (!infile.eof()) {
+		std::getline( infile, line );
+		// std::cout << "debug | " << line << std::endl;
+		if (!date_line(line, ' ')) {
+			// std::cout << "-> accepted !" << std::endl;
+			int index = 0;
+			for (; line[index] != ' '; index++);
+			line[index] = '\0';
+			++index;
+			if (!correct_value(line, index)) {
+				// std::cout << "-> and float !" << std::endl;
+				std::string key = line.substr( 0, index - 1 );
+				float value = strtof( &line.c_str()[index + 2], NULL );
+				std::map<std::string, float>::iterator it = this->_database.lower_bound( key );
+				if (it == this->_database.end() || (it->first != key && it != this->_database.begin())) {
+					--it;
+					std::cout << key << " => " << value << " = " << value * it->second << std::endl;
+					// std::cout << "found " << it->first << " and " << it->second << std::endl;
+				} else if (it->first == key) {
+					std::cout << key << " => " << value << " = " << value * it->second << std::endl;	
+				} else {
+					std::cerr << "Error: Date out of bounds => " << key << std::endl;
+				}
+			}
+		} else if (!first_line && line != "") {
+			std::cerr << "Error: bad input => " << line << std::endl;
+		}
+		first_line = false;
+	}
+	infile.close();
+}
+
 // ************************************************************************** //
 //                                 Exceptions                                 //
 // ************************************************************************** //
 
 const char* BitcoinExchange::FailedOpenFileException::what() const throw() {
-	return ("[BitcoinExchange::FailedOpenFileException] Failed to open file.");
+	return ("[BitcoinExchange::FailedOpenFileException] Error: could not open file.");
+}
+
+const char* BitcoinExchange::EmptyDataBaseException::what() const throw() {
+	return ("[BitcoinExchange::EmptyDataBaseException] Error: database is empty.");
 }
