@@ -30,7 +30,7 @@ public:
 	~BitcoinExchange( void );
 
 	void display_database( void );
-	void read_file( std::string &filename );
+	void read_file( char *filename );
 
 	class FailedOpenFileException: public std::exception {
 	

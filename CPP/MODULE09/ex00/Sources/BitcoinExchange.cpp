@@ -167,8 +167,8 @@ static int correct_value( std::string str, int index ) {
 	return (0);
 }
 
-void BitcoinExchange::read_file( std::string &filename ) {
-	std::ifstream infile( filename.c_str() );
+void BitcoinExchange::read_file( char *filename ) {
+	std::ifstream infile( filename );
 	if (!infile.is_open()) {
 		throw BitcoinExchange::FailedOpenFileException();
 	}

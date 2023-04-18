@@ -21,10 +21,9 @@ int	main( int ac, char **av ) {
 
 	try {
 		BitcoinExchange wallet;
-		std::string filename = av[1];
 
 		// wallet.display_database();
-		wallet.read_file( filename );
+		wallet.read_file( av[1] );
 	}
 	catch ( std::exception &e ) {
 		std::cerr << e.what() << std::endl;

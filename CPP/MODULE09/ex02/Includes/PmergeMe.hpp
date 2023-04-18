@@ -20,7 +20,7 @@
 # include <sstream>
 # include <ctime>
 
-# define K_LIMIT 50 //TODO set this dynamicly
+# define K_LIMIT 5
 
 void parse_inputs( char **args );
 void merge_insert_vector( char **args );
